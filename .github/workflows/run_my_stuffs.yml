@@ -35,7 +35,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: shared_objs_linux
-          path: ./hlib
+          path: ./hlib/
   stuffs_4_osx:
     runs-on: macos-latest
     steps:
@@ -54,7 +54,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: shared_objs_osx
-          path: ./hlib
+          path: ./hlib/
   stuffs_4_win32:
     runs-on: windows-latest
     steps:
@@ -77,4 +77,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: shared_objs_win32
-          path: ./hlib
+          path: ./hlib/
