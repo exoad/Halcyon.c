@@ -5,14 +5,15 @@
 #argument(s) required:
 # 1 -> platform: linux, osx
 # 2 -> execution: y, n
+# 3 -> arch: x86, x64
 echo "Running from $(pwd)"
 if [ ! $# -eq 0 ] ; then
     if [ "$1" == "linux" ] ; then
-        bash make_halcyonstl_linux.sh
+        bash make_halcyonstl_linux.sh "$3"
     elif [ "$1" == "osx" ] ; then
-        bash make_halcyonstl_osx.sh
+        bash make_halcyonstl_osx.sh "$3"
     else
-        bash make_halcyonstl_fakewin32.sh
+        bash make_halcyonstl_fakewin32.sh "$3"
     fi
 
     if [ ! -d "h_out" ] ; then

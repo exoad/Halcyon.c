@@ -23,9 +23,12 @@ fi
 echo "starting compilation & linking of native stuffs"
 for i in $(ls pkg/halcyonstl) ; do
     if [[ $i =~ .*\.cc$ ]] ; then # if we fine the required cc file which shld provide implementation
-        echo "compiling: $i" # add 32bit support for older devices
-        g++ -c -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux "./pkg/halcyonstl/$i" -o "./hlib/out/$(basename $i | cut -f1 -d".").o"
-        echo "linking: $i"
-        g++ -shared -fPIC -o hlib/$(basename $i | cut -f1 -d".").so "./hlib/out/$(basename $i | cut -f1 -d".").o" -lc
+        if [ "$1" == "x86"] ; then
+            g++ -c -m32 -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux "./pkg/halcyonstl/$i" -o "./hlib/out/$(basename $i | cut -f1 -d".")_x86.o"
+            g++ -shared -fPIC -o hlib/$(basename $i | cut -f1 -d".")_x86.so "./hlib/out/$(basename $i | cut -f1 -d".").o" -lc
+        else
+            g++ -c -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux "./pkg/halcyonstl/$i" -o "./hlib/out/$(basename $i | cut -f1 -d".")_x64.o"
+            g++ -shared -fPIC -o hlib/$(basename $i | cut -f1 -d".").so "./hlib/out/$(basename $i | cut -f1 -d".").o" -lc
+        fi
     fi
 done
