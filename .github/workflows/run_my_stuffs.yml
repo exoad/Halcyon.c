@@ -1,0 +1,77 @@
+name: Run my stuffs bruh >:(
+
+on:
+  workflow_dispatch:
+    inputs:
+      comments:
+        description: "Build Comments"
+        required: false
+        default: "Nothing"
+        type: string
+
+jobs:
+  build_information:
+    runs-on: ubuntu-18.04
+    steps:
+      - run: |
+          echo "BUILD COMMENTS: $BUILD_CMTS"
+        env:
+          BUILD_CMTS: ${{ inputs.comments }}
+  stuffs_4_linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          clean: true
+          lfs: true
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
+      - run: bash ${GITHUB_WORKSPACE}/run.sh linux n
+      - run: rm -rf ./hlib/out
+      - uses: actions/upload-artifact@v3
+        with:
+          name: shared_objs_linux
+          path: ./hlib
+  stuffs_4_osx:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          clean: true
+          lfs: true
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
+      - run: bash ${GITHUB_WORKSPACE}/run.sh osx n
+      - run: rm -rf ./hlib/out
+      - uses: actions/upload-artifact@v3
+        with:
+          name: shared_objs_osx
+          path: ./hlib
+  stuffs_4_win32:
+    runs-on: windows-latest
+    steps:
+      - name: "make gcc work bruh :("
+        uses: egor-tensin/setup-mingw@v2
+      - uses: actions/checkout@v3
+        with:
+          clean: true
+          lfs: true
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
+      - run: bash ${GITHUB_WORKSPACE}/run.sh win32 n
+        shell: bash
+      - run: rm -rf ./hlib/out
+        shell: bash
+      - uses: actions/upload-artifact@v3
+        with:
+          name: shared_objs_win32
+          path: ./hlib

@@ -1,0 +1,30 @@
+package com.jackmeng.halcyon.gui;
+
+import com.jackmeng.halcyon.use_HalcyonProperties;
+
+public interface const_ResourceManager {
+  String RESOURCES = "resources" + use_HalcyonProperties.getFileSeparator();
+
+  /*------------------------------------------------------------------- /
+  / The following block of constants define resources for the dependent /
+  / GUI element AppView                                                 /
+  /--------------------------------------------------------------------*/
+  String APP_ICONS = RESOURCES + "appicon" + use_HalcyonProperties.getFileSeparator();
+  String DGUI_APPS_ADD_PLAYLIST = APP_ICONS + "player_add.png";
+  String DGUI_APPS_AUDIO_CTRLER = APP_ICONS + "audio_ctrler.png";
+  String DGUI_APPS_MINI_PLAYER = APP_ICONS + "player_small.png";
+  String DGUI_APPS_PLAYER_SETTINGS = APP_ICONS + "player_settings.png";
+  String DGUI_APPS_PLAYER_LISTVIEW = APP_ICONS + "player_listview.png";
+  String DGUI_APPS_PLAYER_REFRESH = APP_ICONS + "player_refresh.png";
+  String DGUI_APPS_PLAYER_INFO = APP_ICONS + "player_information.png";
+  String DGUI_APPS_PLAYER_MOREAPPS = APP_ICONS + "player_moreapps.png";
+  String DGUI_APPS_PLAYER_LIKED_MUSIC = APP_ICONS + "player_liked.png";
+
+  /*--------------------------------------------------------------------- /
+  / The following block of constants define resources for the APP itself. /
+  / For example the logo                                                  /
+  /----------------------------------------------------------------------*/
+  String APP = RESOURCES + "app" + use_HalcyonProperties.getFileSeparator();
+  String GUI_PROGRAM_LOGO = APP + "Halcyon_Logo.png";
+  String GUI_SPINNER_PULSE = APP + "spinner_pulse.gif";
+}
