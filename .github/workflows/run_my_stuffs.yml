@@ -17,7 +17,7 @@ jobs:
           echo "BUILD COMMENTS: $BUILD_CMTS"
         env:
           BUILD_CMTS: ${{ inputs.comments }}
-  stuffs_4_linux:
+  stuffs_4_linux_buildx64:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -29,15 +29,31 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
-      - run: |
-          bash ${GITHUB_WORKSPACE}/run.sh linux n x86
-          bash ${GITHUB_WORKSPACE}/run.sh linux n x64
+      - run: bash ${GITHUB_WORKSPACE}/run.sh linux n x64
       - run: rm -rf ./hlib/out
       - uses: actions/upload-artifact@v3
         with:
-          name: shared_objs_linux
+          name: shared_objs_linux_x64
           path: ./hlib/
-  stuffs_4_osx:
+  stuffs_4_linux_buildx86:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          clean: true
+          lfs: true
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
+      - run: bash ${GITHUB_WORKSPACE}/run.sh linux n x86
+      - run: rm -rf ./hlib/out
+      - uses: actions/upload-artifact@v3
+        with:
+          name: shared_objs_linux_x86
+          path: ./hlib/
+  stuffs_4_osx_buildx64:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -49,15 +65,13 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
-      - run: |
-          bash ${GITHUB_WORKSPACE}/run.sh osx n x64
-          bash ${GITHUB_WORKSPACE}/run.sh osx n x86
+      - run: bash ${GITHUB_WORKSPACE}/run.sh osx n x64
       - run: rm -rf ./hlib/out
       - uses: actions/upload-artifact@v3
         with:
-          name: shared_objs_osx
+          name: shared_objs_osx_x64
           path: ./hlib/
-  stuffs_4_win32:
+  stuffs_4_win32_buildx64:
     runs-on: windows-latest
     steps:
       - name: "make gcc work bruh :("
@@ -71,13 +85,33 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
-      - run: |
-          bash ${GITHUB_WORKSPACE}/run.sh win32 n x86
-          bash ${GITHUB_WORKSPACE}/run.sh win32 n x64
+      - run: bash ${GITHUB_WORKSPACE}/run.sh win32 n x64
         shell: bash
       - run: rm -rf ./hlib/out
         shell: bash
       - uses: actions/upload-artifact@v3
         with:
-          name: shared_objs_win32
+          name: shared_objs_win32_x64
+          path: ./hlib/
+  stuffs_4_win32_buildx86:
+    runs-on: windows-latest
+    steps:
+      - name: "make gcc work bruh :("
+        uses: egor-tensin/setup-mingw@v2
+      - uses: actions/checkout@v3
+        with:
+          clean: true
+          lfs: true
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
+      - run: bash ${GITHUB_WORKSPACE}/run.sh win32 n x86
+        shell: bash
+      - run: rm -rf ./hlib/out
+        shell: bash
+      - uses: actions/upload-artifact@v3
+        with:
+          name: shared_objs_win32_x86
           path: ./hlib/
