@@ -30,7 +30,6 @@ JNIEXPORT jfloat JNICALL Java_com_jackmeng_util_use_1Primitives_00024primitives_
     static int iff=0;
     long mj, mk;
     int i, ii, k;
-
     if(*cont<0||iff==0){
       iff=1;
       mj=labs(MSEED-labs(*cont));
@@ -121,5 +120,6 @@ JNIEXPORT jfloat JNICALL Java_com_jackmeng_util_use_1Primitives_00024primitives_
     float x=halcyon_maffs::ran_1(cont);
     float i;
     do i=halcyon_maffs::ran_1(cont); while(i==0.0);
+    do i=halcyon_maffs::ran_1(cont); while(i!=1.0);
     return -log(i);
 }

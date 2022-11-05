@@ -15,6 +15,7 @@ import com.jackmeng.halcyon.const_Global;
 import com.jackmeng.halcyon.apps.evnt_WindowFocusAdapter;
 import com.jackmeng.halcyon.apps.impl_App;
 import com.jackmeng.halcyon.apps.impl_HalcyonRefreshable;
+import com.jackmeng.halcyon.gui.gui_HalcyonFrame.TitledFrame;
 import com.jackmeng.ploogin.impl_Ploogin;
 import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_Struct.struct_Pair;
@@ -36,38 +37,26 @@ public class gui_HalcyonMoreApps
     frame.setPreferredSize(new Dimension(const_Manager.GUI_MOREAPPS_WIDTH, const_Manager.GUI_MOREAPPS_HEIGHT));
     frame.setUndecorated(true);
     frame.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, const_ColorManager.DEFAULT_DARK_BG));
-    frame.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mousePressed(MouseEvent me) {
-        pX = me.getX();
-        pY = me.getY();
-      }
-
-      @Override
-      public void mouseDragged(MouseEvent me) {
-        frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
-      }
-    });
-    frame.addMouseMotionListener(new MouseMotionAdapter() {
-      @Override
-      public void mouseDragged(MouseEvent me) {
-        frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
-      }
-    });
     frame.addWindowFocusListener(new evnt_WindowFocusAdapter() {
       @Override
       public void windowLostFocus(WindowEvent e) {
         frame.dispose();
       }
     });
-    gui_HalcyonFrame.TitledFrame.cr.registerComponent(frame);
-    frame.addMouseListener(gui_HalcyonFrame.TitledFrame.cr);
+    TitledFrame.cr.registerComponent(frame);
+    frame.addMouseMotionListener(TitledFrame.cr);
+    /*---------------------------------------------------------------------------------------------- /
+    / dont add two motion listeners to a single frame!! this causes the frame to glitch when resized /
+    / (when registered to a component resizer)                                                       /
+    /-----------------------------------------------------------------------------------------------*/
     const_Global.APPS_POOL.addRefreshable(this);
 
     panel = new JPanel();
-    panel.setBorder(BorderFactory.createEmptyBorder());
+    panel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-    panel.addMouseListener(new MouseAdapter() {
+    jsp = new JScrollPane(panel);
+    jsp.setBorder(BorderFactory.createEmptyBorder());
+    jsp.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent me) {
         pX = me.getX();
@@ -79,23 +68,18 @@ public class gui_HalcyonMoreApps
         frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
       }
     });
-    panel.addMouseMotionListener(new MouseMotionAdapter() {
+    jsp.addMouseMotionListener(new MouseMotionAdapter() {
       @Override
       public void mouseDragged(MouseEvent me) {
         frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
       }
     });
-    panel.setLayout(new GridLayout());
-
-    jsp = new JScrollPane(panel);
-    jsp.getViewport().setLayout(new FlowLayout(FlowLayout.CENTER));
-    jsp.setBorder(BorderFactory.createEmptyBorder());
-
     frame.getContentPane().add(jsp);
   }
 
   private JPanel get_PlooginEntry(impl_App x) {
     JPanel main = new JPanel();
+    main.setBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_DARK_BG));
     main.setLayout(new FlowLayout(FlowLayout.CENTER));
     JButton action = new JButton();
     action.addActionListener(e -> x.run());

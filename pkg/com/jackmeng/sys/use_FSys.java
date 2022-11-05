@@ -2,6 +2,7 @@ package com.jackmeng.sys;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,6 +31,32 @@ public final class use_FSys {
     assert bufferSize > 0;
     ZipFile file = new ZipFile(pathToZip);
     return unzip(file, bufferSize);
+  }
+
+  public static boolean s_containsFileOfType(File dir, String... extensions) {
+    if (!dir.isDirectory() || !dir.exists()) {
+      return false;
+    }
+    for (String r : dir.list()) {
+      for (String t : extensions) {
+        if (r.endsWith(t)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public static boolean s_containsOnlyFiles(File dir) {
+    if (!dir.isDirectory() || !dir.exists()) {
+      return false;
+    }
+    return dir.listFiles(new FileFilter() {
+      @Override
+      public boolean accept(File pathname) {
+        return pathname.isFile() && pathname.exists();
+      }
+    }).length != 0;
   }
 
   /**

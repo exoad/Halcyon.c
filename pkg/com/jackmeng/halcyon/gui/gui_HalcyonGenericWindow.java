@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class gui_HalcyonGenericWindow implements Runnable {
-  private final TitledFrame frame;
+  protected final TitledFrame frame;
 
   public gui_HalcyonGenericWindow(ImageIcon icon, String title, String content_HTML, Color r, JFrame parent) {
     JScrollPane jsp = new JScrollPane();

@@ -14,7 +14,7 @@ public interface impl_App extends Runnable, impl_Identifiable {
 
   public Optional<ImageIcon> rolloverIcon();
 
-  default public boolean hidden() {
+  public default boolean hidden() {
     return true;
   }
 }

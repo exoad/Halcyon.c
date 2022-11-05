@@ -22,7 +22,7 @@ public final class Halcyon {
       /*---------------------------------------- /
       / actually load native libraries lets go?! /
       /-----------------------------------------*/
-      System.load("/home/jackm/Code/halcyon-gui-overhaul/hlib/com_jackmeng_sys_sys_out.so");
+      System.load("/home/jackm/Code/halcyon-gui-overhaul/hlib/sys_out_x64.so");
    }
 
    public static gui_HalcyonFrame main;

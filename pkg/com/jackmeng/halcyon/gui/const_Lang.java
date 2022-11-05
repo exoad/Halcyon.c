@@ -31,6 +31,8 @@ public final class const_Lang {
   public static final String LANG_FILELIST_CANCEL = "filelist_cancel";
   public static final String LANG_MOREAPPS_TITLE = "moreapps_title";
   public static final String LANG_UNKNOWN = "unknown";
+  public static final String LANG_CONFIRM_WINDOW_CONFIRM_BUTTON_OK = "confirm_window_button_ok";
+  public static final String LANG_CONFIRM_WINDOW_CONFIRM_BUTTON_DENY = "confirm_window_button_deny";
 
   /**
    * @param key
