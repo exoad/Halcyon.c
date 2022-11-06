@@ -483,7 +483,7 @@ public class gui_HalcyonFrame implements Runnable {
 
         addActionListener(x -> func.run());
         setRolloverEnabled(false);
-        setBorderPainted(false);
+        setBorder(null);
         setContentAreaFilled(false);
         setPreferredSize(new Dimension(size + 1, size + 1));
         setMaximumSize(new Dimension(size + 1, size + 1));

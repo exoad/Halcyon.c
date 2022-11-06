@@ -3,16 +3,12 @@ package com.jackmeng;
 import com.jackmeng.halcyon.gui.gui_HalcyonFrame;
 import com.jackmeng.halcyon.gui.childs.dgui_HalcyonBottom;
 import com.jackmeng.halcyon.gui.childs.dgui_HalcyonTop;
-import com.jackmeng.halcyon.const_Global;
-import com.jackmeng.halcyon.const_MutableManager;
 import com.jackmeng.halcyon.use_HalcyonFolder;
 import com.jackmeng.halcyon.use_HalcyonProperties;
 import com.jackmeng.sys.*;
 
 import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 
 /*------------------------- /
 / unused imports are stupid /
@@ -50,7 +46,6 @@ public final class Halcyon {
          /*--------------- /
          / startup process /
          /----------------*/
-         pstream.log.db(Halcyon.class);
          pstream.log.info("Hello world! (Now loading:) Booting Halcyon (" + use_Program.pid_2() + ")");
          final long time = System.currentTimeMillis();
          pstream.log.info("Initing properties...");
@@ -67,7 +62,7 @@ public final class Halcyon {
             main.run();
          });
 
-         pstream.log.ok("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
+         pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
          /*------------------------------------------------------------------------------------------------ /
          / main.expose_internal().askStatus(                                                                /
          /     new struct_Trio<>(use_Image.resize_2(20, 20, use_ResourceFetcher.fetcher.getFromAsImageIcon( /
@@ -75,13 +70,15 @@ public final class Halcyon {
          /         "Loading everything...", Optional.empty()),                                              /
          /     false);                                                                                      /
          /-------------------------------------------------------------------------------------------------*/
-         use_Task.async_N1(() -> {
-            try {
-               ImageIO.write(use_Program.gui_conduct(main.expose()), "png", new File("screenshot.png"));
-            } catch (IOException e) {
-               use_Program.error_gui(e);
-            }
-         });
+         /*----------------------------------------------------------------------------------------------- /
+         / use_Task.async_N1(() -> {                                                                       /
+         /    try {                                                                                        /
+         /       ImageIO.write(use_Program.gui_conduct(main.expose()), "png", new File("screenshot.png")); /
+         /    } catch (IOException e) {                                                                    /
+         /       use_Program.error_gui(e);                                                                 /
+         /    }                                                                                            /
+         / });                                                                                             /
+         /------------------------------------------------------------------------------------------------*/
          use_Program.gc();
          Thread yan_wang = new Thread(() -> {
             use_HalcyonFolder.FOLDER.save_conf();

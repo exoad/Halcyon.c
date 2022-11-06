@@ -8,28 +8,7 @@ public final class pstream {
   /---------------------------------------------------------------------------------------------------*/
 
   private boolean enabled;
-  private final sys_out out;
-  private final ansi_StrConstr WARN_TEXT = new ansi_StrConstr(
-      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.BLACK_TXT, ansi_Colors.YELLOW_BG }, new Object[] {
-          ":/ [WARN @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" });
-  private final ansi_StrConstr ERROR_TEXT = new ansi_StrConstr(
-      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.BLACK_TXT, ansi_Colors.RED_BG, ansi_Colors.UNDERLINE },
-      new Object[] {
-          ":( [ERRN @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" });
-  private final ansi_StrConstr INFO_TEXT = new ansi_StrConstr(
-      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.BLUE_BG, ansi_Colors.BLACK_TXT }, new Object[] {
-          ":) [INFO @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" });
-  private final ansi_StrConstr STATIC_TEXT = new ansi_StrConstr(
-      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.WHITE_BG }, new Object[] {
-          ":| [NONE @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" });
-  private final ansi_StrConstr OK_TEXT = new ansi_StrConstr(
-      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.GREEN_BG, ansi_Colors.BLACK_TXT, ansi_Colors.UNDERLINE },
-      new Object[] {
-          ":D [GOOD @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" });
-  private final ansi_StrConstr DEBUG_TEXT = new ansi_StrConstr(
-      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.MAGENTA_BG, ansi_Colors.BLACK_BG, ansi_Colors.UNDERLINE },
-      new Object[] {
-          "!! [OMFG @" + use_Chronos.logTime() + "] BREAKPT >>" });
+  private sys_out out;
 
   public static final pstream log = new pstream(true);
 
@@ -44,7 +23,9 @@ public final class pstream {
   public void warn(Object... t) {
     if (enabled) {
       for (Object e : t) {
-        out.out(WARN_TEXT + " " + e + "\n");
+        out.out(new ansi_StrConstr(
+      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.BLACK_TXT, ansi_Colors.YELLOW_BG }, new Object[] {
+          ":/ [WARN @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" }) + " " + e + "\n");
       }
     }
   }
@@ -55,7 +36,9 @@ public final class pstream {
   public void warn(ansi_StrConstr... t) {
     if (enabled) {
       for (ansi_StrConstr e : t) {
-        out.out(WARN_TEXT + " " + e + "\n");
+        out.out(new ansi_StrConstr(
+      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.BLACK_TXT, ansi_Colors.YELLOW_BG }, new Object[] {
+          ":/ [WARN @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" }) + " " + e + "\n");
       }
     }
   }
@@ -66,7 +49,10 @@ public final class pstream {
   public void err(Object... t) {
     if (enabled) {
       for (Object e : t) {
-        out.out(ERROR_TEXT + " " + e + "\n");
+        out.out(new ansi_StrConstr(
+      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.BLACK_TXT, ansi_Colors.RED_BG, ansi_Colors.UNDERLINE },
+      new Object[] {
+          ":( [ERRN @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" }) + " " + e + "\n");
       }
     }
   }
@@ -77,7 +63,10 @@ public final class pstream {
   public void err(ansi_StrConstr... t) {
     if (enabled) {
       for (ansi_StrConstr e : t) {
-        out.out(ERROR_TEXT + " " + e + "\n");
+        out.out(new ansi_StrConstr(
+      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.BLACK_TXT, ansi_Colors.RED_BG, ansi_Colors.UNDERLINE },
+      new Object[] {
+          ":( [ERRN @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" }) + " " + e + "\n");
       }
     }
   }
@@ -88,7 +77,9 @@ public final class pstream {
   public void info(Object... t) {
     if (enabled) {
       for (Object e : t) {
-        out.out(INFO_TEXT + " " + e + "\n");
+        out.out(new ansi_StrConstr(
+      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.BLUE_BG, ansi_Colors.BLACK_TXT }, new Object[] {
+          ":) [INFO @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" }) + " " + e + "\n");
 
       }
     }
@@ -100,7 +91,9 @@ public final class pstream {
   public void info(ansi_StrConstr... t) {
     if (enabled) {
       for (ansi_StrConstr e : t) {
-        out.out(INFO_TEXT + " " + e + "\n");
+        out.out(new ansi_StrConstr(
+      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.BLUE_BG, ansi_Colors.BLACK_TXT }, new Object[] {
+          ":) [INFO @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" }) + " " + e + "\n");
       }
     }
   }
@@ -111,7 +104,10 @@ public final class pstream {
   public void log(Object... t) {
     if (enabled) {
       for (Object e : t) {
-        out.out(STATIC_TEXT + " " + e + "\n");
+        out.out(new ansi_StrConstr(
+      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.GREEN_BG, ansi_Colors.BLACK_TXT, ansi_Colors.UNDERLINE },
+      new Object[] {
+          ":D [GOOD @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" }) + " " + e + "\n");
       }
     }
   }
@@ -122,53 +118,10 @@ public final class pstream {
   public void log(ansi_StrConstr... t) {
     if (enabled) {
       for (ansi_StrConstr e : t) {
-        out.out(STATIC_TEXT + " " + e + "\n");
-      }
-    }
-  }
-
-  /**
-   * @param t
-   */
-  public void ok(Object... t) {
-    if (enabled) {
-      for (Object e : t) {
-        out.out(OK_TEXT + " " + e + "\n");
-      }
-    }
-  }
-
-  /**
-   * @param t
-   */
-  public void ok(ansi_StrConstr... t) {
-    if (enabled) {
-      for (ansi_StrConstr e : t) {
-        out.out(OK_TEXT + " " + e + "\n");
-      }
-    }
-  }
-
-  /**
-   * @param t
-   */
-  public void db(Object... t) {
-    if (enabled) {
-      for (Object e : t) {
-        out.debug(DEBUG_TEXT + " " + e + "\n");
-        out.out("\n");
-      }
-    }
-  }
-
-  /**
-   * @param t
-   */
-  public void db(ansi_StrConstr... t) {
-    if (enabled) {
-      for (ansi_StrConstr e : t) {
-        out.debug(DEBUG_TEXT + " " + e + "\n");
-        out.out("\n");
+        out.out(new ansi_StrConstr(
+      new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.GREEN_BG, ansi_Colors.BLACK_TXT, ansi_Colors.UNDERLINE },
+      new Object[] {
+          ":D [GOOD @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" }) + " " + e + "\n");
       }
     }
   }
