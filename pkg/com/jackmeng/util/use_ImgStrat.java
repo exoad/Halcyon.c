@@ -291,7 +291,8 @@ public final class use_ImgStrat
         {
           indexLookupTable[i] = i;
         }
-      } else
+      }
+      else
       {
         for (int i = 0; i < width; i++)
         {

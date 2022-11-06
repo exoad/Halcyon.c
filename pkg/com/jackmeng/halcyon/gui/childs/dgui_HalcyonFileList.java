@@ -30,7 +30,8 @@ import java.util.Optional;
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
 public class dgui_HalcyonFileList extends JScrollPane implements
-    impl_HalcyonRefreshable<struct_Pair<Optional<String>, Optional<use_TailwindPlaylist>>> {
+    impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< use_TailwindPlaylist > > >
+{
 
   private final TitledBorder border = BorderFactory.createTitledBorder(_lang(LANG_FILELIST_BORDER_TITLE));
   private final JTabbedPane pane;
@@ -57,7 +58,7 @@ public class dgui_HalcyonFileList extends JScrollPane implements
   /                                                                                                                /
   /---------------------------------------------------------------------------------------------------------------*/
 
-  private final transient Map<String, struct_Trio<struct_Pair<Integer, JTree>, DefaultMutableTreeNode, java.util.List<DefaultMutableTreeNode>>> guiTrees;
+  private final transient Map< String, struct_Trio< struct_Pair< Integer, JTree >, DefaultMutableTreeNode, java.util.List< DefaultMutableTreeNode > > > guiTrees;
   /*------------------------------------------------------------------------------------------------------------------ /
   / stupid linter wants this to be transient for no goddamn reason when JComponent is serialized and inherited here????/
   /-------------------------------------------------------------------------------------------------------------------*/
@@ -67,10 +68,12 @@ public class dgui_HalcyonFileList extends JScrollPane implements
   / "lip" -> "liked playlists"                     /
   /-----------------------------------------------*/
 
-  private class filelist_TabButtons extends JPanel {
+  private class filelist_TabButtons extends JPanel
+  {
     private final transient evnt_RemoveTab listener;
 
-    public filelist_TabButtons(String labelStr, evnt_RemoveTab listener) {
+    public filelist_TabButtons(String labelStr, evnt_RemoveTab listener)
+    {
       this.listener = listener;
 
       setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -84,9 +87,11 @@ public class dgui_HalcyonFileList extends JScrollPane implements
       setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
     }
 
-    private class filelist_CloseTab extends JButton implements ActionListener {
+    private class filelist_CloseTab extends JButton implements ActionListener
+    {
 
-      public filelist_CloseTab() {
+      public filelist_CloseTab()
+      {
         setPreferredSize(new Dimension(const_Manager.DGUI_APPS_FILELIST_TABBUTTONS_ICON_W_H,
             const_Manager.DGUI_APPS_FILELIST_TABBUTTONS_ICON_W_H));
         setToolTipText("Close Tab");
@@ -99,7 +104,8 @@ public class dgui_HalcyonFileList extends JScrollPane implements
       }
 
       @Override
-      public void paintComponent(Graphics g) {
+      public void paintComponent(Graphics g)
+      {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -111,9 +117,11 @@ public class dgui_HalcyonFileList extends JScrollPane implements
       }
 
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(ActionEvent e)
+      {
         int i = dgui_HalcyonFileList.this.pane.indexOfTabComponent(filelist_TabButtons.this);
-        if (i != -1) {
+        if (i != -1)
+        {
           dgui_HalcyonFileList.this.pane.remove(i);
           filelist_TabButtons.this.listener.removedTab();
         }
@@ -121,10 +129,12 @@ public class dgui_HalcyonFileList extends JScrollPane implements
     }
   }
 
-  public dgui_HalcyonFileList() {
+  public dgui_HalcyonFileList()
+  {
     border.setBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_DARK_BG_2));
     border.setTitleFont(use_HalcyonProperties.boldFont().deriveFont(15F));
 
+    
     setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH - const_Manager.DGUI_APPS_WIDTH,
         const_Manager.FRAME_MIN_HEIGHT / 2));
     setBorder(border);
@@ -145,16 +155,17 @@ public class dgui_HalcyonFileList extends JScrollPane implements
     pane.setFocusable(false);
     pane.setFont(use_HalcyonProperties.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE));
     pane.addChangeListener(x -> {
-      pstream.log.log("PANE_INFO: " + pane.getSelectedIndex() + " | " + pane.getTabComponentAt(pane.getSelectedIndex())
-          + " | " + x.getSource());
       JTabbedPane t = (JTabbedPane) x.getSource();
-      if (t.getSelectedIndex() >= 0 && t.getTabComponentAt(t.getSelectedIndex()) != null) {
+      if (t.getSelectedIndex() >= 0 && t.getTabComponentAt(t.getSelectedIndex()) != null)
+      {
         border.setTitle((t.getSelectedIndex() + 1) + " | "
             + (t.getTabComponentAt(t.getSelectedIndex()).getName() == null ? " "
                 : new File(t.getTabComponentAt(t.getSelectedIndex()).getName()).getName())
             + " | " + t.getTabComponentAt(
                 t.getSelectedIndex()).getName());
-      } else {
+      }
+      else
+      {
         border.setTitle(_lang(LANG_FILELIST_BORDER_TITLE));
       }
     });
@@ -163,7 +174,8 @@ public class dgui_HalcyonFileList extends JScrollPane implements
 
     guiTrees = new HashMap<>();
 
-    /*---------------------------------------------------------------------------------------------- /
+    /*-----------------------------------
+    ----------------------------------------------------------- /
     / THIS PART DESIGNATES THE DEFAULT CREATED POOL OF PLAYLISTS THAT ARE                            /
     / NOT TO BE MODIFIABLE BY THE END USER                                                           /
     /                                                                                                /
@@ -179,15 +191,16 @@ public class dgui_HalcyonFileList extends JScrollPane implements
   /**
    * @param list
    */
-  public void pokeFileList(use_TailwindPlaylist list) {
-    pstream.log.warn("Poking new playlist: " + list);
+  public void pokeFileList(use_TailwindPlaylist list)
+  {
 
     DefaultMutableTreeNode root = new DefaultMutableTreeNode(list.getParent());
 
-    java.util.List<DefaultMutableTreeNode> nodes = new ArrayList<>();
+    java.util.List< DefaultMutableTreeNode > nodes = new ArrayList<>();
 
     list.forEach(x -> {
-      if (x != null) {
+      if (x != null)
+      {
         DefaultMutableTreeNode node = new DefaultMutableTreeNode(x);
         nodes.add(node);
         root.add(node);
@@ -227,7 +240,8 @@ public class dgui_HalcyonFileList extends JScrollPane implements
     jsp.getViewport().add(tree);
 
     pane.add(list.getCanonicalParent_1(), jsp);
-    if (list.expose_traits().closeable) {
+    if (list.expose_traits().closeable)
+    {
       filelist_TabButtons buttons = new filelist_TabButtons(list.getCanonicalParent_1(), () -> {
         guiTrees.remove(list.id());
         const_Global.PLAY_LIST_POOL.removePoolObject_ID(list.id());
@@ -245,12 +259,14 @@ public class dgui_HalcyonFileList extends JScrollPane implements
    * @param refreshed
    */
   @Override
-  public void refresh(struct_Pair<Optional<String>, Optional<use_TailwindPlaylist>> refreshed) {
+  public void refresh(struct_Pair< Optional< String >, Optional< use_TailwindPlaylist > > refreshed)
+  {
     refreshed.second.ifPresent(this::pokeFileList);
   }
 
   @Override
-  public void dry_refresh() {
+  public void dry_refresh()
+  {
     const_Global.PLAY_LIST_POOL.objs().forEach(
         x -> pokeFileList(const_Global.PLAY_LIST_POOL.get(x)));
   }

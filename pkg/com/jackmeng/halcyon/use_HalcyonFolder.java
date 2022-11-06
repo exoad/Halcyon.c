@@ -14,6 +14,7 @@ import java.util.Properties;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Program;
 import com.jackmeng.tailwind.use_TailwindPlaylist;
+import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.util.use_Primitives;
 
 public final class use_HalcyonFolder
@@ -36,7 +37,8 @@ public final class use_HalcyonFolder
     / suffix f -> file                                              /
     /--------------------------------------------------------------*/
     CACHE_d("caches"), USER_d("conf"), SHARED_LIBRARY_d("hlib"), PLOOGINS_d("extern"), LOGS_d("logs"), SYSCONF_f(
-        "HALCYON.hal"), LANG_CONF_f("_locale.hal"), MASTADIR_d(""), PLAYLISTS_CONF_f(USER_d.val + "personal.hal");
+        "HALCYON.hal"), LANG_CONF_f("_locale.hal"), MASTADIR_d(
+            ""), PLAYLISTS_CONF_f("conf" + use_HalcyonProperties.getFileSeparator() + "personal.hal");
 
     public final String val;
 
@@ -63,7 +65,8 @@ public final class use_HalcyonFolder
     if (e.exists())
     {
       e.delete();
-    } else
+    }
+    else
     {
       try
       {
@@ -169,6 +172,7 @@ public final class use_HalcyonFolder
 
   public void check(halcyonfolder_Content e)
   {
+    pstream.log.warn(e.val + " >>> ");
     if (e.name().endsWith("d"))
     {
       File r = e.make();
@@ -176,7 +180,8 @@ public final class use_HalcyonFolder
       {
         r.mkdir();
       }
-    } else if (e.name().endsWith("f"))
+    }
+    else if (e.name().endsWith("f"))
     {
       File r = e.make();
       if (!r.exists() || !r.isFile())
@@ -189,7 +194,8 @@ public final class use_HalcyonFolder
           use_Program.error_gui(e1);
         }
       }
-    } else
+    }
+    else
     {
       pstream.log.warn("UNRECOGNIZED FOLDER_CONTENT_ENUM_NAME: " + e.name());
     }
@@ -206,12 +212,9 @@ public final class use_HalcyonFolder
       log(e1);
     }
     for (use_TailwindPlaylist e : const_Global.PLAY_LIST_POOL)
-    {
       p.put("playlists", e.getCanonicalParent_1());
-    }
-    for (use_TailwindPlaylist e : const_Global.LIKE_LIST_POOL)
-    {
-    }
+    for (use_TailwindTrack e : const_Global.LIKE_LIST_POOL)
+      p.put("liked", e.id());
     try
     {
       p.storeToXML(new FileOutputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()), "User personalized data");

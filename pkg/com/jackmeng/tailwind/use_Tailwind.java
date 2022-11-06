@@ -63,35 +63,34 @@ public class use_Tailwind implements impl_Identifiable, impl_Tailwind, Cloneable
   @Override
   public void play()
   {
-    // TODO Auto-generated method stub
-
+    if (currentTrack != null)
+    {
+      play(currentTrack);
+    }
   }
 
   @Override
   public void play(use_TailwindTrack e)
   {
-    // TODO Auto-generated method stub
-
+    run_ping(tailwind_Status.PLAYING);
   }
 
   @Override
   public void pause()
   {
-    // TODO Auto-generated method stub
+    run_ping(tailwind_Status.PAUSED);
 
   }
 
   @Override
   public void close()
   {
-    // TODO Auto-generated method stub
-
+    run_ping(tailwind_Status.CLOSED);
   }
 
   @Override
   public long time_ms()
   {
-    // TODO Auto-generated method stub
     return 0;
   }
 

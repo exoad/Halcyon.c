@@ -147,7 +147,8 @@ public class gui_HalcyonFrame implements Runnable
         if (direction == 0)
         {
           source.setCursor(sourceCursor);
-        } else
+        }
+        else
         {
           int cursorType = cursors.get(direction);
           Cursor cursor = Cursor.getPredefinedCursor(cursorType);
@@ -295,7 +296,8 @@ public class gui_HalcyonFrame implements Runnable
           GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
           Rectangle bounds = env.getMaximumWindowBounds();
           return new Dimension(bounds.width, bounds.height);
-        } else
+        }
+        else
         {
           return source.getParent().getSize();
         }
@@ -339,7 +341,8 @@ public class gui_HalcyonFrame implements Runnable
       {
         frame.setUndecorated(false);
         this.titleHeight = 0;
-      } else
+      }
+      else
       {
         frame.setUndecorated(true);
         this.titleHeight = tH;

@@ -69,7 +69,6 @@ public final class Halcyon
             main.run();
          });
 
-         pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
          /*------------------------------------------------------------------------------------------------ /
          / main.expose_internal().askStatus(                                                                /
          /     new struct_Trio<>(use_Image.resize_2(20, 20, use_ResourceFetcher.fetcher.getFromAsImageIcon( /
@@ -97,6 +96,8 @@ public final class Halcyon
          }, "halcyon-defaultShutdownHook");
 
          Runtime.getRuntime().addShutdownHook(yan_wang);
+         pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
+
       } catch (Exception e)
       {
          use_HalcyonFolder.FOLDER.log(e);

@@ -373,7 +373,8 @@ public final class use_Blurhash
           .floor(Math.max(0, Math.min(82, Math.floor(actualMaximumValue * 166 - 0.5))));
       maximumValue = (quantisedMaximumValue + 1) / 166;
       blurhash_base83.encode(Math.round(quantisedMaximumValue), 1, hash, 1);
-    } else
+    }
+    else
     {
       maximumValue = 1;
       blurhash_base83.encode(0, 1, hash, 1);

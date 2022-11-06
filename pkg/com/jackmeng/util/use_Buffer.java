@@ -74,7 +74,8 @@ public final class use_Buffer
         next(copy);
         rem -= copy;
         off += copy;
-      } while (rem > 0);
+      }
+      while (rem > 0);
       return len - rem;
     }
 
@@ -99,7 +100,8 @@ public final class use_Buffer
         next(copy);
         rem -= copy;
         off += copy;
-      } while (rem > 0);
+      }
+      while (rem > 0);
     }
 
     public void init()
@@ -192,7 +194,8 @@ public final class use_Buffer
       {
         sz = buffer.length;
         overflow = sz_1 - buffer.length;
-      } else
+      }
+      else
       {
         sz = sz_1;
       }
