@@ -448,7 +448,6 @@ public class gui_HalcyonFrame implements Runnable
         }));
       }
       btns.add(gen_Button(conf.bgClose, frame::dispose));
-
       JLabel titleBarICO = new JLabel(conf.icon != null
           ? new ImageIcon(conf.icon.getImage().getScaledInstance(contentOff, contentOff, Image.SCALE_AREA_AVERAGING))
           : new ImageIcon());
@@ -465,6 +464,15 @@ public class gui_HalcyonFrame implements Runnable
       titleBar.add(btns, BorderLayout.EAST);
       titleBar.setAlignmentX(Component.CENTER_ALIGNMENT);
       titleBar.setAlignmentY(Component.CENTER_ALIGNMENT);
+      titleBar.addMouseListener(new MouseAdapter() {
+        public void mouseClicked(MouseEvent e) {
+
+          if(e.getClickCount() >= 2) {
+            frame.setExtendedState(maximizedFrame ? Frame.NORMAL : Frame.MAXIMIZED_BOTH);
+            maximizedFrame = !maximizedFrame;
+          }
+        }
+      });
 
       JPanel bigPane = new JPanel();
       bigPane.setPreferredSize(frame.getPreferredSize());
@@ -475,6 +483,7 @@ public class gui_HalcyonFrame implements Runnable
       bigPane.add(content, BorderLayout.SOUTH);
 
       frame.getContentPane().add(bigPane);
+
       frame.setPreferredSize(new Dimension(bigPane.getPreferredSize().width, bigPane.getPreferredSize().height + 10));
       frame.setMinimumSize(frame.getPreferredSize());
       cr.setMinimumSize(frame.getMinimumSize());
