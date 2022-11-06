@@ -333,7 +333,7 @@ public class gui_HalcyonFrame implements Runnable
 
     public TitledFrame(final TitleBarConfig conf, final int tH, final JComponent content)
     {
-      int titleHeightOffSub = 4;
+      int titleHeightOffSub = 3;
       int contentOff = tH - titleHeightOffSub;
 
       frame = new JFrame();
@@ -436,16 +436,16 @@ public class gui_HalcyonFrame implements Runnable
       if (conf.bgMis != null)
         btns.add(gen_Button(conf.bgMis, () -> {
         }));
+      if (conf.bgMini != null)
+      {
+        btns.add(gen_Button(conf.bgMini, () -> frame.setState(Frame.ICONIFIED)));
+      }
       if (conf.bgExp != null)
       {
         btns.add(gen_Button(conf.bgExp, () -> {
           frame.setExtendedState(maximizedFrame ? Frame.NORMAL : Frame.MAXIMIZED_BOTH);
           maximizedFrame = !maximizedFrame;
         }));
-      }
-      if (conf.bgMini != null)
-      {
-        btns.add(gen_Button(conf.bgMini, () -> frame.setState(Frame.ICONIFIED)));
       }
       btns.add(gen_Button(conf.bgClose, frame::dispose));
 
@@ -463,15 +463,21 @@ public class gui_HalcyonFrame implements Runnable
       titleBar.add(titleBarICO, BorderLayout.WEST);
       titleBar.add(titleBarStr, BorderLayout.CENTER);
       titleBar.add(btns, BorderLayout.EAST);
+      titleBar.setAlignmentX(Component.CENTER_ALIGNMENT);
+      titleBar.setAlignmentY(Component.CENTER_ALIGNMENT);
 
       JPanel bigPane = new JPanel();
       bigPane.setPreferredSize(frame.getPreferredSize());
       bigPane.setLayout(new BorderLayout());
+      bigPane.setAlignmentY(Component.CENTER_ALIGNMENT);
 
       bigPane.add(titleBar, BorderLayout.NORTH);
       bigPane.add(content, BorderLayout.SOUTH);
 
       frame.getContentPane().add(bigPane);
+      frame.setPreferredSize(new Dimension(bigPane.getPreferredSize().width, bigPane.getPreferredSize().height + 10));
+      frame.setMinimumSize(frame.getPreferredSize());
+      cr.setMinimumSize(frame.getMinimumSize());
     }
 
     public void askStatus(struct_Trio< ImageIcon, String, Optional< Runnable > > exec, boolean autoresize)
