@@ -12,44 +12,51 @@ import java.lang.management.ManagementFactory;
 
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
-public final class use_Program {
-  private use_Program() {
+public final class use_Program
+{
+  private use_Program()
+  {
   }
 
   /**
    * @return long
    */
-  public static long uptime() {
+  public static long uptime()
+  {
     return ManagementFactory.getRuntimeMXBean().getUptime();
   }
 
   /**
    * @return String
    */
-  public static String pid_2() {
+  public static String pid_2()
+  {
     return ManagementFactory.getRuntimeMXBean().getName();
   }
 
-  public static void gc() {
+  public static void gc()
+  {
     ManagementFactory.getMemoryMXBean().gc();
   }
 
   /**
    * @return struct_Pair:[Integer, Integer]
    */
-  public static struct_Pair<Integer, Integer> screen_center() {
+  public static struct_Pair< Integer, Integer > screen_center()
+  {
     return new struct_Pair<>(Toolkit.getDefaultToolkit().getScreenSize().width / 2,
         Toolkit.getDefaultToolkit().getScreenSize().height / 2);
   }
 
-  public static void error_gui(Exception e) {
+  public static void error_gui(Exception e)
+  {
     new gui_HalcyonGenericWindow(use_ResourceFetcher.fetcher.getFromAsImageIcon("resources/app/oh_no.png"),
         _lang(LANG_OH_NO_4),
         "<html><strong>" + _lang(LANG_EXCEPTION_OH_SOMETHING_WENT_WRONG_CONTENT) + "</strong><br>"
             + use_Primitives.expand_exception(e)
             + "</html>",
         const_ColorManager.DEFAULT_RED_FG, null)
-        .run();
+            .run();
   }
 
   public enum program_SysEnv {
@@ -63,17 +70,15 @@ public final class use_Program {
     /*---------------------- /
     / Operating System NAMES /
     /-----------------------*/
-    WIN32,
-    OSX,
-    SOLARIS,
-    LINUX,
-    UNKNOWN;
+    WIN32, OSX, SOLARIS, LINUX, UNKNOWN;
 
-    private program_SysEnv() {
+    private program_SysEnv()
+    {
     }
   }
 
-  public static program_SysEnv arch() {
+  public static program_SysEnv arch()
+  {
     String r = System.getProperty("os.arch");
     /*------------------------------------------------------------- /
     / guranteed to be of any 4 values: X86_32, X86_64, PPC, UNKNOWN /
@@ -87,13 +92,15 @@ public final class use_Program {
                     : r.equalsIgnoreCase("ppc") ? program_SysEnv.PPC : program_SysEnv.UNKNOWN;
   }
 
-  public static String arch_lib_extension() {
+  public static String arch_lib_extension()
+  {
     program_SysEnv e = arch();
     return e == program_SysEnv.LINUX ? "so"
         : e == program_SysEnv.OSX ? "dylib" : e == program_SysEnv.WIN32 ? "dll" : "so";
   }
 
-  public static void dispose() {
+  public static void dispose()
+  {
     System.runFinalization();
     System.exit(0);
   }
@@ -102,7 +109,8 @@ public final class use_Program {
    * @param e
    * @return BufferedImage
    */
-  public static BufferedImage gui_conduct(Component e) {
+  public static BufferedImage gui_conduct(Component e)
+  {
     /*----------------------------------------------------- /
     / idk found this off of stack, so pray that it works :/ /
     /------------------------------------------------------*/
@@ -111,10 +119,13 @@ public final class use_Program {
     return img;
   }
 
-  public static void probable_error(Runnable r) {
-    try {
+  public static void probable_error(Runnable r)
+  {
+    try
+    {
       r.run();
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       error_gui(e);
     }
   }

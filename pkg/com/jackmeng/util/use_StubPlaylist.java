@@ -5,25 +5,34 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class use_StubPlaylist extends use_Playlist {
+import com.jackmeng.tailwind.use_TailwindPlaylist;
 
-  public use_StubPlaylist(use_Playlist.playlist_Traits trait, String playListName, String[] children,
-      String[] endings) {
+public class use_StubPlaylist extends use_TailwindPlaylist
+{
+
+  public use_StubPlaylist(use_TailwindPlaylist.playlist_Traits trait, String playListName, String[] children,
+      String[] endings)
+  {
     super(playListName, children, endings, trait);
   }
 
-  private void check_validity() {
-    List<String> temp = new ArrayList<>();
+  private void check_validity()
+  {
+    List< String > temp = new ArrayList<>();
     Collections.copy(temp, super.children);
-    for (String t : children) {
+    for (String t : children)
+    {
       File e = new File(t);
-      for (String r : endings) {
-        if (t.endsWith(r) && e.exists() && e.isFile()) {
+      for (String r : endings)
+      {
+        if (t.endsWith(r) && e.exists() && e.isFile())
+        {
           temp.add(t);
         }
       }
     }
-    if (traits.autosort) {
+    if (traits.autosort)
+    {
       sort();
     }
   }
@@ -32,14 +41,16 @@ public class use_StubPlaylist extends use_Playlist {
    * @param endings
    */
   @Override
-  public void init(String[] endings) {
+  public void init(String[] endings)
+  {
   }
 
   /**
    * @return String
    */
   @Override
-  public String getCanonicalParent_2() {
+  public String getCanonicalParent_2()
+  {
     return getParent();
   }
 
@@ -47,12 +58,14 @@ public class use_StubPlaylist extends use_Playlist {
    * @return String
    */
   @Override
-  public String getCanonicalParent_1() {
+  public String getCanonicalParent_1()
+  {
     return getParent();
   }
 
   @Override
-  public void refresh() {
+  public void refresh()
+  {
     check_validity();
   }
 }

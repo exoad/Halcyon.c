@@ -17,8 +17,10 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-public final class use_FSys {
-  private use_FSys() {
+public final class use_FSys
+{
+  private use_FSys()
+  {
   }
 
   /**
@@ -27,19 +29,25 @@ public final class use_FSys {
    * @return File[]
    * @throws IOException
    */
-  public static File[] unzip(String pathToZip, int bufferSize) throws IOException {
+  public static File[] unzip(String pathToZip, int bufferSize) throws IOException
+  {
     assert bufferSize > 0;
     ZipFile file = new ZipFile(pathToZip);
     return unzip(file, bufferSize);
   }
 
-  public static boolean s_containsFileOfType(File dir, String... extensions) {
-    if (!dir.isDirectory() || !dir.exists()) {
+  public static boolean s_containsFileOfType(File dir, String... extensions)
+  {
+    if (!dir.isDirectory() || !dir.exists())
+    {
       return false;
     }
-    for (String r : dir.list()) {
-      for (String t : extensions) {
-        if (r.endsWith(t)) {
+    for (String r : dir.list())
+    {
+      for (String t : extensions)
+      {
+        if (r.endsWith(t))
+        {
           return true;
         }
       }
@@ -47,13 +55,16 @@ public final class use_FSys {
     return false;
   }
 
-  public static boolean s_containsOnlyFiles(File dir) {
-    if (!dir.isDirectory() || !dir.exists()) {
+  public static boolean s_containsOnlyFiles(File dir)
+  {
+    if (!dir.isDirectory() || !dir.exists())
+    {
       return false;
     }
     return dir.listFiles(new FileFilter() {
       @Override
-      public boolean accept(File pathname) {
+      public boolean accept(File pathname)
+      {
         return pathname.isFile() && pathname.exists();
       }
     }).length != 0;
@@ -65,11 +76,13 @@ public final class use_FSys {
    * @return File[]
    * @throws IOException
    */
-  public static File[] unzip(ZipFile file, int bufferSize) throws IOException {
+  public static File[] unzip(ZipFile file, int bufferSize) throws IOException
+  {
     assert bufferSize > 0;
-    Enumeration<? extends ZipEntry> e = file.entries();
-    List<File> list = new ArrayList<>();
-    while (e.hasMoreElements()) {
+    Enumeration< ? extends ZipEntry > e = file.entries();
+    List< File > list = new ArrayList<>();
+    while (e.hasMoreElements())
+    {
       ZipEntry entry = e.nextElement();
       InputStream in = file.getInputStream(entry);
       File temp = File.createTempFile(file.getName(), null);
@@ -77,7 +90,8 @@ public final class use_FSys {
 
       FileOutputStream fos = new FileOutputStream(temp);
       byte[] buffer = new byte[bufferSize];
-      while (in.read(buffer) != -1) {
+      while (in.read(buffer) != -1)
+      {
         fos.write(buffer);
       }
       list.add(temp);
@@ -88,12 +102,16 @@ public final class use_FSys {
     return list.toArray(new File[0]);
   }
 
-  public static String fread_1(String name) throws IOException {
+  public static String fread_1(String name) throws IOException
+  {
     StringBuilder sb = new StringBuilder();
-    try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(name)))) {
-      if (br.ready()) {
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(name))))
+    {
+      if (br.ready())
+      {
         String temp;
-        while ((temp = br.readLine()) != null) {
+        while ((temp = br.readLine()) != null)
+        {
           sb.append(temp);
         }
       }
@@ -101,7 +119,8 @@ public final class use_FSys {
     return sb.toString();
   }
 
-  public static String fread_2(String name) throws IOException {
+  public static String fread_2(String name) throws IOException
+  {
     Path path = Paths.get(name);
     StringBuilder sb = new StringBuilder();
     Files.lines(path).forEach(sb::append);

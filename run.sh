@@ -10,7 +10,7 @@ echo "Running from $(pwd)"
 if [ ! $# -eq 0 ] ; then
     if [ "$1" == "linux" ] ; then
         bash make_halcyonstl_linux.sh "$3"
-    elif [ "$1" == "osx" ] ; then
+        elif [ "$1" == "osx" ] ; then
         bash make_halcyonstl_osx.sh "$3"
     else
         bash make_halcyonstl_fakewin32.sh "$3"

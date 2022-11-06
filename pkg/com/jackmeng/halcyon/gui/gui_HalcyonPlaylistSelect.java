@@ -11,7 +11,8 @@ import java.io.File;
 
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
-public final class gui_HalcyonPlaylistSelect implements Runnable {
+public final class gui_HalcyonPlaylistSelect implements Runnable
+{
   private JFileChooser chooser;
   /*----------------------- /
   / private boolean opened; /
@@ -22,7 +23,8 @@ public final class gui_HalcyonPlaylistSelect implements Runnable {
   /------------------------------*/
   private envt_AddPlaylist playlist;
 
-  public gui_HalcyonPlaylistSelect(JFrame parent, String currDir) {
+  public gui_HalcyonPlaylistSelect(JFrame parent, String currDir)
+  {
     /*--------------------------------------------- /
     / chooser.addFocusListener(new FocusAdapter() { /
     /   @Override                                   /
@@ -53,7 +55,8 @@ public final class gui_HalcyonPlaylistSelect implements Runnable {
     chooser.setMultiSelectionEnabled(false);
     chooser.setFileView(new FileView() {
       @Override
-      public Icon getIcon(File f) {
+      public Icon getIcon(File f)
+      {
         return FileSystemView.getFileSystemView().getSystemIcon(f);
       }
     });
@@ -62,7 +65,8 @@ public final class gui_HalcyonPlaylistSelect implements Runnable {
     this.parent = parent;
   }
 
-  public void setListener(envt_AddPlaylist l) {
+  public void setListener(envt_AddPlaylist l)
+  {
     this.playlist = l;
   }
 
@@ -74,9 +78,11 @@ public final class gui_HalcyonPlaylistSelect implements Runnable {
   /----------------------------------*/
 
   @Override
-  public void run() {
+  public void run()
+  {
     int result = chooser.showOpenDialog(parent);
-    if (result == JFileChooser.APPROVE_OPTION && playlist != null) {
+    if (result == JFileChooser.APPROVE_OPTION && playlist != null)
+    {
       pstream.log.info(result + " " + chooser.getSelectedFile());
       playlist.addPlaylist(chooser.getSelectedFile().getAbsolutePath());
     }

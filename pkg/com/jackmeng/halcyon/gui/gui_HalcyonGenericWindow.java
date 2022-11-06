@@ -7,10 +7,12 @@ import com.jackmeng.halcyon.use_HalcyonProperties;
 import javax.swing.*;
 import java.awt.*;
 
-public class gui_HalcyonGenericWindow implements Runnable {
+public class gui_HalcyonGenericWindow implements Runnable
+{
   protected final TitledFrame frame;
 
-  public gui_HalcyonGenericWindow(ImageIcon icon, String title, String content_HTML, Color r, JFrame parent) {
+  public gui_HalcyonGenericWindow(ImageIcon icon, String title, String content_HTML, Color r, JFrame parent)
+  {
     JScrollPane jsp = new JScrollPane();
 
     JEditorPane jep = new JEditorPane("text/html", content_HTML);
@@ -30,7 +32,8 @@ public class gui_HalcyonGenericWindow implements Runnable {
   }
 
   @Override
-  public void run() {
+  public void run()
+  {
     frame.run();
   }
 }

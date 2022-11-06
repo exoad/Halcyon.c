@@ -10,3 +10,4 @@ hlib
 *.gen
 h_out
 /halcyon
+eclipse-formatter.xml

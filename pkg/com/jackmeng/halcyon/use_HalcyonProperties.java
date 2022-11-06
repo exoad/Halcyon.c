@@ -18,8 +18,10 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.LogManager;
 
-public final class use_HalcyonProperties {
-  private use_HalcyonProperties() {
+public final class use_HalcyonProperties
+{
+  private use_HalcyonProperties()
+  {
   }
 
   public static final use_MutableDefinition[] DEFS = {
@@ -44,7 +46,8 @@ public final class use_HalcyonProperties {
   /**
    * @return String
    */
-  public static String getFileSeparator() {
+  public static String getFileSeparator()
+  {
     return System.getProperty("file.separator") == null ? "/" : System.getProperty("file.separator");
   }
 
@@ -52,28 +55,32 @@ public final class use_HalcyonProperties {
    * @param key
    * @return String
    */
-  public static String lang(String key) {
+  public static String lang(String key)
+  {
     return language.getString(key);
   }
 
   /**
    * @return String[]
    */
-  public static String[] acceptedEndings() {
+  public static String[] acceptedEndings()
+  {
     return new String[] { ".mp3", ".wav", ".ogg", ".oga", ".aiff", ".aifc", ".au", ".opus", ".flac" };
   }
 
   /**
    * @return Font
    */
-  public static Font regularFont() {
+  public static Font regularFont()
+  {
     return getFont(use_ResourceFetcher.fetcher.getFromAsFile("resources/font/HalcyonFont-Regular.ttf"));
   }
 
   /**
    * @return Font
    */
-  public static Font boldFont() {
+  public static Font boldFont()
+  {
     return getFont(use_ResourceFetcher.fetcher.getFromAsFile("resources/font/HalcyonFont-Bold.ttf"));
   }
 
@@ -81,11 +88,14 @@ public final class use_HalcyonProperties {
    * @param rsc
    * @return Font
    */
-  private static Font getFont(File rsc) {
-    try {
+  private static Font getFont(File rsc)
+  {
+    try
+    {
       return Font.createFont(Font.TRUETYPE_FONT,
           rsc);
-    } catch (FontFormatException | IOException e) {
+    } catch (FontFormatException | IOException e)
+    {
       e.printStackTrace();
     }
     return new Font(GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames()[0], Font.PLAIN, 12);
@@ -94,9 +104,11 @@ public final class use_HalcyonProperties {
   /**
    * @param f
    */
-  public static void setUIFont(javax.swing.plaf.FontUIResource f) {
-    Enumeration<Object> keys = UIManager.getDefaults().keys();
-    while (keys.hasMoreElements()) {
+  public static void setUIFont(javax.swing.plaf.FontUIResource f)
+  {
+    Enumeration< Object > keys = UIManager.getDefaults().keys();
+    while (keys.hasMoreElements())
+    {
       Object key = keys.nextElement();
       Object value = UIManager.get(key);
       if (value instanceof javax.swing.plaf.FontUIResource)
@@ -107,7 +119,8 @@ public final class use_HalcyonProperties {
   /**
    * @return JFrame
    */
-  public static JFrame getInheritableFrame() {
+  public static JFrame getInheritableFrame()
+  {
     JFrame e = new JFrame();
     e.setIconImage(use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.GUI_PROGRAM_LOGO).getImage());
     return e;
@@ -116,7 +129,8 @@ public final class use_HalcyonProperties {
   /**
    * @throws Exception
    */
-  public static void init_properties() throws Exception {
+  public static void init_properties() throws Exception
+  {
     System.setProperty("file.encoding", "UTF-8");
 
     /*----------------------------------- /
@@ -182,7 +196,8 @@ public final class use_HalcyonProperties {
     LogManager.getLogManager().reset();
   }
 
-  public static void do_nothing() {
+  public static void do_nothing()
+  {
     // DO NOTHING AND TO BE IMPLEMENTED WITH STUFF LATER
   }
 }

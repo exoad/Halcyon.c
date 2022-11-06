@@ -17,15 +17,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class gui_HalcyonFrame implements Runnable {
+public class gui_HalcyonFrame implements Runnable
+{
 
-  public static class TitledFrame implements Runnable {
-    public static class ComponentResizer extends MouseAdapter {
+  public static class TitledFrame implements Runnable
+  {
+    public static class ComponentResizer extends MouseAdapter
+    {
       private static final Dimension MINIMUM_SIZE = new Dimension(10, 10);
       private static final Dimension MAXIMUM_SIZE = new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
-      private static final Map<Integer, Integer> cursors = new HashMap<>();
-      static {
+      private static final Map< Integer, Integer > cursors = new HashMap<>();
+      static
+      {
         cursors.put(1, Cursor.N_RESIZE_CURSOR);
         cursors.put(2, Cursor.W_RESIZE_CURSOR);
         cursors.put(4, Cursor.S_RESIZE_CURSOR);
@@ -54,63 +58,76 @@ public class gui_HalcyonFrame implements Runnable {
       private Dimension minimumSize = MINIMUM_SIZE;
       private Dimension maximumSize = MAXIMUM_SIZE;
 
-      public ComponentResizer() {
+      public ComponentResizer()
+      {
         this(new Insets(5, 5, 5, 5), new Dimension(1, 1));
       }
 
-      public ComponentResizer(Insets dragInsets, Dimension snapSize, Component... components) {
+      public ComponentResizer(Insets dragInsets, Dimension snapSize, Component... components)
+      {
         setDragInsets(dragInsets);
         setSnapSize(snapSize);
         registerComponent(components);
       }
 
-      public void setDragInsets(Insets dragInsets) {
+      public void setDragInsets(Insets dragInsets)
+      {
         validateMinimumAndInsets(minimumSize, dragInsets);
 
         this.dragInsets = dragInsets;
       }
 
-      public void setMaximumSize(Dimension maximumSize) {
+      public void setMaximumSize(Dimension maximumSize)
+      {
         this.maximumSize = maximumSize;
       }
 
-      public void setMinimumSize(Dimension minimumSize) {
+      public void setMinimumSize(Dimension minimumSize)
+      {
         validateMinimumAndInsets(minimumSize, dragInsets);
 
         this.minimumSize = minimumSize;
       }
 
-      public void deregisterComponent(Component... components) {
-        for (Component component : components) {
+      public void deregisterComponent(Component... components)
+      {
+        for (Component component : components)
+        {
           component.removeMouseListener(this);
           component.removeMouseMotionListener(this);
         }
       }
 
-      public void registerComponent(Component... components) {
-        for (Component component : components) {
+      public void registerComponent(Component... components)
+      {
+        for (Component component : components)
+        {
           component.addMouseListener(this);
           component.addMouseMotionListener(this);
         }
       }
 
-      public void setSnapSize(Dimension snapSize) {
+      public void setSnapSize(Dimension snapSize)
+      {
         this.snapSize = snapSize;
       }
 
-      private void validateMinimumAndInsets(Dimension minimum, Insets drag) {
+      private void validateMinimumAndInsets(Dimension minimum, Insets drag)
+      {
         int minimumWidth = drag.left + drag.right;
         int minimumHeight = drag.top + drag.bottom;
 
         if (minimum.width < minimumWidth
-            || minimum.height < minimumHeight) {
+            || minimum.height < minimumHeight)
+        {
           String message = "Minimum size cannot be less than drag insets";
           throw new IllegalArgumentException(message);
         }
       }
 
       @Override
-      public void mouseMoved(MouseEvent e) {
+      public void mouseMoved(MouseEvent e)
+      {
         Component source = e.getComponent();
         Point location = e.getPoint();
         direction = 0;
@@ -127,9 +144,11 @@ public class gui_HalcyonFrame implements Runnable {
         if (location.y > source.getHeight() - dragInsets.bottom - 1)
           direction += SOUTH;
 
-        if (direction == 0) {
+        if (direction == 0)
+        {
           source.setCursor(sourceCursor);
-        } else {
+        } else
+        {
           int cursorType = cursors.get(direction);
           Cursor cursor = Cursor.getPredefinedCursor(cursorType);
           source.setCursor(cursor);
@@ -137,23 +156,28 @@ public class gui_HalcyonFrame implements Runnable {
       }
 
       @Override
-      public void mouseEntered(MouseEvent e) {
-        if (!resizing) {
+      public void mouseEntered(MouseEvent e)
+      {
+        if (!resizing)
+        {
           Component source = e.getComponent();
           sourceCursor = source.getCursor();
         }
       }
 
       @Override
-      public void mouseExited(MouseEvent e) {
-        if (!resizing) {
+      public void mouseExited(MouseEvent e)
+      {
+        if (!resizing)
+        {
           Component source = e.getComponent();
           source.setCursor(sourceCursor);
         }
       }
 
       @Override
-      public void mousePressed(MouseEvent e) {
+      public void mousePressed(MouseEvent e)
+      {
         if (direction == 0)
           return;
         resizing = true;
@@ -161,7 +185,8 @@ public class gui_HalcyonFrame implements Runnable {
         pressed = e.getPoint();
         SwingUtilities.convertPointToScreen(pressed, source);
         bounds = source.getBounds();
-        if (source instanceof JComponent) {
+        if (source instanceof JComponent)
+        {
           JComponent jc = (JComponent) source;
           autoscrolls = jc.getAutoscrolls();
           jc.setAutoscrolls(false);
@@ -169,19 +194,22 @@ public class gui_HalcyonFrame implements Runnable {
       }
 
       @Override
-      public void mouseReleased(MouseEvent e) {
+      public void mouseReleased(MouseEvent e)
+      {
         resizing = false;
 
         Component source = e.getComponent();
         source.setCursor(sourceCursor);
 
-        if (source instanceof JComponent) {
+        if (source instanceof JComponent)
+        {
           ((JComponent) source).setAutoscrolls(autoscrolls);
         }
       }
 
       @Override
-      public void mouseDragged(MouseEvent e) {
+      public void mouseDragged(MouseEvent e)
+      {
         if (!resizing)
           return;
 
@@ -192,12 +220,14 @@ public class gui_HalcyonFrame implements Runnable {
         changeBounds(source, direction, bounds, pressed, dragged);
       }
 
-      protected void changeBounds(Component source, int direction, Rectangle bounds, Point pressed, Point current) {
+      protected void changeBounds(Component source, int direction, Rectangle bounds, Point pressed, Point current)
+      {
         int x = bounds.x;
         int y = bounds.y;
         int width = bounds.width;
         int height = bounds.height;
-        if (WEST == (direction & WEST)) {
+        if (WEST == (direction & WEST))
+        {
           int drag = getDragDistance(pressed.x, current.x, snapSize.width);
           int maximum = Math.min(width + x, maximumSize.width);
           drag = getDragBounded(drag, snapSize.width, width, minimumSize.width, maximum);
@@ -206,7 +236,8 @@ public class gui_HalcyonFrame implements Runnable {
           width += drag;
         }
 
-        if (NORTH == (direction & NORTH)) {
+        if (NORTH == (direction & NORTH))
+        {
           int drag = getDragDistance(pressed.y, current.y, snapSize.height);
           int maximum = Math.min(height + y, maximumSize.height);
           drag = getDragBounded(drag, snapSize.height, height, minimumSize.height, maximum);
@@ -214,7 +245,8 @@ public class gui_HalcyonFrame implements Runnable {
           y -= drag;
           height += drag;
         }
-        if (EAST == (direction & EAST)) {
+        if (EAST == (direction & EAST))
+        {
           int drag = getDragDistance(current.x, pressed.x, snapSize.width);
           Dimension boundingSize = getBoundingSize(source);
           int maximum = Math.min(boundingSize.width - x, maximumSize.width);
@@ -222,7 +254,8 @@ public class gui_HalcyonFrame implements Runnable {
           width += drag;
         }
 
-        if (SOUTH == (direction & SOUTH)) {
+        if (SOUTH == (direction & SOUTH))
+        {
           int drag = getDragDistance(current.y, pressed.y, snapSize.height);
           Dimension boundingSize = getBoundingSize(source);
           int maximum = Math.min(boundingSize.height - y, maximumSize.height);
@@ -234,7 +267,8 @@ public class gui_HalcyonFrame implements Runnable {
         source.validate();
       }
 
-      private int getDragDistance(int larger, int smaller, int snapSize) {
+      private int getDragDistance(int larger, int smaller, int snapSize)
+      {
         int halfway = snapSize / 2;
         int drag = larger - smaller;
         drag += (drag < 0) ? -halfway : halfway;
@@ -243,7 +277,8 @@ public class gui_HalcyonFrame implements Runnable {
         return drag;
       }
 
-      private int getDragBounded(int drag, int snapSize, int dimension, int minimum, int maximum) {
+      private int getDragBounded(int drag, int snapSize, int dimension, int minimum, int maximum)
+      {
         while (dimension + drag < minimum)
           drag += snapSize;
 
@@ -253,12 +288,15 @@ public class gui_HalcyonFrame implements Runnable {
         return drag;
       }
 
-      private Dimension getBoundingSize(Component source) {
-        if (source instanceof Window) {
+      private Dimension getBoundingSize(Component source)
+      {
+        if (source instanceof Window)
+        {
           GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
           Rectangle bounds = env.getMaximumWindowBounds();
           return new Dimension(bounds.width, bounds.height);
-        } else {
+        } else
+        {
           return source.getParent().getSize();
         }
       }
@@ -271,16 +309,19 @@ public class gui_HalcyonFrame implements Runnable {
     private int pX = 0;
     private int pY = 0;
 
-    public TitledFrame(final TitleBarConfig conf, final int tH, final JComponent content, Runnable endExec) {
+    public TitledFrame(final TitleBarConfig conf, final int tH, final JComponent content, Runnable endExec)
+    {
       this(conf, tH, content);
       frame.addWindowListener(new WindowAdapter() {
         @Override
-        public void windowClosing(WindowEvent e) {
+        public void windowClosing(WindowEvent e)
+        {
           endExec.run();
         }
 
         @Override
-        public void windowClosed(WindowEvent e) {
+        public void windowClosed(WindowEvent e)
+        {
           endExec.run();
         }
       });
@@ -288,15 +329,18 @@ public class gui_HalcyonFrame implements Runnable {
 
     public static ComponentResizer cr = new ComponentResizer();
 
-    public TitledFrame(final TitleBarConfig conf, final int tH, final JComponent content) {
+    public TitledFrame(final TitleBarConfig conf, final int tH, final JComponent content)
+    {
       int titleHeightOffSub = 4;
       int contentOff = tH - titleHeightOffSub;
 
       frame = new JFrame();
-      if (tH <= titleHeightOffSub || !Toolkit.getDefaultToolkit().isFrameStateSupported(Frame.MAXIMIZED_BOTH)) {
+      if (tH <= titleHeightOffSub || !Toolkit.getDefaultToolkit().isFrameStateSupported(Frame.MAXIMIZED_BOTH))
+      {
         frame.setUndecorated(false);
         this.titleHeight = 0;
-      } else {
+      } else
+      {
         frame.setUndecorated(true);
         this.titleHeight = tH;
       }
@@ -315,7 +359,8 @@ public class gui_HalcyonFrame implements Runnable {
           || !(content.getMaximumSize().width == content.getPreferredSize().width
               && content.getMaximumSize().height == content.getPreferredSize().height)
           || (content.getMaximumSize().width <= frame.getMaximumSize().width
-              && content.getMaximumSize().height <= frame.getMaximumSize().height)) {
+              && content.getMaximumSize().height <= frame.getMaximumSize().height))
+      {
         cr.registerComponent(frame);
         frame.addMouseListener(cr);
       }
@@ -331,27 +376,32 @@ public class gui_HalcyonFrame implements Runnable {
       titleBar.setPreferredSize(new Dimension(content.getPreferredSize().width, titleHeight));
       titleBar.addComponentListener(new ComponentAdapter() {
         @Override
-        public void componentResized(ComponentEvent e) {
-          if (titleBar.getPreferredSize().height > titleHeight) {
+        public void componentResized(ComponentEvent e)
+        {
+          if (titleBar.getPreferredSize().height > titleHeight)
+          {
             titleBar.setSize(new Dimension(frame.getPreferredSize().width, titleHeight));
           }
         }
       });
       titleBar.addMouseListener(new MouseAdapter() {
         @Override
-        public void mousePressed(MouseEvent me) {
+        public void mousePressed(MouseEvent me)
+        {
           pX = me.getX();
           pY = me.getY();
         }
 
         @Override
-        public void mouseDragged(MouseEvent me) {
+        public void mouseDragged(MouseEvent me)
+        {
           frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
         }
       });
       titleBar.addMouseMotionListener(new MouseMotionAdapter() {
         @Override
-        public void mouseDragged(MouseEvent me) {
+        public void mouseDragged(MouseEvent me)
+        {
           frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
         }
       });
@@ -383,13 +433,15 @@ public class gui_HalcyonFrame implements Runnable {
       if (conf.bgMis != null)
         btns.add(gen_Button(conf.bgMis, () -> {
         }));
-      if (conf.bgExp != null) {
+      if (conf.bgExp != null)
+      {
         btns.add(gen_Button(conf.bgExp, () -> {
           frame.setExtendedState(maximizedFrame ? Frame.NORMAL : Frame.MAXIMIZED_BOTH);
           maximizedFrame = !maximizedFrame;
         }));
       }
-      if (conf.bgMini != null) {
+      if (conf.bgMini != null)
+      {
         btns.add(gen_Button(conf.bgMini, () -> frame.setState(Frame.ICONIFIED)));
       }
       btns.add(gen_Button(conf.bgClose, frame::dispose));
@@ -397,7 +449,8 @@ public class gui_HalcyonFrame implements Runnable {
       JLabel titleBarICO = new JLabel(conf.icon != null
           ? new ImageIcon(conf.icon.getImage().getScaledInstance(contentOff, contentOff, Image.SCALE_AREA_AVERAGING))
           : new ImageIcon());
-      if (conf.icon == null) {
+      if (conf.icon == null)
+      {
         titleBarICO.setPreferredSize(new Dimension(titleHeight, titleHeight));
         titleBarICO.setOpaque(true);
         titleBarICO.setBackground(conf.fg);
@@ -418,11 +471,13 @@ public class gui_HalcyonFrame implements Runnable {
       frame.getContentPane().add(bigPane);
     }
 
-    public void askStatus(struct_Trio<ImageIcon, String, Optional<Runnable>> exec, boolean autoresize) {
+    public void askStatus(struct_Trio< ImageIcon, String, Optional< Runnable > > exec, boolean autoresize)
+    {
       pstream.log.info("Status Update for frame title: " + exec.second);
       use_Task.run_Snb_1(() -> {
         status.setToolTipText(exec.second);
-        if (autoresize) {
+        if (autoresize)
+        {
           exec.first.setImage(use_Image
               .resize_fast_1(status.getPreferredSize().width, status.getPreferredSize().height, exec.first).getImage());
         }
@@ -434,7 +489,8 @@ public class gui_HalcyonFrame implements Runnable {
       });
     }
 
-    public void askStatus() {
+    public void askStatus()
+    {
       pstream.log.info("Status cancelling...");
       use_Task.run_Snb_1(() -> {
         status.setToolTipText(null);
@@ -442,40 +498,47 @@ public class gui_HalcyonFrame implements Runnable {
       });
     }
 
-    public JFrame expose() {
+    public JFrame expose()
+    {
       return frame;
     }
 
-    private static class TitleBarButton extends JButton {
+    private static class TitleBarButton extends JButton
+    {
       private boolean hovering = false;
       private final int size;
       private final Color clr;
 
-      public TitleBarButton(int size, Color color, Runnable func) {
+      public TitleBarButton(int size, Color color, Runnable func)
+      {
         this.size = size;
         this.clr = color;
 
         addMouseListener(new MouseAdapter() {
           @Override
-          public void mousePressed(MouseEvent e) {
+          public void mousePressed(MouseEvent e)
+          {
             hovering = true;
             SwingUtilities.invokeLater(() -> repaint(50L));
           }
 
           @Override
-          public void mouseExited(MouseEvent e) {
+          public void mouseExited(MouseEvent e)
+          {
             hovering = false;
             SwingUtilities.invokeLater(() -> repaint(50L));
           }
 
           @Override
-          public void mouseEntered(MouseEvent e) {
+          public void mouseEntered(MouseEvent e)
+          {
             hovering = true;
             SwingUtilities.invokeLater(() -> repaint(50L));
           }
 
           @Override
-          public void mouseClicked(MouseEvent e) {
+          public void mouseClicked(MouseEvent e)
+          {
             hovering = true;
             SwingUtilities.invokeLater(() -> repaint(50L));
           }
@@ -490,12 +553,14 @@ public class gui_HalcyonFrame implements Runnable {
       }
 
       @Override
-      public void paintComponent(Graphics g) {
+      public void paintComponent(Graphics g)
+      {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(clr);
         g2.fillOval(0, 0, size, size);
-        if (hovering && this.clr != null) {
+        if (hovering && this.clr != null)
+        {
           g2.setColor(clr.darker().darker());
           // ON LOW RES SCREENS, MUST BE ODD NUMBER TO WORK PROPERLY WITH
           int SMALL_RADIUS = 7;
@@ -507,12 +572,14 @@ public class gui_HalcyonFrame implements Runnable {
 
     }
 
-    private static JButton gen_Button(Color color, Runnable func) {
+    private static JButton gen_Button(Color color, Runnable func)
+    {
       return new TitleBarButton(13, color, func);
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
       /*--------------------------------------------------------------------------------------- /
       / AHHH there's some funky shit with why it sometimes renders the frame with Transparency. /
       /----------------------------------------------------------------------------------------*/
@@ -522,7 +589,8 @@ public class gui_HalcyonFrame implements Runnable {
     }
   }
 
-  public static class TitleBarConfig {
+  public static class TitleBarConfig
+  {
     public String titleStr;
     public ImageIcon icon;
     public Color fg, bg, bgClose, bgMini, bgExp, bgMis, borderColor;
@@ -530,7 +598,8 @@ public class gui_HalcyonFrame implements Runnable {
 
     // required parameters: 8
     public TitleBarConfig(String str, ImageIcon ico, Font titleStrFont, Color fg, Color bg, Color bgClose, Color bgMini,
-        Color bgExp, Color bgMis, Color borderColor) {
+        Color bgExp, Color bgMis, Color borderColor)
+    {
       this.titleStr = str;
       this.icon = ico;
       this.fg = fg;
@@ -546,8 +615,10 @@ public class gui_HalcyonFrame implements Runnable {
 
   private final TitledFrame frame;
 
-  public gui_HalcyonFrame(JComponent top, JComponent bottom) {
-    if (const_Manager.DEBUG_GRAPHICS) {
+  public gui_HalcyonFrame(JComponent top, JComponent bottom)
+  {
+    if (const_Manager.DEBUG_GRAPHICS)
+    {
       top.setOpaque(true);
       top.setBackground(use_Color.rndColor());
       bottom.setOpaque(true);
@@ -569,7 +640,8 @@ public class gui_HalcyonFrame implements Runnable {
 
     frame.expose().addWindowListener(new WindowAdapter() {
       @Override
-      public void windowClosed(WindowEvent e) {
+      public void windowClosed(WindowEvent e)
+      {
         /*------------------------------------------------------------------------------ /
         / dont have to wait for the JVM to actually realise the root component is gone!! /
         /-------------------------------------------------------------------------------*/
@@ -582,16 +654,19 @@ public class gui_HalcyonFrame implements Runnable {
   /**
    * @return JFrame
    */
-  public final JFrame expose() {
+  public final JFrame expose()
+  {
     return frame.expose();
   }
 
-  public final TitledFrame expose_internal() {
+  public final TitledFrame expose_internal()
+  {
     return frame;
   }
 
   @Override
-  public final void run() {
+  public final void run()
+  {
     frame.run();
   }
 }

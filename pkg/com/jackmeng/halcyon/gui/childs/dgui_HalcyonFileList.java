@@ -7,8 +7,8 @@ import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_Manager;
 import com.jackmeng.halcyon.use_HalcyonProperties;
 import com.jackmeng.sys.pstream;
+import com.jackmeng.tailwind.use_TailwindPlaylist;
 import com.jackmeng.util.use_Image;
-import com.jackmeng.util.use_Playlist;
 import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_Struct.struct_Pair;
 import com.jackmeng.util.use_Struct.struct_Trio;
@@ -30,7 +30,7 @@ import java.util.Optional;
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
 public class dgui_HalcyonFileList extends JScrollPane implements
-    impl_HalcyonRefreshable<struct_Pair<Optional<String>, Optional<use_Playlist>>> {
+    impl_HalcyonRefreshable<struct_Pair<Optional<String>, Optional<use_TailwindPlaylist>>> {
 
   private final TitledBorder border = BorderFactory.createTitledBorder(_lang(LANG_FILELIST_BORDER_TITLE));
   private final JTabbedPane pane;
@@ -179,7 +179,7 @@ public class dgui_HalcyonFileList extends JScrollPane implements
   /**
    * @param list
    */
-  public void pokeFileList(use_Playlist list) {
+  public void pokeFileList(use_TailwindPlaylist list) {
     pstream.log.warn("Poking new playlist: " + list);
 
     DefaultMutableTreeNode root = new DefaultMutableTreeNode(list.getParent());
@@ -245,7 +245,7 @@ public class dgui_HalcyonFileList extends JScrollPane implements
    * @param refreshed
    */
   @Override
-  public void refresh(struct_Pair<Optional<String>, Optional<use_Playlist>> refreshed) {
+  public void refresh(struct_Pair<Optional<String>, Optional<use_TailwindPlaylist>> refreshed) {
     refreshed.second.ifPresent(this::pokeFileList);
   }
 

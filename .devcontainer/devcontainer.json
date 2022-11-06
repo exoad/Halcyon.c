@@ -14,21 +14,21 @@
 			"NODE_VERSION": "16"
 		}
 	},
-
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
 		"vscode": {
 			// Set *default* container specific settings.json values on container create.
-			"settings": { 
+			"settings": {
 				"java.import.gradle.java.home": "/usr/local/sdkman/candidates/java/current",
-				"java.configuration.runtimes": [{
-					"default": true,
-					"name": "JavaSE-1.8",
-					"path": "/usr/local/sdkman/candidates/java/current"
-				}]
+				"java.configuration.runtimes": [
+					{
+						"default": true,
+						"name": "JavaSE-1.8",
+						"path": "/usr/local/sdkman/candidates/java/current"
+					}
+				]
 			},
-			
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"vscjava.vscode-java-pack",
@@ -56,13 +56,10 @@
 			]
 		}
 	},
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
-
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "java -version",
-
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
 	"features": {

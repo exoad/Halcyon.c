@@ -23,11 +23,13 @@ import java.util.Optional;
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
 public class dgui_HalcyonApps extends JPanel
-    implements impl_HalcyonRefreshable<struct_Pair<Optional<String>, Optional<impl_App>>> {
+    implements impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< impl_App > > >
+{
 
   private transient gui_HalcyonMoreApps apps;
 
-  public dgui_HalcyonApps() {
+  public dgui_HalcyonApps()
+  {
     /*----------------------------------------------------------------------------- /
     / !!: make the current dir be able to dynamic or where the user last selected /
     /------------------------------------------------------------------------------*/
@@ -48,7 +50,8 @@ public class dgui_HalcyonApps extends JPanel
         const_Manager.DGUI_APPS_APPS_ICON_VGAP));
     setFont(use_HalcyonProperties.regularFont());
 
-    if (const_Manager.DEBUG_GRAPHICS) {
+    if (const_Manager.DEBUG_GRAPHICS)
+    {
       setOpaque(true);
       setBackground(use_Color.rndColor());
     }
@@ -95,8 +98,10 @@ public class dgui_HalcyonApps extends JPanel
   /**
    * @param r
    */
-  private void addApp(impl_App r) {
-    if (!(r instanceof impl_Ploogin)) {
+  private void addApp(impl_App r)
+  {
+    if (!(r instanceof impl_Ploogin))
+    {
       use_Task.run_Snb_1(() -> {
         JButton btn = new JButton();
         btn.setToolTipText(r.toolTip());
@@ -104,11 +109,13 @@ public class dgui_HalcyonApps extends JPanel
         btn.setOpaque(true);
         btn.setBorder(BorderFactory.createEmptyBorder());
         btn.addActionListener(e -> r.run());
-        if (!const_Manager.DEBUG_GRAPHICS) {
+        if (!const_Manager.DEBUG_GRAPHICS)
+        {
           btn.setBackground(null);
           btn.setRolloverEnabled(false);
           btn.setContentAreaFilled(false);
-        } else {
+        } else
+        {
           btn.setBackground(use_Color.rndColor());
         }
         r.rolloverIcon().ifPresent(rol -> {
@@ -127,31 +134,37 @@ public class dgui_HalcyonApps extends JPanel
    * @param iconLocale
    * @return impl_App
    */
-  public static impl_App make_DefaultApp(String tooltip, Runnable run, String iconLocale) {
+  public static impl_App make_DefaultApp(String tooltip, Runnable run, String iconLocale)
+  {
     return new impl_App() {
       @Override
-      public void run() {
+      public void run()
+      {
         run.run();
       }
 
       @Override
-      public ImageIcon icon() {
+      public ImageIcon icon()
+      {
         return use_Image.resize_fast_1(const_Manager.DGUI_APPS_ICON_BTN_WIDTH, const_Manager.DGUI_APPS_ICON_BTN_WIDTH,
             use_ResourceFetcher.fetcher.getFromAsImageIcon(iconLocale));
       }
 
       @Override
-      public String toolTip() {
+      public String toolTip()
+      {
         return tooltip;
       }
 
       @Override
-      public Optional<ImageIcon> rolloverIcon() {
+      public Optional< ImageIcon > rolloverIcon()
+      {
         return Optional.of(icon());
       }
 
       @Override
-      public String id() {
+      public String id()
+      {
         return new File(iconLocale).getName();
       }
     };
@@ -161,12 +174,14 @@ public class dgui_HalcyonApps extends JPanel
    * @param refreshed
    */
   @Override
-  public void refresh(struct_Pair<Optional<String>, Optional<impl_App>> refreshed) {
+  public void refresh(struct_Pair< Optional< String >, Optional< impl_App > > refreshed)
+  {
     refreshed.second.ifPresent(this::addApp);
   }
 
   @Override
-  public void dry_refresh() {
+  public void dry_refresh()
+  {
     const_Global.APPS_POOL.objs().forEach(x -> addApp(const_Global.APPS_POOL.get(x)));
   }
 }

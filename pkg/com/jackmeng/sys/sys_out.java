@@ -1,6 +1,7 @@
 package com.jackmeng.sys;
 
-public final class sys_out {
+public final class sys_out
+{
   public native void out(String str);
 
   public native void debug(Object t);

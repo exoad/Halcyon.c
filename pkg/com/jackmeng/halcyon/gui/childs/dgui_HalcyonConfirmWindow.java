@@ -9,10 +9,14 @@ import com.jackmeng.util.use_ResourceFetcher;
 
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
-public class dgui_HalcyonConfirmWindow extends gui_HalcyonGenericWindow {
+public class dgui_HalcyonConfirmWindow extends gui_HalcyonGenericWindow
+{
 
-  public dgui_HalcyonConfirmWindow(String title, String content_HTML, Runnable onConfirm, Runnable onDeny, JFrame parent) {
-    super(use_ResourceFetcher.fetcher.getFromAsImageIcon("resources/app/oh_no.png"), title, content_HTML, const_ColorManager.DEFAULT_YELLOW_FG, parent);
+  public dgui_HalcyonConfirmWindow(String title, String content_HTML, Runnable onConfirm, Runnable onDeny,
+      JFrame parent)
+  {
+    super(use_ResourceFetcher.fetcher.getFromAsImageIcon("resources/app/oh_no.png"), title, content_HTML,
+        const_ColorManager.DEFAULT_YELLOW_FG, parent);
 
     JButton confirm = new JButton(_lang(LANG_CONFIRM_WINDOW_CONFIRM_BUTTON_OK));
     confirm.setOpaque(true);

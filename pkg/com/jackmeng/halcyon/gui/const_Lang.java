@@ -2,8 +2,10 @@ package com.jackmeng.halcyon.gui;
 
 import com.jackmeng.halcyon.use_HalcyonProperties;
 
-public final class const_Lang {
-  private const_Lang() {
+public final class const_Lang
+{
+  private const_Lang()
+  {
   }
 
   public static final String LANG_EXCEPTION_OH_SOMETHING_WENT_WRONG_CONTENT = "exception_oh_something_went_wrong_content";
@@ -38,7 +40,8 @@ public final class const_Lang {
    * @param key
    * @return String
    */
-  public static String _lang(String key) {
+  public static String _lang(String key)
+  {
     return use_HalcyonProperties.lang(key);
   }
 }

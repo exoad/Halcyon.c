@@ -1,93 +1,104 @@
 package com.jackmeng.tailwind;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.jaudiotagger.audio.AudioFile;
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.AudioHeader;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
+import com.jackmeng.halcyon.apps.impl_Identifiable;
 
-import com.jackmeng.sys.pstream;
-
-import static com.jackmeng.util.use_Primitives.str_empty;
-import static com.jackmeng.halcyon.gui.const_Lang.*;
-
-public class use_Tailwind {
+public class use_Tailwind implements impl_Identifiable, impl_Tailwind, Cloneable
+{
   /*----------------------------------------------------- /
   / master class for the tailwind audio processor and the /
   / "frontman" for the library                            /
   /------------------------------------------------------*/
 
-  public enum tailwind_Tags {
-    MEDIA_ARTIST,
-    MEDIA_ART,
-    MEDIA_ABSOLUTE_LOCATION,
-    MEDIA_DURATION,
-    MEDIA_BITRATE,
-    MEDIA_SAMPLERATE,
-    MEDIA_ALBUM,
-    MEDIA_GENRE
+  public enum tailwind_Status {
+    PAUSED, PLAYING, CLOSED, STOPPED;
   }
 
-  private File content;
-  private Tag tag;
-  private AudioHeader header;
-  private Map<tailwind_Tags, Object> tags;
+  private List< evnt_TailwindStatus > statusListener;
+  private use_TailwindTrack currentTrack; // AKA the starting track, can be NULL
 
-  public use_Tailwind(URL path) {
-    this(new File(path.getFile()));
+  private final Object lock = new Object();
+
+  public use_Tailwind(use_TailwindTrack e)
+  {
+    this.currentTrack = e;
+    statusListener = new ArrayList<>();
   }
 
-  public use_Tailwind(File file) {
-    /*----------------------------------------------------------------------------------------------- /
-    / no direct re-assignment of the variable "content" should be used as SetContentFile specifically /
-    / specifies a refresh of the tags generated thus permitting reuse of the same object              /
-    /------------------------------------------------------------------------------------------------*/
-    setContentFile(file);
+  public use_Tailwind()
+  {
+    this(null);
   }
 
-  public use_Tailwind(String filePath) {
-    this(new File(filePath));
+  private void run_ping(tailwind_Status e)
+  {
+    statusListener.forEach(x -> x.forYou(e));
   }
 
-  private void _init() {
-    /*------------------------------------------------------------------------------------------ /
-    / this method uses the default configured content file and generates the specified data from /
-    / that recognized file                                                                       /
-    /-------------------------------------------------------------------------------------------*/
-    AudioFile r = null;
-    try {
-      r = AudioFileIO.read(content);
-    } catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
-      pstream.log.err(e);
+  public use_TailwindTrack current_track()
+  {
+    return currentTrack;
+  }
+
+  public void set_curr_track(use_TailwindTrack e)
+  {
+    synchronized (lock)
+    {
+      currentTrack = e;
     }
-    if(r != null) {
-      tag = r.getTag();
-      header = r.getAudioHeader();
-    }
-    tags = new WeakHashMap<>();
-    tags.put(tailwind_Tags.MEDIA_ABSOLUTE_LOCATION, header == null ? "0" : header.getBitRate());
-    tags.put(tailwind_Tags.MEDIA_GENRE, tag == null || str_empty(tag.getFirst(FieldKey.GENRE)) ? _lang(LANG_UNKNOWN) : tag.getFirst(FieldKey.GENRE));
-    /*----------------------------------------------------- /
-    / tags.put(tailwind_Tags.MEDIA_ABSOLUTE_LOCATION,) /
-    /------------------------------------------------------*/
   }
 
-  public void setContentFile(File f) {
-    this.content = f;
-    _init();
+  public void add_status_listener(evnt_TailwindStatus e)
+  {
+    statusListener.add(e);
   }
 
-  public File getContentFile() {
-    return content;
+  public void rm_status_listener(evnt_TailwindStatus e)
+  {
+    statusListener.remove(e);
   }
+
+  @Override
+  public void play()
+  {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void play(use_TailwindTrack e)
+  {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void pause()
+  {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void close()
+  {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public long time_ms()
+  {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public Object clone() throws CloneNotSupportedException
+  {
+    return super.clone();
+  }
+
 }

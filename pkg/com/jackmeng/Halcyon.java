@@ -9,14 +9,15 @@ import com.jackmeng.sys.*;
 
 import java.io.File;
 
-
 /*------------------------- /
 / unused imports are stupid /
 /--------------------------*/
 
-public final class Halcyon {
+public final class Halcyon
+{
 
-   public static void __LINK__() {
+   public static void __LINK__()
+   {
       File r = new File("hlib/");
       System.setProperty("java.library.path", r.getAbsolutePath());
       /*---------------------------------------- /
@@ -24,7 +25,8 @@ public final class Halcyon {
       /-----------------------------------------*/
       for (File t : r.listFiles((x, y) -> {
          return y.endsWith("." + use_Program.arch_lib_extension());
-      })) {
+      }))
+      {
          System.out.println("[!] :D PRE_REQ: loading library: " + t.getAbsolutePath());
          System.load(t.getAbsolutePath());
       }
@@ -33,25 +35,30 @@ public final class Halcyon {
 
    public static gui_HalcyonFrame main;
 
-   private Halcyon() {
+   private Halcyon()
+   {
    }
 
    /**
     * @param args
     */
-   public static void main(String... args) {
+   public static void main(String... args)
+   {
       __LINK__();
       use_HalcyonFolder.FOLDER.load_conf();
-      try {
+      try
+      {
          /*--------------- /
          / startup process /
          /----------------*/
          pstream.log.info("Hello world! (Now loading:) Booting Halcyon (" + use_Program.pid_2() + ")");
          final long time = System.currentTimeMillis();
          pstream.log.info("Initing properties...");
-         try {
+         try
+         {
             use_HalcyonProperties.init_properties();
-         } catch (Exception e) {
+         } catch (Exception e)
+         {
             pstream.log.err(e);
          }
          /*------------------------------------ /
@@ -90,7 +97,8 @@ public final class Halcyon {
          }, "halcyon-defaultShutdownHook");
 
          Runtime.getRuntime().addShutdownHook(yan_wang);
-      } catch (Exception e) {
+      } catch (Exception e)
+      {
          use_HalcyonFolder.FOLDER.log(e);
          use_Program.error_gui(e);
       }

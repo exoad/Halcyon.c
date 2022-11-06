@@ -9,15 +9,19 @@ import java.awt.image.BufferedImageOp;
 import java.awt.image.ColorModel;
 import java.util.Collections;
 
-public final class use_ImgStrat {
-  private use_ImgStrat() {
+public final class use_ImgStrat
+{
+  private use_ImgStrat()
+  {
   }
 
-  public static class imgstrat_BlurhashBlur implements BufferedImageOp {
+  public static class imgstrat_BlurhashBlur implements BufferedImageOp
+  {
     private int x, y;
     private double punch;
 
-    public imgstrat_BlurhashBlur(int xRatio, int yRatio, double strength) {
+    public imgstrat_BlurhashBlur(int xRatio, int yRatio, double strength)
+    {
       this.x = xRatio;
       this.y = yRatio;
       this.punch = strength < 0 ? 1.2D : strength;
@@ -26,38 +30,47 @@ public final class use_ImgStrat {
       /-------------------------------------------------------------------------*/
     }
 
-    public int x_ratio() {
+    public int x_ratio()
+    {
       return x;
     }
 
-    public double strength() {
+    public double strength()
+    {
       return punch;
     }
 
-    public void set_strength(double e) {
+    public void set_strength(double e)
+    {
       this.punch = e;
     }
 
-    public int y_ratio() {
+    public int y_ratio()
+    {
       return y;
     }
 
-    public void set_y_ratio(int y) {
+    public void set_y_ratio(int y)
+    {
       this.y = y;
     }
 
-    public void set_x_ratio(int x) {
+    public void set_x_ratio(int x)
+    {
       this.x = x;
     }
 
     @Override
-    public Rectangle2D getBounds2D(BufferedImage srcum) {
+    public Rectangle2D getBounds2D(BufferedImage srcum)
+    {
       return new Rectangle(0, 0, srcum.getWidth(), srcum.getHeight());
     }
 
     @Override
-    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM) {
-      if (cumCM == null) {
+    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
+    {
+      if (cumCM == null)
+      {
         cumCM = srcum.getColorModel();
       }
       return new BufferedImage(cumCM,
@@ -67,20 +80,24 @@ public final class use_ImgStrat {
     }
 
     @Override
-    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt) {
+    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
+    {
       return (Point2D) srcumPt.clone();
     }
 
     @Override
-    public RenderingHints getRenderingHints() {
+    public RenderingHints getRenderingHints()
+    {
       return (RenderingHints) Collections.emptyMap();
     }
 
     @Override
-    public BufferedImage filter(BufferedImage srcum, BufferedImage cum) {
+    public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
+    {
       int width = srcum.getWidth();
       int height = srcum.getHeight();
-      if (cum == null) {
+      if (cum == null)
+      {
         cum = createCompatibleDestImage(srcum, null);
       }
 
@@ -94,14 +111,16 @@ public final class use_ImgStrat {
 
   }
 
-  public static class imgstrat_TransposedGaussianBlur implements BufferedImageOp {
+  public static class imgstrat_TransposedGaussianBlur implements BufferedImageOp
+  {
     private float[] matrix;
 
     /*------------------------------------------------------------------- /
     / you can call the tranpose twice to untranspose it with effects kept /
     /--------------------------------------------------------------------*/
 
-    public imgstrat_TransposedGaussianBlur(float[] matrix) {
+    public imgstrat_TransposedGaussianBlur(float[] matrix)
+    {
       /*-------------------------------------------------------------- /
       / the matrix determines the amount of artifacts kept and removed /
       /---------------------------------------------------------------*/
@@ -109,18 +128,22 @@ public final class use_ImgStrat {
       this.matrix = matrix;
     }
 
-    public imgstrat_TransposedGaussianBlur() {
+    public imgstrat_TransposedGaussianBlur()
+    {
       this(new float[] { 0.00599F, 0.060628F, 0.241844F, 0.383113F, 0.241823F, 0.060636F, 0.00528F });
     }
 
     @Override
-    public Rectangle2D getBounds2D(BufferedImage srcum) {
+    public Rectangle2D getBounds2D(BufferedImage srcum)
+    {
       return new Rectangle(0, 0, srcum.getWidth(), srcum.getHeight());
     }
 
     @Override
-    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM) {
-      if (cumCM == null) {
+    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
+    {
+      if (cumCM == null)
+      {
         cumCM = srcum.getColorModel();
       }
       return new BufferedImage(cumCM,
@@ -130,28 +153,35 @@ public final class use_ImgStrat {
     }
 
     @Override
-    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt) {
+    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
+    {
       return (Point2D) srcumPt.clone();
     }
 
     @Override
-    public RenderingHints getRenderingHints() {
+    public RenderingHints getRenderingHints()
+    {
       return (RenderingHints) Collections.emptyMap();
     }
 
     @Override
-    public BufferedImage filter(BufferedImage srcum, BufferedImage cum) {
+    public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
+    {
       int width = srcum.getWidth();
       int height = srcum.getHeight();
 
-      if (cum == null) {
+      if (cum == null)
+      {
         cum = createCompatibleDestImage(srcum, null);
       }
 
-      for (int i = 0; i < height; i++) {
-        for (int j = 3; j < width - 3; j++) {
+      for (int i = 0; i < height; i++)
+      {
+        for (int j = 3; j < width - 3; j++)
+        {
           float r = 0F, g = 0F, b = 0F;
-          for (int d = 0; d < matrix.length; d++) {
+          for (int d = 0; d < matrix.length; d++)
+          {
             int px = srcum.getRGB(j + d - 3, i);
             b += (px & 0xFF) * matrix[d];
             g += ((px >> 8) & 0xFF) * matrix[d];
@@ -165,20 +195,24 @@ public final class use_ImgStrat {
     }
   }
 
-  public static class imgstrat_StackBlur implements BufferedImageOp {
+  public static class imgstrat_StackBlur implements BufferedImageOp
+  {
     private int radius, iterations;
 
-    public imgstrat_StackBlur(int radius, int itr) {
+    public imgstrat_StackBlur(int radius, int itr)
+    {
       this.radius = radius;
       this.iterations = itr;
     }
 
     @Override
-    public BufferedImage filter(BufferedImage srcum, BufferedImage cum) {
+    public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
+    {
       int width = srcum.getWidth();
       int height = srcum.getHeight();
 
-      if (cum == null) {
+      if (cum == null)
+      {
         cum = createCompatibleDestImage(srcum, null);
       }
 
@@ -186,7 +220,8 @@ public final class use_ImgStrat {
       int[] cum_px = new int[width * height];
 
       use_Image.pixels(srcum, 0, 0, width, height, srcum_px);
-      for (int i = 0; i < iterations; i++) {
+      for (int i = 0; i < iterations; i++)
+      {
         imgstrat_FastBlur.blur(srcum_px, cum_px, width, height, radius);
         imgstrat_FastBlur.blur(cum_px, srcum_px, height, width, radius);
       }
@@ -195,13 +230,16 @@ public final class use_ImgStrat {
     }
 
     @Override
-    public Rectangle2D getBounds2D(BufferedImage srcum) {
+    public Rectangle2D getBounds2D(BufferedImage srcum)
+    {
       return new Rectangle(0, 0, srcum.getWidth(), srcum.getHeight());
     }
 
     @Override
-    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM) {
-      if (cumCM == null) {
+    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
+    {
+      if (cumCM == null)
+      {
         cumCM = srcum.getColorModel();
       }
       return new BufferedImage(cumCM,
@@ -211,50 +249,62 @@ public final class use_ImgStrat {
     }
 
     @Override
-    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt) {
+    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
+    {
       return (Point2D) srcumPt.clone();
     }
 
     @Override
-    public RenderingHints getRenderingHints() {
+    public RenderingHints getRenderingHints()
+    {
       return (RenderingHints) Collections.emptyMap();
     }
   }
 
-  public static class imgstrat_FastBlur implements BufferedImageOp {
+  public static class imgstrat_FastBlur implements BufferedImageOp
+  {
     private int radius;
 
-    public imgstrat_FastBlur(int radius) {
+    public imgstrat_FastBlur(int radius)
+    {
       assert radius > 0;
       this.radius = radius;
     }
 
-    public static void blur(int[] srcum, int[] cum, int width, int height, int radius) {
+    public static void blur(int[] srcum, int[] cum, int width, int height, int radius)
+    {
       final int windowSize = radius * 2 + 1;
       final int r_1 = radius + 1;
 
       int alpha_, red_, green_, bleu_, srcumIndex = 0, dstIndex, px_1;
 
       int[] sumLookupTable = new int[256 * windowSize];
-      for (int i = 0; i < sumLookupTable.length; i++) {
+      for (int i = 0; i < sumLookupTable.length; i++)
+      {
         sumLookupTable[i] = i / windowSize;
       }
 
       int[] indexLookupTable = new int[r_1];
-      if (radius < width) {
-        for (int i = 0; i < indexLookupTable.length; i++) {
+      if (radius < width)
+      {
+        for (int i = 0; i < indexLookupTable.length; i++)
+        {
           indexLookupTable[i] = i;
         }
-      } else {
-        for (int i = 0; i < width; i++) {
+      } else
+      {
+        for (int i = 0; i < width; i++)
+        {
           indexLookupTable[i] = i;
         }
-        for (int i = width; i < indexLookupTable.length; i++) {
+        for (int i = width; i < indexLookupTable.length; i++)
+        {
           indexLookupTable[i] = width - 1;
         }
       }
 
-      for (int y = 0; y < height; y++) {
+      for (int y = 0; y < height; y++)
+      {
         alpha_ = red_ = green_ = bleu_ = 0;
         dstIndex = y;
 
@@ -264,7 +314,8 @@ public final class use_ImgStrat {
         green_ += r_1 * ((px_1 >> 8) & 0xFF);
         bleu_ += r_1 * (px_1 & 0xFF);
 
-        for (int i = 1; i <= radius; i++) {
+        for (int i = 1; i <= radius; i++)
+        {
           px_1 = srcum[srcumIndex + indexLookupTable[i]];
           alpha_ += (px_1 >> 24) & 0xFF;
           red_ += (px_1 >> 16) & 0xFF;
@@ -272,7 +323,8 @@ public final class use_ImgStrat {
           bleu_ += px_1 & 0xFF;
         }
 
-        for (int x = 0; x < width; x++) {
+        for (int x = 0; x < width; x++)
+        {
           cum[dstIndex] = sumLookupTable[alpha_] << 24
               | sumLookupTable[red_] << 16
               | sumLookupTable[green_] << 8
@@ -280,12 +332,14 @@ public final class use_ImgStrat {
           dstIndex += height;
 
           int nextPixelIndex = x + r_1;
-          if (nextPixelIndex >= width) {
+          if (nextPixelIndex >= width)
+          {
             nextPixelIndex = width - 1;
           }
 
           int previousPixelIndex = x - radius;
-          if (previousPixelIndex < 0) {
+          if (previousPixelIndex < 0)
+          {
             previousPixelIndex = 0;
           }
 
@@ -310,10 +364,12 @@ public final class use_ImgStrat {
     }
 
     @Override
-    public BufferedImage filter(BufferedImage srcum, BufferedImage cum) {
+    public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
+    {
       int width = srcum.getWidth();
       int height = srcum.getHeight();
-      if (cum == null) {
+      if (cum == null)
+      {
         cum = createCompatibleDestImage(srcum, null);
       }
       int[] srcum_px = new int[width * height];
@@ -327,13 +383,16 @@ public final class use_ImgStrat {
     }
 
     @Override
-    public Rectangle2D getBounds2D(BufferedImage srcum) {
+    public Rectangle2D getBounds2D(BufferedImage srcum)
+    {
       return new Rectangle(0, 0, srcum.getWidth(), srcum.getHeight());
     }
 
     @Override
-    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM) {
-      if (cumCM == null) {
+    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
+    {
+      if (cumCM == null)
+      {
         cumCM = srcum.getColorModel();
       }
       return new BufferedImage(cumCM,
@@ -343,12 +402,14 @@ public final class use_ImgStrat {
     }
 
     @Override
-    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt) {
+    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
+    {
       return (Point2D) srcumPt.clone();
     }
 
     @Override
-    public RenderingHints getRenderingHints() {
+    public RenderingHints getRenderingHints()
+    {
       return (RenderingHints) Collections.emptyMap();
     }
 

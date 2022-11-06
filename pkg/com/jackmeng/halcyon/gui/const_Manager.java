@@ -1,6 +1,7 @@
 package com.jackmeng.halcyon.gui;
 
-public interface const_Manager {
+public interface const_Manager
+{
   int FRAME_MIN_WIDTH = 490;
   int FRAME_MIN_HEIGHT = 580;
   int FRAME_TITLEBAR_HEIGHT = 23;

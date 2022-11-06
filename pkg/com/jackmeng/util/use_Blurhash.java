@@ -12,9 +12,11 @@ import java.util.Arrays;
 / library CloudSpin                                        /
 /---------------------------------------------------------*/
 
-public final class use_Blurhash {
+public final class use_Blurhash
+{
 
-  public static final class blurhash_base83 {
+  public static final class blurhash_base83
+  {
     public static final char[] TABLE = {
         '0',
         '1',
@@ -101,14 +103,19 @@ public final class use_Blurhash {
         '~',
     };
 
-    private blurhash_base83() {
+    private blurhash_base83()
+    {
     }
 
-    public static double _max(double[][] arr) {
+    public static double _max(double[][] arr)
+    {
       double max = arr[0][0];
-      for (double[] doubles : arr) {
-        for (double aDouble : doubles) {
-          if (aDouble > max) {
+      for (double[] doubles : arr)
+      {
+        for (double aDouble : doubles)
+        {
+          if (aDouble > max)
+          {
             max = aDouble;
           }
         }
@@ -121,22 +128,29 @@ public final class use_Blurhash {
      * @param exp
      * @return double
      */
-    public static double signpow(double val, double exp) {
+    public static double signpow(double val, double exp)
+    {
       return Math.copySign(Math.pow(Math.abs(val), exp), val);
     }
 
     /**
      * Encodes with Base 83.
      *
-     * @param val    The value to encode
-     * @param length The length of the value
-     * @param buff   The buffer to write to (contains values)
-     * @param offset The offset to start writing at
+     * @param val
+     *          The value to encode
+     * @param length
+     *          The length of the value
+     * @param buff
+     *          The buffer to write to (contains values)
+     * @param offset
+     *          The offset to start writing at
      * @return The encoded value as a string
      */
-    public static String encode(long val, int length, char[] buff, int offset) {
+    public static String encode(long val, int length, char[] buff, int offset)
+    {
       int _i = 1;
-      for (int i = 1; i <= length; i++) {
+      for (int i = 1; i <= length; i++)
+      {
         int curr = (int) val / _i % 83;
         buff[offset + length - i] = TABLE[curr];
         _i *= 83;
@@ -148,7 +162,8 @@ public final class use_Blurhash {
      * @param val
      * @return long
      */
-    public static long encodeDC(double[] val) {
+    public static long encodeDC(double[] val)
+    {
       return ((((long) _as_linear(val[0])) << 16) + (((long) _as_linear(val[1])) << 8)
           + _as_linear(val[2]));
     }
@@ -158,7 +173,8 @@ public final class use_Blurhash {
      * @param m
      * @return long
      */
-    public static long encodeAC(double[] val, double m) {
+    public static long encodeAC(double[] val, double m)
+    {
       return Math
           .round((Math.floor(Math.max(0, Math.min(18, Math.floor(signpow(val[0] / m, 0.5) * 9 + 9.5))))) * 19 * 19
               + (Math.floor(Math.max(0, Math.min(18, Math.floor(signpow(val[1] / m, 0.5) * 9 + 9.5))))) * 19
@@ -168,12 +184,15 @@ public final class use_Blurhash {
     /**
      * Decodes from Base 83
      *
-     * @param str An Encoded String
+     * @param str
+     *          An Encoded String
      * @return The decoded string from base 83
      */
-    public static int decode(String str) {
+    public static int decode(String str)
+    {
       int temp = 0;
-      for (char c : str.toCharArray()) {
+      for (char c : str.toCharArray())
+      {
         int i = find(c);
         temp = temp * 83 + i;
       }
@@ -185,7 +204,8 @@ public final class use_Blurhash {
      * @param rMv
      * @param color
      */
-    public static void decodeAC(String str, double rMv, double[] color) {
+    public static void decodeAC(String str, double rMv, double[] color)
+    {
       int aV = decode(str);
       int qR = aV / (19 * 19);
       int qG = (aV / 19) % 19;
@@ -199,7 +219,8 @@ public final class use_Blurhash {
      * @param str
      * @param colors
      */
-    public static void decodeDC(String str, double[] colors) {
+    public static void decodeDC(String str, double[] colors)
+    {
       int dV = decode(str);
       colors[0] = to_linear(dV >> 16);
       colors[1] = to_linear(dV >> 8 & 0xFF);
@@ -210,9 +231,12 @@ public final class use_Blurhash {
      * @param c
      * @return int
      */
-    public static int find(char c) {
-      for (int i = 0; i < TABLE.length; i++) {
-        if (TABLE[i] == c) {
+    public static int find(char c)
+    {
+      for (int i = 0; i < TABLE.length; i++)
+      {
+        if (TABLE[i] == c)
+        {
           return i;
         }
       }
@@ -225,27 +249,35 @@ public final class use_Blurhash {
    */
   static double[] __ll = new double[256];
 
-  static {
-    for (int i = 0; i < __ll.length; i++) {
+  static
+  {
+    for (int i = 0; i < __ll.length; i++)
+    {
       double _m = i / 255.0d;
       __ll[i] = _m <= 0.04045 ? (_m / 12.92) : (Math.pow((_m + 0.055) / 1.055, 2.4));
     }
   }
 
-  private use_Blurhash() {
+  private use_Blurhash()
+  {
   }
 
   /**
    * Finds a max value in an array (2D)
    *
-   * @param val The array
+   * @param val
+   *          The array
    * @return A max value
    */
-  public static double max(double[][] val) {
+  public static double max(double[][] val)
+  {
     double max = 0;
-    for (double[] doubles : val) {
-      for (double aDouble : doubles) {
-        if (aDouble > max) {
+    for (double[] doubles : val)
+    {
+      for (double aDouble : doubles)
+      {
+        if (aDouble > max)
+        {
           max = aDouble;
         }
       }
@@ -256,22 +288,27 @@ public final class use_Blurhash {
   /**
    * Converts the given number to be within the linear range
    *
-   * @param val The number to convert
+   * @param val
+   *          The number to convert
    * @return The converted number
    */
-  public static double to_linear(int val) {
+  public static double to_linear(int val)
+  {
     return val < 0 ? __ll[0] : (val >= 256 ? __ll[255] : __ll[val]);
   }
 
   /**
    * Converts the given number to be within the sRGB range
    *
-   * @param val The number to convert
+   * @param val
+   *          The number to convert
    * @return The converted number
    */
-  public static int _as_linear(double val) {
+  public static int _as_linear(double val)
+  {
     int _l = Arrays.binarySearch(__ll, val);
-    if (_l < 0) {
+    if (_l < 0)
+    {
       _l = ~_l;
     }
     return _l < 0 ? 0 : (_l >= 256 ? 255 : _l);
@@ -280,21 +317,31 @@ public final class use_Blurhash {
   /**
    * Encodes the given values into a BlurHash
    *
-   * @param pixels     The pixels to encode
-   * @param width      The width of the image
-   * @param height     The height of the image
-   * @param componentX The x-component of the center of the image
-   * @param componentY The y-component of the center of the image
+   * @param pixels
+   *          The pixels to encode
+   * @param width
+   *          The width of the image
+   * @param height
+   *          The height of the image
+   * @param componentX
+   *          The x-component of the center of the image
+   * @param componentY
+   *          The y-component of the center of the image
    * @return The encoded BlurHash as a String
    */
-  public static String enc(int[] pixels, int width, int height, int componentX, int componentY) {
+  public static String enc(int[] pixels, int width, int height, int componentX, int componentY)
+  {
     double[][] factors = new double[componentX * componentY][3];
-    for (int j = 0; j < componentY; j++) {
-      for (int i = 0; i < componentX; i++) {
+    for (int j = 0; j < componentY; j++)
+    {
+      for (int i = 0; i < componentX; i++)
+      {
         double normalisation = (i == 0 && j == 0) ? 1 : 2;
         double r = 0, g = 0, b = 0;
-        for (int x = 0; x < width; x++) {
-          for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++)
+        {
+          for (int y = 0; y < height; y++)
+          {
             double basis = normalisation
                 * Math.cos((Math.PI * i * x) / width)
                 * Math.cos((Math.PI * j * y) / height);
@@ -319,13 +366,15 @@ public final class use_Blurhash {
     blurhash_base83.encode(sizeFlag, 1, hash, 0);
 
     double maximumValue;
-    if (factorsLength > 1) {
+    if (factorsLength > 1)
+    {
       double actualMaximumValue = max(factors);
       double quantisedMaximumValue = Math
           .floor(Math.max(0, Math.min(82, Math.floor(actualMaximumValue * 166 - 0.5))));
       maximumValue = (quantisedMaximumValue + 1) / 166;
       blurhash_base83.encode(Math.round(quantisedMaximumValue), 1, hash, 1);
-    } else {
+    } else
+    {
       maximumValue = 1;
       blurhash_base83.encode(0, 1, hash, 1);
     }
@@ -333,7 +382,8 @@ public final class use_Blurhash {
     double[] dc = factors[0];
     blurhash_base83.encode(blurhash_base83.encodeDC(dc), 4, hash, 2);
 
-    for (int i = 1; i < factorsLength; i++) {
+    for (int i = 1; i < factorsLength; i++)
+    {
       blurhash_base83.encode(blurhash_base83.encodeAC(factors[i], maximumValue), 2, hash, 4 + 2 * i);
     }
     return new String(hash);
@@ -342,16 +392,22 @@ public final class use_Blurhash {
   /**
    * Decodes the given BlurHash into an array of pixels
    *
-   * @param blurHash The BlurHash to decode (String)
-   * @param width    The width of the image
-   * @param height   The height of the image
-   * @param punch    The punch value of the image; often regarded as the
-   *                 "sharpness" of the image
+   * @param blurHash
+   *          The BlurHash to decode (String)
+   * @param width
+   *          The width of the image
+   * @param height
+   *          The height of the image
+   * @param punch
+   *          The punch value of the image; often regarded as the
+   *          "sharpness" of the image
    * @return The decoded pixels
    */
-  public static int[] dec(String blurHash, int width, int height, double punch) {
+  public static int[] dec(String blurHash, int width, int height, double punch)
+  {
     int blurHashLength = blurHash.length();
-    if (blurHashLength < 6) {
+    if (blurHashLength < 6)
+    {
       throw new IllegalArgumentException("BlurHash must be at least 6 characters long");
     }
     int sizeInfo = blurhash_base83.decode(blurHash.substring(0, 1));
@@ -363,16 +419,21 @@ public final class use_Blurhash {
 
     double[][] colors = new double[sizeX * sizeY][3];
     blurhash_base83.decodeDC(blurHash.substring(2, 6), colors[0]);
-    for (int i = 1; i < sizeX * sizeY; i++) {
+    for (int i = 1; i < sizeX * sizeY; i++)
+    {
       blurhash_base83.decodeAC(blurHash.substring(4 + i * 2, 6 + i * 2), rmV, colors[i]);
     }
     int[] pixels = new int[width * height];
     int pos = 0;
-    for (int j = 0; j < height; j++) {
-      for (int i = 0; i < width; i++) {
+    for (int j = 0; j < height; j++)
+    {
+      for (int i = 0; i < width; i++)
+      {
         double r = 0, g = 0, b = 0;
-        for (int y = 0; y < sizeY; y++) {
-          for (int x = 0; x < sizeX; x++) {
+        for (int y = 0; y < sizeY; y++)
+        {
+          for (int x = 0; x < sizeX; x++)
+          {
             double basic = Math.cos(Math.PI * x * i / width) *
                 Math.cos(Math.PI * y * j / height);
             double[] color = colors[x + y * sizeX];

@@ -4,8 +4,10 @@ import java.awt.*;
 
 import com.jackmeng.util.use_Color;
 
-public final class const_ColorManager {
-  private const_ColorManager() {
+public final class const_ColorManager
+{
+  private const_ColorManager()
+  {
   }
 
   public static Color DEFAULT_DARK_BG = use_Color.hexToRGB("#171A1E");

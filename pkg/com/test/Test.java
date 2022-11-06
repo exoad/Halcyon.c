@@ -12,8 +12,10 @@ import com.jackmeng.sys.use_Program;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_Image;
 
-public class Test {
-  public static void main(String[] args) throws Exception {
+public class Test
+{
+  public static void main(String[] args) throws Exception
+  {
     Halcyon.__LINK__();
     BufferedImage ig = ImageIO.read(new File("pkg/com/test/img.png"));
 
@@ -31,7 +33,8 @@ public class Test {
           hf.log(new Exception("Amogus"));
           return null;
         }),
-    }) {
+    })
+    {
       pstream.log.warn("Running testcase: " + i);
       e.run();
       i++;

@@ -2,7 +2,8 @@ package com.jackmeng.sys;
 
 import com.jackmeng.halcyon.use_HalcyonProperties;
 
-public interface const_FetcherBuiltin {
+public interface const_FetcherBuiltin
+{
 
   /*-------------------------------------------------------------------------------------------------- /
   / This constants struct holds information regarding things that are builtin at the boilerplate level /

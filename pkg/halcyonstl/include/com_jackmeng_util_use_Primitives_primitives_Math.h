@@ -12,16 +12,19 @@ extern "C" {
  * Method:    rnd_1
  * Signature: ([J)F
  */
-JNIEXPORT jfloat JNICALL Java_com_jackmeng_util_use_1Primitives_00024primitives_1Math_rnd_11
-  (JNIEnv *, jclass, jlongArray);
+JNIEXPORT jfloat JNICALL
+Java_com_jackmeng_util_use_1Primitives_00024primitives_1Math_rnd_11(JNIEnv *,
+                                                                    jclass,
+                                                                    jlongArray);
 
 /*
  * Class:     com_jackmeng_util_use_Primitives_primitives_Math
  * Method:    exp_dev
  * Signature: ([J)F
  */
-JNIEXPORT jfloat JNICALL Java_com_jackmeng_util_use_1Primitives_00024primitives_1Math_exp_1dev
-  (JNIEnv *, jclass, jlongArray);
+JNIEXPORT jfloat JNICALL
+Java_com_jackmeng_util_use_1Primitives_00024primitives_1Math_exp_1dev(
+    JNIEnv *, jclass, jlongArray);
 
 #ifdef __cplusplus
 }

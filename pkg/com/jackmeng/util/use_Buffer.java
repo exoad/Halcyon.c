@@ -4,11 +4,14 @@ import java.nio.ByteBuffer;
 
 import com.jackmeng.halcyon.apps.impl_PeekChunk;
 
-public final class use_Buffer {
-  private use_Buffer() {
+public final class use_Buffer
+{
+  private use_Buffer()
+  {
   }
 
-  public static class buffer_Circular {
+  public static class buffer_Circular
+  {
 
     /*----------------------------------------------------------------- /
     / generic implementation of a FIFO Circular or ring buffer strategy /
@@ -18,29 +21,36 @@ public final class use_Buffer {
 
     private int start, sz;
 
-    public buffer_Circular(int init_Size) {
+    public buffer_Circular(int init_Size)
+    {
       buffer = new byte[init_Size];
     }
 
-    public buffer_Circular() {
+    public buffer_Circular()
+    {
       this(255);
     }
 
-    public int used_sz() {
+    public int used_sz()
+    {
       return sz;
     }
 
-    public int total_sz() {
+    public int total_sz()
+    {
       return buffer.length;
     }
 
-    public int free_sz() {
+    public int free_sz()
+    {
       return total_sz() - used_sz();
     }
 
-    public void drop(int elementsCount) {
+    public void drop(int elementsCount)
+    {
       int t = elementsCount;
-      if (elementsCount > sz) {
+      if (elementsCount > sz)
+      {
         t = sz;
       }
       int sz_1 = sz - t;
@@ -49,10 +59,12 @@ public final class use_Buffer {
       sz = sz_1;
     }
 
-    public int push(byte[] data, int i, int len) {
+    public int push(byte[] data, int i, int len)
+    {
       int rem = len;
       int off = i;
-      do {
+      do
+      {
         int off_set = offset();
         int a = free(off_set);
         if (a == 0)
@@ -66,15 +78,18 @@ public final class use_Buffer {
       return len - rem;
     }
 
-    public void opush(byte[] data, int i, int len) {
+    public void opush(byte[] data, int i, int len)
+    {
       int rem = len;
       int off = i;
-      if (!overflows(len)) {
+      if (!overflows(len))
+      {
         System.arraycopy(data, i, buffer, offset(), len);
         next(len);
         return;
       }
-      do {
+      do
+      {
         int off_set = offset();
         int a = free(off_set);
         if (a == 0)
@@ -87,7 +102,8 @@ public final class use_Buffer {
       } while (rem > 0);
     }
 
-    public void init() {
+    public void init()
+    {
       /*---------------------------------------------------------------------------------------- /
       / returns the buffer to the original state, and is unnecessary for direct initalialization /
       /-----------------------------------------------------------------------------------------*/
@@ -95,15 +111,18 @@ public final class use_Buffer {
       sz = 0;
     }
 
-    private static int calc_offset(int len_0, int sz, int buff_len) {
+    private static int calc_offset(int len_0, int sz, int buff_len)
+    {
       return (sz + len_0) % buff_len;
     }
 
-    public int offset() {
+    public int offset()
+    {
       return calc_offset(start, sz, buffer.length);
     }
 
-    public void peek(impl_PeekChunk e) {
+    public void peek(impl_PeekChunk e)
+    {
       int f1 = start;
       int f1_sz = buffer.length - start;
       if (f1_sz > sz)
@@ -111,7 +130,8 @@ public final class use_Buffer {
 
       ByteBuffer f = ByteBuffer.wrap(buffer, f1, f1_sz);
       e.borrow_cheap(f);
-      if (f1_sz != sz) {
+      if (f1_sz != sz)
+      {
         int f2 = 0;
         int f2_sz = sz - f1_sz;
         ByteBuffer er = ByteBuffer.wrap(buffer, f2, f2_sz);
@@ -119,18 +139,22 @@ public final class use_Buffer {
       }
     }
 
-    public int peek(byte[] data, int i, int len) {
-      if (sz == 0) {
+    public int peek(byte[] data, int i, int len)
+    {
+      if (sz == 0)
+      {
         return 0;
       }
       int read = Math.min(len, sz);
       int offset = offset();
       int f1 = start;
       int f1_sz = buffer.length - start;
-      if (f1_sz > sz) {
+      if (f1_sz > sz)
+      {
         f1_sz = sz;
       }
-      if (f1_sz >= read) {
+      if (f1_sz >= read)
+      {
         f1_sz = read;
       }
       System.arraycopy(data, f1, data, i, f1_sz);
@@ -139,7 +163,8 @@ public final class use_Buffer {
         return f1_sz;
       int f2 = offset <= start ? 0 : sz;
       int f2_sz = buffer.length - f1_sz;
-      if (f2_sz >= read) {
+      if (f2_sz >= read)
+      {
         f2_sz = read;
       }
       System.arraycopy(data, f2, data, i + f1_sz, f2_sz);
@@ -147,29 +172,35 @@ public final class use_Buffer {
       return len - read;
     }
 
-    public int pop(byte[] bytes, int i, int len) {
+    public int pop(byte[] bytes, int i, int len)
+    {
       int read = peek(bytes, i, len);
       drop(read);
       return read;
     }
 
-    public boolean overflows(int n) {
+    public boolean overflows(int n)
+    {
       return offset() + n > buffer.length;
     }
 
-    public void next(int n) {
+    public void next(int n)
+    {
       int sz_1 = sz + n;
       int overflow = 0;
-      if (sz_1 > buffer.length) {
+      if (sz_1 > buffer.length)
+      {
         sz = buffer.length;
         overflow = sz_1 - buffer.length;
-      } else {
+      } else
+      {
         sz = sz_1;
       }
       start = calc_offset(start, overflow, buffer.length);
     }
 
-    public int free(int n) {
+    public int free(int n)
+    {
       return start >= n ? sz > 0 ? n - start : buffer.length - n : buffer.length - n;
 
     }

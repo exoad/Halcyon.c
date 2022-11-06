@@ -1,7 +1,8 @@
 package com.jackmeng.halcyon.apps;
 
 @FunctionalInterface
-public interface evnt_RemoveTab {
+public interface evnt_RemoveTab
+{
 
   /**
    * Notifies of a removed tab.
@@ -9,8 +10,8 @@ public interface evnt_RemoveTab {
    * No arguments are provided.
    */
   public void removedTab();
-                     /*-------------------------------------------------------- /
-                     / This is a pretty lame way of getting an event to be run. /
-                     / But oh well.                                             /
-                     /---------------------------------------------------------*/
+  /*-------------------------------------------------------- /
+  / This is a pretty lame way of getting an event to be run. /
+  / But oh well.                                             /
+  /---------------------------------------------------------*/
 }

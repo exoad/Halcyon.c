@@ -4,33 +4,39 @@ import com.jackmeng.halcyon.apps.impl_Callback;
 import com.jackmeng.sys.ansi_Colors;
 import com.jackmeng.sys.ansi_StrConstr;
 
-public class TestCase implements Runnable {
+public class TestCase implements Runnable
+{
   private String name;
-  private impl_Callback<?> action;
+  private impl_Callback< ? > action;
   private Object expects;
 
-  public TestCase(String name, impl_Callback<?> action) {
+  public TestCase(String name, impl_Callback< ? > action)
+  {
     this.name = name;
     this.action = action;
   }
 
-  public TestCase(String name, impl_Callback<?> action, Object expect) {
+  public TestCase(String name, impl_Callback< ? > action, Object expect)
+  {
     this(name, action);
     expects = expect;
   }
 
   @Override
-  public void run() {
+  public void run()
+  {
     System.out.println("Testcase: " + name + "\n" + action.hashCode());
     long s = Runtime.getRuntime().maxMemory()
         - (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024,
         l = System.currentTimeMillis();
     Object returns = null;
-    try {
+    try
+    {
       returns = action.call();
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       System.out.println(new ansi_StrConstr(new ansi_Colors[] { ansi_Colors.GREEN_BG, ansi_Colors.BLACK_TXT },
-                    new Object[] { "FAILED ON EXCEPTIOn" }));
+          new Object[] { "FAILED ON EXCEPTIOn" }));
       e.printStackTrace();
       return;
     }
