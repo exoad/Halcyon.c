@@ -1,4 +1,4 @@
-package com.jackmeng.halcyon.gui;
+package com.jackmeng.halcyon;
 
 import com.jackmeng.util.use_Struct.struct_Pair;
 
@@ -11,4 +11,5 @@ public final class const_MutableManager {
   / of its constants being actual immutable constants, they can be reassigned.  /
   /----------------------------------------------------------------------------*/
   public static struct_Pair<String, String> lang_locale = new struct_Pair<>("en", "");
+  public static boolean outstream = true;
 }

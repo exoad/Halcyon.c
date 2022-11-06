@@ -3,6 +3,9 @@ package com.jackmeng;
 import com.jackmeng.halcyon.gui.gui_HalcyonFrame;
 import com.jackmeng.halcyon.gui.childs.dgui_HalcyonBottom;
 import com.jackmeng.halcyon.gui.childs.dgui_HalcyonTop;
+import com.jackmeng.halcyon.const_Global;
+import com.jackmeng.halcyon.const_MutableManager;
+import com.jackmeng.halcyon.use_HalcyonFolder;
 import com.jackmeng.halcyon.use_HalcyonProperties;
 import com.jackmeng.sys.*;
 
@@ -17,12 +20,19 @@ import javax.imageio.ImageIO;
 
 public final class Halcyon {
 
-   static {
-      System.setProperty("java.library.path", new File("./hlib/").getAbsolutePath());
+   public static void __LINK__() {
+      File r = new File("hlib/");
+      System.setProperty("java.library.path", r.getAbsolutePath());
       /*---------------------------------------- /
       / actually load native libraries lets go?! /
       /-----------------------------------------*/
-      System.load("/home/jackm/Code/halcyon-gui-overhaul/hlib/sys_out_x64.so");
+      for (File t : r.listFiles((x, y) -> {
+         return y.endsWith("." + use_Program.arch_lib_extension());
+      })) {
+         System.out.println("[!] :D PRE_REQ: loading library: " + t.getAbsolutePath());
+         System.load(t.getAbsolutePath());
+      }
+      System.out.println("===================LINK DONE===================");
    }
 
    public static gui_HalcyonFrame main;
@@ -34,6 +44,8 @@ public final class Halcyon {
     * @param args
     */
    public static void main(String... args) {
+      __LINK__();
+      use_HalcyonFolder.FOLDER.load_conf();
       try {
          /*--------------- /
          / startup process /
@@ -54,6 +66,7 @@ public final class Halcyon {
             main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
             main.run();
          });
+
          pstream.log.ok("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
          /*------------------------------------------------------------------------------------------------ /
          / main.expose_internal().askStatus(                                                                /
@@ -71,14 +84,17 @@ public final class Halcyon {
          });
          use_Program.gc();
          Thread yan_wang = new Thread(() -> {
+            use_HalcyonFolder.FOLDER.save_conf();
             Runtime.getRuntime().runFinalization();
             pstream.log
                   .log(new ansi_StrConstr(new ansi_Colors[] { ansi_Colors.RED_BG, ansi_Colors.WHITE_TXT },
                         new Object[] {
                               "Contingency: " + use_Program.uptime() + "ms in the world. Going down for shutdown." }));
          }, "halcyon-defaultShutdownHook");
+
          Runtime.getRuntime().addShutdownHook(yan_wang);
       } catch (Exception e) {
+         use_HalcyonFolder.FOLDER.log(e);
          use_Program.error_gui(e);
       }
    }

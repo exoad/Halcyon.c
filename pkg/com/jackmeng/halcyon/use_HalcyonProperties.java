@@ -2,7 +2,6 @@ package com.jackmeng.halcyon;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJTheme;
 import com.jackmeng.halcyon.gui.const_ColorManager;
-import com.jackmeng.halcyon.gui.const_MutableManager;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_ResourceFetcher;
@@ -23,15 +22,30 @@ public final class use_HalcyonProperties {
   private use_HalcyonProperties() {
   }
 
+  public static final use_MutableDefinition[] DEFS = {
+      new use_MutableDefinition("Program Language", "halcyon.language", "en_US", new String[] { "en_US", "zh_CN" },
+          x -> {
+            const_MutableManager.lang_locale.forYou(x);
+            language = ResourceBundle.getBundle("com.jackmeng.include.locale.HalcyonLang",
+                new Locale(const_MutableManager.lang_locale.first, const_MutableManager.lang_locale.second));
+          }, x -> {
+            return const_MutableManager.lang_locale.first + "_" + const_MutableManager.lang_locale.second;
+          }),
+      new use_MutableDefinition("Enable Logging", "halcyon.logging", "yes", new String[] { "yes", "no" },
+          x -> const_MutableManager.outstream = x.equalsIgnoreCase("yes"), x -> {
+            return const_MutableManager.outstream ? "yes" : "no";
+          })
+  };
+
   public static final Random rng = new Random();
-  public static final ResourceBundle language = ResourceBundle.getBundle("com.jackmeng.include.locale.HalcyonLang",
+  public static ResourceBundle language = ResourceBundle.getBundle("com.jackmeng.include.locale.HalcyonLang",
       new Locale(const_MutableManager.lang_locale.first, const_MutableManager.lang_locale.second));
 
   /**
    * @return String
    */
   public static String getFileSeparator() {
-    return System.getProperty("file.separator");
+    return System.getProperty("file.separator") == null ? "/" : System.getProperty("file.separator");
   }
 
   /**

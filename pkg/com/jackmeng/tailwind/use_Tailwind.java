@@ -1,4 +1,4 @@
-package com.jackmeng.halcyon.tailwind;
+package com.jackmeng.tailwind;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,8 +21,13 @@ import com.jackmeng.sys.pstream;
 import static com.jackmeng.util.use_Primitives.str_empty;
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
-public class use_TailwindAudio {
-  public enum tailwindaudio_Tags {
+public class use_Tailwind {
+  /*----------------------------------------------------- /
+  / master class for the tailwind audio processor and the /
+  / "frontman" for the library                            /
+  /------------------------------------------------------*/
+
+  public enum tailwind_Tags {
     MEDIA_ARTIST,
     MEDIA_ART,
     MEDIA_ABSOLUTE_LOCATION,
@@ -36,13 +41,13 @@ public class use_TailwindAudio {
   private File content;
   private Tag tag;
   private AudioHeader header;
-  private Map<tailwindaudio_Tags, Object> tags;
+  private Map<tailwind_Tags, Object> tags;
 
-  public use_TailwindAudio(URL path) {
+  public use_Tailwind(URL path) {
     this(new File(path.getFile()));
   }
 
-  public use_TailwindAudio(File file) {
+  public use_Tailwind(File file) {
     /*----------------------------------------------------------------------------------------------- /
     / no direct re-assignment of the variable "content" should be used as SetContentFile specifically /
     / specifies a refresh of the tags generated thus permitting reuse of the same object              /
@@ -50,7 +55,7 @@ public class use_TailwindAudio {
     setContentFile(file);
   }
 
-  public use_TailwindAudio(String filePath) {
+  public use_Tailwind(String filePath) {
     this(new File(filePath));
   }
 
@@ -70,10 +75,10 @@ public class use_TailwindAudio {
       header = r.getAudioHeader();
     }
     tags = new WeakHashMap<>();
-    tags.put(tailwindaudio_Tags.MEDIA_ABSOLUTE_LOCATION, header == null ? "0" : header.getBitRate());
-    tags.put(tailwindaudio_Tags.MEDIA_GENRE, tag == null || str_empty(tag.getFirst(FieldKey.GENRE)) ? _lang(LANG_UNKNOWN) : tag.getFirst(FieldKey.GENRE));
+    tags.put(tailwind_Tags.MEDIA_ABSOLUTE_LOCATION, header == null ? "0" : header.getBitRate());
+    tags.put(tailwind_Tags.MEDIA_GENRE, tag == null || str_empty(tag.getFirst(FieldKey.GENRE)) ? _lang(LANG_UNKNOWN) : tag.getFirst(FieldKey.GENRE));
     /*----------------------------------------------------- /
-    / tags.put(tailwindaudio_Tags.MEDIA_ABSOLUTE_LOCATION,) /
+    / tags.put(tailwind_Tags.MEDIA_ABSOLUTE_LOCATION,) /
     /------------------------------------------------------*/
   }
 

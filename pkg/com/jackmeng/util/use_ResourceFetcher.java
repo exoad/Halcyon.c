@@ -20,12 +20,6 @@ public class use_ResourceFetcher {
    * @return ImageIcon
    */
   public ImageIcon getFromAsImageIcon(String path) {
-    File t = new File(path);
-    if(t.exists()) {
-      pstream.log.ok("FETCHING IMAGEICON: " + path + " | Path existence: " + new File(path).exists());
-    } else {
-      pstream.log.err("FETCHING IMAGEICON: " + path + " | Path existence: " + new File(path).exists());
-    }
     try {
       return new ImageIcon(
           java.util.Objects.requireNonNull(getClass().getResource(path)));

@@ -1,5 +1,7 @@
 package com.jackmeng.util;
 
+import com.jackmeng.halcyon.apps.impl_ForYou;
+
 public final class use_Struct {
   private use_Struct() {
   }
@@ -9,7 +11,7 @@ public final class use_Struct {
   / or structures that can be used.                              /
   /-------------------------------------------------------------*/
 
-  public static final class struct_Pair<A, B> {
+  public static final class struct_Pair<A, B> implements impl_ForYou<String> {
     /*-------------------------------------------------------------------- /
     / dont care about JSE standards of making everything private           /
     / and immutable, this isn't rust. make it with easier modifiers        /
@@ -59,15 +61,22 @@ public final class use_Struct {
       return (((((1 << (Integer.BYTES * 8) + 1) - 1) & first.hashCode())
           ^ ((((1 << (Integer.BYTES * 8) + 1) - 1) & first.hashCode()) >> ((Integer.BYTES * 8) / 2))) << ((Integer.BYTES
               * 8) / 2))
-              /*---------------------------------------------- /
-              / this part probably doesn't work, idk why /
-              /-----------------------------------------------*/
+          /*---------------------------------------------- /
+          / this part probably doesn't work, idk why /
+          /-----------------------------------------------*/
           | ((((1 << (Integer.BYTES * 8) + 1) - 1) & second.hashCode())
               ^ ((((1 << (Integer.BYTES * 8) + 1) - 1) & second.hashCode()) >> ((Integer.BYTES * 8) / 2)));
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void forYou(String e) {
+      this.first = (A) e.split("_")[0];
+      this.second = (B) e.split("_")[1];
+    }
   }
 
-  public static final class struct_Trio<A, B, C> {
+  public static final class struct_Trio<A, B, C> implements impl_ForYou<String> {
     public A first;
     public B second;
     public C third;
@@ -86,6 +95,14 @@ public final class use_Struct {
     public Object[] to_array() {
       return use_Primitives.is_generic(first.getClass()) || use_Primitives.is_generic(second.getClass())
           || use_Primitives.is_generic(third.getClass()) ? null : new Object[] { first, second, third };
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void forYou(String e) {
+      this.first = (A) e.split("_")[0];
+      this.second = (B) e.split("_")[1];
+      this.third = (C) e.split("_")[2];
     }
   }
 }

@@ -1,4 +1,4 @@
-package com.jackmeng.ploogin;
+package com.jackmeng.halcyon.ploogin;
 
 import com.jackmeng.halcyon.apps.impl_App;
 

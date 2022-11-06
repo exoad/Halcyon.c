@@ -6,6 +6,7 @@ public final class use_Primitives {
 
   public final class primitives_Math {
     public static native float rnd_1(long[] num);
+
     public static native float exp_dev(long[] num);
   }
 
@@ -21,6 +22,15 @@ public final class use_Primitives {
       }
     }
     return false;
+  }
+
+  public static String expand_exception(Exception e) {
+    StringBuilder sb = new StringBuilder("Exception Occurred: " + e.getMessage());
+    for (StackTraceElement s : e.getStackTrace()) {
+      sb.append("\tat " + s.getClassName() + "." + s.getMethodName()
+          + "(" + s.getFileName() + ":" + s.getLineNumber() + ")");
+    }
+    return sb.toString();
   }
 
   public static boolean is_generic(Class<?> c) {

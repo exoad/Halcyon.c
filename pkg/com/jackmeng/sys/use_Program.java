@@ -2,6 +2,7 @@ package com.jackmeng.sys;
 
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.gui_HalcyonGenericWindow;
+import com.jackmeng.util.use_Primitives;
 import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
@@ -44,10 +45,52 @@ public final class use_Program {
   public static void error_gui(Exception e) {
     new gui_HalcyonGenericWindow(use_ResourceFetcher.fetcher.getFromAsImageIcon("resources/app/oh_no.png"),
         _lang(LANG_OH_NO_4),
-        "<html><strong>" + _lang(LANG_EXCEPTION_OH_SOMETHING_WENT_WRONG_CONTENT) + "</strong><br>" + e.getMessage()
+        "<html><strong>" + _lang(LANG_EXCEPTION_OH_SOMETHING_WENT_WRONG_CONTENT) + "</strong><br>"
+            + use_Primitives.expand_exception(e)
             + "</html>",
         const_ColorManager.DEFAULT_RED_FG, null)
         .run();
+  }
+
+  public enum program_SysEnv {
+    /*------------------------------------- /
+    / ARCHITECTURE TYPES of the most common /
+    /--------------------------------------*/
+    X86_64, // amd64
+    X86_32, // i386, i486, i586, i686
+    PPC, // powerpc idk prob x86_32
+
+    /*---------------------- /
+    / Operating System NAMES /
+    /-----------------------*/
+    WIN32,
+    OSX,
+    SOLARIS,
+    LINUX,
+    UNKNOWN;
+
+    private program_SysEnv() {
+    }
+  }
+
+  public static program_SysEnv arch() {
+    String r = System.getProperty("os.arch");
+    /*------------------------------------------------------------- /
+    / guranteed to be of any 4 values: X86_32, X86_64, PPC, UNKNOWN /
+    /--------------------------------------------------------------*/
+    return r.equalsIgnoreCase("amd64") || r.equalsIgnoreCase("wow64") || r.equalsIgnoreCase("x64")
+        || r.equalsIgnoreCase("x86_64")
+            ? program_SysEnv.X86_64
+            : r.equalsIgnoreCase("x86") || r.equalsIgnoreCase("x32") || r.equalsIgnoreCase("x86_32")
+                || r.equalsIgnoreCase("i368") || r.equalsIgnoreCase("i486")
+                || r.equalsIgnoreCase("i568") || r.equalsIgnoreCase("i668") ? program_SysEnv.X86_32
+                    : r.equalsIgnoreCase("ppc") ? program_SysEnv.PPC : program_SysEnv.UNKNOWN;
+  }
+
+  public static String arch_lib_extension() {
+    program_SysEnv e = arch();
+    return e == program_SysEnv.LINUX ? "so"
+        : e == program_SysEnv.OSX ? "dylib" : e == program_SysEnv.WIN32 ? "dll" : "so";
   }
 
   public static void dispose() {

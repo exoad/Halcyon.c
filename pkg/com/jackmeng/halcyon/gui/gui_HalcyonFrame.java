@@ -316,7 +316,6 @@ public class gui_HalcyonFrame implements Runnable {
               && content.getMaximumSize().height == content.getPreferredSize().height)
           || (content.getMaximumSize().width <= frame.getMaximumSize().width
               && content.getMaximumSize().height <= frame.getMaximumSize().height)) {
-        pstream.log.info("Registered A FRAME with component resizing abilities");
         cr.registerComponent(frame);
         frame.addMouseListener(cr);
       }
@@ -324,7 +323,7 @@ public class gui_HalcyonFrame implements Runnable {
       / need to set a border no matter what, or the component resizing routine cant be latched on graphically /
       /------------------------------------------------------------------------------------------------------*/
       frame.getRootPane()
-          .setBorder(BorderFactory.createLineBorder(conf.borderColor != null ? conf.borderColor : Color.BLACK, 2));
+          .setBorder(BorderFactory.createLineBorder(conf.borderColor != null ? conf.borderColor : Color.BLACK, 3));
       frame.setLocation(use_Program.screen_center().first - (frame.getPreferredSize().width / 2),
           use_Program.screen_center().second - (frame.getPreferredSize().height / 2));
 
@@ -377,7 +376,9 @@ public class gui_HalcyonFrame implements Runnable {
       status.setMaximumSize(new Dimension(const_Manager.FRAME_TITLEBAR_HEIGHT, const_Manager.FRAME_TITLEBAR_HEIGHT));
       status.setOpaque(true);
       status.setAutoscrolls(true);
-      btns.add(status);
+      /*----------------- /
+      / btns.add(status); /
+      /------------------*/
 
       if (conf.bgMis != null)
         btns.add(gen_Button(conf.bgMis, () -> {

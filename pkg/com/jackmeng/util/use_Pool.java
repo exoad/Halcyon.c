@@ -2,7 +2,7 @@ package com.jackmeng.util;
 
 import com.jackmeng.halcyon.apps.impl_HalcyonRefreshable;
 import com.jackmeng.halcyon.apps.impl_Identifiable;
-import com.jackmeng.halcyon.apps.impl_PoolGuard;
+import com.jackmeng.halcyon.apps.impl_Guard;
 import com.jackmeng.sys.use_Task;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
@@ -12,12 +12,12 @@ public class use_Pool<T extends impl_Identifiable>
     implements impl_HalcyonRefreshable<impl_HalcyonRefreshable<struct_Pair<Optional<String>, Optional<T>>>> {
   private Map<String, T> poolObjects;
   private List<impl_HalcyonRefreshable<struct_Pair<Optional<String>, Optional<T>>>> refreshables;
-  private impl_PoolGuard<impl_HalcyonRefreshable<struct_Pair<Optional<String>, Optional<T>>>> guards;
+  private impl_Guard<impl_HalcyonRefreshable<struct_Pair<Optional<String>, Optional<T>>>> guards;
 
   public use_Pool() {
     refreshables = new ArrayList<>();
     poolObjects = new HashMap<>();
-    guards = new impl_PoolGuard<impl_HalcyonRefreshable<struct_Pair<Optional<String>, Optional<T>>>>() {
+    guards = new impl_Guard<impl_HalcyonRefreshable<struct_Pair<Optional<String>, Optional<T>>>>() {
       /*-------------------------------------------------------------------- /
       / by default the pool will always return true for all entered elements /
       /---------------------------------------------------------------------*/
@@ -46,7 +46,7 @@ public class use_Pool<T extends impl_Identifiable>
     }
   }
 
-  public void setGuard(impl_PoolGuard<impl_HalcyonRefreshable<struct_Pair<Optional<String>, Optional<T>>>> e) {
+  public void setGuard(impl_Guard<impl_HalcyonRefreshable<struct_Pair<Optional<String>, Optional<T>>>> e) {
     this.guards = e;
   }
 
