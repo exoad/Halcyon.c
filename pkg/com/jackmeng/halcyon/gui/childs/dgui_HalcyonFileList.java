@@ -5,6 +5,7 @@ import com.jackmeng.halcyon.apps.impl_HalcyonRefreshable;
 import com.jackmeng.halcyon.const_Global;
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_Manager;
+import com.jackmeng.halcyon.gui.const_ResourceManager;
 import com.jackmeng.halcyon.use_HalcyonProperties;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.tailwind.use_TailwindPlaylist;
@@ -109,7 +110,7 @@ public class dgui_HalcyonFileList extends JScrollPane implements
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setStroke(new BasicStroke(1));
+        g2.setStroke(new BasicStroke(1.5F));
         g2.setColor(const_ColorManager.DEFAULT_GREEN_FG);
         g2.drawLine(3, 3, getWidth() - 3, getHeight() - 3);
         g2.drawLine(getWidth() - 3, 3, 3, getHeight() - 3);
@@ -134,7 +135,6 @@ public class dgui_HalcyonFileList extends JScrollPane implements
     border.setBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_DARK_BG_2));
     border.setTitleFont(use_HalcyonProperties.boldFont().deriveFont(15F));
 
-    
     setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH - const_Manager.DGUI_APPS_WIDTH,
         const_Manager.FRAME_MIN_HEIGHT / 2));
     setBorder(border);
@@ -222,13 +222,13 @@ public class dgui_HalcyonFileList extends JScrollPane implements
     DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) tree.getCellRenderer();
     renderer.setClosedIcon(use_Image.resize_fast_1(const_Manager.DGUI_APPS_FILELIST_LEAF_ICON_W_H,
         const_Manager.DGUI_APPS_FILELIST_LEAF_ICON_W_H,
-        use_ResourceFetcher.fetcher.getFromAsImageIcon("resources/fileview/leaf_closed.png")));
+        use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.DGUI_FILELIST_LEAF_CLOSED)));
     renderer.setOpenIcon(use_Image.resize_fast_1(const_Manager.DGUI_APPS_FILELIST_LEAF_ICON_W_H,
         const_Manager.DGUI_APPS_FILELIST_LEAF_ICON_W_H,
-        use_ResourceFetcher.fetcher.getFromAsImageIcon("resources/fileview/leaf_opened.png")));
+        use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.DGUI_FILELIST_LEAF_OPEN)));
     renderer.setLeafIcon(use_Image.resize_fast_1(const_Manager.DGUI_APPS_FILELIST_LEAF_ICON_W_H,
         const_Manager.DGUI_APPS_FILELIST_LEAF_ICON_W_H,
-        use_ResourceFetcher.fetcher.getFromAsImageIcon("resources/fileview/leaf.png")));
+        use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.DGUI_FILELIST_LEAF)));
     tree.setCellRenderer(renderer);
     pstream.log.info("INSERTS > " + list.getCanonicalParent_1());
 

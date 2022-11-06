@@ -36,8 +36,7 @@ public final class use_HalcyonProperties
       new use_MutableDefinition("Enable Logging", "halcyon.logging", "yes", new String[] { "yes", "no" },
           x -> const_MutableManager.outstream = x.equalsIgnoreCase("yes"), x -> {
             return const_MutableManager.outstream ? "yes" : "no";
-          })
-  };
+          }) };
 
   public static final Random rng = new Random();
   public static ResourceBundle language = ResourceBundle.getBundle("com.jackmeng.include.locale.HalcyonLang",

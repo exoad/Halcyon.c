@@ -22,7 +22,7 @@ public final class use_Primitives
   {
     for (String r : comparators)
     {
-      if (r.equals(key))
+      if (r.endsWith(key))
       {
         return true;
       }

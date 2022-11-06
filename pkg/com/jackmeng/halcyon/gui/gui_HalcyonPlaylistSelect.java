@@ -1,7 +1,12 @@
 package com.jackmeng.halcyon.gui;
 
+import com.jackmeng.halcyon.const_MutableManager;
+import com.jackmeng.halcyon.use_HalcyonProperties;
 import com.jackmeng.halcyon.apps.envt_AddPlaylist;
 import com.jackmeng.sys.pstream;
+import com.jackmeng.util.use_Image;
+import com.jackmeng.util.use_Primitives;
+import com.jackmeng.util.use_ResourceFetcher;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -57,11 +62,14 @@ public final class gui_HalcyonPlaylistSelect implements Runnable
       @Override
       public Icon getIcon(File f)
       {
-        return FileSystemView.getFileSystemView().getSystemIcon(f);
+        return f.isDirectory()
+            ? use_Image.resize_fast_1(const_MutableManager.playlist_select_icon_w_h,  const_MutableManager.playlist_select_icon_w_h, use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.DGUI_FILELIST_LEAF))
+            : use_Primitives.ends_with(f.getAbsolutePath(), use_HalcyonProperties.acceptedEndings())
+                ?  use_Image.resize_fast_1(const_MutableManager.playlist_select_icon_w_h,  const_MutableManager.playlist_select_icon_w_h, use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.DGUI_FILELIST_LEAF_2))
+                : FileSystemView.getFileSystemView().getSystemIcon(f);
       }
     });
     chooser.setPreferredSize(new Dimension(550, 580));
-
     this.parent = parent;
   }
 

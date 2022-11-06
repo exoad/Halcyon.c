@@ -172,7 +172,6 @@ public final class use_HalcyonFolder
 
   public void check(halcyonfolder_Content e)
   {
-    pstream.log.warn(e.val + " >>> ");
     if (e.name().endsWith("d"))
     {
       File r = e.make();

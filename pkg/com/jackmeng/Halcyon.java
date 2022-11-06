@@ -53,7 +53,6 @@ public final class Halcyon
          /----------------*/
          pstream.log.info("Hello world! (Now loading:) Booting Halcyon (" + use_Program.pid_2() + ")");
          final long time = System.currentTimeMillis();
-         pstream.log.info("Initing properties...");
          try
          {
             use_HalcyonProperties.init_properties();
@@ -64,10 +63,9 @@ public final class Halcyon
          /*------------------------------------ /
          / actual program related GUI processes /
          /-------------------------------------*/
-         use_Task.run_Sb(() -> {
-            main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
-            main.run();
-         });
+         main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
+         main.run();
+         pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
 
          /*------------------------------------------------------------------------------------------------ /
          / main.expose_internal().askStatus(                                                                /
@@ -94,9 +92,7 @@ public final class Halcyon
                         new Object[] {
                               "Contingency: " + use_Program.uptime() + "ms in the world. Going down for shutdown." }));
          }, "halcyon-defaultShutdownHook");
-
          Runtime.getRuntime().addShutdownHook(yan_wang);
-         pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
 
       } catch (Exception e)
       {

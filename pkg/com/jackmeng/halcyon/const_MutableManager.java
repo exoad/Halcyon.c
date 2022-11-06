@@ -14,4 +14,5 @@ public final class const_MutableManager
   /----------------------------------------------------------------------------*/
   public static struct_Pair< String, String > lang_locale = new struct_Pair<>("en", "");
   public static boolean outstream = true;
+  public static int playlist_select_icon_w_h = 16;
 }

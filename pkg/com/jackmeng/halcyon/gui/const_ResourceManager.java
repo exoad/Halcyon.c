@@ -21,6 +21,13 @@ public interface const_ResourceManager
   String DGUI_APPS_PLAYER_MOREAPPS = APP_ICONS + "player_moreapps.png";
   String DGUI_APPS_PLAYER_LIKED_MUSIC = APP_ICONS + "player_liked.png";
 
+  String FILELIST_ICONS = RESOURCES + "fileview" + use_HalcyonProperties.getFileSeparator();
+  String DGUI_FILELIST_LEAF = FILELIST_ICONS + "leaf.png";
+  String DGUI_FILELIST_LEAF_CLOSED = FILELIST_ICONS + "leaf_closed.png";
+  String DGUI_FILELIST_LEAF_OPEN = FILELIST_ICONS + "leaf_opened.png";
+  String DGUI_FILELIST_LEAF_2 = FILELIST_ICONS + "leaf_2.png";
+
+
   /*--------------------------------------------------------------------- /
   / The following block of constants define resources for the APP itself. /
   / For example the logo                                                  /
