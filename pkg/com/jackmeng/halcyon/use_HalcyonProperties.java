@@ -16,6 +16,7 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.TimerTask;
 import java.util.logging.LogManager;
 
 public final class use_HalcyonProperties
@@ -191,6 +192,16 @@ public final class use_HalcyonProperties
     /--------------------------------------------------------------------------------------------*/
     UIManager.getDefaults()
         .addResourceBundle("com.jackmeng.include.locale.HalcyonLang_" + language.getLocale());
+
+    const_Global.GENERAL_LOOP.schedule(new TimerTask() {
+
+      @Override
+      public void run()
+      {
+        use_HalcyonFolder.FOLDER.master_save();
+      }
+
+    }, 1000L, 3500L);
 
     LogManager.getLogManager().reset();
   }

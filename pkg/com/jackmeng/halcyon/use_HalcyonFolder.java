@@ -15,6 +15,7 @@ import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Program;
 import com.jackmeng.tailwind.use_TailwindPlaylist;
 import com.jackmeng.tailwind.use_TailwindTrack;
+import com.jackmeng.tailwind.use_TailwindPlaylist.playlist_Traits;
 import com.jackmeng.util.use_Primitives;
 
 public final class use_HalcyonFolder
@@ -26,9 +27,10 @@ public final class use_HalcyonFolder
   private static final String MASTA_FOLDA = "halcyon";
 
   public static final use_HalcyonFolder FOLDER = new use_HalcyonFolder(MASTA_FOLDA);
+  public static final byte[] DELIMITER = { 0x0E, 0x00, 0x0E, (byte) 0x9E };
 
   private File locale;
-  private Properties p;
+  private Properties p, pUsr;
 
   public enum halcyonfolder_Content {
     /*------------------------------------------------------------- /
@@ -56,6 +58,7 @@ public final class use_HalcyonFolder
   private use_HalcyonFolder(final String r)
   {
     p = new Properties();
+    pUsr = new Properties();
     locale = new File(r);
     check();
   }
@@ -205,26 +208,57 @@ public final class use_HalcyonFolder
     check();
     try
     {
-      p.loadFromXML(new FileInputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()));
+      pUsr.loadFromXML(new FileInputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()));
     } catch (IOException e1)
     {
       log(e1);
     }
     for (use_TailwindPlaylist e : const_Global.PLAY_LIST_POOL)
-      p.put("playlists", e.getCanonicalParent_1());
+    {
+      pUsr.put("playlists", e.getParent() + new String(DELIMITER));
+    }
     for (use_TailwindTrack e : const_Global.LIKE_LIST_POOL)
-      p.put("liked", e.id());
+      pUsr.put("liked", e.id() + new String(DELIMITER));
     try
     {
-      p.storeToXML(new FileOutputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()), "User personalized data");
+      pUsr.storeToXML(new FileOutputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()), "User personalized data");
     } catch (IOException e1)
     {
       log(e1);
     }
   }
 
+  public void master_save()
+  {
+    save_playlists();
+    save_conf();
+  }
+
   public void load_playlists()
   {
+    try
+    {
+      pUsr.loadFromXML(new FileInputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()));
+    } catch (IOException e1)
+    {
+      log(e1);
+    }
+    if (pUsr.get("playlists") != null)
+    {
+      for (String r : ((String) pUsr.get("playlists")).split(new String(DELIMITER)))
+      {
+        pstream.log.warn("PLAYLIST INVOKE: " + r);
+        const_Global.append_to_Playlist(r);
+      }
+    }
+    if (pUsr.get("liked") != null)
+    {
+      for (String r : ((String) pUsr.get("liked")).split(new String(DELIMITER)))
+      {
+        pstream.log.warn("LIKED INVOKE: " + r);
+        const_Global.append_to_liked(r);
+      }
+    }
 
   }
 

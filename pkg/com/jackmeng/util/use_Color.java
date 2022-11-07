@@ -33,6 +33,30 @@ public final class use_Color
         Integer.valueOf(hex.substring(5, 7), 16));
   }
 
+  public static Color darker(Color clr, double factor)
+  {
+    return new Color(Math.max((int) (clr.getRed() * factor), 0),
+        Math.max((int) (clr.getGreen() * factor), 0),
+        Math.max((int) (clr.getBlue() * factor), 0),
+        clr.getAlpha());
+  }
+
+  public static Color lighter(Color clr, double factor)
+  {
+    int r = clr.getRed(), g = clr.getGreen(), b = clr.getBlue(), a = clr.getAlpha();
+    int i = (int) (1.0D / (1.0D - factor));
+    if (r == 0 && g == 0 && b == 0)
+      return new Color(i, i, i, a);
+    if (r > 0 && r < i)
+      r = i;
+    if (g > 0 && g < i)
+      g = i;
+    if (b > 0 && b < i)
+      b = i;
+    return new Color(Math.min((int) (r / factor), 255), Math.min((int) (g / factor), 255),
+        Math.min((int) (b / factor), 255), a);
+  }
+
   /**
    * @return Color
    */

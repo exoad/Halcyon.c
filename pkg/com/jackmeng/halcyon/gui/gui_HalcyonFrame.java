@@ -434,8 +434,7 @@ public class gui_HalcyonFrame implements Runnable
       /------------------*/
 
       if (conf.bgMis != null)
-        btns.add(gen_Button(conf.bgMis, () -> {
-        }));
+        btns.add(gen_Button(conf.bgMis, () -> frame.setAlwaysOnTop(!frame.isAlwaysOnTop())));
       if (conf.bgMini != null)
       {
         btns.add(gen_Button(conf.bgMini, () -> frame.setState(Frame.ICONIFIED)));
@@ -457,7 +456,8 @@ public class gui_HalcyonFrame implements Runnable
         titleBarICO.setOpaque(true);
         titleBarICO.setBackground(conf.fg);
       }
-      titleBarICO.setVerticalAlignment(SwingConstants.CENTER);
+      titleBarICO.setAlignmentY(Component.CENTER_ALIGNMENT);
+      titleBarICO.setAutoscrolls(true);
 
       titleBar.add(titleBarICO, BorderLayout.WEST);
       titleBar.add(titleBarStr, BorderLayout.CENTER);
@@ -465,9 +465,12 @@ public class gui_HalcyonFrame implements Runnable
       titleBar.setAlignmentX(Component.CENTER_ALIGNMENT);
       titleBar.setAlignmentY(Component.CENTER_ALIGNMENT);
       titleBar.addMouseListener(new MouseAdapter() {
-        public void mouseClicked(MouseEvent e) {
+        @Override
+        public void mouseClicked(MouseEvent e)
+        {
 
-          if(e.getClickCount() >= 2) {
+          if (e.getClickCount() >= 2)
+          {
             frame.setExtendedState(maximizedFrame ? Frame.NORMAL : Frame.MAXIMIZED_BOTH);
             maximizedFrame = !maximizedFrame;
           }
@@ -579,7 +582,8 @@ public class gui_HalcyonFrame implements Runnable
         g2.fillOval(0, 0, size, size);
         if (hovering && this.clr != null)
         {
-          g2.setColor(clr.darker().darker());
+          clr.brighter();
+          g2.setColor(use_Color.darker(clr, 0.6D));
           // ON LOW RES SCREENS, MUST BE ODD NUMBER TO WORK PROPERLY WITH
           int SMALL_RADIUS = 7;
           g2.fillOval((size / 2) - (SMALL_RADIUS / 2), (size / 2) - (SMALL_RADIUS / 2), SMALL_RADIUS, SMALL_RADIUS);
@@ -601,7 +605,7 @@ public class gui_HalcyonFrame implements Runnable
       /*--------------------------------------------------------------------------------------- /
       / AHHH there's some funky shit with why it sometimes renders the frame with Transparency. /
       /----------------------------------------------------------------------------------------*/
-
+      frame.setAutoRequestFocus(true);
       frame.pack();
       frame.setVisible(true);
     }

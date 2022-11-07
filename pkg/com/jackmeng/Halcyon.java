@@ -46,6 +46,7 @@ public final class Halcyon
    {
       __LINK__();
       use_HalcyonFolder.FOLDER.load_conf();
+      use_HalcyonFolder.FOLDER.load_playlists();
       try
       {
          /*--------------- /
@@ -85,7 +86,7 @@ public final class Halcyon
          /------------------------------------------------------------------------------------------------*/
          use_Program.gc();
          Thread yan_wang = new Thread(() -> {
-            use_HalcyonFolder.FOLDER.save_conf();
+            use_HalcyonFolder.FOLDER.master_save();
             Runtime.getRuntime().runFinalization();
             pstream.log
                   .log(new ansi_StrConstr(new ansi_Colors[] { ansi_Colors.RED_BG, ansi_Colors.WHITE_TXT },

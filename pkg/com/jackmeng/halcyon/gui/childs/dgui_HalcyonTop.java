@@ -37,8 +37,7 @@ public class dgui_HalcyonTop extends JPanel
   {
     setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT));
     setOpaque(true);
-    setBackground(const_ColorManager.DEFAULT_SOFT_GREEN_FG);
-    setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, getBackground()));
+    setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
     setLayout(new BorderLayout());
     add(new halcyonTop_Info(), BorderLayout.NORTH);
     add(new halcyonTop_Buttons(), BorderLayout.SOUTH);

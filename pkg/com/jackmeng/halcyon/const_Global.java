@@ -34,4 +34,12 @@ public final class const_Global
           use_HalcyonProperties.acceptedEndings()));
     }
   }
+
+  public static void append_to_liked(String fileABS)
+  {
+    if (LIKE_LIST_POOL.get(fileABS) == null)
+    {
+      LIKE_LIST_POOL.addPoolObject(new use_TailwindTrack(fileABS));
+    }
+  }
 }

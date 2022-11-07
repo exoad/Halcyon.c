@@ -146,7 +146,6 @@ public class dgui_HalcyonFileList extends JScrollPane implements
     /------------------------------------------------------------------*/
     getVerticalScrollBar().setForeground(const_ColorManager.DEFAULT_GREEN_FG);
     getHorizontalScrollBar().setForeground(const_ColorManager.DEFAULT_GREEN_FG);
-    const_Global.PLAY_LIST_POOL.addRefreshable(this);
 
     pane = new JTabbedPane();
     pane.setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH - const_Manager.DGUI_APPS_WIDTH,
@@ -173,6 +172,11 @@ public class dgui_HalcyonFileList extends JScrollPane implements
     getViewport().add(pane);
 
     guiTrees = new HashMap<>();
+
+    /*-------------------------------------------------------------------------- /
+    / this should be at bottom to avoid NULLABLE swing components being called!! /
+    /---------------------------------------------------------------------------*/
+    const_Global.PLAY_LIST_POOL.addRefreshable(this);
 
     /*-----------------------------------
     ----------------------------------------------------------- /
