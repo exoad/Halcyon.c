@@ -2,6 +2,7 @@ package com.jackmeng.tailwind;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.Map;
 import java.util.Objects;
@@ -30,7 +31,9 @@ import java.awt.image.*;
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
 public final class use_TailwindTrack
-    implements impl_Identifiable
+    implements
+    impl_Identifiable,
+    Serializable
 {
   /*---------------------------- /
   / represents a "an audio" file /
@@ -62,9 +65,9 @@ public final class use_TailwindTrack
   }
 
   private File content;
-  private Tag tag;
-  private AudioHeader header;
-  private Map< tailwindtrack_Tags, Object > MediaTags;
+  private transient Tag tag;
+  private transient AudioHeader header;
+  private transient Map< tailwindtrack_Tags, Object > MediaTags;
 
   private static Object iem(Object e, tailwindtrack_Tags elseE)
   {
