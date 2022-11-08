@@ -8,7 +8,7 @@ public final class pstream
   / is a pain in the ass. so here is a shitty implementation of that.                                  /
   /---------------------------------------------------------------------------------------------------*/
 
-  private boolean enabled;
+  public boolean enabled;
   private sys_out out;
 
   public static final pstream log = new pstream(true);

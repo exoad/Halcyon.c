@@ -15,7 +15,6 @@ import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Program;
 import com.jackmeng.tailwind.use_TailwindPlaylist;
 import com.jackmeng.tailwind.use_TailwindTrack;
-import com.jackmeng.tailwind.use_TailwindPlaylist.playlist_Traits;
 import com.jackmeng.util.use_Primitives;
 
 public final class use_HalcyonFolder
@@ -66,9 +65,7 @@ public final class use_HalcyonFolder
   private void m_w_f(File e, String str)
   { // make write file
     if (e.exists())
-    {
       e.delete();
-    }
     else
     {
       try
@@ -118,10 +115,8 @@ public final class use_HalcyonFolder
     /*------------------------------------ /
     / pulls everything from MutableManager /
     /-------------------------------------*/
-    for (use_MutableDefinition e : use_HalcyonProperties.DEFS)
-    {
+    for (use_MUTableDefinition e : use_HalcyonProperties.DEFS)
       p.put(e.key, e.get() == null || e.get().isEmpty() ? e.defaultVal : e.get());
-    }
     try
     {
       p.storeToXML(new FileOutputStream(halcyonfolder_Content.SYSCONF_f.make()),
@@ -144,15 +139,9 @@ public final class use_HalcyonFolder
       log(e);
     }
     for (Object r : p.keySet())
-    {
-      for (use_MutableDefinition er : use_HalcyonProperties.DEFS)
-      {
+      for (use_MUTableDefinition er : use_HalcyonProperties.DEFS)
         if (er.key.equals(r))
-        {
           er.validate((String) p.get(er.key));
-        }
-      }
-    }
   }
 
   public void delete_logs()
@@ -179,9 +168,7 @@ public final class use_HalcyonFolder
     {
       File r = e.make();
       if (!r.exists() || !r.isDirectory())
-      {
         r.mkdir();
-      }
     }
     else if (e.name().endsWith("f"))
     {
@@ -198,9 +185,7 @@ public final class use_HalcyonFolder
       }
     }
     else
-    {
       pstream.log.warn("UNRECOGNIZED FOLDER_CONTENT_ENUM_NAME: " + e.name());
-    }
   }
 
   public void save_playlists()
@@ -213,12 +198,14 @@ public final class use_HalcyonFolder
     {
       log(e1);
     }
+    StringBuilder sb = new StringBuilder();
     for (use_TailwindPlaylist e : const_Global.PLAY_LIST_POOL)
-    {
-      pUsr.put("playlists", e.getParent() + new String(DELIMITER));
-    }
+      sb.append(e.getParent() + new String(DELIMITER));
+    pUsr.setProperty("playlists", sb.toString());
+    sb.setLength(0);
     for (use_TailwindTrack e : const_Global.LIKE_LIST_POOL)
-      pUsr.put("liked", e.id() + new String(DELIMITER));
+      sb.append(e.id() + new String(DELIMITER));
+    pUsr.put("liked", sb.toString());
     try
     {
       pUsr.storeToXML(new FileOutputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()), "User personalized data");
@@ -245,32 +232,36 @@ public final class use_HalcyonFolder
     }
     if (pUsr.get("playlists") != null)
     {
+      File f;
       for (String r : ((String) pUsr.get("playlists")).split(new String(DELIMITER)))
       {
-        pstream.log.warn("PLAYLIST INVOKE: " + r);
-        const_Global.append_to_Playlist(r);
+        f = new File(r);
+        if (f.isDirectory() && f.exists())
+        {
+          pstream.log.warn("PLAYLIST INVOKE: " + r);
+          const_Global.append_to_Playlist(r);
+        }
       }
     }
     if (pUsr.get("liked") != null)
     {
+      File f;
       for (String r : ((String) pUsr.get("liked")).split(new String(DELIMITER)))
       {
-        pstream.log.warn("LIKED INVOKE: " + r);
-        const_Global.append_to_liked(r);
+        f = new File(r);
+        if (f.isFile() && f.exists())
+        {
+          pstream.log.warn("LIKED INVOKE: " + r);
+          const_Global.append_to_liked(r);
+        }
       }
     }
-
   }
-
   public void check()
   {
     if (!locale.isDirectory() || !locale.exists())
-    {
       locale.mkdir();
-    }
     for (halcyonfolder_Content e : halcyonfolder_Content.CACHE_d.getDeclaringClass().getEnumConstants())
-    {
       check(e);
-    }
   }
 }

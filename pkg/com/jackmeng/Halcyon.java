@@ -3,11 +3,15 @@ package com.jackmeng;
 import com.jackmeng.halcyon.gui.gui_HalcyonFrame;
 import com.jackmeng.halcyon.gui.childs.dgui_HalcyonBottom;
 import com.jackmeng.halcyon.gui.childs.dgui_HalcyonTop;
+import com.jackmeng.halcyon.const_Global;
+import com.jackmeng.halcyon.const_MUTableKeys;
 import com.jackmeng.halcyon.use_HalcyonFolder;
 import com.jackmeng.halcyon.use_HalcyonProperties;
 import com.jackmeng.sys.*;
+import com.test.Test;
 
 import java.io.File;
+import java.util.TimerTask;
 
 /*------------------------- /
 / unused imports are stupid /
@@ -35,6 +39,8 @@ public final class Halcyon
 
    public static gui_HalcyonFrame main;
 
+   private static long memory = -1L;
+
    private Halcyon()
    {
    }
@@ -43,9 +49,13 @@ public final class Halcyon
     * @param args
     */
    public static void main(String... args)
+         throws Exception
    {
       __LINK__();
       use_HalcyonFolder.FOLDER.load_conf();
+      if (const_MUTableKeys.run_tcs_on_start)
+         Test.main((String[]) null);
+      pstream.log.enabled = const_MUTableKeys.outstream;
       use_HalcyonFolder.FOLDER.load_playlists();
       try
       {
@@ -94,6 +104,23 @@ public final class Halcyon
                               "Contingency: " + use_Program.uptime() + "ms in the world. Going down for shutdown." }));
          }, "halcyon-defaultShutdownHook");
          Runtime.getRuntime().addShutdownHook(yan_wang);
+
+         memory = (long) (Math.abs((Runtime.getRuntime().maxMemory()
+               - ((double) Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024
+                     / 1024)
+               - memory));
+
+         const_Global.GENERAL_LOOP.schedule(new TimerTask() {
+            @Override
+            public void run()
+            {
+               memory += (Math.abs((Runtime.getRuntime().maxMemory()
+                     - ((double) Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024
+                           / 1024)
+                     - memory));
+            }
+
+         }, 1000L, 3000L);
 
       } catch (Exception e)
       {

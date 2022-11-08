@@ -19,12 +19,10 @@ public class dgui_HalcyonTop extends JPanel
       setOpaque(true);
       setBackground(const_ColorManager.DEFAULT_BLUE_FG);
     }
-
   }
 
   public static final class halcyonTop_Buttons extends JPanel
   {
-
     public halcyonTop_Buttons()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT / 4));

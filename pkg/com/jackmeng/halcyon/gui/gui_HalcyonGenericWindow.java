@@ -18,7 +18,7 @@ public class gui_HalcyonGenericWindow implements Runnable
     JEditorPane jep = new JEditorPane("text/html", content_HTML);
     jep.setEditable(false);
     jep.setDragEnabled(false);
-    jep.setPreferredSize(new Dimension(300, 300));
+    jep.setPreferredSize(new Dimension(600, 400));
     jsp.getViewport().add(jep);
 
     frame = new TitledFrame(

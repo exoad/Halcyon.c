@@ -145,9 +145,7 @@ public class gui_HalcyonFrame implements Runnable
           direction += SOUTH;
 
         if (direction == 0)
-        {
           source.setCursor(sourceCursor);
-        }
         else
         {
           int cursorType = cursors.get(direction);
@@ -203,9 +201,7 @@ public class gui_HalcyonFrame implements Runnable
         source.setCursor(sourceCursor);
 
         if (source instanceof JComponent)
-        {
           ((JComponent) source).setAutoscrolls(autoscrolls);
-        }
       }
 
       @Override
@@ -298,9 +294,7 @@ public class gui_HalcyonFrame implements Runnable
           return new Dimension(bounds.width, bounds.height);
         }
         else
-        {
           return source.getParent().getSize();
-        }
       }
     }
 
@@ -468,7 +462,6 @@ public class gui_HalcyonFrame implements Runnable
         @Override
         public void mouseClicked(MouseEvent e)
         {
-
           if (e.getClickCount() >= 2)
           {
             frame.setExtendedState(maximizedFrame ? Frame.NORMAL : Frame.MAXIMIZED_BOTH);

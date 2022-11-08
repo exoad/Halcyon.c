@@ -27,7 +27,6 @@ public interface const_ResourceManager
   String DGUI_FILELIST_LEAF_OPEN = FILELIST_ICONS + "leaf_opened.png";
   String DGUI_FILELIST_LEAF_2 = FILELIST_ICONS + "leaf_2.png";
 
-
   /*--------------------------------------------------------------------- /
   / The following block of constants define resources for the APP itself. /
   / For example the logo                                                  /
@@ -35,4 +34,5 @@ public interface const_ResourceManager
   String APP = RESOURCES + "app" + use_HalcyonProperties.getFileSeparator();
   String GUI_PROGRAM_LOGO = APP + "Halcyon_Logo.png";
   String GUI_SPINNER_PULSE = APP + "spinner_pulse.gif";
+  String GUI_DISK_ICON = APP + "disk.png";
 }

@@ -25,23 +25,28 @@ public final class use_HalcyonProperties
   {
   }
 
-  public static final use_MutableDefinition[] DEFS = {
-      new use_MutableDefinition("Program Language", "halcyon.language", "en_US", new String[] { "en_US", "zh_CN" },
+  public static use_MUTableDefinition[] DEFS = {
+      new use_MUTableDefinition("Program Language", "halcyon.language", "en_US", new String[] { "en_US", "zh_CN" },
           x -> {
-            const_MutableManager.lang_locale.forYou(x);
+            const_MUTableKeys.lang_locale.forYou(x);
             language = ResourceBundle.getBundle("com.jackmeng.include.locale.HalcyonLang",
-                new Locale(const_MutableManager.lang_locale.first, const_MutableManager.lang_locale.second));
+                new Locale(const_MUTableKeys.lang_locale.first, const_MUTableKeys.lang_locale.second));
           }, x -> {
-            return const_MutableManager.lang_locale.first + "_" + const_MutableManager.lang_locale.second;
+            return const_MUTableKeys.lang_locale.first + "_" + const_MUTableKeys.lang_locale.second;
           }),
-      new use_MutableDefinition("Enable Logging", "halcyon.logging", "yes", new String[] { "yes", "no" },
-          x -> const_MutableManager.outstream = x.equalsIgnoreCase("yes"), x -> {
-            return const_MutableManager.outstream ? "yes" : "no";
-          }) };
+      new use_MUTableDefinition("Enable Logging", "halcyon.logging", "yes", new String[] { "yes", "no" },
+          x -> const_MUTableKeys.outstream = x.equalsIgnoreCase("yes"), x -> {
+            return const_MUTableKeys.outstream ? "yes" : "no";
+          }),
+          new use_MUTableDefinition("Enable Startup Testcase Check", "halcyon.tc_eval", "no", new String[] { "yes", "no" },
+          x -> const_MUTableKeys.run_tcs_on_start = !x.equalsIgnoreCase("no"), x -> {
+            return const_MUTableKeys.run_tcs_on_start ? "yes" : "no";
+          })
+  };
 
   public static final Random rng = new Random();
   public static ResourceBundle language = ResourceBundle.getBundle("com.jackmeng.include.locale.HalcyonLang",
-      new Locale(const_MutableManager.lang_locale.first, const_MutableManager.lang_locale.second));
+      new Locale(const_MUTableKeys.lang_locale.first, const_MUTableKeys.lang_locale.second));
 
   /**
    * @return String

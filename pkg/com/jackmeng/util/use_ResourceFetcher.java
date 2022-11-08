@@ -1,12 +1,15 @@
 package com.jackmeng.util;
 
+import com.jackmeng.halcyon.use_HalcyonFolder;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_FSys;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.zip.ZipFile;
+import java.awt.image.*;
 
 public class use_ResourceFetcher
 {
@@ -31,6 +34,24 @@ public class use_ResourceFetcher
     {
       return new ImageIcon(path);
     }
+  }
+
+  public BufferedImage getFromAsImage(String path)
+  {
+    try
+    {
+      return ImageIO.read(java.util.Objects.requireNonNull(getClass().getResource(path)));
+    } catch (Exception e)
+    {
+      try
+      {
+        return ImageIO.read(new File(path));
+      } catch (IOException e1)
+      {
+        use_HalcyonFolder.FOLDER.log(e1);
+      }
+    }
+    return null;
   }
 
   /**

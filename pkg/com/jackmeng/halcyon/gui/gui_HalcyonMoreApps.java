@@ -103,9 +103,7 @@ public class gui_HalcyonMoreApps
           + "<br>Description: " + x2.description() + "</html>");
     }
     else
-    {
       action.setToolTipText("<html><strong>App: " + x.id() + "</strong><br>hash: " + x.hashCode() + "</html>");
-    }
     main.add(action);
     return main;
   }
@@ -128,6 +126,5 @@ public class gui_HalcyonMoreApps
   public void dry_refresh()
   {
     // TODO Auto-generated method stub
-
   }
 }

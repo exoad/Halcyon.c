@@ -1,6 +1,7 @@
 package com.jackmeng.halcyon.gui.childs;
 
 import com.jackmeng.halcyon.apps.evnt_RemoveTab;
+import com.jackmeng.halcyon.apps.evnt_SelectPlaylistTrack;
 import com.jackmeng.halcyon.apps.impl_HalcyonRefreshable;
 import com.jackmeng.halcyon.const_Global;
 import com.jackmeng.halcyon.gui.const_ColorManager;
@@ -8,7 +9,9 @@ import com.jackmeng.halcyon.gui.const_Manager;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
 import com.jackmeng.halcyon.use_HalcyonProperties;
 import com.jackmeng.sys.pstream;
+import com.jackmeng.sys.use_Task;
 import com.jackmeng.tailwind.use_TailwindPlaylist;
+import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.util.use_Image;
 import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_Struct.struct_Pair;
@@ -18,10 +21,11 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +35,8 @@ import java.util.Optional;
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
 public class dgui_HalcyonFileList extends JScrollPane implements
-    impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< use_TailwindPlaylist > > >
+    impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< use_TailwindPlaylist > > >,
+    evnt_SelectPlaylistTrack
 {
 
   private final TitledBorder border = BorderFactory.createTitledBorder(_lang(LANG_FILELIST_BORDER_TITLE));
@@ -60,6 +65,7 @@ public class dgui_HalcyonFileList extends JScrollPane implements
   /---------------------------------------------------------------------------------------------------------------*/
 
   private final transient Map< String, struct_Trio< struct_Pair< Integer, JTree >, DefaultMutableTreeNode, java.util.List< DefaultMutableTreeNode > > > guiTrees;
+  private final transient java.util.List< evnt_SelectPlaylistTrack > trackSelectionListener;
   /*------------------------------------------------------------------------------------------------------------------ /
   / stupid linter wants this to be transient for no goddamn reason when JComponent is serialized and inherited here????/
   /-------------------------------------------------------------------------------------------------------------------*/
@@ -132,6 +138,8 @@ public class dgui_HalcyonFileList extends JScrollPane implements
 
   public dgui_HalcyonFileList()
   {
+    trackSelectionListener = new ArrayList<>();
+
     border.setBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_DARK_BG_2));
     border.setTitleFont(use_HalcyonProperties.boldFont().deriveFont(15F));
 
@@ -190,6 +198,24 @@ public class dgui_HalcyonFileList extends JScrollPane implements
     /     new use_StubPlaylist(new playlist_Traits(true, false, true, false), _lang(LANG_PLAYLIST_DEFAULT_LIKED_TITLE), new String[0], /
     /         use_HalcyonProperties.acceptedEndings()));                                                               /
     /-----------------------------------------------------------------------------------------------------------------*/
+    add_TrackSelectionListener(this);
+  }
+
+  public void add_TrackSelectionListener(evnt_SelectPlaylistTrack trackListener)
+  {
+    assert trackListener != null;
+    trackSelectionListener.add(trackListener);
+  }
+
+  public void rmf_TrackSelectionListener(evnt_SelectPlaylistTrack trackListener)
+  {
+    assert trackListener != null;
+    trackSelectionListener.remove(trackListener);
+  }
+
+  public void rmf_TrackSelectionListener(int index)
+  {
+    trackSelectionListener.remove(index);
   }
 
   /**
@@ -212,7 +238,8 @@ public class dgui_HalcyonFileList extends JScrollPane implements
       }
     });
 
-    JTree tree = new JTree(root);
+    final JTree tree = new JTree(root);
+    tree.setName(list.getParent());
     tree.setRootVisible(true);
     tree.setShowsRootHandles(true);
     tree.setExpandsSelectedPaths(true);
@@ -234,6 +261,54 @@ public class dgui_HalcyonFileList extends JScrollPane implements
         const_Manager.DGUI_APPS_FILELIST_LEAF_ICON_W_H,
         use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.DGUI_FILELIST_LEAF)));
     tree.setCellRenderer(renderer);
+    tree.addMouseListener(new MouseAdapter() {
+
+      private void call(MouseEvent e)
+      {
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e)
+      {
+        if (SwingUtilities.isRightMouseButton(e))
+          call(e);
+      }
+
+      @Override
+      public void mousePressed(MouseEvent e)
+      {
+        if (SwingUtilities.isRightMouseButton(e))
+          call(e);
+      }
+
+      private File last = null;
+
+      @Override
+      public void mouseClicked(MouseEvent e)
+      {
+        if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 2)
+        {
+          JTree tree1 = (JTree) e.getSource();
+          TreePath path = tree1.getSelectionPath();
+          if (path != null)
+          {
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree1.getLastSelectedPathComponent();
+            if (!node.getParent().toString().equals(tree.getParent().toString()))
+            {
+              File f = new File(tree.getName() + use_HalcyonProperties.getFileSeparator() + node);
+              if (last == null)
+                last = f;
+              else if (!last.getAbsolutePath().equals(f.getAbsolutePath()))
+              {
+                use_TailwindTrack er = new use_TailwindTrack(f);
+                use_Task.async_N1(() -> trackSelectionListener.forEach(x -> x.forYou(er)));
+              }
+
+            }
+          }
+        }
+      }
+    });
     pstream.log.info("INSERTS > " + list.getCanonicalParent_1());
 
     JScrollPane jsp = new JScrollPane();
@@ -256,7 +331,6 @@ public class dgui_HalcyonFileList extends JScrollPane implements
     guiTrees.put(list.id(),
         new struct_Trio<>(
             new struct_Pair<>(pane.getTabCount() - 1, tree), root, nodes));
-    revalidate();
   }
 
   /**
@@ -273,5 +347,11 @@ public class dgui_HalcyonFileList extends JScrollPane implements
   {
     const_Global.PLAY_LIST_POOL.objs().forEach(
         x -> pokeFileList(const_Global.PLAY_LIST_POOL.get(x)));
+  }
+
+  @Override
+  public void forYou(use_TailwindTrack e)
+  {
+    pstream.log.info("Selected Track: " + e);
   }
 }
