@@ -29,7 +29,8 @@ import java.awt.image.*;
 
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
-public final class use_TailwindTrack implements impl_Identifiable
+public final class use_TailwindTrack
+    implements impl_Identifiable
 {
   /*---------------------------- /
   / represents a "an audio" file /
@@ -47,7 +48,8 @@ public final class use_TailwindTrack implements impl_Identifiable
                             _lang(LANG_UNKNOWN)), MEDIA_LANGUAGE(FieldKey.LANGUAGE,
                                 _lang(LANG_UNKNOWN)), MEDIA_COMPOSER(FieldKey.COMPOSER,
                                     _lang(LANG_UNKNOWN)), MEDIA_LYRICS(FieldKey.LYRICS,
-                                        "???"), MEDIA_COPYRIGHT(FieldKey.COPYRIGHT, _lang(LANG_UNKNOWN));
+                                        "???"), MEDIA_COPYRIGHT(FieldKey.COPYRIGHT,
+                                            _lang(LANG_UNKNOWN)), MEDIA_TITLE(FieldKey.TITLE, "???");
 
     public final Object value;
     public final FieldKey key;
@@ -62,11 +64,11 @@ public final class use_TailwindTrack implements impl_Identifiable
   private File content;
   private Tag tag;
   private AudioHeader header;
-  private Map< tailwindtrack_Tags, Object > tags;
+  private Map< tailwindtrack_Tags, Object > MediaTags;
 
   private static Object iem(Object e, tailwindtrack_Tags elseE)
   {
-    return e instanceof String ? (use_Primitives.str_empty((String) e) ? elseE.value : e) : e == null ? elseE.value : e;
+    return use_Primitives.str_empty((String) e) ? elseE.value : e;
   }
 
   public use_TailwindTrack(String str)
@@ -77,6 +79,20 @@ public final class use_TailwindTrack implements impl_Identifiable
   public use_TailwindTrack(File file)
   {
     setContentFile(file);
+    AudioFile af = null;
+    try
+    {
+      af = AudioFileIO.read(content);
+    } catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e)
+    {
+      pstream.log.err(e);
+    }
+    if (af != null)
+    {
+      tag = af.getTag();
+      header = af.getAudioHeader();
+    }
+    __init__();
   }
 
   public use_TailwindTrack(URL path)
@@ -90,63 +106,55 @@ public final class use_TailwindTrack implements impl_Identifiable
     / this method uses the default configured content file and generates the specified data from /
     / that recognized file                                                                       /
     /-------------------------------------------------------------------------------------------*/
-    AudioFile r = null;
-    try
-    {
-      r = AudioFileIO.read(content);
-    } catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e)
-    {
-      pstream.log.err(e);
-    }
-    if (r != null)
-    {
-      tag = r.getTag();
-      header = r.getAudioHeader();
-    }
-    tags = new WeakHashMap<>();
-    tags.put(tailwindtrack_Tags.MEDIA_BITRATE,
+
+    MediaTags = new WeakHashMap<>();
+    MediaTags.put(tailwindtrack_Tags.MEDIA_BITRATE,
         header == null ? tailwindtrack_Tags.MEDIA_BITRATE.value : header.getBitRate());
-    tags.put(tailwindtrack_Tags.MEDIA_SAMPLERATE,
+    MediaTags.put(tailwindtrack_Tags.MEDIA_SAMPLERATE,
         header == null ? tailwindtrack_Tags.MEDIA_SAMPLERATE : header.getSampleRate());
-    tags.put(tailwindtrack_Tags.MEDIA_GENRE,
+    MediaTags.put(tailwindtrack_Tags.MEDIA_GENRE,
         tag == null ? tailwindtrack_Tags.MEDIA_GENRE.value
             : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_GENRE.key), tailwindtrack_Tags.MEDIA_GENRE));
-    tags.put(tailwindtrack_Tags.MEDIA_ALBUM,
-        tag == null ? tailwindtrack_Tags.MEDIA_GENRE.value
+    MediaTags.put(tailwindtrack_Tags.MEDIA_ALBUM,
+        tag == null ? tailwindtrack_Tags.MEDIA_ALBUM.value
             : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_ALBUM.key), tailwindtrack_Tags.MEDIA_ALBUM));
-    tags.put(tailwindtrack_Tags.MEDIA_ARTIST,
-        tag == null ? tailwindtrack_Tags.MEDIA_GENRE.value
+    MediaTags.put(tailwindtrack_Tags.MEDIA_ARTIST,
+        tag == null ? tailwindtrack_Tags.MEDIA_ARTIST.value
             : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_ARTIST.key), tailwindtrack_Tags.MEDIA_ARTIST));
-    tags.put(tailwindtrack_Tags.MEDIA_COMMENT,
-        tag == null ? tailwindtrack_Tags.MEDIA_GENRE.value
+    MediaTags.put(tailwindtrack_Tags.MEDIA_COMMENT,
+        tag == null ? tailwindtrack_Tags.MEDIA_COMMENT.value
             : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_COMMENT.key), tailwindtrack_Tags.MEDIA_COMMENT));
-    tags.put(tailwindtrack_Tags.MEDIA_COMPOSER,
-        tag == null ? tailwindtrack_Tags.MEDIA_GENRE.value
+    MediaTags.put(tailwindtrack_Tags.MEDIA_COMPOSER,
+        tag == null ? tailwindtrack_Tags.MEDIA_COMPOSER.value
             : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_COMPOSER.key), tailwindtrack_Tags.MEDIA_COMPOSER));
-    tags.put(tailwindtrack_Tags.MEDIA_COPYRIGHT,
-        tag == null ? tailwindtrack_Tags.MEDIA_GENRE.value
+    MediaTags.put(tailwindtrack_Tags.MEDIA_COPYRIGHT,
+        tag == null ? tailwindtrack_Tags.MEDIA_COPYRIGHT.value
             : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_COPYRIGHT.key), tailwindtrack_Tags.MEDIA_COPYRIGHT));
-    tags.put(tailwindtrack_Tags.MEDIA_DURATION,
+    MediaTags.put(tailwindtrack_Tags.MEDIA_DURATION,
         header == null ? tailwindtrack_Tags.MEDIA_DURATION.value : header.getPreciseTrackLength());
-    tags.put(tailwindtrack_Tags.MEDIA_LANGUAGE,
-        tag == null ? tailwindtrack_Tags.MEDIA_GENRE.value
+    MediaTags.put(tailwindtrack_Tags.MEDIA_LANGUAGE,
+        tag == null ? tailwindtrack_Tags.MEDIA_LANGUAGE.value
             : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_LANGUAGE.key), tailwindtrack_Tags.MEDIA_LANGUAGE));
-    tags.put(tailwindtrack_Tags.MEDIA_LYRICS,
-        tag == null ? tailwindtrack_Tags.MEDIA_GENRE.value
+    MediaTags.put(tailwindtrack_Tags.MEDIA_LYRICS,
+        tag == null ? tailwindtrack_Tags.MEDIA_LYRICS.value
             : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_LYRICS.key), tailwindtrack_Tags.MEDIA_LYRICS));
-    tags.put(tailwindtrack_Tags.MEDIA_YEAR,
-        tag == null ? tailwindtrack_Tags.MEDIA_GENRE.value
+    MediaTags.put(tailwindtrack_Tags.MEDIA_YEAR,
+        tag == null ? tailwindtrack_Tags.MEDIA_YEAR.value
             : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_YEAR.key), tailwindtrack_Tags.MEDIA_YEAR));
-    tags.put(tailwindtrack_Tags.MEDIA_ART, get_artwork());
+    MediaTags.put(tailwindtrack_Tags.MEDIA_TITLE,
+        tag == null ? content.getName()
+            : use_Primitives.str_empty(tag.getFirst(tailwindtrack_Tags.MEDIA_TITLE.key)) ? content.getName()
+                : tailwindtrack_Tags.MEDIA_TITLE.value);
+    MediaTags.put(tailwindtrack_Tags.MEDIA_ART, get_artwork());
 
     /*---------------------------------------------------------------------------------------------------------------- /
-    / tags.put(tailwindtrack_Tags.MEDIA_ABSOLUTE_LOCATION, header == null ? "0" : header.getBitRate());                /
-    / tags.put(tailwindtrack_Tags.MEDIA_GENRE,                                                                         /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_ABSOLUTE_LOCATION, header == null ? "0" : header.getBitRate());                /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_GENRE,                                                                         /
     /     tag == null || str_empty(tag.getFirst(FieldKey.GENRE)) ? _lang(LANG_UNKNOWN) : tag.getFirst(FieldKey.GENRE)); /
-    / tags.put(tailwindtrack_Tags.)                                                                                    /
+    / MediaTags.put(tailwindtrack_Tags.)                                                                                    /
     /-----------------------------------------------------------------------------------------------------------------*/
     /*----------------------------------------------------- /
-    / tags.put(tailwind_Tags.MEDIA_ABSOLUTE_LOCATION,) /
+    / MediaTags.put(tailwind_Tags.MEDIA_ABSOLUTE_LOCATION,) /
     /------------------------------------------------------*/
   }
 
@@ -194,8 +202,10 @@ public final class use_TailwindTrack implements impl_Identifiable
 
   public void setContentFile(File f)
   {
+    /*---------------------------- /
+    / MAKE SURE TO CALL refresh(); /
+    /-----------------------------*/
     this.content = f;
-    __init__();
   }
 
   public File getContentFile()
@@ -205,7 +215,7 @@ public final class use_TailwindTrack implements impl_Identifiable
 
   public Optional< Object > get(tailwindtrack_Tags key)
   {
-    return Optional.of(tags.get(key));
+    return Optional.of(MediaTags.get(key));
   }
 
   @Override
@@ -216,6 +226,6 @@ public final class use_TailwindTrack implements impl_Identifiable
 
   public String toString()
   {
-    return "Track:" + tag.toString();
+    return "Track:" + MediaTags.toString();
   }
 }

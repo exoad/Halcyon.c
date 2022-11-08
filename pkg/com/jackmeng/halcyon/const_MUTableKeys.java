@@ -16,4 +16,5 @@ public final class const_MUTableKeys
   public static boolean outstream = true;
   public static int playlist_select_icon_w_h = 16;
   public static boolean run_tcs_on_start = false;
+  public static boolean title_frame_styling = false;
 }

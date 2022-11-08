@@ -34,7 +34,9 @@ import java.util.Optional;
 
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
-public class dgui_HalcyonFileList extends JScrollPane implements
+public class dgui_HalcyonFileList
+    extends JScrollPane
+    implements
     impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< use_TailwindPlaylist > > >,
     evnt_SelectPlaylistTrack
 {
@@ -75,7 +77,8 @@ public class dgui_HalcyonFileList extends JScrollPane implements
   / "lip" -> "liked playlists"                     /
   /-----------------------------------------------*/
 
-  private class filelist_TabButtons extends JPanel
+  private class filelist_TabButtons
+      extends JPanel
   {
     private final transient evnt_RemoveTab listener;
 
@@ -94,7 +97,9 @@ public class dgui_HalcyonFileList extends JScrollPane implements
       setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
     }
 
-    private class filelist_CloseTab extends JButton implements ActionListener
+    private class filelist_CloseTab
+        extends JButton
+        implements ActionListener
     {
 
       public filelist_CloseTab()
@@ -146,14 +151,12 @@ public class dgui_HalcyonFileList extends JScrollPane implements
     setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH - const_Manager.DGUI_APPS_WIDTH,
         const_Manager.FRAME_MIN_HEIGHT / 2));
     setBorder(border);
-    setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+    setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
     setPreferredSize(new Dimension(const_Manager.DGUI_APPS_FILELIST_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT));
     /*----------------------------------------------------------------- /
     / Dont add setMinimumSize(); it messes up app list resizing ability /
     /------------------------------------------------------------------*/
-    getVerticalScrollBar().setForeground(const_ColorManager.DEFAULT_GREEN_FG);
-    getHorizontalScrollBar().setForeground(const_ColorManager.DEFAULT_GREEN_FG);
 
     pane = new JTabbedPane();
     pane.setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH - const_Manager.DGUI_APPS_WIDTH,
@@ -298,12 +301,9 @@ public class dgui_HalcyonFileList extends JScrollPane implements
               File f = new File(tree.getName() + use_HalcyonProperties.getFileSeparator() + node);
               if (last == null)
                 last = f;
-              else if (!last.getAbsolutePath().equals(f.getAbsolutePath()))
-              {
-                use_TailwindTrack er = new use_TailwindTrack(f);
-                use_Task.async_N1(() -> trackSelectionListener.forEach(x -> x.forYou(er)));
-              }
-
+              use_TailwindTrack er = new use_TailwindTrack(f);
+              use_Task.run_Snb_1(() -> trackSelectionListener.forEach(x -> x.forYou(er)));
+              last = f;
             }
           }
         }
@@ -313,8 +313,8 @@ public class dgui_HalcyonFileList extends JScrollPane implements
 
     JScrollPane jsp = new JScrollPane();
     jsp.setAutoscrolls(true);
-    jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+    jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+    jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
     jsp.setBorder(null);
     jsp.getViewport().add(tree);
 
@@ -352,6 +352,8 @@ public class dgui_HalcyonFileList extends JScrollPane implements
   @Override
   public void forYou(use_TailwindTrack e)
   {
-    pstream.log.info("Selected Track: " + e);
+    /*--------------- /
+    / IGNORED FOR NOW /
+    /----------------*/
   }
 }

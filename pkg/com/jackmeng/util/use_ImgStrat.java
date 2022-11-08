@@ -15,7 +15,8 @@ public final class use_ImgStrat
   {
   }
 
-  public static class imgstrat_BlurhashBlur implements BufferedImageOp
+  public static class imgstrat_BlurhashBlur
+      implements BufferedImageOp
   {
     private int x, y;
     private double punch;
@@ -111,7 +112,8 @@ public final class use_ImgStrat
 
   }
 
-  public static class imgstrat_TransposedGaussianBlur implements BufferedImageOp
+  public static class imgstrat_TransposedGaussianBlur
+      implements BufferedImageOp
   {
     private float[] matrix;
 
@@ -261,7 +263,8 @@ public final class use_ImgStrat
     }
   }
 
-  public static class imgstrat_FastBlur implements BufferedImageOp
+  public static class imgstrat_FastBlur
+      implements BufferedImageOp
   {
     private int radius;
 

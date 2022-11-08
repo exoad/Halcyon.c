@@ -9,7 +9,8 @@ import com.jackmeng.util.use_Struct.struct_Pair;
 import java.util.*;
 
 public class use_Pool< T extends impl_Identifiable >
-    implements impl_HalcyonRefreshable< impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > >,
+    implements
+    impl_HalcyonRefreshable< impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > >,
     Iterable< T >
 {
   private Map< String, T > poolObjects;

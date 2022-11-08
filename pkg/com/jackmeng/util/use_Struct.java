@@ -13,7 +13,8 @@ public final class use_Struct
   / or structures that can be used.                              /
   /-------------------------------------------------------------*/
 
-  public static final class struct_Pair< A, B > implements impl_ForYou< String >
+  public static final class struct_Pair< A, B >
+      implements impl_ForYou< String >
   {
     /*-------------------------------------------------------------------- /
     / dont care about JSE standards of making everything private           /
@@ -85,7 +86,8 @@ public final class use_Struct
     }
   }
 
-  public static final class struct_Trio< A, B, C > implements impl_ForYou< String >
+  public static final class struct_Trio< A, B, C >
+      implements impl_ForYou< String >
   {
     public A first;
     public B second;

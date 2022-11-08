@@ -7,7 +7,8 @@ import java.util.List;
 
 import com.jackmeng.tailwind.use_TailwindPlaylist;
 
-public class use_StubPlaylist extends use_TailwindPlaylist
+public class use_StubPlaylist
+extends use_TailwindPlaylist
 {
 
   public use_StubPlaylist(use_TailwindPlaylist.playlist_Traits trait, String playListName, String[] children,

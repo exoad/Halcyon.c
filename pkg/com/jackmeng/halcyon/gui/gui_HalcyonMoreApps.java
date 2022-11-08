@@ -23,7 +23,9 @@ import com.jackmeng.util.use_Struct.struct_Pair;
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
 public class gui_HalcyonMoreApps
-    implements Runnable, impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< impl_App > > >
+    implements
+    Runnable,
+    impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< impl_App > > >
 {
 
   private JFrame frame;

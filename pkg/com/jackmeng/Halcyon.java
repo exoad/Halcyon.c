@@ -20,6 +20,10 @@ import java.util.TimerTask;
 public final class Halcyon
 {
 
+   static {
+      System.setProperty("sun.java2d.opengl", "true");
+   }
+
    public static void __LINK__()
    {
       File r = new File("hlib/");
@@ -74,8 +78,11 @@ public final class Halcyon
          /*------------------------------------ /
          / actual program related GUI processes /
          /-------------------------------------*/
-         main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
-         main.run();
+         use_Task.async_N1(() -> {
+            main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
+            main.run();
+         });
+
          pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
 
          /*------------------------------------------------------------------------------------------------ /

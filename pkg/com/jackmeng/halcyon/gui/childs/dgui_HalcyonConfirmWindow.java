@@ -9,7 +9,8 @@ import com.jackmeng.util.use_ResourceFetcher;
 
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
-public class dgui_HalcyonConfirmWindow extends gui_HalcyonGenericWindow
+public class dgui_HalcyonConfirmWindow
+    extends gui_HalcyonGenericWindow
 {
 
   public dgui_HalcyonConfirmWindow(String title, String content_HTML, Runnable onConfirm, Runnable onDeny,

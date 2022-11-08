@@ -22,7 +22,8 @@ import java.util.Optional;
 
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
-public class dgui_HalcyonApps extends JPanel
+public class dgui_HalcyonApps
+    extends JPanel
     implements impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< impl_App > > >
 {
 

@@ -5,7 +5,11 @@ import java.util.List;
 
 import com.jackmeng.halcyon.apps.impl_Identifiable;
 
-public class use_Tailwind implements impl_Identifiable, impl_Tailwind, Cloneable
+public class use_Tailwind
+    implements
+    impl_Identifiable,
+    impl_Tailwind,
+    Cloneable
 {
   /*----------------------------------------------------- /
   / master class for the tailwind audio processor and the /

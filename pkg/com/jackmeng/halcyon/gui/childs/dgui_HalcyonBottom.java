@@ -5,7 +5,8 @@ import com.jackmeng.halcyon.gui.const_Manager;
 import javax.swing.*;
 import java.awt.*;
 
-public class dgui_HalcyonBottom extends JSplitPane
+public class dgui_HalcyonBottom
+    extends JSplitPane
 {
   private final dgui_HalcyonApps apps;
 

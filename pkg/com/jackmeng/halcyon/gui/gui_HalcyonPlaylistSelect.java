@@ -13,7 +13,8 @@ import java.io.File;
 
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
-public final class gui_HalcyonPlaylistSelect implements Runnable
+public final class gui_HalcyonPlaylistSelect
+    implements Runnable
 {
   private JFileChooser chooser;
   /*----------------------- /

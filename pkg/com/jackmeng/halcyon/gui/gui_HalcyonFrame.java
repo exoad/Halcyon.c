@@ -1,5 +1,6 @@
 package com.jackmeng.halcyon.gui;
 
+import com.jackmeng.halcyon.const_MUTableKeys;
 import com.jackmeng.halcyon.use_HalcyonProperties;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Program;
@@ -17,12 +18,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class gui_HalcyonFrame implements Runnable
+public class gui_HalcyonFrame
+    implements Runnable
 {
 
-  public static class TitledFrame implements Runnable
+  public static class TitledFrame
+      implements Runnable
   {
-    public static class ComponentResizer extends MouseAdapter
+    public static class ComponentResizer
+        extends MouseAdapter
     {
       private static final Dimension MINIMUM_SIZE = new Dimension(10, 10);
       private static final Dimension MAXIMUM_SIZE = new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
@@ -331,158 +335,156 @@ public class gui_HalcyonFrame implements Runnable
       int contentOff = tH - titleHeightOffSub;
 
       frame = new JFrame();
-      if (tH <= titleHeightOffSub || !Toolkit.getDefaultToolkit().isFrameStateSupported(Frame.MAXIMIZED_BOTH))
+      frame.setTitle(conf.titleStr);
+      if (conf.icon != null)
+        frame.setIconImage(conf.icon.getImage());
+      frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+      if (tH <= titleHeightOffSub || !Toolkit.getDefaultToolkit().isFrameStateSupported(Frame.MAXIMIZED_BOTH)
+          || const_MUTableKeys.title_frame_styling)
       {
         frame.setUndecorated(false);
         this.titleHeight = 0;
+        frame.setPreferredSize(content.getPreferredSize());
+        frame.getContentPane().add(content);
+        pstream.log.info("Launching a [NATIVE] styled window");
       }
       else
       {
         frame.setUndecorated(true);
         this.titleHeight = tH;
-      }
-
-      /*------------------------------------------------------------ /
-      / dont set the frame background to anything, causes flickering /
-      /-------------------------------------------------------------*/
-
-      frame.setTitle(conf.titleStr);
-      if (conf.icon != null)
-        frame.setIconImage(conf.icon.getImage());
-      frame.setPreferredSize(
-          new Dimension(content.getPreferredSize().width, titleHeight + content.getPreferredSize().height));
-      frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-      if (content.getMaximumSize() == null
-          || !(content.getMaximumSize().width == content.getPreferredSize().width
-              && content.getMaximumSize().height == content.getPreferredSize().height)
-          || (content.getMaximumSize().width <= frame.getMaximumSize().width
-              && content.getMaximumSize().height <= frame.getMaximumSize().height))
-      {
-        cr.registerComponent(frame);
-        frame.addMouseListener(cr);
-      }
-      /*----------------------------------------------------------------------------------------------------- /
-      / need to set a border no matter what, or the component resizing routine cant be latched on graphically /
-      /------------------------------------------------------------------------------------------------------*/
-      frame.getRootPane()
-          .setBorder(BorderFactory.createLineBorder(conf.borderColor != null ? conf.borderColor : Color.BLACK, 3));
-      frame.setLocation(use_Program.screen_center().first - (frame.getPreferredSize().width / 2),
-          use_Program.screen_center().second - (frame.getPreferredSize().height / 2));
-
-      JPanel titleBar = new JPanel();
-      titleBar.setPreferredSize(new Dimension(content.getPreferredSize().width, titleHeight));
-      titleBar.addComponentListener(new ComponentAdapter() {
-        @Override
-        public void componentResized(ComponentEvent e)
+        frame.setPreferredSize(
+            new Dimension(content.getPreferredSize().width, titleHeight + content.getPreferredSize().height));
+        frame.getRootPane()
+            .setBorder(BorderFactory.createLineBorder(conf.borderColor != null ? conf.borderColor : Color.BLACK, 3));
+        if (content.getMaximumSize() == null
+            || !(content.getMaximumSize().width == content.getPreferredSize().width
+                && content.getMaximumSize().height == content.getPreferredSize().height)
+            || (content.getMaximumSize().width <= frame.getMaximumSize().width
+                && content.getMaximumSize().height <= frame.getMaximumSize().height))
         {
-          if (titleBar.getPreferredSize().height > titleHeight)
+          cr.registerComponent(frame);
+          frame.addMouseListener(cr);
+        }
+        pstream.log.info("Launching a [CUSTOM] styled window");
+
+        /*------------------------------------------------------------ /
+        / dont set the frame background to anything, causes flickering /
+        /-------------------------------------------------------------*/
+
+        JPanel titleBar = new JPanel();
+        titleBar.setPreferredSize(new Dimension(content.getPreferredSize().width, titleHeight));
+        titleBar.addComponentListener(new ComponentAdapter() {
+          @Override
+          public void componentResized(ComponentEvent e)
           {
-            titleBar.setSize(new Dimension(frame.getPreferredSize().width, titleHeight));
+            if (titleBar.getPreferredSize().height > titleHeight)
+              titleBar.setSize(new Dimension(frame.getPreferredSize().width, titleHeight));
           }
-        }
-      });
-      titleBar.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mousePressed(MouseEvent me)
-        {
-          pX = me.getX();
-          pY = me.getY();
-        }
-
-        @Override
-        public void mouseDragged(MouseEvent me)
-        {
-          frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
-        }
-      });
-      titleBar.addMouseMotionListener(new MouseMotionAdapter() {
-        @Override
-        public void mouseDragged(MouseEvent me)
-        {
-          frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
-        }
-      });
-      titleBar.setOpaque(true);
-      titleBar.setBackground(conf.bg);
-      titleBar.setLayout(new BorderLayout(10, 0));
-
-      JLabel titleBarStr = new JLabel(conf.titleStr);
-      if (conf.titleStrFont != null)
-        titleBarStr.setFont(conf.titleStrFont);
-      titleBarStr.setForeground(conf.fg);
-      titleBarStr.setHorizontalAlignment(SwingConstants.CENTER);
-      titleBarStr.setVerticalAlignment(SwingConstants.CENTER);
-
-      JPanel btns = new JPanel();
-      btns.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-      btns.setOpaque(true);
-      btns.setBackground(conf.bg);
-
-      status = new JLabel("", SwingConstants.CENTER);
-      status.setPreferredSize(new Dimension(const_Manager.FRAME_TITLEBAR_HEIGHT, const_Manager.FRAME_TITLEBAR_HEIGHT));
-      status.setMaximumSize(new Dimension(const_Manager.FRAME_TITLEBAR_HEIGHT, const_Manager.FRAME_TITLEBAR_HEIGHT));
-      status.setOpaque(true);
-      status.setAutoscrolls(true);
-      /*----------------- /
-      / btns.add(status); /
-      /------------------*/
-
-      if (conf.bgMis != null)
-        btns.add(gen_Button(conf.bgMis, () -> frame.setAlwaysOnTop(!frame.isAlwaysOnTop())));
-      if (conf.bgMini != null)
-      {
-        btns.add(gen_Button(conf.bgMini, () -> frame.setState(Frame.ICONIFIED)));
-      }
-      if (conf.bgExp != null)
-      {
-        btns.add(gen_Button(conf.bgExp, () -> {
-          frame.setExtendedState(maximizedFrame ? Frame.NORMAL : Frame.MAXIMIZED_BOTH);
-          maximizedFrame = !maximizedFrame;
-        }));
-      }
-      btns.add(gen_Button(conf.bgClose, frame::dispose));
-      JLabel titleBarICO = new JLabel(conf.icon != null
-          ? new ImageIcon(conf.icon.getImage().getScaledInstance(contentOff, contentOff, Image.SCALE_AREA_AVERAGING))
-          : new ImageIcon());
-      if (conf.icon == null)
-      {
-        titleBarICO.setPreferredSize(new Dimension(titleHeight, titleHeight));
-        titleBarICO.setOpaque(true);
-        titleBarICO.setBackground(conf.fg);
-      }
-      titleBarICO.setAlignmentY(Component.CENTER_ALIGNMENT);
-      titleBarICO.setAutoscrolls(true);
-
-      titleBar.add(titleBarICO, BorderLayout.WEST);
-      titleBar.add(titleBarStr, BorderLayout.CENTER);
-      titleBar.add(btns, BorderLayout.EAST);
-      titleBar.setAlignmentX(Component.CENTER_ALIGNMENT);
-      titleBar.setAlignmentY(Component.CENTER_ALIGNMENT);
-      titleBar.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e)
-        {
-          if (e.getClickCount() >= 2)
+        });
+        titleBar.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mousePressed(MouseEvent me)
           {
+            pX = me.getX();
+            pY = me.getY();
+          }
+
+          @Override
+          public void mouseDragged(MouseEvent me)
+          {
+            frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
+          }
+        });
+        titleBar.addMouseMotionListener(new MouseMotionAdapter() {
+          @Override
+          public void mouseDragged(MouseEvent me)
+          {
+            frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
+          }
+        });
+        titleBar.setOpaque(true);
+        titleBar.setBackground(conf.bg);
+        titleBar.setLayout(new BorderLayout(10, 0));
+
+        JLabel titleBarStr = new JLabel(conf.titleStr);
+        if (conf.titleStrFont != null)
+          titleBarStr.setFont(conf.titleStrFont);
+        titleBarStr.setForeground(conf.fg);
+        titleBarStr.setHorizontalAlignment(SwingConstants.CENTER);
+        titleBarStr.setVerticalAlignment(SwingConstants.CENTER);
+
+        JPanel btns = new JPanel();
+        btns.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+        btns.setOpaque(true);
+        btns.setBackground(conf.bg);
+
+        status = new JLabel("", SwingConstants.CENTER);
+        status
+            .setPreferredSize(new Dimension(const_Manager.FRAME_TITLEBAR_HEIGHT, const_Manager.FRAME_TITLEBAR_HEIGHT));
+        status.setMaximumSize(new Dimension(const_Manager.FRAME_TITLEBAR_HEIGHT, const_Manager.FRAME_TITLEBAR_HEIGHT));
+        status.setOpaque(true);
+        status.setAutoscrolls(true);
+        /*----------------- /
+        / btns.add(status); /
+        /------------------*/
+
+        if (conf.bgMis != null)
+          btns.add(gen_Button(conf.bgMis, () -> frame.setAlwaysOnTop(!frame.isAlwaysOnTop())));
+        if (conf.bgMini != null)
+          btns.add(gen_Button(conf.bgMini, () -> frame.setState(Frame.ICONIFIED)));
+        if (conf.bgExp != null)
+        {
+          btns.add(gen_Button(conf.bgExp, () -> {
             frame.setExtendedState(maximizedFrame ? Frame.NORMAL : Frame.MAXIMIZED_BOTH);
             maximizedFrame = !maximizedFrame;
-          }
+          }));
         }
-      });
+        btns.add(gen_Button(conf.bgClose, frame::dispose));
+        JLabel titleBarICO = new JLabel(conf.icon != null
+            ? new ImageIcon(conf.icon.getImage().getScaledInstance(contentOff, contentOff, Image.SCALE_AREA_AVERAGING))
+            : new ImageIcon());
+        if (conf.icon == null)
+        {
+          titleBarICO.setPreferredSize(new Dimension(titleHeight, titleHeight));
+          titleBarICO.setOpaque(true);
+          titleBarICO.setBackground(conf.fg);
+        }
+        titleBarICO.setAlignmentY(Component.CENTER_ALIGNMENT);
+        titleBarICO.setAutoscrolls(true);
 
-      JPanel bigPane = new JPanel();
-      bigPane.setPreferredSize(frame.getPreferredSize());
-      bigPane.setLayout(new BorderLayout());
-      bigPane.setAlignmentY(Component.CENTER_ALIGNMENT);
+        titleBar.add(titleBarICO, BorderLayout.WEST);
+        titleBar.add(titleBarStr, BorderLayout.CENTER);
+        titleBar.add(btns, BorderLayout.EAST);
+        titleBar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleBar.setAlignmentY(Component.CENTER_ALIGNMENT);
+        titleBar.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseClicked(MouseEvent e)
+          {
+            if (e.getClickCount() >= 2)
+            {
+              frame.setExtendedState(maximizedFrame ? Frame.NORMAL : Frame.MAXIMIZED_BOTH);
+              maximizedFrame = !maximizedFrame;
+            }
+          }
+        });
 
-      bigPane.add(titleBar, BorderLayout.NORTH);
-      bigPane.add(content, BorderLayout.SOUTH);
+        JPanel bigPane = new JPanel();
+        bigPane.setPreferredSize(frame.getPreferredSize());
+        bigPane.setMinimumSize(frame.getPreferredSize());
+        bigPane.setLayout(new BorderLayout());
+        bigPane.setAlignmentY(Component.CENTER_ALIGNMENT);
 
-      frame.getContentPane().add(bigPane);
+        bigPane.add(titleBar, BorderLayout.NORTH);
+        bigPane.add(content, BorderLayout.SOUTH);
 
-      frame.setPreferredSize(new Dimension(bigPane.getPreferredSize().width, bigPane.getPreferredSize().height + 10));
+        frame.getContentPane().add(bigPane);
+        cr.setMinimumSize(frame.getMinimumSize());
+      }
       frame.setMinimumSize(frame.getPreferredSize());
-      cr.setMinimumSize(frame.getMinimumSize());
+      frame.setLocation(use_Program.screen_center().first - (frame.getPreferredSize().width / 2),
+          use_Program.screen_center().second - (frame.getPreferredSize().height / 2));
     }
 
     public void askStatus(struct_Trio< ImageIcon, String, Optional< Runnable > > exec, boolean autoresize)
@@ -644,6 +646,7 @@ public class gui_HalcyonFrame implements Runnable
     splitPane.setDividerLocation(const_Manager.FRAME_MIN_WIDTH / 2);
     splitPane.setDividerSize(0);
     splitPane.setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.FRAME_MIN_HEIGHT));
+    splitPane.setMinimumSize(splitPane.getPreferredSize());
 
     frame = new TitledFrame(new TitleBarConfig("Halcyon",
         use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.GUI_PROGRAM_LOGO),

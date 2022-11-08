@@ -38,9 +38,14 @@ public final class use_HalcyonProperties
           x -> const_MUTableKeys.outstream = x.equalsIgnoreCase("yes"), x -> {
             return const_MUTableKeys.outstream ? "yes" : "no";
           }),
-          new use_MUTableDefinition("Enable Startup Testcase Check", "halcyon.tc_eval", "no", new String[] { "yes", "no" },
+      new use_MUTableDefinition("Enable Startup Testcase Check", "halcyon.tc_eval", "no", new String[] { "yes", "no" },
           x -> const_MUTableKeys.run_tcs_on_start = !x.equalsIgnoreCase("no"), x -> {
             return const_MUTableKeys.run_tcs_on_start ? "yes" : "no";
+          }),
+      new use_MUTableDefinition("TitleBar Styling", "halcyon.gui.title_bar_styling", "custom",
+          new String[] { "custom", "native" }, x -> const_MUTableKeys.title_frame_styling = !x.equalsIgnoreCase("custom"),
+          x -> {
+            return const_MUTableKeys.title_frame_styling ? "native" : "custom";
           })
   };
 

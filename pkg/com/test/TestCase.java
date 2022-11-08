@@ -4,7 +4,8 @@ import com.jackmeng.halcyon.apps.impl_Callback;
 import com.jackmeng.sys.ansi_Colors;
 import com.jackmeng.sys.ansi_StrConstr;
 
-public class TestCase implements Runnable
+public class TestCase
+    implements Runnable
 {
   private String name;
   private impl_Callback< ? > action;

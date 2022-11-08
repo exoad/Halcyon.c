@@ -5,7 +5,8 @@ import com.jackmeng.halcyon.apps.impl_ForYou;
 import com.jackmeng.halcyon.apps.impl_Guard;
 import com.jackmeng.halcyon.apps.impl_Identifiable;
 
-public final class use_MUTableDefinition implements impl_Identifiable
+public final class use_MUTableDefinition
+    implements impl_Identifiable
 {
   public String name, key, defaultVal;
   private impl_Guard< String > onValidate;

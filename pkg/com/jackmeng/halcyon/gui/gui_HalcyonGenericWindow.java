@@ -7,7 +7,8 @@ import com.jackmeng.halcyon.use_HalcyonProperties;
 import javax.swing.*;
 import java.awt.*;
 
-public class gui_HalcyonGenericWindow implements Runnable
+public class gui_HalcyonGenericWindow
+    implements Runnable
 {
   protected final TitledFrame frame;
 
