@@ -1,4 +1,0 @@
-Bugs:
-  1. TitledFrame somehow has a chance to create a frame with 0.5F transparency when the attribute
-     is never specified nor set to any value (nullified) during init. So... sus af
-     Most likely have to do with some native library on the JSE-JRE side.
