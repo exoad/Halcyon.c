@@ -35,6 +35,6 @@ public class gui_HalcyonGenericWindow
   @Override
   public void run()
   {
-    frame.run();
+    SwingUtilities.invokeLater(frame);
   }
 }

@@ -115,7 +115,7 @@ public final class use_Image
    */
   public static ImageIcon resize_fast_1(int n_width, int h_height, ImageIcon i)
   {
-    i.setImage(i.getImage().getScaledInstance(n_width, h_height, Image.SCALE_DEFAULT));
+    i.setImage(i.getImage().getScaledInstance(n_width, h_height, Image.SCALE_AREA_AVERAGING));
     return i;
   }
 

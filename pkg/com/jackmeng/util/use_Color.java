@@ -90,6 +90,11 @@ public final class use_Color
     return "#" + Integer.toHexString(rgb[0]) + Integer.toHexString(rgb[1]) + Integer.toHexString(rgb[2]);
   }
 
+  public static String colorToHex(Color r)
+  {
+    return String.format("#%02x%02x%02x", r.getRed(), r.getGreen(), r.getBlue());
+  }
+
   public static boolean is_gray(int[] rgba, int tolerance)
   {
     return (rgba[1] - rgba[2] > tolerance || rgba[1]

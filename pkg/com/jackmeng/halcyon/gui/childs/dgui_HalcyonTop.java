@@ -6,35 +6,67 @@ import java.awt.*;
 
 import com.jackmeng.halcyon.const_Global;
 import com.jackmeng.halcyon.apps.evnt_SelectPlaylistTrack;
+import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_Manager;
+import com.jackmeng.halcyon.gui.dgui_ImgLabel;
 import com.jackmeng.sys.pstream;
+import com.jackmeng.sys.use_Chronos;
 import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
+import com.jackmeng.util.use_Color;
 
 public class dgui_HalcyonTop
     extends JPanel
-    implements evnt_SelectPlaylistTrack
+
 {
 
   public static final class halcyonTop_Info
       extends JPanel
       implements evnt_SelectPlaylistTrack
   {
+    private dgui_ImgLabel artwork;
+    private JPanel infoDisplayer;
+    private JLabel mainTitle, miscTitle, otherTitle;
+
     public halcyonTop_Info()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH,
           const_Manager.DGUI_APPS_FILELIST_HEIGHT - (const_Manager.DGUI_APPS_FILELIST_HEIGHT / 2)));
       setOpaque(false);
+      setLayout(new GridBagLayout());
+
+      infoDisplayer = new JPanel();
+      infoDisplayer.setLayout(new BoxLayout(infoDisplayer, BoxLayout.Y_AXIS));
+      infoDisplayer.setOpaque(true);
+      infoDisplayer.setPreferredSize(new Dimension(110, 110));
+      infoDisplayer.setBorder(BorderFactory.createEmptyBorder());
+
+      artwork = new dgui_ImgLabel(null, false);
+      mainTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_TITLE.value);
+
+      infoDisplayer.setBackground(Color.BLACK);
+
+      add(infoDisplayer);
       /*-------------------------------------------------- /
       / setOpaque(true);                                   /
       / setBackground(const_ColorManager.DEFAULT_BLUE_FG); /
       /---------------------------------------------------*/
+      const_Global.SELECTION_LISTENERS.add_listener(this);
     }
 
     @Override
     public void forYou(use_TailwindTrack e)
     {
-
+      infoDisplayer.setToolTipText("<html><body><p style=\"text-align: left;\"><span style=\"color: "
+          + use_Color.colorToHex(const_ColorManager.DEFAULT_GREEN_FG)
+          + ";font-size: 14px;\"><nobr><strong>" + e.get(tailwindtrack_Tags.MEDIA_TITLE)
+          + "</strong></nobr></span></p><p style=\"text-align: left;\"><span style=\"color: "
+          + use_Color.colorToHex(const_ColorManager.DEFAULT_PINK_FG) + ";font-size: 11px\">"
+          + e.get(tailwindtrack_Tags.MEDIA_ARTIST)
+          + "</span></p><p style=\"text-align: left;\"><span style=\"color: #ffffffff;font-size:10px\">"
+          + e.get(tailwindtrack_Tags.MEDIA_BITRATE) + "kbps " + e.get(tailwindtrack_Tags.MEDIA_SAMPLERATE) + "kHz "
+          + use_Chronos.format_sec((Integer) e.get(tailwindtrack_Tags.MEDIA_DURATION))
+          + "</span></p></body></html>");
     }
   }
 
@@ -62,9 +94,10 @@ public class dgui_HalcyonTop
   public dgui_HalcyonTop()
   {
     setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT));
-    setOpaque(true);
     setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
-    setLayout(new OverlayLayout(this));
+    setLayout(new BorderLayout());
+    add(new halcyonTop_Info(), BorderLayout.NORTH);
+    add(new halcyonTop_Buttons(), BorderLayout.SOUTH);
 
     /*--------------------------------------------------------------------------- /
     / bgPanel = new JPanel() {                                                    /
@@ -117,27 +150,10 @@ public class dgui_HalcyonTop
     / });                                                                                                          /
     /-------------------------------------------------------------------------------------------------------------*/
 
-    JPanel containerPane = new JPanel();
-    containerPane.setPreferredSize(getPreferredSize());
-    containerPane.setOpaque(false);
-    containerPane.setLayout(new BorderLayout());
-    containerPane.add(new halcyonTop_Info(), BorderLayout.NORTH);
-    containerPane.add(new halcyonTop_Buttons(), BorderLayout.SOUTH);
-
-    add(containerPane);
     /*------------ /
     / add(blurBp); /
     /-------------*/
 
-    const_Global.SELECTION_LISTENERS.add_listener_top(this);
   }
 
-  @Override
-  public void forYou(use_TailwindTrack e)
-  {
-    pstream.log.warn("AWAITED TRACK: " + e.get(tailwindtrack_Tags.MEDIA_ART));
-    /*-------------------- /
-    / blurBp.repaint(10L); /
-    /---------------------*/
-  }
 }

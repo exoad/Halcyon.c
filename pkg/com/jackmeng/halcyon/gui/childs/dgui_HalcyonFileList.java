@@ -284,12 +284,9 @@ public class dgui_HalcyonFileList
               if (last == null)
                 last = f;
 
-              if (!last.getAbsolutePath().equals(f.getAbsolutePath()))
-              {
-                use_TailwindTrack er = new use_TailwindTrack(f);
-                const_Global.SELECTION_LISTENERS.forEach(x -> x.forYou(er));
-                last = f;
-              }
+              use_TailwindTrack er = new use_TailwindTrack(f);
+              use_Task.run_Snb_1(() -> const_Global.SELECTION_LISTENERS.forEach(x -> x.forYou(er)));
+              last = f;
             }
           }
         }
@@ -338,8 +335,6 @@ public class dgui_HalcyonFileList
   @Override
   public void forYou(use_TailwindTrack e)
   {
-    /*--------------- /
-    / IGNORED FOR NOW /
-    /----------------*/
+    pstream.log.info("USER SELECTED TRACK: " + e.getContentFile().getAbsolutePath());
   }
 }

@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.WeakHashMap;
 
 import org.jaudiotagger.audio.AudioFile;
@@ -136,7 +135,7 @@ public final class use_TailwindTrack
         tag == null ? tailwindtrack_Tags.MEDIA_COPYRIGHT.value
             : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_COPYRIGHT.key), tailwindtrack_Tags.MEDIA_COPYRIGHT));
     MediaTags.put(tailwindtrack_Tags.MEDIA_DURATION,
-        header == null ? tailwindtrack_Tags.MEDIA_DURATION.value : header.getPreciseTrackLength());
+        header == null ? tailwindtrack_Tags.MEDIA_DURATION.value : header.getTrackLength());
     MediaTags.put(tailwindtrack_Tags.MEDIA_LANGUAGE,
         tag == null ? tailwindtrack_Tags.MEDIA_LANGUAGE.value
             : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_LANGUAGE.key), tailwindtrack_Tags.MEDIA_LANGUAGE));
@@ -225,9 +224,9 @@ public final class use_TailwindTrack
     return content;
   }
 
-  public Optional< Object > get(tailwindtrack_Tags key)
+  public Object get(tailwindtrack_Tags key)
   {
-    return Optional.of(MediaTags.get(key));
+    return MediaTags.get(key);
   }
 
   @Override
