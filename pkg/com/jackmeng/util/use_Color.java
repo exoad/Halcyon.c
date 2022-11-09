@@ -1,6 +1,7 @@
 package com.jackmeng.util;
 
 import com.jackmeng.halcyon.use_HalcyonProperties;
+import com.jackmeng.util.use_Struct.struct_Trio;
 
 import java.awt.*;
 
@@ -31,6 +32,16 @@ public final class use_Color
         Integer.valueOf(hex.substring(1, 3), 16),
         Integer.valueOf(hex.substring(3, 5), 16),
         Integer.valueOf(hex.substring(5, 7), 16));
+  }
+
+  public static Color make(struct_Trio< Integer, Integer, Integer > p)
+  {
+    return new Color(p.first, p.second, p.first);
+  }
+
+  public static Color alpha_set(Color r, int alpha)
+  {
+    return new Color(r.getRed(), r.getGreen(), r.getBlue(), alpha);
   }
 
   public static Color darker(Color clr, double factor)

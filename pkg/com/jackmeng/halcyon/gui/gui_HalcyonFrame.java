@@ -648,7 +648,7 @@ public class gui_HalcyonFrame
     splitPane.setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.FRAME_MIN_HEIGHT));
     splitPane.setMinimumSize(splitPane.getPreferredSize());
 
-    frame = new TitledFrame(new TitleBarConfig("Halcyon",
+    frame = new TitledFrame(new TitleBarConfig("Halcyon ~ exoad",
         use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.GUI_PROGRAM_LOGO),
         use_HalcyonProperties.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE),
         const_ColorManager.DEFAULT_GREEN_FG, const_ColorManager.DEFAULT_BG, const_ColorManager.DEFAULT_RED_FG,

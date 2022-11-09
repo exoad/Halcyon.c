@@ -1,15 +1,10 @@
 package com.jackmeng.halcyon.gui;
 
-import com.jackmeng.halcyon.const_MUTableKeys;
-import com.jackmeng.halcyon.apps.envt_AddPlaylist;
+import com.jackmeng.halcyon.apps.evnt_AddPlaylist;
 import com.jackmeng.sys.pstream;
-import com.jackmeng.util.use_Image;
-import com.jackmeng.util.use_ResourceFetcher;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileView;
 import java.awt.*;
-import java.io.File;
 
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
@@ -24,7 +19,7 @@ public final class gui_HalcyonPlaylistSelect
   /*----------------------------- /
   / private final TitledFrame tf; /
   /------------------------------*/
-  private envt_AddPlaylist playlist;
+  private evnt_AddPlaylist playlist;
 
   public gui_HalcyonPlaylistSelect(JFrame parent, String currDir)
   {
@@ -56,20 +51,11 @@ public final class gui_HalcyonPlaylistSelect
     chooser.setDialogTitle("Halcyon ~ " + _lang(LANG_PLAYLIST_SELECT_APPROVE_BUTTON));
     chooser.setFileHidingEnabled(false);
     chooser.setMultiSelectionEnabled(false);
-    chooser.setFileView(new FileView() {
-      @Override
-      public Icon getIcon(File f)
-      {
-        return use_Image.resize_fast_1(const_MUTableKeys.playlist_select_icon_w_h,
-            const_MUTableKeys.playlist_select_icon_w_h,
-            use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.DGUI_FILELIST_LEAF_2));
-      }
-    });
     chooser.setPreferredSize(new Dimension(550, 580));
     this.parent = parent;
   }
 
-  public void setListener(envt_AddPlaylist l)
+  public void setListener(evnt_AddPlaylist l)
   {
     this.playlist = l;
   }

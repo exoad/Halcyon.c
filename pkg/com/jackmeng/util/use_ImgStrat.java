@@ -1,18 +1,210 @@
 package com.jackmeng.util;
 
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.ColorModel;
 import java.util.Collections;
+import java.awt.MultipleGradientPaint.CycleMethod;
 
 public final class use_ImgStrat
 {
   private use_ImgStrat()
   {
+  }
+
+  public static class imgstrat_4_CornerGradient
+      implements BufferedImageOp
+  {
+
+    public double e;
+    public int a, b;
+
+    public imgstrat_4_CornerGradient(double strength, int startAlpha, int endAlpha)
+    {
+      this.e = strength;
+      this.a = startAlpha;
+      this.b = endAlpha;
+    }
+
+    @Override
+    public BufferedImage filter(BufferedImage src, BufferedImage dest)
+    {
+      int w = src.getWidth();
+      int h = src.getHeight();
+      dest = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+      Graphics2D g = dest.createGraphics();
+      g.drawImage(src, 0, 0, null);
+      g.setComposite(AlphaComposite.DstOut);
+
+      Color c0 = new Color(0, 0, 0, a);
+      Color c1 = new Color(0, 0, 0, b);
+
+      double cy = e, cx = e;
+
+      g.setPaint(new GradientPaint(
+          new Point2D.Double(0, cy), c0,
+          new Point2D.Double(cx, cy), c1));
+      g.fill(new Rectangle2D.Double(
+          0, cy, cx, h - cy - cy));
+
+      g.setPaint(new GradientPaint(
+          new Point2D.Double(w - cx, cy), c1,
+          new Point2D.Double(w, cy), c0));
+      g.fill(new Rectangle2D.Double(
+          w - cx, cy, cx, h - cy - cy));
+
+      g.setPaint(new GradientPaint(
+          new Point2D.Double(cx, 0), c0,
+          new Point2D.Double(cx, cy), c1));
+      g.fill(new Rectangle2D.Double(
+          cx, 0, w - cx - cx, cy));
+
+      g.setPaint(new GradientPaint(
+          new Point2D.Double(cx, h - cy), c1,
+          new Point2D.Double(cx, h), c0));
+      g.fill(new Rectangle2D.Double(
+          cx, h - cy, w - cx - cx, cy));
+
+      g.setPaint(new RadialGradientPaint(
+          new Rectangle2D.Double(0, 0, cx + cx, cy + cy),
+          new float[] { 0, 1 }, new Color[] { c1, c0 }, CycleMethod.NO_CYCLE));
+      g.fill(new Rectangle2D.Double(0, 0, cx, cy));
+
+      g.setPaint(new RadialGradientPaint(
+          new Rectangle2D.Double(w - cx - cx, 0, cx + cx, cy + cy),
+          new float[] { 0, 1 }, new Color[] { c1, c0 }, CycleMethod.NO_CYCLE));
+      g.fill(new Rectangle2D.Double(w - cx, 0, cx, cy));
+
+      g.setPaint(new RadialGradientPaint(
+          new Rectangle2D.Double(0, h - cy - cy, cx + cx, cy + cy),
+          new float[] { 0, 1 }, new Color[] { c1, c0 }, CycleMethod.NO_CYCLE));
+      g.fill(new Rectangle2D.Double(0, h - cy, cx, cy));
+
+      g.setPaint(new RadialGradientPaint(
+          new Rectangle2D.Double(w - cx - cx, h - cy - cy, cx + cx, cy + cy),
+          new float[] { 0, 1 }, new Color[] { c1, c0 }, CycleMethod.NO_CYCLE));
+      g.fill(new Rectangle2D.Double(w - cx, h - cy, cx, cy));
+
+      g.dispose();
+      return dest;
+    }
+
+    @Override
+    public Rectangle2D getBounds2D(BufferedImage srcum)
+    {
+      return new Rectangle(0, 0, srcum.getWidth(), srcum.getHeight());
+    }
+
+    @Override
+    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
+    {
+      if (cumCM == null)
+      {
+        cumCM = srcum.getColorModel();
+      }
+      return new BufferedImage(cumCM,
+          cumCM.createCompatibleWritableRaster(
+              srcum.getWidth(), srcum.getHeight()),
+          cumCM.isAlphaPremultiplied(), null);
+    }
+
+    @Override
+    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
+    {
+      return (Point2D) srcumPt.clone();
+    }
+
+    @Override
+    public RenderingHints getRenderingHints()
+    {
+      return (RenderingHints) Collections.emptyMap();
+    }
+
+  }
+
+  public static class imgstrat_Y_ImageGradient
+      implements BufferedImageOp
+  {
+
+    public enum imagegradient_GradientType {
+      BOTTOM, TOP; // which side is the side to be gradiented (the one to have transparency reduced
+                   // on)
+    }
+
+    public imagegradient_GradientType type;
+    public int a, b;
+
+    public imgstrat_Y_ImageGradient(imagegradient_GradientType type, int startAlpha, int endAlpha)
+    {
+      this.a = startAlpha;
+      this.b = endAlpha;
+      this.type = type;
+    }
+
+    @Override
+    public BufferedImage filter(BufferedImage src, BufferedImage dest)
+    {
+      if (type == imagegradient_GradientType.TOP)
+      {
+        dest = new BufferedImage(src.getWidth(), src.getHeight(), src.getType());
+
+        Graphics2D g2 = dest.createGraphics();
+        LinearGradientPaint lgp = new LinearGradientPaint(new Point(0, 0), new Point(0, src.getHeight()),
+            new float[] { 0F, 1F }, new Color[] { new Color(0, 0, 0, a), new Color(0, 0, 0, b) });
+        g2.setPaint(lgp);
+        g2.fillRect(0, 0, src.getWidth(), src.getHeight());
+        g2.dispose();
+        return use_Image.mask(src, dest, AlphaComposite.DST_IN);
+      }
+      else if (type == imagegradient_GradientType.BOTTOM)
+      {
+        dest = new BufferedImage(src.getWidth(), src.getHeight(), src.getType());
+
+        Graphics2D g2 = dest.createGraphics();
+        LinearGradientPaint lgp = new LinearGradientPaint(new Point(0, src.getHeight()), new Point(0, 0),
+            new float[] { 0F, 1F }, new Color[] { new Color(0, 0, 0, a), new Color(0, 0, 0, b) });
+        g2.setPaint(lgp);
+        g2.fillRect(0, 0, src.getWidth(), src.getHeight());
+        g2.dispose();
+        return use_Image.mask(src, dest, AlphaComposite.DST_IN);
+      }
+      return src;
+    }
+
+    @Override
+    public Rectangle2D getBounds2D(BufferedImage srcum)
+    {
+      return new Rectangle(0, 0, srcum.getWidth(), srcum.getHeight());
+    }
+
+    @Override
+    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
+    {
+      if (cumCM == null)
+      {
+        cumCM = srcum.getColorModel();
+      }
+      return new BufferedImage(cumCM,
+          cumCM.createCompatibleWritableRaster(
+              srcum.getWidth(), srcum.getHeight()),
+          cumCM.isAlphaPremultiplied(), null);
+    }
+
+    @Override
+    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
+    {
+      return (Point2D) srcumPt.clone();
+    }
+
+    @Override
+    public RenderingHints getRenderingHints()
+    {
+      return (RenderingHints) Collections.emptyMap();
+    }
+
   }
 
   public static class imgstrat_BlurhashBlur
@@ -274,12 +466,19 @@ public final class use_ImgStrat
       this.radius = radius;
     }
 
-    public static void blur(int[] srcum, int[] cum, int width, int height, int radius)
+    public static void blur(int[] srcPixels, int[] dstPixels, int width, int height, int radius)
     {
       final int windowSize = radius * 2 + 1;
-      final int r_1 = radius + 1;
+      final int radiusPlusOne = radius + 1;
 
-      int alpha_, red_, green_, bleu_, srcumIndex = 0, dstIndex, px_1;
+      int sumAlpha;
+      int sumRed;
+      int sumGreen;
+      int sumBlue;
+
+      int srcIndex = 0;
+      int dstIndex;
+      int pixel;
 
       int[] sumLookupTable = new int[256 * windowSize];
       for (int i = 0; i < sumLookupTable.length; i++)
@@ -287,7 +486,7 @@ public final class use_ImgStrat
         sumLookupTable[i] = i / windowSize;
       }
 
-      int[] indexLookupTable = new int[r_1];
+      int[] indexLookupTable = new int[radiusPlusOne];
       if (radius < width)
       {
         for (int i = 0; i < indexLookupTable.length; i++)
@@ -309,33 +508,33 @@ public final class use_ImgStrat
 
       for (int y = 0; y < height; y++)
       {
-        alpha_ = red_ = green_ = bleu_ = 0;
+        sumAlpha = sumRed = sumGreen = sumBlue = 0;
         dstIndex = y;
 
-        px_1 = srcum[srcumIndex];
-        alpha_ += r_1 * ((px_1 >> 24) & 0xFF);
-        red_ += r_1 * ((px_1 >> 16) & 0xFF);
-        green_ += r_1 * ((px_1 >> 8) & 0xFF);
-        bleu_ += r_1 * (px_1 & 0xFF);
+        pixel = srcPixels[srcIndex];
+        sumAlpha += radiusPlusOne * ((pixel >> 24) & 0xFF);
+        sumRed += radiusPlusOne * ((pixel >> 16) & 0xFF);
+        sumGreen += radiusPlusOne * ((pixel >> 8) & 0xFF);
+        sumBlue += radiusPlusOne * (pixel & 0xFF);
 
         for (int i = 1; i <= radius; i++)
         {
-          px_1 = srcum[srcumIndex + indexLookupTable[i]];
-          alpha_ += (px_1 >> 24) & 0xFF;
-          red_ += (px_1 >> 16) & 0xFF;
-          green_ += (px_1 >> 8) & 0xFF;
-          bleu_ += px_1 & 0xFF;
+          pixel = srcPixels[srcIndex + indexLookupTable[i]];
+          sumAlpha += (pixel >> 24) & 0xFF;
+          sumRed += (pixel >> 16) & 0xFF;
+          sumGreen += (pixel >> 8) & 0xFF;
+          sumBlue += pixel & 0xFF;
         }
 
         for (int x = 0; x < width; x++)
         {
-          cum[dstIndex] = sumLookupTable[alpha_] << 24
-              | sumLookupTable[red_] << 16
-              | sumLookupTable[green_] << 8
-              | sumLookupTable[bleu_];
+          dstPixels[dstIndex] = sumLookupTable[sumAlpha] << 24
+              | sumLookupTable[sumRed] << 16
+              | sumLookupTable[sumGreen] << 8
+              | sumLookupTable[sumBlue];
           dstIndex += height;
 
-          int nextPixelIndex = x + r_1;
+          int nextPixelIndex = x + radiusPlusOne;
           if (nextPixelIndex >= width)
           {
             nextPixelIndex = width - 1;
@@ -347,23 +546,23 @@ public final class use_ImgStrat
             previousPixelIndex = 0;
           }
 
-          int nextPixel = srcum[srcumIndex + nextPixelIndex];
-          int previousPixel = srcum[srcumIndex + previousPixelIndex];
+          int nextPixel = srcPixels[srcIndex + nextPixelIndex];
+          int previousPixel = srcPixels[srcIndex + previousPixelIndex];
 
-          alpha_ += (nextPixel >> 24) & 0xFF;
-          alpha_ -= (previousPixel >> 24) & 0xFF;
+          sumAlpha += (nextPixel >> 24) & 0xFF;
+          sumAlpha -= (previousPixel >> 24) & 0xFF;
 
-          red_ += (nextPixel >> 16) & 0xFF;
-          red_ -= (previousPixel >> 16) & 0xFF;
+          sumRed += (nextPixel >> 16) & 0xFF;
+          sumRed -= (previousPixel >> 16) & 0xFF;
 
-          green_ += (nextPixel >> 8) & 0xFF;
-          green_ -= (previousPixel >> 8) & 0xFF;
+          sumGreen += (nextPixel >> 8) & 0xFF;
+          sumGreen -= (previousPixel >> 8) & 0xFF;
 
-          bleu_ += nextPixel & 0xFF;
-          bleu_ -= previousPixel & 0xFF;
+          sumBlue += nextPixel & 0xFF;
+          sumBlue -= previousPixel & 0xFF;
         }
 
-        srcumIndex += width;
+        srcIndex += width;
       }
     }
 
@@ -373,9 +572,7 @@ public final class use_ImgStrat
       int width = srcum.getWidth();
       int height = srcum.getHeight();
       if (cum == null)
-      {
         cum = createCompatibleDestImage(srcum, null);
-      }
       int[] srcum_px = new int[width * height];
       int[] cum_px = new int[width * height];
 

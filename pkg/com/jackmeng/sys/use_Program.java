@@ -26,6 +26,11 @@ public final class use_Program
     return ManagementFactory.getRuntimeMXBean().getUptime();
   }
 
+  public static GraphicsConfiguration graphics_conf()
+  {
+    return GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+  }
+
   /**
    * @return String
    */

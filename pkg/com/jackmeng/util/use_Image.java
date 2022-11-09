@@ -2,6 +2,7 @@ package com.jackmeng.util;
 
 import javax.swing.*;
 
+import com.jackmeng.sys.use_Program;
 import com.jackmeng.util.use_Struct.struct_Trio;
 
 import java.awt.*;
@@ -18,8 +19,48 @@ public final class use_Image
   {
   }
 
+  public static BufferedImage image_to_bi(Image i, int w, int h)
+  {
+    BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+    Graphics g = img.getGraphics();
+    g.drawImage(i, 0, 0, null);
+    g.dispose();
+    return img;
+  }
+
+  public static BufferedImage compat_img(BufferedImage img)
+  {
+    BufferedImage dst = use_Program.graphics_conf().createCompatibleImage(img.getWidth(), img.getHeight(),
+        img.getTransparency());
+    Graphics2D g2 = dst.createGraphics();
+    g2.drawImage(img, 0, 0, null);
+    g2.dispose();
+    return dst;
+  }
+
+  public static BufferedImage mask(BufferedImage img, BufferedImage mask, int method)
+  {
+    BufferedImage target = null;
+    if (img != null)
+    {
+      int w = mask.getWidth();
+      int h = mask.getHeight();
+      target = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+      Graphics2D g2 = target.createGraphics();
+      int x = (w - img.getWidth()) / 2;
+      int y = (h - img.getHeight()) / 2;
+      g2.drawImage(img, x, y, null);
+      g2.setComposite(AlphaComposite.getInstance(method));
+      g2.drawImage(mask, 0, 0, null);
+      g2.dispose();
+    }
+    return target;
+  }
+
   public static struct_Trio< Integer, Integer, Integer > accurate_accent_color_1(BufferedImage img)
   {
+    if (img.getWidth() > 512 || img.getHeight() > 512)
+      img = image_to_bi(img.getScaledInstance(512, 512, Image.SCALE_FAST), 512, 512);
     Map< Integer, Integer > m = new HashMap<>();
     for (int i = 0; i < img.getWidth(); i++)
     {
@@ -74,7 +115,7 @@ public final class use_Image
    */
   public static ImageIcon resize_fast_1(int n_width, int h_height, ImageIcon i)
   {
-    i.setImage(i.getImage().getScaledInstance(n_width, h_height, Image.SCALE_AREA_AVERAGING));
+    i.setImage(i.getImage().getScaledInstance(n_width, h_height, Image.SCALE_DEFAULT));
     return i;
   }
 

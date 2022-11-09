@@ -67,7 +67,6 @@ public class dgui_HalcyonFileList
   /---------------------------------------------------------------------------------------------------------------*/
 
   private final transient Map< String, struct_Trio< struct_Pair< Integer, JTree >, DefaultMutableTreeNode, java.util.List< DefaultMutableTreeNode > > > guiTrees;
-  private final transient java.util.List< evnt_SelectPlaylistTrack > trackSelectionListener;
   /*------------------------------------------------------------------------------------------------------------------ /
   / stupid linter wants this to be transient for no goddamn reason when JComponent is serialized and inherited here????/
   /-------------------------------------------------------------------------------------------------------------------*/
@@ -143,7 +142,6 @@ public class dgui_HalcyonFileList
 
   public dgui_HalcyonFileList()
   {
-    trackSelectionListener = new ArrayList<>();
 
     border.setBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_DARK_BG_2));
     border.setTitleFont(use_HalcyonProperties.boldFont().deriveFont(15F));
@@ -201,24 +199,7 @@ public class dgui_HalcyonFileList
     /     new use_StubPlaylist(new playlist_Traits(true, false, true, false), _lang(LANG_PLAYLIST_DEFAULT_LIKED_TITLE), new String[0], /
     /         use_HalcyonProperties.acceptedEndings()));                                                               /
     /-----------------------------------------------------------------------------------------------------------------*/
-    add_TrackSelectionListener(this);
-  }
-
-  public void add_TrackSelectionListener(evnt_SelectPlaylistTrack trackListener)
-  {
-    assert trackListener != null;
-    trackSelectionListener.add(trackListener);
-  }
-
-  public void rmf_TrackSelectionListener(evnt_SelectPlaylistTrack trackListener)
-  {
-    assert trackListener != null;
-    trackSelectionListener.remove(trackListener);
-  }
-
-  public void rmf_TrackSelectionListener(int index)
-  {
-    trackSelectionListener.remove(index);
+    const_Global.SELECTION_LISTENERS.add_listener(this);
   }
 
   /**
@@ -289,6 +270,7 @@ public class dgui_HalcyonFileList
       @Override
       public void mouseClicked(MouseEvent e)
       {
+
         if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 2)
         {
           JTree tree1 = (JTree) e.getSource();
@@ -301,9 +283,13 @@ public class dgui_HalcyonFileList
               File f = new File(tree.getName() + use_HalcyonProperties.getFileSeparator() + node);
               if (last == null)
                 last = f;
-              use_TailwindTrack er = new use_TailwindTrack(f);
-              use_Task.run_Snb_1(() -> trackSelectionListener.forEach(x -> x.forYou(er)));
-              last = f;
+
+              if (!last.getAbsolutePath().equals(f.getAbsolutePath()))
+              {
+                use_TailwindTrack er = new use_TailwindTrack(f);
+                const_Global.SELECTION_LISTENERS.forEach(x -> x.forYou(er));
+                last = f;
+              }
             }
           }
         }

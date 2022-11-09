@@ -43,10 +43,16 @@ public final class use_HalcyonProperties
             return const_MUTableKeys.run_tcs_on_start ? "yes" : "no";
           }),
       new use_MUTableDefinition("TitleBar Styling", "halcyon.gui.title_bar_styling", "custom",
-          new String[] { "custom", "native" }, x -> const_MUTableKeys.title_frame_styling = !x.equalsIgnoreCase("custom"),
+          new String[] { "custom", "native" },
+          x -> const_MUTableKeys.title_frame_styling = !x.equalsIgnoreCase("custom"),
           x -> {
             return const_MUTableKeys.title_frame_styling ? "native" : "custom";
-          })
+          }),
+      new use_MUTableDefinition("Use blurring for the back cover art", "halcyon.gui.top_bg_panel_use_blur", "no",
+          new String[] { "yes", "no" },
+          x -> const_MUTableKeys.top_bg_panel_use_blur = !x.equalsIgnoreCase("no"), x -> {
+            return const_MUTableKeys.top_bg_panel_use_blur ? "yes" : "no";
+          }),
   };
 
   public static final Random rng = new Random();

@@ -40,6 +40,7 @@ public final class use_TailwindTrack
   /-----------------------------*/
 
   private String locale;
+  private boolean hasArtwork;
 
   public enum tailwindtrack_Tags {
     MEDIA_ARTIST(FieldKey.ARTIST, _lang(LANG_UNKNOWN)), MEDIA_ART(FieldKey.COVER_ART,
@@ -81,6 +82,7 @@ public final class use_TailwindTrack
 
   public use_TailwindTrack(File file)
   {
+    hasArtwork = false;
     setContentFile(file);
     AudioFile af = null;
     try
@@ -182,6 +184,7 @@ public final class use_TailwindTrack
         {
           try
           {
+            hasArtwork = true;
             img = (BufferedImage) mp.getTag().getFirstArtwork().getImage();
           } catch (IOException e)
           {
@@ -190,12 +193,18 @@ public final class use_TailwindTrack
         }
       }
       return Objects.requireNonNullElseGet(img, () -> {
+        hasArtwork = false;
         return (BufferedImage) tailwindtrack_Tags.MEDIA_ART.value;
       });
     } catch (NullPointerException e)
     {
+      hasArtwork = false;
       return (BufferedImage) tailwindtrack_Tags.MEDIA_ART.value;
     }
+  }
+
+  public boolean has_artwork() {
+    return hasArtwork;
   }
 
   public void refresh()

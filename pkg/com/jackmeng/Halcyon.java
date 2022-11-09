@@ -3,7 +3,6 @@ package com.jackmeng;
 import com.jackmeng.halcyon.gui.gui_HalcyonFrame;
 import com.jackmeng.halcyon.gui.childs.dgui_HalcyonBottom;
 import com.jackmeng.halcyon.gui.childs.dgui_HalcyonTop;
-import com.jackmeng.halcyon.const_Global;
 import com.jackmeng.halcyon.const_MUTableKeys;
 import com.jackmeng.halcyon.use_HalcyonFolder;
 import com.jackmeng.halcyon.use_HalcyonProperties;
@@ -11,7 +10,6 @@ import com.jackmeng.sys.*;
 import com.test.Test;
 
 import java.io.File;
-import java.util.TimerTask;
 
 /*------------------------- /
 / unused imports are stupid /
@@ -21,7 +19,9 @@ public final class Halcyon
 {
 
    static {
-      System.setProperty("sun.java2d.opengl", "true");
+      System.setProperty("sun.java2d.noddraw", "true");
+      System.setProperty("sun.java2d.d3d", "false");
+      
    }
 
    public static void __LINK__()
@@ -42,8 +42,6 @@ public final class Halcyon
    }
 
    public static gui_HalcyonFrame main;
-
-   private static long memory = -1L;
 
    private Halcyon()
    {
@@ -105,6 +103,7 @@ public final class Halcyon
          Thread yan_wang = new Thread(() -> {
             use_HalcyonFolder.FOLDER.master_save();
             Runtime.getRuntime().runFinalization();
+
             pstream.log
                   .log(new ansi_StrConstr(new ansi_Colors[] { ansi_Colors.RED_BG, ansi_Colors.WHITE_TXT },
                         new Object[] {
@@ -112,22 +111,6 @@ public final class Halcyon
          }, "halcyon-defaultShutdownHook");
          Runtime.getRuntime().addShutdownHook(yan_wang);
 
-         memory = (long) (Math.abs((Runtime.getRuntime().maxMemory()
-               - ((double) Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024
-                     / 1024)
-               - memory));
-
-         const_Global.GENERAL_LOOP.schedule(new TimerTask() {
-            @Override
-            public void run()
-            {
-               memory += (Math.abs((Runtime.getRuntime().maxMemory()
-                     - ((double) Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024
-                           / 1024)
-                     - memory));
-            }
-
-         }, 1000L, 3000L);
 
       } catch (Exception e)
       {

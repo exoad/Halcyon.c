@@ -39,23 +39,6 @@ public final class pstream
   /**
    * @param t
    */
-  public void warn(ansi_StrConstr... t)
-  {
-    if (enabled)
-    {
-      for (ansi_StrConstr e : t)
-      {
-        out.out(new ansi_StrConstr(
-            new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.BLACK_TXT, ansi_Colors.YELLOW_BG }, new Object[] {
-                ":/ [WARN @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" })
-            + " " + e + "\n");
-      }
-    }
-  }
-
-  /**
-   * @param t
-   */
   public void err(Object... t)
   {
     if (enabled)
@@ -71,23 +54,6 @@ public final class pstream
     }
   }
 
-  /**
-   * @param t
-   */
-  public void err(ansi_StrConstr... t)
-  {
-    if (enabled)
-    {
-      for (ansi_StrConstr e : t)
-      {
-        out.out(new ansi_StrConstr(
-            new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.BLACK_TXT, ansi_Colors.RED_BG, ansi_Colors.UNDERLINE },
-            new Object[] {
-                ":( [ERRN @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" })
-            + " " + e + "\n");
-      }
-    }
-  }
 
   /**
    * @param t
@@ -103,23 +69,6 @@ public final class pstream
                 ":) [INFO @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
 
-      }
-    }
-  }
-
-  /**
-   * @param t
-   */
-  public void info(ansi_StrConstr... t)
-  {
-    if (enabled)
-    {
-      for (ansi_StrConstr e : t)
-      {
-        out.out(new ansi_StrConstr(
-            new ansi_Colors[] { ansi_Colors.BOLD, ansi_Colors.BLUE_BG, ansi_Colors.BLACK_TXT }, new Object[] {
-                ":) [INFO @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" })
-            + " " + e + "\n");
       }
     }
   }
