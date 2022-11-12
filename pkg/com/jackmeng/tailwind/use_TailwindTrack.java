@@ -67,7 +67,9 @@ public final class use_TailwindTrack
   private File content;
   private transient Tag tag;
   private transient AudioHeader header;
-  private transient Map< tailwindtrack_Tags, Object > MediaTags;
+  /*-------------------------------------------------------------- /
+  / private transient Map< tailwindtrack_Tags, Object > MediaTags; /
+  /---------------------------------------------------------------*/
 
   private static Object iem(Object e, tailwindtrack_Tags elseE)
   {
@@ -83,19 +85,7 @@ public final class use_TailwindTrack
   {
     hasArtwork = false;
     setContentFile(file);
-    AudioFile af = null;
-    try
-    {
-      af = AudioFileIO.read(content);
-    } catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e)
-    {
-      pstream.log.err(e);
-    }
-    if (af != null)
-    {
-      tag = af.getTag();
-      header = af.getAudioHeader();
-    }
+
     __init__();
   }
 
@@ -111,45 +101,61 @@ public final class use_TailwindTrack
     / that recognized file                                                                       /
     /-------------------------------------------------------------------------------------------*/
 
-    MediaTags = new WeakHashMap<>();
-    MediaTags.put(tailwindtrack_Tags.MEDIA_BITRATE,
-        header == null ? tailwindtrack_Tags.MEDIA_BITRATE.value : header.getBitRate());
-    MediaTags.put(tailwindtrack_Tags.MEDIA_SAMPLERATE,
-        header == null ? tailwindtrack_Tags.MEDIA_SAMPLERATE : header.getSampleRate());
-    MediaTags.put(tailwindtrack_Tags.MEDIA_GENRE,
-        tag == null ? tailwindtrack_Tags.MEDIA_GENRE.value
-            : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_GENRE.key), tailwindtrack_Tags.MEDIA_GENRE));
-    MediaTags.put(tailwindtrack_Tags.MEDIA_ALBUM,
-        tag == null ? tailwindtrack_Tags.MEDIA_ALBUM.value
-            : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_ALBUM.key), tailwindtrack_Tags.MEDIA_ALBUM));
-    MediaTags.put(tailwindtrack_Tags.MEDIA_ARTIST,
-        tag == null ? tailwindtrack_Tags.MEDIA_ARTIST.value
-            : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_ARTIST.key), tailwindtrack_Tags.MEDIA_ARTIST));
-    MediaTags.put(tailwindtrack_Tags.MEDIA_COMMENT,
-        tag == null ? tailwindtrack_Tags.MEDIA_COMMENT.value
-            : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_COMMENT.key), tailwindtrack_Tags.MEDIA_COMMENT));
-    MediaTags.put(tailwindtrack_Tags.MEDIA_COMPOSER,
-        tag == null ? tailwindtrack_Tags.MEDIA_COMPOSER.value
-            : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_COMPOSER.key), tailwindtrack_Tags.MEDIA_COMPOSER));
-    MediaTags.put(tailwindtrack_Tags.MEDIA_COPYRIGHT,
-        tag == null ? tailwindtrack_Tags.MEDIA_COPYRIGHT.value
-            : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_COPYRIGHT.key), tailwindtrack_Tags.MEDIA_COPYRIGHT));
-    MediaTags.put(tailwindtrack_Tags.MEDIA_DURATION,
-        header == null ? tailwindtrack_Tags.MEDIA_DURATION.value : header.getTrackLength());
-    MediaTags.put(tailwindtrack_Tags.MEDIA_LANGUAGE,
-        tag == null ? tailwindtrack_Tags.MEDIA_LANGUAGE.value
-            : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_LANGUAGE.key), tailwindtrack_Tags.MEDIA_LANGUAGE));
-    MediaTags.put(tailwindtrack_Tags.MEDIA_LYRICS,
-        tag == null ? tailwindtrack_Tags.MEDIA_LYRICS.value
-            : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_LYRICS.key), tailwindtrack_Tags.MEDIA_LYRICS));
-    MediaTags.put(tailwindtrack_Tags.MEDIA_YEAR,
-        tag == null ? tailwindtrack_Tags.MEDIA_YEAR.value
-            : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_YEAR.key), tailwindtrack_Tags.MEDIA_YEAR));
-    MediaTags.put(tailwindtrack_Tags.MEDIA_TITLE,
-        tag == null ? content.getName()
-            : use_Primitives.str_empty(tag.getFirst(tailwindtrack_Tags.MEDIA_TITLE.key)) ? content.getName()
-                : tailwindtrack_Tags.MEDIA_TITLE.value);
-    MediaTags.put(tailwindtrack_Tags.MEDIA_ART, get_artwork());
+    /*--------------------------------------------------------------------------------------------------------- /
+    / MediaTags = new WeakHashMap<>();                                                                          /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_BITRATE,                                                           /
+    /     header == null ? tailwindtrack_Tags.MEDIA_BITRATE.value : header.getBitRate());                       /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_SAMPLERATE,                                                        /
+    /     header == null ? tailwindtrack_Tags.MEDIA_SAMPLERATE : header.getSampleRate());                       /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_GENRE,                                                             /
+    /     tag == null ? tailwindtrack_Tags.MEDIA_GENRE.value                                                    /
+    /         : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_GENRE.key), tailwindtrack_Tags.MEDIA_GENRE));         /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_ALBUM,                                                             /
+    /     tag == null ? tailwindtrack_Tags.MEDIA_ALBUM.value                                                    /
+    /         : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_ALBUM.key), tailwindtrack_Tags.MEDIA_ALBUM));         /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_ARTIST,                                                            /
+    /     tag == null ? tailwindtrack_Tags.MEDIA_ARTIST.value                                                   /
+    /         : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_ARTIST.key), tailwindtrack_Tags.MEDIA_ARTIST));       /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_COMMENT,                                                           /
+    /     tag == null ? tailwindtrack_Tags.MEDIA_COMMENT.value                                                  /
+    /         : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_COMMENT.key), tailwindtrack_Tags.MEDIA_COMMENT));     /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_COMPOSER,                                                          /
+    /     tag == null ? tailwindtrack_Tags.MEDIA_COMPOSER.value                                                 /
+    /         : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_COMPOSER.key), tailwindtrack_Tags.MEDIA_COMPOSER));   /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_COPYRIGHT,                                                         /
+    /     tag == null ? tailwindtrack_Tags.MEDIA_COPYRIGHT.value                                                /
+    /         : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_COPYRIGHT.key), tailwindtrack_Tags.MEDIA_COPYRIGHT)); /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_DURATION,                                                          /
+    /     header == null ? tailwindtrack_Tags.MEDIA_DURATION.value : header.getTrackLength());                  /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_LANGUAGE,                                                          /
+    /     tag == null ? tailwindtrack_Tags.MEDIA_LANGUAGE.value                                                 /
+    /         : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_LANGUAGE.key), tailwindtrack_Tags.MEDIA_LANGUAGE));   /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_LYRICS,                                                            /
+    /     tag == null ? tailwindtrack_Tags.MEDIA_LYRICS.value                                                   /
+    /         : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_LYRICS.key), tailwindtrack_Tags.MEDIA_LYRICS));       /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_YEAR,                                                              /
+    /     tag == null ? tailwindtrack_Tags.MEDIA_YEAR.value                                                     /
+    /         : iem(tag.getFirst(tailwindtrack_Tags.MEDIA_YEAR.key), tailwindtrack_Tags.MEDIA_YEAR));           /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_TITLE,                                                             /
+    /     tag == null ? content.getName()                                                                       /
+    /         : use_Primitives.str_empty(tag.getFirst(tailwindtrack_Tags.MEDIA_TITLE.key)) ? content.getName()  /
+    /             : tailwindtrack_Tags.MEDIA_TITLE.value);                                                      /
+    / MediaTags.put(tailwindtrack_Tags.MEDIA_ART, get_artwork());                                               /
+    /----------------------------------------------------------------------------------------------------------*/
+
+    AudioFile af = null;
+    try
+    {
+      af = AudioFileIO.read(content);
+    } catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e)
+    {
+      pstream.log.err(e);
+    }
+    if (af != null)
+    {
+      tag = af.getTag();
+      header = af.getAudioHeader();
+    }
 
     /*---------------------------------------------------------------------------------------------------------------- /
     / MediaTags.put(tailwindtrack_Tags.MEDIA_ABSOLUTE_LOCATION, header == null ? "0" : header.getBitRate());                /
@@ -160,6 +166,22 @@ public final class use_TailwindTrack
     /*----------------------------------------------------- /
     / MediaTags.put(tailwind_Tags.MEDIA_ABSOLUTE_LOCATION,) /
     /------------------------------------------------------*/
+  }
+
+  public Object get(tailwindtrack_Tags er)
+  {
+    if (er == tailwindtrack_Tags.MEDIA_BITRATE)
+      return header == null ? er.value : header.getBitRate();
+    else if (er == tailwindtrack_Tags.MEDIA_SAMPLERATE)
+      return header.getSampleRate();
+    else if (er == tailwindtrack_Tags.MEDIA_DURATION)
+      return header.getTrackLength();
+    else if (er == tailwindtrack_Tags.MEDIA_TITLE)
+      return tag == null ? content.getName()
+          : use_Primitives.str_empty(tag.getFirst(er.key)) ? content.getName() : er.value;
+    else if (tag != null && tag.getFirst(er.key) != null)
+      return er == tailwindtrack_Tags.MEDIA_YEAR ? get_artwork() : iem(tag.getFirst(er.key), er);
+    return er.value;
   }
 
   public BufferedImage get_artwork()
@@ -202,7 +224,8 @@ public final class use_TailwindTrack
     }
   }
 
-  public boolean has_artwork() {
+  public boolean has_artwork()
+  {
     return hasArtwork;
   }
 
@@ -224,11 +247,6 @@ public final class use_TailwindTrack
     return content;
   }
 
-  public Object get(tailwindtrack_Tags key)
-  {
-    return MediaTags.get(key);
-  }
-
   @Override
   public String id()
   {
@@ -237,6 +255,6 @@ public final class use_TailwindTrack
 
   public String toString()
   {
-    return "Track:" + MediaTags.toString();
+    return "Track:" + content.getAbsolutePath();
   }
 }

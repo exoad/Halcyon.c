@@ -59,6 +59,7 @@ Java_com_jackmeng_util_use_1Primitives_00024primitives_1Math_rnd_11(
   mj = m[inext] - m[inextp];
   if (mj < MZ) mj += MBIG;
   m[inext] = mj;
+
   return mj * FAC;
 }
 

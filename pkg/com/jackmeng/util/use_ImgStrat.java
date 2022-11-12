@@ -217,7 +217,7 @@ public final class use_ImgStrat
     {
       this.x = xRatio;
       this.y = yRatio;
-      this.punch = strength < 0 ? 1.2D : strength;
+      this.punch = strength < 0 ? 1.0D : strength;
       /*------------------------------------------------------------------------ /
       / 1.2D is like the standard punch value but may vary for different systems /
       /-------------------------------------------------------------------------*/
