@@ -1,6 +1,6 @@
 package com.jackmeng.tailwind;
 
-public interface impl_Tailwind
+public abstract interface impl_Tailwind
 {
   public void play();
 

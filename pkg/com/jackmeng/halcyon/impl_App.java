@@ -1,9 +1,12 @@
-package com.jackmeng.halcyon.apps;
+package com.jackmeng.halcyon;
 
 import javax.swing.*;
+
+import com.jackmeng.halcyon.apps.impl_Identifiable;
+
 import java.util.Optional;
 
-public interface impl_App
+public abstract interface impl_App
     extends
     Runnable,
     impl_Identifiable

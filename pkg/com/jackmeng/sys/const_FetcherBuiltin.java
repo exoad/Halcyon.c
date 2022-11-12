@@ -2,7 +2,7 @@ package com.jackmeng.sys;
 
 import com.jackmeng.halcyon.use_HalcyonProperties;
 
-public interface const_FetcherBuiltin
+public abstract interface const_FetcherBuiltin
 {
 
   /*-------------------------------------------------------------------------------------------------- /

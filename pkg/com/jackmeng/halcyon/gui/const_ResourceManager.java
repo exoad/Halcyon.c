@@ -2,7 +2,7 @@ package com.jackmeng.halcyon.gui;
 
 import com.jackmeng.halcyon.use_HalcyonProperties;
 
-public interface const_ResourceManager
+public abstract interface const_ResourceManager
 {
   String RESOURCES = "resources" + use_HalcyonProperties.getFileSeparator();
 

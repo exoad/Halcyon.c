@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;

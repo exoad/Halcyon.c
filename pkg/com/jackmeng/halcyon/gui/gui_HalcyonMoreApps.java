@@ -12,8 +12,8 @@ import java.util.Optional;
 
 import com.jackmeng.Halcyon;
 import com.jackmeng.halcyon.const_Global;
+import com.jackmeng.halcyon.impl_App;
 import com.jackmeng.halcyon.apps.evnt_WindowFocusAdapter;
-import com.jackmeng.halcyon.apps.impl_App;
 import com.jackmeng.halcyon.apps.impl_HalcyonRefreshable;
 import com.jackmeng.halcyon.gui.gui_HalcyonFrame.TitledFrame;
 import com.jackmeng.halcyon.ploogin.impl_Ploogin;

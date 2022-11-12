@@ -1,7 +1,7 @@
 package com.jackmeng.halcyon.apps;
 
 @FunctionalInterface
-public interface evnt_RemoveTab
+public abstract interface evnt_RemoveTab
 {
 
   /**
