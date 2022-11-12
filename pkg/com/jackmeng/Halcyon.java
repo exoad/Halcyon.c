@@ -21,7 +21,7 @@ public final class Halcyon
    static {
       System.setProperty("sun.java2d.noddraw", "true");
       System.setProperty("sun.java2d.d3d", "false");
-      
+
    }
 
    public static void __LINK__()
@@ -105,7 +105,7 @@ public final class Halcyon
             Runtime.getRuntime().runFinalization();
 
             pstream.log
-                  .log(new ansi_StrConstr(new ansi_Colors[] { ansi_Colors.RED_BG, ansi_Colors.WHITE_TXT },
+                  .log(new use_AnsiStrConstr(new use_AnsiColors[] { use_AnsiColors.RED_BG, use_AnsiColors.WHITE_TXT },
                         new Object[] {
                               "Contingency: " + use_Program.uptime() + "ms in the world. Going down for shutdown." }));
          }, "halcyon-defaultShutdownHook");

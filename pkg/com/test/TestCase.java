@@ -1,8 +1,8 @@
 package com.test;
 
 import com.jackmeng.halcyon.apps.impl_Callback;
-import com.jackmeng.sys.ansi_Colors;
-import com.jackmeng.sys.ansi_StrConstr;
+import com.jackmeng.sys.use_AnsiColors;
+import com.jackmeng.sys.use_AnsiStrConstr;
 
 public class TestCase
     implements Runnable
@@ -36,7 +36,7 @@ public class TestCase
       returns = action.call();
     } catch (Exception e)
     {
-      System.out.println(new ansi_StrConstr(new ansi_Colors[] { ansi_Colors.GREEN_BG, ansi_Colors.BLACK_TXT },
+      System.out.println(new use_AnsiStrConstr(new use_AnsiColors[] { use_AnsiColors.GREEN_BG, use_AnsiColors.BLACK_TXT },
           new Object[] { "FAILED ON EXCEPTIOn" }));
       e.printStackTrace();
       return;
@@ -48,13 +48,13 @@ public class TestCase
                 / 1024)
             - s))
         + " Mb"
-        + (expects == null ? "\nCase Status: " + new ansi_StrConstr(
-            new ansi_Colors[] { ansi_Colors.BLUE_BG, ansi_Colors.BLACK_TXT },
+        + (expects == null ? "\nCase Status: " + new use_AnsiStrConstr(
+            new use_AnsiColors[] { use_AnsiColors.BLUE_BG, use_AnsiColors.BLACK_TXT },
             new Object[] { "NONE" })
             : "\nCase status: " + ((returns.equals(expects)
-                ? new ansi_StrConstr(new ansi_Colors[] { ansi_Colors.GREEN_BG, ansi_Colors.BLACK_TXT },
+                ? new use_AnsiStrConstr(new use_AnsiColors[] { use_AnsiColors.GREEN_BG, use_AnsiColors.BLACK_TXT },
                     new Object[] { "PASSED" })
-                : new ansi_StrConstr(new ansi_Colors[] { ansi_Colors.RED_BG, ansi_Colors.BLACK_TXT },
+                : new use_AnsiStrConstr(new use_AnsiColors[] { use_AnsiColors.RED_BG, use_AnsiColors.BLACK_TXT },
                     new Object[] { "FAILED" }))
                 + "\nExpected: " + expects + "\nReturned: " + returns)));
   }

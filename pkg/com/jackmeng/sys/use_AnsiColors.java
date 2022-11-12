@@ -1,6 +1,6 @@
 package com.jackmeng.sys;
 
-public enum ansi_Colors {
+public enum use_AnsiColors {
   /*------------------------------------------------ /
   / Represents all possible STANDARD ANSI COLOR SETS /
   /-------------------------------------------------*/
@@ -13,7 +13,7 @@ public enum ansi_Colors {
 
   private final String color;
 
-  ansi_Colors(String color)
+  use_AnsiColors(String color)
   {
     this.color = color;
   }

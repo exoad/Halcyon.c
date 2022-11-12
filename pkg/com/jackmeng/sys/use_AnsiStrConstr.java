@@ -1,19 +1,19 @@
 package com.jackmeng.sys;
 
-public class ansi_StrConstr
+public class use_AnsiStrConstr
 {
   private final Object[] payload;
-  private final ansi_Colors[] colors;
+  private final use_AnsiColors[] colors;
 
-  public ansi_StrConstr(ansi_Colors[] start, Object[] payload)
+  public use_AnsiStrConstr(use_AnsiColors[] start, Object[] payload)
   {
     this.colors = start;
     this.payload = payload;
   }
 
-  public ansi_StrConstr(ansi_Colors color, Object payload)
+  public use_AnsiStrConstr(use_AnsiColors color, Object payload)
   {
-    this.colors = new ansi_Colors[] { color };
+    this.colors = new use_AnsiColors[] { color };
     this.payload = new Object[] { payload };
   }
 
@@ -23,7 +23,7 @@ public class ansi_StrConstr
   public String toString()
   {
     StringBuilder sb = new StringBuilder();
-    for (ansi_Colors e : colors)
+    for (use_AnsiColors e : colors)
     {
       sb.append(e.color());
     }
@@ -31,7 +31,7 @@ public class ansi_StrConstr
     {
       sb.append(r);
     }
-    sb.append(ansi_Colors.RESET.color());
+    sb.append(use_AnsiColors.RESET.color());
     return sb.toString();
   }
 }

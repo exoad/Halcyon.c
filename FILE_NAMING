@@ -6,8 +6,6 @@ gui -> General independent GUI components that can be invoked.
 
 dgui -> dependent gui that relies on being added to a "gui" prefixed source to make things work
 
-ansi -> Classes that relates to ANSI styles
-
 sys -> Low level system APIs and functionalities, usually accompanied with JNI or some other non Java/JVM components
 
 evnt -> Define listeners and event listeners for anything
