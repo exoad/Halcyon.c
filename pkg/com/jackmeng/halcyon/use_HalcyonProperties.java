@@ -53,6 +53,11 @@ public final class use_HalcyonProperties
           x -> const_MUTableKeys.top_bg_panel_use_blur = !x.equalsIgnoreCase("no"), x -> {
             return const_MUTableKeys.top_bg_panel_use_blur ? "yes" : "no";
           }),
+      new use_MUTableDefinition("File Listing use a titled border", "halcyon.gui.filelist_titled_border", "no",
+          new String[] { "yes", "no" },
+          x -> const_MUTableKeys.use_filelist_titled_border = !x.equalsIgnoreCase("no"), x -> {
+            return const_MUTableKeys.use_filelist_titled_border ? "yes" : "no";
+          })
   };
 
   public static final Random rng = new Random();

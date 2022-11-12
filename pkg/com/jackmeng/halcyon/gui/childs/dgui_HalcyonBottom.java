@@ -1,6 +1,7 @@
 package com.jackmeng.halcyon.gui.childs;
 
 import com.jackmeng.halcyon.const_Global;
+import com.jackmeng.halcyon.const_MUTableKeys;
 import com.jackmeng.halcyon.use_HalcyonProperties;
 import com.jackmeng.halcyon.apps.evnt_RemoveTab;
 import com.jackmeng.halcyon.apps.evnt_SelectPlaylistTrack;
@@ -18,6 +19,7 @@ import com.jackmeng.util.use_Struct.*;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeSelectionModel;
@@ -41,7 +43,7 @@ public class dgui_HalcyonBottom
       evnt_SelectPlaylistTrack
   {
 
-    private final TitledBorder border = BorderFactory.createTitledBorder(_lang(LANG_FILELIST_BORDER_TITLE));
+    private TitledBorder border;
     private final JTabbedPane pane;
 
     /*-------------------------------------------------------------------------------------------------------------- /
@@ -140,18 +142,15 @@ public class dgui_HalcyonBottom
       }
     }
 
+
     public dgui_HalcyonFileList()
     {
-
-      border.setBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_DARK_BG_2));
-      border.setTitleFont(use_HalcyonProperties.boldFont().deriveFont(15F));
-
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH - const_Manager.DGUI_APPS_WIDTH,
           const_Manager.FRAME_MIN_HEIGHT / 2));
-      setBorder(border);
       setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
       setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
       setPreferredSize(new Dimension(const_Manager.DGUI_APPS_FILELIST_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT));
+      setWheelScrollingEnabled(true);
       /*----------------------------------------------------------------- /
       / Dont add setMinimumSize(); it messes up app list resizing ability /
       /------------------------------------------------------------------*/
@@ -161,22 +160,30 @@ public class dgui_HalcyonBottom
           const_Manager.FRAME_MIN_HEIGHT / 2));
       pane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
       pane.setFocusable(false);
+      pane.setOpaque(true);
       pane.setFont(use_HalcyonProperties.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE));
-      pane.addChangeListener(x -> {
-        JTabbedPane t = (JTabbedPane) x.getSource();
-        if (t.getSelectedIndex() >= 0 && t.getTabComponentAt(t.getSelectedIndex()) != null)
-        {
-          border.setTitle((t.getSelectedIndex() + 1) + " | "
-              + (t.getTabComponentAt(t.getSelectedIndex()).getName() == null ? " "
-                  : new File(t.getTabComponentAt(t.getSelectedIndex()).getName()).getName())
-              + " | " + t.getTabComponentAt(
-                  t.getSelectedIndex()).getName());
-        }
-        else
-        {
-          border.setTitle(_lang(LANG_FILELIST_BORDER_TITLE));
-        }
-      });
+
+      if (const_MUTableKeys.use_filelist_titled_border)
+      {
+        border = BorderFactory.createTitledBorder(_lang(LANG_FILELIST_BORDER_TITLE));
+        border.setBorder(BorderFactory.createEmptyBorder());
+        border.setTitleFont(use_HalcyonProperties.boldFont().deriveFont(15F));
+        setBorder(border);
+        pane.addChangeListener(x -> {
+          JTabbedPane t = (JTabbedPane) x.getSource();
+          border
+              .setTitle(t.getSelectedIndex() >= 0 && t.getSelectedComponent() != null
+                  ? (t.getSelectedIndex() + 1) + " | "
+                      + (t.getSelectedComponent().getName() == null ? " "
+                          : new File(t.getSelectedComponent().getName()).getName())
+                      + " | " + (t.getSelectedComponent().getName() == null ? " "
+                          : t.getSelectedComponent().getName())
+                  : _lang(LANG_FILELIST_BORDER_TITLE));
+          repaint(100L); // requires this repaint command in order for the title to actually display.
+        });
+      }
+      else
+        setBorder(BorderFactory.createEmptyBorder());
 
       getViewport().add(pane);
 
@@ -299,6 +306,7 @@ public class dgui_HalcyonBottom
       jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
       jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
       jsp.setBorder(null);
+      jsp.setName(list.getParent());
       jsp.getViewport().add(tree);
 
       pane.add(list.getCanonicalParent_1(), jsp);

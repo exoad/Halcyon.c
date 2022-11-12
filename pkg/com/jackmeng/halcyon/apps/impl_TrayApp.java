@@ -1,6 +1,5 @@
 package com.jackmeng.halcyon.apps;
 
-import com.jackmeng.halcyon.impl_App;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
 public abstract interface impl_TrayApp

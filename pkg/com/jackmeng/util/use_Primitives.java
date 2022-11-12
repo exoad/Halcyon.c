@@ -32,7 +32,7 @@ public final class use_Primitives
 
   public static String expand_exception(Exception e)
   {
-    StringBuilder sb = new StringBuilder("Exception Occurred: " + e.getMessage());
+    StringBuilder sb = new StringBuilder("Exception Occurred: " + e.getMessage()).append("\nLocalized:" + e.getLocalizedMessage());
     for (StackTraceElement s : e.getStackTrace())
     {
       sb.append("\tat " + s.getClassName() + "." + s.getMethodName()

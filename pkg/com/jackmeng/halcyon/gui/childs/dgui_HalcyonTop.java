@@ -33,7 +33,7 @@ public class dgui_HalcyonTop
     public halcyonTop_Info()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH,
-          const_Manager.DGUI_APPS_FILELIST_HEIGHT - (const_Manager.DGUI_APPS_FILELIST_HEIGHT / 2)));
+          const_Manager.DGUI_APPS_FILELIST_HEIGHT - (const_Manager.DGUI_APPS_FILELIST_HEIGHT / 3)));
       setLayout(new GridBagLayout());
 
       infoDisplayer = new JPanel();
@@ -72,7 +72,7 @@ public class dgui_HalcyonTop
   {
     public halcyonTop_Buttons()
     {
-      setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT / 2));
+      setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT / 3));
       setOpaque(false);
       /*------------------------------------------------- /
       / setOpaque(true);                                  /

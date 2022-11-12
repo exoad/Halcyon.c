@@ -1,8 +1,6 @@
-package com.jackmeng.halcyon;
+package com.jackmeng.halcyon.apps;
 
 import javax.swing.*;
-
-import com.jackmeng.halcyon.apps.impl_Identifiable;
 
 import java.util.Optional;
 
