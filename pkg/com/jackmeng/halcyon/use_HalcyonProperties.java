@@ -157,20 +157,27 @@ public final class use_HalcyonProperties
     /*----------------------------------- /
     / Set all UI element based properties /
     /------------------------------------*/
+
+    final ColorUIResource colorUI_Green = new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG);
     UIManager.setLookAndFeel(FlatAtomOneDarkIJTheme.class.getName());
+    UIManager.put("JScrollPane.smoothScrolling", true);
     UIManager.put("ScrollBar.thumbArc", 999);
     UIManager.put("ScrollBar.trackArc", 999);
     UIManager.put("ScrollBar.background", null);
-    UIManager.put("ScrollBar.thumb", new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG));
-    UIManager.put("Scrollbar.pressedThumbColor", new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG));
-    UIManager.put("ScrollBar.hoverThumbColor", new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG));
-    UIManager.put("TabbedPane.underlineColor", new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG));
+    UIManager.put("ScrollBar.thumb", colorUI_Green);
+    UIManager.put("Scrollbar.pressedThumbColor", colorUI_Green);
+    UIManager.put("ScrollBar.hoverThumbColor", colorUI_Green);
+    UIManager.put("TabbedPane.underlineColor", colorUI_Green);
     UIManager.put("TabbedPane.showTabSeparators", true);
     UIManager.put("ScrollBar.showButtons", false);
-    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG));
-    UIManager.put("TitlePane.closePressedBackground", new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG));
-    UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG));
-    UIManager.put("TitlePane.buttonPressedBackground", new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG));
+    UIManager.put("Component.focusColor", colorUI_Green);
+    UIManager.put("Component.focusedBorderColor", colorUI_Green);
+    UIManager.put("TextArea.caretForeground", colorUI_Green);
+    UIManager.put("TextField.caretForeground", colorUI_Green);
+    UIManager.put("TitlePane.closeHoverBackground", colorUI_Green);
+    UIManager.put("TitlePane.closePressedBackground", colorUI_Green);
+    UIManager.put("TitlePane.buttonHoverBackground", colorUI_Green);
+    UIManager.put("TitlePane.buttonPressedBackground", colorUI_Green);
     UIManager.put("TitlePane.closeHoverForeground", new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG.darker()));
     UIManager.put("TitlePane.closePressedForeground",
         new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG.darker()));
@@ -184,6 +191,9 @@ public final class use_HalcyonProperties
     UIManager.put("TitlePane.unifiedBackground", true);
     UIManager.put("SplitPaneDivider.gripDotCount", 0);
     UIManager.put("FileChooser.readOnly", false);
+    System.setProperty("flatlaf.useWindowDecorations", "false");
+    System.setProperty("flatlaf.useJetBrainsCustomDecorations", "false");
+    System.setProperty("flatlaf.animation", "true");
     GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
     g.registerFont(
