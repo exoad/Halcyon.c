@@ -8,9 +8,9 @@ public final class use_Primitives
 
   public final class primitives_Math
   {
-    public static native float rnd_1(long[] num);
+    public native float rnd_1(long[] num);
 
-    public static native float exp_dev(long[] num);
+    public native float exp_dev(long[] num);
   }
 
   /**
