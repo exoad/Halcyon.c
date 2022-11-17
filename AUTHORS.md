@@ -1,10 +1,10 @@
-# Authors
+# Authors | 作
 
 This project is primarily authored by:
 
 `exoad - Jack Meng` | [Email](mailto://jackmeng0814@gmail.com)
 
-# Copyright/License/Right Holders
+# Copyright/License/Right Holders | 照
 Of all assets for the project:
 Halcyon
 
