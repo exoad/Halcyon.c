@@ -99,6 +99,32 @@ inline float halcyon_maffs::ran_1(long* i) {
   return (t = AM * iy) > RNMX ? RNMX : t;
 }
 
+// an=aa^ab^ac^ad
+inline int halcyon_maffs::ran_bit_1(unsigned long* maxim) {
+  unsigned long n = (*maxim >> 17) & 1 ^ (*maxim >> 4) & 1 ^ (*maxim >> 1) & 1 ^ (*maxim & 1);
+  *maxim = (*maxim << 1) | n;
+  return (int) n;
+}
+
+// dont use sequential bits from these routines as the bits of a large integer or
+// the bits in the manitssa of a random floating point number
+inline int halcyon_maffs::ran_bit_2(unsigned long* maxim) {
+  if(*maxim & HALCYON_MAFFS_BIT_18) {
+    *maxim = ((*maxim ^ HALCYON_MAFFS_RBIT_MASK) << 1) | HALCYON_MAFFS_BIT_1;
+    return 1;
+  } else {
+    *maxim <<= 1;
+    return 0;
+  }
+}
+
+// (1,2,5,15,18)
+// (28,3,0)
+// (26,6,2,1,0)
+// (39,4,0)
+// (47,5,0)
+// (50,4,3,0)
+
 /*------------------------------------------------------------- /
 / exponential deviates based on poisson-rnd events in the form: /
 / p(y)dy=|dx/dy|dy=e^(-y)dy                                     /
