@@ -118,6 +118,8 @@ inline int halcyon_maffs::ran_bit_2(unsigned long* maxim) {
   }
 }
 
+
+
 // (1,2,5,15,18)
 // (28,3,0)
 // (26,6,2,1,0)

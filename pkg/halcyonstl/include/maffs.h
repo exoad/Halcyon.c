@@ -17,6 +17,7 @@ namespace halcyon_maffs {
 float ran_1(long*);
 int ran_bit_1(unsigned long*);
 int ran_bit_2(unsigned long*);
+
 }  // namespace halcyon_maffs
 
 #endif
