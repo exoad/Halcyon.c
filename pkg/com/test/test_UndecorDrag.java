@@ -13,6 +13,7 @@ public class test_UndecorDrag
   public static void main(String... args)
   {
     JFrame frame = new JFrame();
+    frame.setUndecorated(true);
     JPanel p = new JPanel();
     p.addMouseListener(new MouseAdapter() {
       @Override
