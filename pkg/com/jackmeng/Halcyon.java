@@ -52,8 +52,8 @@ public final class Halcyon
    public static void main(String... args)
          throws Exception
    {
-      use_Task.profile_ns(Halcyon::__LINK__);
-      use_Task.profile_ns(use_HalcyonFolder.FOLDER::load_conf);
+      __LINK__();
+      use_HalcyonFolder.FOLDER.load_conf();
       if (const_MUTableKeys.run_tcs_on_start)
          Test.main((String[]) null);
       pstream.log.enabled = const_MUTableKeys.outstream;

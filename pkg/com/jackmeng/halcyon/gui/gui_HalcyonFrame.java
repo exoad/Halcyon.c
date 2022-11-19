@@ -580,7 +580,7 @@ public class gui_HalcyonFrame
           clr.brighter();
           g2.setColor(use_Color.darker(clr, 0.6D));
           // ON LOW RES SCREENS, MUST BE ODD NUMBER TO WORK PROPERLY WITH
-          int SMALL_RADIUS = 7;
+          int SMALL_RADIUS = size - (size / 2) % 2 != 0 ? size - (size / 2) + 1 : size - (size / 2);
           g2.fillOval((size / 2) - (SMALL_RADIUS / 2), (size / 2) - (SMALL_RADIUS / 2), SMALL_RADIUS, SMALL_RADIUS);
         }
         g2.dispose();
@@ -591,7 +591,7 @@ public class gui_HalcyonFrame
 
     private static JButton gen_Button(Color color, Runnable func)
     {
-      return new TitleBarButton(13, color, func);
+      return new TitleBarButton(15, color, func);
     }
 
     @Override
@@ -685,6 +685,6 @@ public class gui_HalcyonFrame
   @Override
   public final void run()
   {
-    frame.run();
+    use_Task.run_Snb_1(frame);
   }
 }
