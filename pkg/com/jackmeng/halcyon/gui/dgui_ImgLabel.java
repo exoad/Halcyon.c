@@ -33,21 +33,21 @@ public class dgui_ImgLabel
     {
         super.paintComponent(g);
         Image toDraw = null;
-        if (scaled != null)
+        if (master != null)
         {
-            toDraw = scaled;
-        }
-        else if (master != null)
-        {
-            toDraw = master;
+            if (scaled != null)
+                toDraw = scaled;
+            else if (master != null)
+                toDraw = master;
+
+            if (toDraw != null)
+            {
+                int x = (getWidth() - toDraw.getWidth(this)) / 2;
+                int y = (getHeight() - toDraw.getHeight(this)) / 2;
+                g.drawImage(toDraw, x, y, this);
+            }
         }
 
-        if (toDraw != null)
-        {
-            int x = (getWidth() - toDraw.getWidth(this)) / 2;
-            int y = (getHeight() - toDraw.getHeight(this)) / 2;
-            g.drawImage(toDraw, x, y, this);
-        }
     }
 
     @Override
@@ -75,13 +75,9 @@ public class dgui_ImgLabel
     {
         scaled = null;
         if (isToFit())
-        {
             scaled = getScaledInstanceToFit(master, getSize());
-        }
         else
-        {
             scaled = getScaledInstanceToFill(master, getSize());
-        }
     }
 
     protected BufferedImage toBufferedImage(Image master)
@@ -166,9 +162,7 @@ public class dgui_ImgLabel
     {
         GraphicsConfiguration gc = getGraphicsConfiguration();
         if (gc == null)
-        {
             gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
-        }
 
         BufferedImage image = gc.createCompatibleImage(width, height, Transparency.TRANSLUCENT);
         image.coerceData(true);
@@ -181,14 +175,8 @@ public class dgui_ImgLabel
         int iImageWidth = (int) Math.round(img.getWidth() * dScaleFactor);
         int iImageHeight = (int) Math.round(img.getHeight() * dScaleFactor);
 
-        if (dScaleFactor <= 1.0d)
-        {
-            imgScale = getScaledDownInstance(img, iImageWidth, iImageHeight, hint, bHighQuality);
-        }
-        else
-        {
-            imgScale = getScaledUpInstance(img, iImageWidth, iImageHeight, hint, bHighQuality);
-        }
+        imgScale = dScaleFactor <= 1.0d ? getScaledDownInstance(img, iImageWidth, iImageHeight, hint, bHighQuality)
+                : getScaledUpInstance(img, iImageWidth, iImageHeight, hint, bHighQuality);
 
         return imgScale;
     }
@@ -204,7 +192,7 @@ public class dgui_ImgLabel
                 ? BufferedImage.TYPE_INT_RGB
                 : BufferedImage.TYPE_INT_ARGB;
 
-        BufferedImage ret = (BufferedImage) img;
+        BufferedImage ret = img;
 
         if (targetHeight > 0 || targetWidth > 0)
         {
@@ -231,17 +219,13 @@ public class dgui_ImgLabel
                 {
                     w /= 2;
                     if (w < targetWidth)
-                    {
                         w = targetWidth;
-                    }
                 }
                 if (higherQuality && h > targetHeight)
                 {
                     h /= 2;
                     if (h < targetHeight)
-                    {
                         h = targetHeight;
-                    }
                 }
 
                 BufferedImage tmp = new BufferedImage(Math.max(w, 1), Math.max(h, 1), type);
@@ -255,9 +239,7 @@ public class dgui_ImgLabel
             while (w != targetWidth || h != targetHeight);
         }
         else
-        {
             ret = new BufferedImage(1, 1, type);
-        }
 
         return ret;
     }
@@ -295,18 +277,14 @@ public class dgui_ImgLabel
             {
                 w *= 2;
                 if (w > targetWidth)
-                {
                     w = targetWidth;
-                }
             }
 
             if (higherQuality && h < targetHeight)
             {
                 h *= 2;
                 if (h > targetHeight)
-                {
                     h = targetHeight;
-                }
             }
 
             BufferedImage tmp = new BufferedImage(w, h, type);

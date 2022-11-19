@@ -31,7 +31,7 @@ public class dgui_HalcyonTop
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH,
           (const_Manager.DGUI_TOP) / 2));
-      setLayout(new GridBagLayout());
+      setLayout(new GridLayout(1,3,15,getPreferredSize().height / 2));
       setOpaque(false);
 
       infoDisplayer = new JPanel();
@@ -42,10 +42,14 @@ public class dgui_HalcyonTop
       artwork = new dgui_ImgLabel(null, false);
       mainTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_TITLE.value);
 
+      add(artwork);
+      add(mainTitle);
+
       /*-------------------------------------------------- /
       / setOpaque(true);                                   /
       / setBackground(const_ColorManager.DEFAULT_BLUE_FG); /
       /---------------------------------------------------*/
+
       const_Global.SELECTION_LISTENERS.add_listener(this);
     }
 
@@ -90,7 +94,6 @@ public class dgui_HalcyonTop
   }
 
   private JPanel bgPanel;
-  private transient Color accentColor;
 
   public dgui_HalcyonTop()
   {
@@ -111,15 +114,6 @@ public class dgui_HalcyonTop
       @Override
       public void paintComponent(Graphics g)
       {
-        if (accentColor != null)
-        {
-          g.setColor(accentColor);
-          g.fillRect(0, 0, getSize().width, getSize().height);
-        }
-        else
-        {
-          g.clearRect(0, 0, getSize().width, getSize().height);
-        }
         g.dispose();
       }
     };
@@ -134,7 +128,5 @@ public class dgui_HalcyonTop
   @Override
   public void forYou(use_TailwindTrack e)
   {
-    accentColor = (Color) e.get(tailwindtrack_Tags.MEDIA_ART_COLOR_PRIMA);
-    bgPanel.repaint(15L);
   }
 }
