@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -20,10 +21,13 @@ import org.jaudiotagger.tag.TagException;
 import com.jackmeng.halcyon.apps.impl_Identifiable;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
 import com.jackmeng.sys.pstream;
+import com.jackmeng.util.use_Color;
+import com.jackmeng.util.use_Image;
 import com.jackmeng.util.use_Primitives;
 import com.jackmeng.util.use_ResourceFetcher;
 
 import java.awt.image.*;
+import java.awt.*;
 
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
@@ -50,7 +54,8 @@ public final class use_TailwindTrack
                                 _lang(LANG_UNKNOWN)), MEDIA_COMPOSER(FieldKey.COMPOSER,
                                     _lang(LANG_UNKNOWN)), MEDIA_LYRICS(FieldKey.LYRICS,
                                         "???"), MEDIA_COPYRIGHT(FieldKey.COPYRIGHT,
-                                            _lang(LANG_UNKNOWN)), MEDIA_TITLE(FieldKey.TITLE, "???");
+                                            _lang(LANG_UNKNOWN)), MEDIA_TITLE(FieldKey.TITLE,
+                                                "???"), MEDIA_ART_COLOR_PRIMA(null, null);
 
     public final Object value;
     public final FieldKey key;
@@ -61,6 +66,8 @@ public final class use_TailwindTrack
       this.value = Defvalue;
     }
   }
+
+  private static WeakHashMap< String, Object > lazyColors_Cache = new WeakHashMap<>(10);
 
   private File content;
   private transient Tag tag;
@@ -171,6 +178,22 @@ public final class use_TailwindTrack
       return header == null ? er.value : header.getBitRate();
     else if (er == tailwindtrack_Tags.MEDIA_SAMPLERATE)
       return header.getSampleRate();
+    else if (er == tailwindtrack_Tags.MEDIA_ART)
+      return get_artwork();
+    else if (er == tailwindtrack_Tags.MEDIA_ART_COLOR_PRIMA)
+    {
+      BufferedImage img = get_artwork();
+      if(lazyColors_Cache.containsKey(content.getAbsolutePath()))
+        return lazyColors_Cache.get(content.getAbsolutePath());
+      if (img == null)
+      {
+        lazyColors_Cache.put(content.getAbsolutePath(), er.value);
+        return er.value;
+      }
+      Color r = use_Color.make(use_Image.accurate_accent_color_1(img));
+      lazyColors_Cache.put(content.getAbsolutePath(), r);
+      return r;
+    }
     else if (er == tailwindtrack_Tags.MEDIA_DURATION)
       return header.getTrackLength();
     else if (er == tailwindtrack_Tags.MEDIA_TITLE)
@@ -181,8 +204,9 @@ public final class use_TailwindTrack
     return er.value;
   }
 
-  public BufferedImage get_artwork()
+  private BufferedImage art()
   {
+
     BufferedImage img = null;
     try
     {
@@ -219,6 +243,11 @@ public final class use_TailwindTrack
       hasArtwork = false;
       return (BufferedImage) tailwindtrack_Tags.MEDIA_ART.value;
     }
+  }
+
+  public BufferedImage get_artwork()
+  {
+    return art();
   }
 
   public boolean has_artwork()

@@ -641,8 +641,8 @@ public class gui_HalcyonFrame
     }
 
     JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, top, bottom);
-    splitPane.setDividerLocation((top.getPreferredSize().height + bottom.getPreferredSize().height)  / 2);
-    splitPane.setDividerSize(5);
+    splitPane.setDividerLocation((top.getPreferredSize().height + bottom.getPreferredSize().height) / 2);
+    splitPane.setDividerSize(0);
 
     frame = new TitledFrame(new TitleBarConfig("Halcyon (uwu)",
         use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.GUI_PROGRAM_LOGO),

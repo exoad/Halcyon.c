@@ -5,20 +5,21 @@ import javax.swing.plaf.LayerUI;
 
 import java.awt.*;
 import java.awt.image.*;
+import java.util.WeakHashMap;
+
 import com.jackmeng.halcyon.const_Global;
-import com.jackmeng.halcyon.const_MUTableKeys;
 import com.jackmeng.halcyon.apps.evnt_SelectPlaylistTrack;
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_Manager;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
 import com.jackmeng.halcyon.gui.dgui_ImgLabel;
-import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Chronos;
 import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
 import com.jackmeng.util.use_Color;
+import com.jackmeng.util.use_Image;
+import com.jackmeng.util.use_ImgStrat;
 import com.jackmeng.util.use_ResourceFetcher;
-import com.jackmeng.util.use_ImgStrat.*;
 
 public class dgui_HalcyonTop
     extends JPanel
@@ -38,6 +39,7 @@ public class dgui_HalcyonTop
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH,
           (const_Manager.DGUI_TOP) / 2));
       setLayout(new GridBagLayout());
+      setOpaque(false);
 
       infoDisplayer = new JPanel();
       infoDisplayer.setLayout(new BoxLayout(infoDisplayer, BoxLayout.Y_AXIS));
@@ -47,8 +49,10 @@ public class dgui_HalcyonTop
       artwork = new dgui_ImgLabel(null, false);
       mainTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_TITLE.value);
 
-      setOpaque(true);
-      setBackground(const_ColorManager.DEFAULT_BLUE_FG);
+      /*-------------------------------------------------- /
+      / setOpaque(true);                                   /
+      / setBackground(const_ColorManager.DEFAULT_BLUE_FG); /
+      /---------------------------------------------------*/
       const_Global.SELECTION_LISTENERS.add_listener(this);
     }
 
@@ -84,14 +88,18 @@ public class dgui_HalcyonTop
     public halcyonTop_Buttons()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP) / 2));
-      setOpaque(true);
-      setBackground(const_ColorManager.DEFAULT_RED_FG);
+      setOpaque(false);
+      /*------------------------------------------------- /
+      / setOpaque(true);                                  /
+      / setBackground(const_ColorManager.DEFAULT_RED_FG); /
+      /--------------------------------------------------*/
     }
   }
 
   private JLayer< Component > blurBp;
   private transient BufferedImage bi;
   private JPanel bgPanel;
+  private transient Color accentColor;
 
   public dgui_HalcyonTop()
   {
@@ -108,35 +116,59 @@ public class dgui_HalcyonTop
     copy.add(new halcyonTop_Buttons(), BorderLayout.SOUTH);
     copy.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    bgPanel = new JPanel();
+    bgPanel = new JPanel() {
+      @Override
+      public void paintComponent(Graphics g)
+      {
+        if (accentColor != null)
+        {
+          g.setColor(accentColor);
+          g.fillRect(0, 0, getSize().width, getSize().height);
+        }
+        else
+        {
+          g.clearRect(0, 0, getSize().width, getSize().height);
+        }
+        g.dispose();
+      }
+    };
     bgPanel.setPreferredSize(getPreferredSize());
 
     blurBp = new JLayer<>(bgPanel, new LayerUI<>() {
-      private transient imgstrat_BlurhashBlur blur = new imgstrat_BlurhashBlur(2, 3, 1.0D);
+      /*------------------------------------------------------------------------------------------------- /
+      / private transient BufferedImageOp op = new use_ImageStrat;                                        /
+      / private transient WeakHashMap<JComponent, BufferedImage> lazyImage_Cache = new WeakHashMap<>(10); /
+      /                                                                                                   /
+      / @Override                                                                                         /
+      / public void paint(Graphics g, JComponent comp)                                                    /
+      / {                                                                                                 /
+      /   if (bi != null)                                                                                 /
+      /   {                                                                                               /
+      /     if (comp.getWidth() == 0 || comp.getHeight() == 0)                                            /
+      /       return;                                                                                     /
+      /     BufferedImage blur = lazyImage_Cache.get(comp);                                               /
+      /     if(blur == null || blur.getWidth() != bi.getWidth() || blur.getHeight() != bi.getHeight())    /
+      /     {                                                                                             /
+      /       blur = use_Image.compat_Img(bi);                                                            /
+      /       lazyImage_Cache.put(comp, blur);                                                            /
+      /     }                                                                                             /
+      /     Graphics2D blr = blur.createGraphics();                                                       /
+      /     blr.drawImage(bi, op, 0, 0);                                                                  /
+      /     blr.dispose();                                                                                /
+      /   }                                                                                               /
+      /   g.dispose();                                                                                    /
+      / }                                                                                                 /
+      /--------------------------------------------------------------------------------------------------*/
 
       @Override
       public void paint(Graphics g, JComponent comp)
       {
-        if (bi != null)
-        {
-          if (comp.getWidth() == 0 || comp.getHeight() == 0)
-            return;
 
-          BufferedImage img = new BufferedImage(comp.getWidth(), comp.getHeight(), BufferedImage.TYPE_INT_ARGB);
-          Graphics2D ig2 = img.createGraphics();
-          ig2.setClip(g.getClip());
-          super.paint(ig2, comp);
-          ig2.dispose();
-          Graphics2D g2 = (Graphics2D) g;
-          g2.drawImage(img, blur, 0, 0);
-          g2.dispose();
-        }
-        g.dispose();
       }
     });
 
     add(copy);
-    add(blurBp);
+    add(bgPanel);
 
     const_Global.SELECTION_LISTENERS.add_listener(this);
   }
@@ -144,9 +176,8 @@ public class dgui_HalcyonTop
   @Override
   public void forYou(use_TailwindTrack e)
   {
-    pstream.log.warn("TOP_REFFED: " + e.hashCode());
-    bi = e.has_artwork() ? e.get_artwork() : null;
-    blurBp.repaint(15L);
+    bi = (BufferedImage) e.get(tailwindtrack_Tags.MEDIA_ART);
+    accentColor = (Color) e.get(tailwindtrack_Tags.MEDIA_ART_COLOR_PRIMA);
+    bgPanel.repaint(15L);
   }
-
 }

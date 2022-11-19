@@ -72,9 +72,7 @@ public final class use_Image
         {
           Integer color = m.get(rgb);
           if (color == null)
-          {
             color = 0;
-          }
           color++;
           m.put(rgb, color);
         }
@@ -90,21 +88,37 @@ public final class use_Image
         use_Color.parse_RGB(cum.getKey())[3]);
   }
 
-  public static int[] pixels(BufferedImage img, int x, int y, int width, int height, int[] pixels)
+  public static void pixels(BufferedImage img, int x, int y, int width, int height, int[] pixels)
   {
-    if (width == 0 || height == 0)
-      return new int[0];
-    if (pixels == null)
-    {
-      pixels = new int[width * height];
-    }
+    if (width == 0 || height == 0 || pixels == null)
+      return;
     assert pixels.length >= width * height;
     if (img.getType() == BufferedImage.TYPE_INT_ARGB || img.getType() == BufferedImage.TYPE_INT_RGB)
     {
-      Raster rst = img.getRaster();
-      return (int[]) rst.getDataElements(x, y, width, height, pixels);
+      WritableRaster rst = img.getRaster();
+      rst.getDataElements(x, y, width, height, pixels);
     }
-    return img.getRGB(x, y, width, height, pixels, 0, width);
+    else
+      img.getRGB(x, y, width, height, pixels, 0, width);
+  }
+
+  public static BufferedImage compat_Img(BufferedImage e)
+  {
+    BufferedImage r = compat_Img(e.getWidth(), e.getHeight(), e);
+    Graphics2D g2 = r.createGraphics();
+    g2.drawImage(e, 0, 0, null);
+    g2.dispose();
+    return r;
+  }
+
+  public static GraphicsConfiguration g_conf()
+  {
+    return GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+  }
+
+  public static BufferedImage compat_Img(int w, int h, BufferedImage r)
+  {
+    return g_conf().createCompatibleImage(w, h, r.getTransparency());
   }
 
   /**
