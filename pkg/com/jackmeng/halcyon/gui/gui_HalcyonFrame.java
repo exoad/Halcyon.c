@@ -471,7 +471,6 @@ public class gui_HalcyonFrame
         });
 
         JPanel bigPane = new JPanel();
-        bigPane.setPreferredSize(frame.getPreferredSize());
         bigPane.setLayout(new BorderLayout());
         bigPane.setAlignmentY(Component.CENTER_ALIGNMENT);
         bigPane.add(titleBar, BorderLayout.NORTH);
@@ -479,6 +478,7 @@ public class gui_HalcyonFrame
 
         frame.getContentPane().add(bigPane);
         cr.setMinimumSize(frame.getMinimumSize());
+        cr.setSnapSize(new Dimension(3,3));
       }
       frame.setMinimumSize(frame.getPreferredSize());
       frame.setLocation(use_Program.screen_center().first - (frame.getPreferredSize().width / 2),

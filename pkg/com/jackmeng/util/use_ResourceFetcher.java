@@ -23,38 +23,50 @@ public class use_ResourceFetcher
   {
   }
 
+  private WeakHashMap< String, Object > lazyResource_cache = new WeakHashMap<>();
+
   /**
    * @param path
    * @return ImageIcon
    */
   public ImageIcon getFromAsImageIcon(String path)
   {
+    if (lazyResource_cache.containsKey(path))
+      return (ImageIcon) lazyResource_cache.get(path);
+    ImageIcon i = null;
     try
     {
-      return new ImageIcon(
+
+      i = new ImageIcon(
           java.util.Objects.requireNonNull(getClass().getResource(path)));
     } catch (NullPointerException e)
     {
-      return new ImageIcon(path);
+      i = new ImageIcon(path);
     }
+    lazyResource_cache.put(path, i);
+    return i;
   }
 
   public BufferedImage getFromAsImage(String path)
   {
+    if (lazyResource_cache.containsKey(path))
+      return (BufferedImage) lazyResource_cache.get(path);
+    BufferedImage i = null;
     try
     {
-      return ImageIO.read(java.util.Objects.requireNonNull(getClass().getResource(path)));
+      i = ImageIO.read(java.util.Objects.requireNonNull(getClass().getResource(path)));
     } catch (Exception e)
     {
       try
       {
-        return ImageIO.read(new File(path));
+        i = ImageIO.read(new File(path));
       } catch (IOException e1)
       {
         use_HalcyonFolder.FOLDER.log(e);
       }
     }
-    return null;
+    lazyResource_cache.put(path, i);
+    return i;
   }
 
   private WeakHashMap< String, String > lazyHLL_Cache = new WeakHashMap<>();
@@ -85,14 +97,19 @@ public class use_ResourceFetcher
    */
   public File getFromAsFile(String path)
   {
+    if (lazyResource_cache.containsKey(path))
+      return (File) lazyResource_cache.get(path);
+    File i = null;
     try
     {
-      return new File(
+      i = new File(
           java.util.Objects.requireNonNull(getClass().getResource(path)).getFile());
     } catch (NullPointerException e)
     {
-      return new File(path);
+      i = new File(path);
     }
+    lazyResource_cache.put(path, i);
+    return i;
   }
 
   /**
@@ -106,23 +123,15 @@ public class use_ResourceFetcher
         ZipFile file = new ZipFile(java.util.Objects.requireNonNull(getClass().getResource(zip + ".hlib").getFile())))
     {
       for (File r : use_FSys.unzip(file, 4096))
-      {
         if (r.getName().equals(zippedFileName))
-        {
           return r;
-        }
-      }
     } catch (IOException | NullPointerException e)
     {
       try
       {
         for (File r : use_FSys.unzip(zippedFileName, 4096))
-        {
           if (r.getName().equals(zippedFileName))
-          {
             return r;
-          }
-        }
         return null;
       } catch (IOException e1)
       {

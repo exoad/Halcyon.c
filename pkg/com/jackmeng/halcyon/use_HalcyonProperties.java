@@ -64,7 +64,7 @@ public final class use_HalcyonProperties
             const_MUTableKeys.top_artwork_wxh.first = Integer.parseInt(x.toLowerCase().split("x")[0]);
             const_MUTableKeys.top_artwork_wxh.second = Integer.parseInt(x.toLowerCase().split("x")[1]);
           }, x -> {
-            return true;
+            return const_MUTableKeys.top_artwork_wxh.first + "x" + const_MUTableKeys.top_artwork_wxh.second;
           })
   };
 

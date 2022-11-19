@@ -43,14 +43,14 @@ public final class use_MUTableDefinition
 
   public String check(String value)
   {
-    return onValidate.check(value) ? value : defaultVal;
+    return onValidate.check(value.trim()) ? value : defaultVal;
   }
 
   public void validate(String val)
   {
     if (onValidate.check(val))
     {
-      onOk.forYou(val);
+      onOk.forYou(val.trim());
     }
   }
 

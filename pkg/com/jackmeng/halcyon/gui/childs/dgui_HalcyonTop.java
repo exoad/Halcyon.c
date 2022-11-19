@@ -3,6 +3,7 @@ package com.jackmeng.halcyon.gui.childs;
 import javax.swing.*;
 import java.awt.*;
 import com.jackmeng.halcyon.const_Global;
+import com.jackmeng.halcyon.const_MUTableKeys;
 import com.jackmeng.halcyon.use_HalcyonProperties;
 import com.jackmeng.halcyon.apps.evnt_SelectPlaylistTrack;
 import com.jackmeng.halcyon.gui.const_ColorManager;
@@ -48,21 +49,16 @@ public class dgui_HalcyonTop
       @Override
       public void paintComponent(Graphics g)
       {
+        super.paintComponent(g);
         if (img != null)
         {
           Graphics2D g2 = (Graphics2D) g;
-          BufferedImage img2 = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-          Graphics2D gbi2 = img2.createGraphics();
-          gbi2.setRenderingHint(RenderingHints.KEY_RESOLUTION_VARIANT,
-              RenderingHints.VALUE_RESOLUTION_VARIANT_SIZE_FIT);
-          gbi2.drawImage(
-              img.getWidth() > img.getHeight()
-                  ? img.getSubimage(img.getWidth() / 2 - img.getHeight() / 2, 0, img.getHeight(), img.getHeight())
-                  : img.getSubimage(0, img.getHeight() / 2 - img.getWidth() / 2, img.getWidth(), img.getWidth()),
-              0, 0, width, height, null);
-          gbi2.dispose();
-          this.img = img2;
-          g2.drawImage(img, null, this);
+          g2.drawImage((img.getWidth() > img.getHeight()
+              ? img.getSubimage(img.getWidth() / 2 - img.getHeight() / 2, 0, img.getHeight(), img.getHeight())
+              : img.getSubimage(0, img.getHeight() / 2 - img.getWidth() / 2, img.getWidth(), img.getWidth()))
+                  .getScaledInstance(const_MUTableKeys.top_artwork_wxh.first, const_MUTableKeys.top_artwork_wxh.second,
+                      Image.SCALE_SMOOTH),
+              null, null);
           g2.dispose();
         }
         else if (!retain)
@@ -80,7 +76,7 @@ public class dgui_HalcyonTop
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH,
           (const_Manager.DGUI_TOP + 50) / 2));
-      setLayout(new GridLayout(1, 3, 15, getPreferredSize().height / 2));
+      setLayout(new GridLayout(1, 3, 15, ((const_Manager.DGUI_TOP + 50) / 2) / 2));
       setOpaque(false);
 
       infoDisplayer = new JPanel();
@@ -106,7 +102,8 @@ public class dgui_HalcyonTop
       infoDisplayer.add(miscTitle);
       infoDisplayer.add(otherTitle);
 
-      artwork = new halcyonTop_Info_Artworklabel(false, new struct_Pair<>(100, 100));
+      artwork = new halcyonTop_Info_Artworklabel(false, const_MUTableKeys.top_artwork_wxh);
+      artwork.setIMG((BufferedImage) tailwindtrack_Tags.MEDIA_ART.value);
 
       add(artwork);
       add(infoDisplayer);

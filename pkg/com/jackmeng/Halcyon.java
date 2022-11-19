@@ -3,6 +3,7 @@ package com.jackmeng;
 import com.jackmeng.halcyon.gui.gui_HalcyonFrame;
 import com.jackmeng.halcyon.gui.childs.dgui_HalcyonBottom;
 import com.jackmeng.halcyon.gui.childs.dgui_HalcyonTop;
+import com.jackmeng.halcyon.const_Global;
 import com.jackmeng.halcyon.const_MUTableKeys;
 import com.jackmeng.halcyon.use_HalcyonFolder;
 import com.jackmeng.halcyon.use_HalcyonProperties;
@@ -10,6 +11,7 @@ import com.jackmeng.sys.*;
 import com.test.Test;
 
 import java.io.File;
+import java.util.TimerTask;
 
 /*------------------------- /
 / unused imports are stupid /
@@ -61,6 +63,14 @@ public final class Halcyon
       use_HalcyonFolder.FOLDER.load_playlists();
       try
       {
+         const_Global.GENERAL_LOOP.schedule(new TimerTask() {
+            @Override
+            public void run()
+            {
+               // THIS IS VERY BAD PRACTICE AHHHH BRUH
+               System.gc();
+            }
+         }, 100, 3000);
          /*--------------- /
          / startup process /
          /----------------*/
