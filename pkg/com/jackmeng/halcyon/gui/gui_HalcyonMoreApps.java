@@ -127,6 +127,6 @@ public class gui_HalcyonMoreApps
   @Override
   public void dry_refresh()
   {
-    // TODO Auto-generated method stub
+    // DO NOTHING
   }
 }

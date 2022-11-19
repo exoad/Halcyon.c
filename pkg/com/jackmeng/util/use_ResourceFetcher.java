@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
 import java.util.WeakHashMap;
 import java.util.zip.ZipFile;

@@ -1,12 +1,7 @@
 package com.jackmeng.halcyon.gui.childs;
 
 import javax.swing.*;
-import javax.swing.plaf.LayerUI;
-
 import java.awt.*;
-import java.awt.image.*;
-import java.util.WeakHashMap;
-
 import com.jackmeng.halcyon.const_Global;
 import com.jackmeng.halcyon.apps.evnt_SelectPlaylistTrack;
 import com.jackmeng.halcyon.gui.const_ColorManager;
@@ -17,8 +12,6 @@ import com.jackmeng.sys.use_Chronos;
 import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
 import com.jackmeng.util.use_Color;
-import com.jackmeng.util.use_Image;
-import com.jackmeng.util.use_ImgStrat;
 import com.jackmeng.util.use_ResourceFetcher;
 
 public class dgui_HalcyonTop
@@ -96,8 +89,6 @@ public class dgui_HalcyonTop
     }
   }
 
-  private JLayer< Component > blurBp;
-  private transient BufferedImage bi;
   private JPanel bgPanel;
   private transient Color accentColor;
 
@@ -134,39 +125,6 @@ public class dgui_HalcyonTop
     };
     bgPanel.setPreferredSize(getPreferredSize());
 
-    blurBp = new JLayer<>(bgPanel, new LayerUI<>() {
-      /*------------------------------------------------------------------------------------------------- /
-      / private transient BufferedImageOp op = new use_ImageStrat;                                        /
-      / private transient WeakHashMap<JComponent, BufferedImage> lazyImage_Cache = new WeakHashMap<>(10); /
-      /                                                                                                   /
-      / @Override                                                                                         /
-      / public void paint(Graphics g, JComponent comp)                                                    /
-      / {                                                                                                 /
-      /   if (bi != null)                                                                                 /
-      /   {                                                                                               /
-      /     if (comp.getWidth() == 0 || comp.getHeight() == 0)                                            /
-      /       return;                                                                                     /
-      /     BufferedImage blur = lazyImage_Cache.get(comp);                                               /
-      /     if(blur == null || blur.getWidth() != bi.getWidth() || blur.getHeight() != bi.getHeight())    /
-      /     {                                                                                             /
-      /       blur = use_Image.compat_Img(bi);                                                            /
-      /       lazyImage_Cache.put(comp, blur);                                                            /
-      /     }                                                                                             /
-      /     Graphics2D blr = blur.createGraphics();                                                       /
-      /     blr.drawImage(bi, op, 0, 0);                                                                  /
-      /     blr.dispose();                                                                                /
-      /   }                                                                                               /
-      /   g.dispose();                                                                                    /
-      / }                                                                                                 /
-      /--------------------------------------------------------------------------------------------------*/
-
-      @Override
-      public void paint(Graphics g, JComponent comp)
-      {
-
-      }
-    });
-
     add(copy);
     add(bgPanel);
 
@@ -176,7 +134,6 @@ public class dgui_HalcyonTop
   @Override
   public void forYou(use_TailwindTrack e)
   {
-    bi = (BufferedImage) e.get(tailwindtrack_Tags.MEDIA_ART);
     accentColor = (Color) e.get(tailwindtrack_Tags.MEDIA_ART_COLOR_PRIMA);
     bgPanel.repaint(15L);
   }
