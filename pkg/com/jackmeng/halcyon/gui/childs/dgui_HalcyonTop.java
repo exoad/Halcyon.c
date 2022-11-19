@@ -31,7 +31,7 @@ public class dgui_HalcyonTop
     public halcyonTop_Info()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH,
-          (const_Manager.DGUI_TOP) / 2));
+          (const_Manager.DGUI_TOP + 50) / 2));
       setLayout(new GridLayout(1, 3, 15, getPreferredSize().height / 2));
       setOpaque(false);
 
@@ -98,7 +98,7 @@ public class dgui_HalcyonTop
   {
     public halcyonTop_Buttons()
     {
-      setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP) / 2));
+      setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP - 50) / 2));
       setOpaque(false);
       /*------------------------------------------------- /
       / setOpaque(true);                                  /

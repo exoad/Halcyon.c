@@ -45,7 +45,7 @@ OPTIMIZE_OUTPUT_JAVA   = YES
 OPTIMIZE_FOR_FORTRAN   = NO
 OPTIMIZE_OUTPUT_VHDL   = NO
 OPTIMIZE_OUTPUT_SLICE  = NO
-EXTENSION_MAPPING      = YES
+EXTENSION_MAPPING      = 
 MARKDOWN_SUPPORT       = YES
 TOC_INCLUDE_HEADINGS   = 5
 AUTOLINK_SUPPORT       = YES
@@ -185,7 +185,7 @@ USE_MDFILE_AS_MAINPAGE =
 # Configuration options related to source browsing
 #---------------------------------------------------------------------------
 SOURCE_BROWSER         = YES
-INLINE_SOURCES         = YES
+INLINE_SOURCES         = NO
 STRIP_CODE_COMMENTS    = NO
 REFERENCED_BY_RELATION = NO
 REFERENCES_RELATION    = NO
