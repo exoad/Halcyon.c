@@ -54,9 +54,7 @@ public final class use_Struct
       / will always return false.                                                              /
       /---------------------------------------------------------------------------------------*/
       if (!(cum instanceof struct_Pair))
-      {
         return false;
-      }
       struct_Pair< ?, ? > makePair = (struct_Pair< ?, ? >) cum;
       return makePair.first.equals(first) && makePair.second.equals(second);
     }

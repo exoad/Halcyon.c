@@ -3,6 +3,7 @@ package com.jackmeng.halcyon.gui.childs;
 import javax.swing.*;
 import java.awt.*;
 import com.jackmeng.halcyon.const_Global;
+import com.jackmeng.halcyon.use_HalcyonProperties;
 import com.jackmeng.halcyon.apps.evnt_SelectPlaylistTrack;
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_Manager;
@@ -31,7 +32,7 @@ public class dgui_HalcyonTop
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH,
           (const_Manager.DGUI_TOP) / 2));
-      setLayout(new GridLayout(1,3,15,getPreferredSize().height / 2));
+      setLayout(new GridLayout(1, 3, 15, getPreferredSize().height / 2));
       setOpaque(false);
 
       infoDisplayer = new JPanel();
@@ -40,10 +41,22 @@ public class dgui_HalcyonTop
       infoDisplayer.setBorder(BorderFactory.createEmptyBorder());
 
       artwork = new dgui_ImgLabel(null, false);
+
       mainTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_TITLE.value);
+      mainTitle.setFont(use_HalcyonProperties.boldFont().deriveFont(20F));
+      mainTitle.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
+      mainTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+      miscTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_ARTIST.value);
+      miscTitle.setFont(use_HalcyonProperties.boldFont().deriveFont(14.5F));
+      miscTitle.setForeground(const_ColorManager.DEFAULT_SOFT_GREEN_FG);
+      miscTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+      infoDisplayer.add(mainTitle);
+      infoDisplayer.add(miscTitle);
 
       add(artwork);
-      add(mainTitle);
+      add(infoDisplayer);
 
       /*-------------------------------------------------- /
       / setOpaque(true);                                   /
@@ -56,7 +69,7 @@ public class dgui_HalcyonTop
     @Override
     public void forYou(use_TailwindTrack e)
     {
-      setToolTipText(use_ResourceFetcher.fetcher.load_n_parse_hll(const_ResourceManager.HLL_HALCYONTOP_TOOLTIP,
+      infoDisplayer.setToolTipText(use_ResourceFetcher.fetcher.load_n_parse_hll(const_ResourceManager.HLL_HALCYONTOP_TOOLTIP,
           use_Color.colorToHex(const_ColorManager.DEFAULT_GREEN_FG),
           e.get(tailwindtrack_Tags.MEDIA_TITLE),
           use_Color.colorToHex(const_ColorManager.DEFAULT_PINK_FG),
@@ -64,6 +77,7 @@ public class dgui_HalcyonTop
           e.get(tailwindtrack_Tags.MEDIA_BITRATE),
           e.get(tailwindtrack_Tags.MEDIA_SAMPLERATE),
           use_Chronos.format_sec((Integer) e.get(tailwindtrack_Tags.MEDIA_DURATION))));
+      mainTitle.setText((String) e.get(tailwindtrack_Tags.MEDIA_TITLE));
       /*------------------------------------------------------------------------------------------------------------- /
       / infoDisplayer.setToolTipText("<html><body><p style=\"text-align: left;\"><span style=\"color: "               /
       /     + use_Color.colorToHex(const_ColorManager.DEFAULT_GREEN_FG)                                               /

@@ -21,12 +21,8 @@ public final class use_Primitives
   public static boolean ends_with(String key, String... comparators)
   {
     for (String r : comparators)
-    {
       if (r.endsWith(key))
-      {
         return true;
-      }
-    }
     return false;
   }
 
@@ -34,10 +30,8 @@ public final class use_Primitives
   {
     StringBuilder sb = new StringBuilder("Exception Occurred: " + e.getMessage()).append("\nLocalized:" + e.getLocalizedMessage());
     for (StackTraceElement s : e.getStackTrace())
-    {
       sb.append("\tat " + s.getClassName() + "." + s.getMethodName()
           + "(" + s.getFileName() + ":" + s.getLineNumber() + ")" + "\n");
-    }
     return sb.toString();
   }
 

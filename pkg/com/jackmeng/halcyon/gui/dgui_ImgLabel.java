@@ -53,8 +53,11 @@ public class dgui_ImgLabel
     @Override
     public void invalidate()
     {
-        generateScaledInstance();
-        super.invalidate();
+        if (master != null)
+        {
+            generateScaledInstance();
+            super.invalidate();
+        }
     }
 
     public boolean isToFit()

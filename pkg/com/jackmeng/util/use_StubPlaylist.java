@@ -25,17 +25,11 @@ public class use_StubPlaylist
     {
       File e = new File(t);
       for (String r : endings)
-      {
         if (t.endsWith(r) && e.exists() && e.isFile())
-        {
           temp.add(t);
-        }
-      }
     }
     if (traits.autosort)
-    {
       sort();
-    }
   }
 
   /**

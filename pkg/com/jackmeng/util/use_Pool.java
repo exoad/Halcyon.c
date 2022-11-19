@@ -80,24 +80,16 @@ public class use_Pool< T extends impl_Identifiable >
   public T objOf_T(Class< ? extends T > e)
   {
     for (String r : objs())
-    {
       if (poolObjects.get(r).getClass().getCanonicalName().equals(e.getCanonicalName()))
-      {
         return poolObjects.get(r);
-      }
-    }
     return null;
   }
 
   public boolean contains_objOf_T(Class< ? extends T > e)
   {
     for (String r : objs())
-    {
       if (poolObjects.get(r).getClass().getCanonicalName().equals(e.getCanonicalName()))
-      {
         return true;
-      }
-    }
     return false;
   }
 
@@ -131,10 +123,8 @@ public class use_Pool< T extends impl_Identifiable >
    */
   public void notifyRefreshers(boolean dry, struct_Pair< Optional< String >, Optional< T > > removed)
   {
-    if (dry)
-      use_Task.run_Snb_1(() -> refreshables.forEach(impl_HalcyonRefreshable::dry_refresh));
-    else
-      use_Task.run_Snb_1(() -> refreshables.forEach(x -> x.refresh(removed)));
+    use_Task.run_Snb_1(dry ? () -> refreshables.forEach(impl_HalcyonRefreshable::dry_refresh)
+        : () -> refreshables.forEach(x -> x.refresh(removed)));
   }
 
   /**

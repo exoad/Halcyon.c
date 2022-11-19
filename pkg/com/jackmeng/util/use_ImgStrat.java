@@ -498,13 +498,9 @@ public final class use_ImgStrat
       else
       {
         for (int i = 0; i < width; i++)
-        {
           indexLookupTable[i] = i;
-        }
         for (int i = width; i < indexLookupTable.length; i++)
-        {
           indexLookupTable[i] = width - 1;
-        }
       }
 
       for (int y = 0; y < height; y++)
@@ -537,15 +533,11 @@ public final class use_ImgStrat
 
           int nextPixelIndex = x + radiusPlusOne;
           if (nextPixelIndex >= width)
-          {
             nextPixelIndex = width - 1;
-          }
 
           int previousPixelIndex = x - radius;
           if (previousPixelIndex < 0)
-          {
             previousPixelIndex = 0;
-          }
 
           int nextPixel = srcPixels[srcIndex + nextPixelIndex];
           int previousPixel = srcPixels[srcIndex + previousPixelIndex];

@@ -50,9 +50,7 @@ public final class use_Buffer
     {
       int t = elementsCount;
       if (elementsCount > sz)
-      {
         t = sz;
-      }
       int sz_1 = sz - t;
       int diff = sz - sz_1;
       start = calc_offset(start, diff, buffer.length);

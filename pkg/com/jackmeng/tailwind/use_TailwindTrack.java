@@ -55,7 +55,7 @@ public final class use_TailwindTrack
                                     _lang(LANG_UNKNOWN)), MEDIA_LYRICS(FieldKey.LYRICS,
                                         "???"), MEDIA_COPYRIGHT(FieldKey.COPYRIGHT,
                                             _lang(LANG_UNKNOWN)), MEDIA_TITLE(FieldKey.TITLE,
-                                                "???"), MEDIA_ART_COLOR_PRIMA(null, null);
+                                                _lang(LANG_UNKNOWN) + ".music"), MEDIA_ART_COLOR_PRIMA(null, null);
 
     public final Object value;
     public final FieldKey key;
@@ -183,7 +183,7 @@ public final class use_TailwindTrack
     else if (er == tailwindtrack_Tags.MEDIA_ART_COLOR_PRIMA)
     {
       BufferedImage img = get_artwork();
-      if(lazyColors_Cache.containsKey(content.getAbsolutePath()))
+      if (lazyColors_Cache.containsKey(content.getAbsolutePath()))
         return lazyColors_Cache.get(content.getAbsolutePath());
       if (img == null)
       {
