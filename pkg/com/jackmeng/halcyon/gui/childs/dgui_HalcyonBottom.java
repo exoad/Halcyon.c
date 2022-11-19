@@ -19,7 +19,6 @@ import com.jackmeng.util.use_Struct.*;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeSelectionModel;
@@ -150,7 +149,6 @@ public class dgui_HalcyonBottom
       setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
       setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
       setPreferredSize(new Dimension(const_Manager.DGUI_APPS_FILELIST_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT));
-      setWheelScrollingEnabled(true);
       /*----------------------------------------------------------------- /
       / Dont add setMinimumSize(); it messes up app list resizing ability /
       /------------------------------------------------------------------*/
@@ -251,6 +249,7 @@ public class dgui_HalcyonBottom
       renderer.setLeafIcon(use_Image.resize_fast_1(const_Manager.DGUI_APPS_FILELIST_LEAF_ICON_W_H,
           const_Manager.DGUI_APPS_FILELIST_LEAF_ICON_W_H,
           use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.DGUI_FILELIST_LEAF)));
+
       tree.setCellRenderer(renderer);
       tree.addMouseListener(new MouseAdapter() {
 
@@ -303,9 +302,9 @@ public class dgui_HalcyonBottom
 
       JScrollPane jsp = new JScrollPane();
       jsp.setAutoscrolls(true);
-      jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-      jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-      jsp.setBorder(null);
+      jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+      jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+      jsp.setBorder(BorderFactory.createEmptyBorder());
       jsp.setName(list.getParent());
       jsp.getViewport().add(tree);
 

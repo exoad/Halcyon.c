@@ -204,7 +204,10 @@ public final class use_HalcyonFolder
     pUsr.setProperty("playlists", sb.toString());
     sb.setLength(0);
     for (use_TailwindTrack e : const_Global.LIKE_LIST_POOL)
+    {
+      pstream.log.warn("Saving playlist (APPEND): " + e.id());
       sb.append(e.id() + new String(DELIMITER));
+    }
     pUsr.put("liked", sb.toString());
     try
     {

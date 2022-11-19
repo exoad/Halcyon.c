@@ -102,8 +102,6 @@ public final class Halcyon
          use_Program.gc();
          Thread yan_wang = new Thread(() -> {
             use_HalcyonFolder.FOLDER.master_save();
-            Runtime.getRuntime().runFinalization();
-
             pstream.log
                   .log(new use_AnsiStrConstr(new use_AnsiColors[] { use_AnsiColors.RED_BG, use_AnsiColors.WHITE_TXT },
                         new Object[] {
