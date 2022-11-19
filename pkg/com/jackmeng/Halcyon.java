@@ -21,7 +21,6 @@ public final class Halcyon
    static {
       System.setProperty("sun.java2d.noddraw", "true");
       System.setProperty("sun.java2d.d3d", "false");
-
    }
 
    public static void __LINK__()
@@ -53,8 +52,8 @@ public final class Halcyon
    public static void main(String... args)
          throws Exception
    {
-      __LINK__();
-      use_HalcyonFolder.FOLDER.load_conf();
+      use_Task.profile_ns(Halcyon::__LINK__);
+      use_Task.profile_ns(use_HalcyonFolder.FOLDER::load_conf);
       if (const_MUTableKeys.run_tcs_on_start)
          Test.main((String[]) null);
       pstream.log.enabled = const_MUTableKeys.outstream;

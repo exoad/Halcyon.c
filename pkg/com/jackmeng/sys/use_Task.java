@@ -29,6 +29,13 @@ public final class use_Task
       SwingUtilities.invokeAndWait(r);
    }
 
+   public static void profile_ns(Runnable r)
+   {
+      long l = System.nanoTime();
+      r.run();
+      pstream.log.info("RUNNABLE_PROFILE_NANO (use_Task): " + ((System.nanoTime() - l) / 1_000_000) + "ms");
+   }
+
    /**
     * @param r
     */
