@@ -145,7 +145,7 @@ public class dgui_HalcyonBottom
     public dgui_HalcyonFileList()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH - const_Manager.DGUI_APPS_WIDTH,
-          const_Manager.FRAME_MIN_HEIGHT / 2));
+          const_Manager.DGUI_APPS_FILELIST_HEIGHT));
       setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
       setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
       setPreferredSize(new Dimension(const_Manager.DGUI_APPS_FILELIST_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT));
@@ -155,7 +155,7 @@ public class dgui_HalcyonBottom
 
       pane = new JTabbedPane();
       pane.setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH - const_Manager.DGUI_APPS_WIDTH,
-          const_Manager.FRAME_MIN_HEIGHT / 2));
+          const_Manager.DGUI_APPS_FILELIST_HEIGHT));
       pane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
       pane.setFocusable(false);
       pane.setOpaque(true);
@@ -354,7 +354,7 @@ public class dgui_HalcyonBottom
     dgui_HalcyonFileList filelistTabs = new dgui_HalcyonFileList();
 
     setOrientation(JSplitPane.HORIZONTAL_SPLIT);
-    setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.FRAME_MIN_HEIGHT / 2));
+    setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT));
     setLeftComponent(apps);
     setRightComponent(filelistTabs);
   }

@@ -21,6 +21,7 @@ public final class Halcyon
    static {
       System.setProperty("sun.java2d.noddraw", "true");
       System.setProperty("sun.java2d.d3d", "false");
+      System.setProperty("sun.java2d.opengl", "true");
    }
 
    public static void __LINK__()

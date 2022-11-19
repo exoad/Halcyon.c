@@ -472,10 +472,8 @@ public class gui_HalcyonFrame
 
         JPanel bigPane = new JPanel();
         bigPane.setPreferredSize(frame.getPreferredSize());
-        bigPane.setMinimumSize(frame.getPreferredSize());
         bigPane.setLayout(new BorderLayout());
         bigPane.setAlignmentY(Component.CENTER_ALIGNMENT);
-
         bigPane.add(titleBar, BorderLayout.NORTH);
         bigPane.add(content, BorderLayout.SOUTH);
 
@@ -643,10 +641,8 @@ public class gui_HalcyonFrame
     }
 
     JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, top, bottom);
-    splitPane.setDividerLocation(const_Manager.FRAME_MIN_WIDTH / 2);
-    splitPane.setDividerSize(0);
-    splitPane.setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.FRAME_MIN_HEIGHT));
-    splitPane.setMinimumSize(splitPane.getPreferredSize());
+    splitPane.setDividerLocation((top.getPreferredSize().height + bottom.getPreferredSize().height)  / 2);
+    splitPane.setDividerSize(5);
 
     frame = new TitledFrame(new TitleBarConfig("Halcyon (uwu)",
         use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.GUI_PROGRAM_LOGO),

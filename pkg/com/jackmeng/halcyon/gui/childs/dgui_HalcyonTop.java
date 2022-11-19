@@ -36,21 +36,19 @@ public class dgui_HalcyonTop
     public halcyonTop_Info()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH,
-          const_Manager.DGUI_APPS_FILELIST_HEIGHT - (const_Manager.DGUI_APPS_FILELIST_HEIGHT / 3)));
+          (const_Manager.DGUI_TOP) / 2));
       setLayout(new GridBagLayout());
 
       infoDisplayer = new JPanel();
       infoDisplayer.setLayout(new BoxLayout(infoDisplayer, BoxLayout.Y_AXIS));
-      infoDisplayer.setPreferredSize(new Dimension(110, 110));
+      infoDisplayer.setPreferredSize(new Dimension());
       infoDisplayer.setBorder(BorderFactory.createEmptyBorder());
 
       artwork = new dgui_ImgLabel(null, false);
       mainTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_TITLE.value);
 
-      /*-------------------------------------------------- /
-      / setOpaque(true);                                   /
-      / setBackground(const_ColorManager.DEFAULT_BLUE_FG); /
-      /---------------------------------------------------*/
+      setOpaque(true);
+      setBackground(const_ColorManager.DEFAULT_BLUE_FG);
       const_Global.SELECTION_LISTENERS.add_listener(this);
     }
 
@@ -85,12 +83,9 @@ public class dgui_HalcyonTop
   {
     public halcyonTop_Buttons()
     {
-      setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT / 3));
-      setOpaque(false);
-      /*------------------------------------------------- /
-      / setOpaque(true);                                  /
-      / setBackground(const_ColorManager.DEFAULT_RED_FG); /
-      /--------------------------------------------------*/
+      setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP) / 2));
+      setOpaque(true);
+      setBackground(const_ColorManager.DEFAULT_RED_FG);
     }
   }
 
@@ -100,51 +95,39 @@ public class dgui_HalcyonTop
 
   public dgui_HalcyonTop()
   {
-    setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT));
+    setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_TOP));
+    setMinimumSize(getPreferredSize());
     setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
     setLayout(new OverlayLayout(this));
 
     JPanel copy = new JPanel();
     copy.setPreferredSize(getPreferredSize());
-    copy.setLayout(new BorderLayout());
     copy.setOpaque(false);
+    copy.setLayout(new BorderLayout());
     copy.add(new halcyonTop_Info(), BorderLayout.NORTH);
     copy.add(new halcyonTop_Buttons(), BorderLayout.SOUTH);
+    copy.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    bgPanel = new JPanel() {
-      @Override
-      public void paintComponent(Graphics g)
-      {
-        super.paintComponent(g);
-        if (bi != null)
-          g.drawImage(bi, 0, 0, this);
-        else
-          g.clearRect(0, 0, bgPanel.getSize().width, bgPanel.getSize().height);
-        g.dispose();
-      }
-    };
+    bgPanel = new JPanel();
     bgPanel.setPreferredSize(getPreferredSize());
-    bgPanel.setOpaque(false);
 
     blurBp = new JLayer<>(bgPanel, new LayerUI<>() {
-      private transient imgstrat_BlurhashBlur blur = const_MUTableKeys.top_bg_panel_use_blur
-          ? new imgstrat_BlurhashBlur(3, 4, 1.0D)
-          : new imgstrat_BlurhashBlur(1, 1, 0.5D);
+      private transient imgstrat_BlurhashBlur blur = new imgstrat_BlurhashBlur(2, 3, 1.0D);
 
       @Override
       public void paint(Graphics g, JComponent comp)
       {
-        if (comp.getWidth() == 0 || comp.getHeight() == 0)
-          return;
         if (bi != null)
         {
+          if (comp.getWidth() == 0 || comp.getHeight() == 0)
+            return;
+
           BufferedImage img = new BufferedImage(comp.getWidth(), comp.getHeight(), BufferedImage.TYPE_INT_ARGB);
           Graphics2D ig2 = img.createGraphics();
           ig2.setClip(g.getClip());
           super.paint(ig2, comp);
           ig2.dispose();
           Graphics2D g2 = (Graphics2D) g;
-          g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
           g2.drawImage(img, blur, 0, 0);
           g2.dispose();
         }
@@ -161,8 +144,8 @@ public class dgui_HalcyonTop
   @Override
   public void forYou(use_TailwindTrack e)
   {
+    pstream.log.warn("TOP_REFFED: " + e.hashCode());
     bi = e.has_artwork() ? e.get_artwork() : null;
-    bgPanel.repaint(10L);
     blurBp.repaint(15L);
   }
 
