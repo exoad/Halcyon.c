@@ -106,6 +106,7 @@ public final class use_Image
   {
     BufferedImage r = compat_Img(e.getWidth(), e.getHeight(), e);
     Graphics2D g2 = r.createGraphics();
+    g2.setRenderingHint(RenderingHints.KEY_RESOLUTION_VARIANT, RenderingHints.VALUE_RESOLUTION_VARIANT_DPI_FIT);
     g2.drawImage(e, 0, 0, null);
     g2.dispose();
     return r;

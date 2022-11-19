@@ -57,6 +57,14 @@ public final class use_HalcyonProperties
           new String[] { "yes", "no" },
           x -> const_MUTableKeys.use_filelist_titled_border = !x.equalsIgnoreCase("no"), x -> {
             return const_MUTableKeys.use_filelist_titled_border ? "yes" : "no";
+          }),
+      new use_MUTableDefinition("Width & Height of Artwork in Top Pane.", "halcyon.gui.top_artwork_wxh", "132x132",
+          new String[0],
+          x -> {
+            const_MUTableKeys.top_artwork_wxh.first = Integer.parseInt(x.toLowerCase().split("x")[0]);
+            const_MUTableKeys.top_artwork_wxh.second = Integer.parseInt(x.toLowerCase().split("x")[1]);
+          }, x -> {
+            return true;
           })
   };
 

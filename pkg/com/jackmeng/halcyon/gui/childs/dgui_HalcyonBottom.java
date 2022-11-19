@@ -284,7 +284,7 @@ public class dgui_HalcyonBottom
             if (path != null)
             {
               DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree1.getLastSelectedPathComponent();
-              if (!node.getParent().toString().equals(tree.getParent().toString()))
+              if (node.getParent() != null && !node.getParent().toString().equals(tree.getParent().toString()))
               {
                 File f = new File(tree.getName() + use_HalcyonProperties.getFileSeparator() + node);
                 if (last == null)

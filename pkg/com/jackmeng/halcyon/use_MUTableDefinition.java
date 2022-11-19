@@ -29,14 +29,15 @@ public final class use_MUTableDefinition
       impl_Callback< String > callMe)
   {
     this(name, key, defVal, x -> {
-      for (String r : l)
+      if (l != null && l.length > 0)
       {
-        if (r.equalsIgnoreCase(x))
-        {
-          return true;
-        }
+        for (String r : l)
+          if (r.equalsIgnoreCase(x))
+            return true;
+        return false;
       }
-      return false;
+      return true;
+
     }, ok, callMe);
   }
 
