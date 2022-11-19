@@ -14,6 +14,7 @@ public class test_UndecorDrag
   {
     JFrame frame = new JFrame();
     frame.setUndecorated(true);
+    frame.setLocationByPlatform(true);
     JPanel p = new JPanel();
     p.addMouseListener(new MouseAdapter() {
       @Override
@@ -38,6 +39,7 @@ public class test_UndecorDrag
     });
 
     p.setPreferredSize(new Dimension(300, 300));
+    frame.setSize(p.getPreferredSize());
 
     frame.getContentPane().add(p);
     frame.pack();
