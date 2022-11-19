@@ -83,7 +83,6 @@ public final class use_TailwindTrack
   {
     hasArtwork = false;
     setContentFile(file);
-
     __init__();
   }
 
@@ -176,7 +175,7 @@ public final class use_TailwindTrack
       return header.getTrackLength();
     else if (er == tailwindtrack_Tags.MEDIA_TITLE)
       return tag == null ? content.getName()
-          : use_Primitives.str_empty(tag.getFirst(er.key)) ? content.getName() : er.value;
+          : use_Primitives.str_empty(tag.getFirst(er.key)) ? content.getName() : tag.getFirst(er.key);
     else if (tag != null && tag.getFirst(er.key) != null)
       return er == tailwindtrack_Tags.MEDIA_YEAR ? get_artwork() : iem(tag.getFirst(er.key), er);
     return er.value;

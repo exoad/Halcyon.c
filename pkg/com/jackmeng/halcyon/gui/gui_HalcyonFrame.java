@@ -666,7 +666,9 @@ public class gui_HalcyonFrame
         System.exit(0);
       }
     });
-    frame.expose().getRootPane().setBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_BG, 4));
+    frame.expose().getRootPane().setBorder(
+        BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_GREEN_FG, 1),
+            BorderFactory.createLineBorder(const_ColorManager.DEFAULT_BG, 5)));
   }
 
   /**

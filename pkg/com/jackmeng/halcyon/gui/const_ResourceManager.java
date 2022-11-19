@@ -35,4 +35,11 @@ public abstract interface const_ResourceManager
   String GUI_PROGRAM_LOGO = APP + "Halcyon_Logo.png";
   String GUI_SPINNER_PULSE = APP + "spinner_pulse.gif";
   String GUI_DISK_ICON = APP + "disk.png";
+
+  /*----------------------------------------------------------------------------- /
+  / The following block of constants define HLL resources. HLL stands for Halcyon /
+  / LINK LIBRARY and can contain any kind of content usables.                     /
+  /------------------------------------------------------------------------------*/
+  String HLL = RESOURCES + "hlls" + use_HalcyonProperties.getFileSeparator();
+  String HLL_HALCYONTOP_TOOLTIP = HLL + "dguiHalcyonTop_toolTip.hll";
 }

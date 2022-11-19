@@ -10,11 +10,14 @@ import com.jackmeng.halcyon.const_MUTableKeys;
 import com.jackmeng.halcyon.apps.evnt_SelectPlaylistTrack;
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_Manager;
+import com.jackmeng.halcyon.gui.const_ResourceManager;
 import com.jackmeng.halcyon.gui.dgui_ImgLabel;
+import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Chronos;
 import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
 import com.jackmeng.util.use_Color;
+import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_ImgStrat.*;
 
 public class dgui_HalcyonTop
@@ -54,16 +57,26 @@ public class dgui_HalcyonTop
     @Override
     public void forYou(use_TailwindTrack e)
     {
-      infoDisplayer.setToolTipText("<html><body><p style=\"text-align: left;\"><span style=\"color: "
-          + use_Color.colorToHex(const_ColorManager.DEFAULT_GREEN_FG)
-          + ";font-size: 14px;\"><nobr><strong>" + e.get(tailwindtrack_Tags.MEDIA_TITLE)
-          + "</strong></nobr></span></p><p style=\"text-align: left;\"><span style=\"color: "
-          + use_Color.colorToHex(const_ColorManager.DEFAULT_PINK_FG) + ";font-size: 11px\">"
-          + e.get(tailwindtrack_Tags.MEDIA_ARTIST)
-          + "</span></p><p style=\"text-align: left;\"><span style=\"color: #ffffffff;font-size:10px\">"
-          + e.get(tailwindtrack_Tags.MEDIA_BITRATE) + "kbps " + e.get(tailwindtrack_Tags.MEDIA_SAMPLERATE) + "kHz "
-          + use_Chronos.format_sec((Integer) e.get(tailwindtrack_Tags.MEDIA_DURATION))
-          + "</span></p></body></html>");
+      setToolTipText(use_ResourceFetcher.fetcher.load_n_parse_hll(const_ResourceManager.HLL_HALCYONTOP_TOOLTIP,
+          use_Color.colorToHex(const_ColorManager.DEFAULT_GREEN_FG),
+          e.get(tailwindtrack_Tags.MEDIA_TITLE),
+          use_Color.colorToHex(const_ColorManager.DEFAULT_PINK_FG),
+          e.get(tailwindtrack_Tags.MEDIA_ARTIST),
+          e.get(tailwindtrack_Tags.MEDIA_BITRATE),
+          e.get(tailwindtrack_Tags.MEDIA_SAMPLERATE),
+          use_Chronos.format_sec((Integer) e.get(tailwindtrack_Tags.MEDIA_DURATION))));
+      /*------------------------------------------------------------------------------------------------------------- /
+      / infoDisplayer.setToolTipText("<html><body><p style=\"text-align: left;\"><span style=\"color: "               /
+      /     + use_Color.colorToHex(const_ColorManager.DEFAULT_GREEN_FG)                                               /
+      /     + ";font-size: 14px;\"><nobr><strong>" + e.get(tailwindtrack_Tags.MEDIA_TITLE)                            /
+      /     + "</strong></nobr></span></p><p style=\"text-align: left;\"><span style=\"color: "                       /
+      /     + use_Color.colorToHex(const_ColorManager.DEFAULT_PINK_FG) + ";font-size: 11px\">"                        /
+      /     + e.get(tailwindtrack_Tags.MEDIA_ARTIST)                                                                  /
+      /     + "</span></p><p style=\"text-align: left;\"><span style=\"color: #ffffffff;font-size:10px\">"            /
+      /     + e.get(tailwindtrack_Tags.MEDIA_BITRATE) + "kbps " + e.get(tailwindtrack_Tags.MEDIA_SAMPLERATE) + "kHz " /
+      /     + use_Chronos.format_sec((Integer) e.get(tailwindtrack_Tags.MEDIA_DURATION))                              /
+      /     + "</span></p></body></html>");                                                                           /
+      /--------------------------------------------------------------------------------------------------------------*/
     }
   }
 
