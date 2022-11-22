@@ -18,3 +18,8 @@ File Naming, source suffixing, represents how most Java Source Files are named b
 | <code>NONE</code> | When no prefix is encountered, it should be noted as a "Runner" class meaning it most likely defines a <code>public static void main</code> OR it could be a <code>use_</code> (or variations of it) that is used commonly: saves time typing |
 | <code>impl_</code> | Defines a abstraction of <code>abstract class</code> OR <code>abstract interface</code> where certain functionality is abstracted and to be implemented. |
 | <code>evnt_</code> | A <code>impl_</code> variation that clearly specifies that this abstraction is used for event handling, specifically for event callbacks |
+
+### Locale Resource Files
+| <strong>Prefix</strong> | <strong>Description</strong> |
+| :------: | :-----------: |
+| <code>HalcyonLang_</code> | A Halcyon Language Locale file. This prefix is most likely followed by the language code (e.g. "en_US") |
