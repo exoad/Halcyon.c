@@ -19,6 +19,11 @@ File Naming, source suffixing, represents how most Java Source Files are named b
 | <code>impl_</code> | Defines a abstraction of <code>abstract class</code> OR <code>abstract interface</code> where certain functionality is abstracted and to be implemented. |
 | <code>evnt_</code> | A <code>impl_</code> variation that clearly specifies that this abstraction is used for event handling, specifically for event callbacks |
 
+### SCRIPT Files
+| <strong>Prefix</strong> | <strong>Description</strong> |
+| :------: | :-----------: |
+| <code>run_</code> | Represents the entirety of most RUNNABLE script files, like BASH, POWERSHELL, etc.. Runnable meaning it is intended to be executed via a Shell by the user. Runnables are usually meant to be source files and not compiled |
+
 ### Locale Resource Files
 | <strong>Prefix</strong> | <strong>Description</strong> |
 | :------: | :-----------: |
