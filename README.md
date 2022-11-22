@@ -1,4 +1,4 @@
-<!-- <a href="https://halcyoninae.github.io/.github/"><img src="repo/img/github_banner.png" alt="Repository Banner" width="320"/></a> -->
+<a href="https://halcyoninae.github.io/.github/"><img src="repo/img/github_banner.png" alt="Repository Banner" width="320"/></a> 
 # <strong>Halcyon</strong> : <br/> <em>A Robust Audio Player</em>
 > <em>Copyright (C) [Jack Meng 2021-2022](mailto://jackmeng0814@gmail.com)</em>
 
@@ -15,11 +15,12 @@
     to change at any time.
 
     COPYRIGHT © Jack Meng 2021-2022
+-->
 <a href="https://halcyoninae.github.io/.github/">
 <img src="repo/img/upload.png" alt="Snapshot from the GUI wrapper for the internal Audio API"
     width="419" align="right" />
 </a>
--->
+
 ### <strong><u>Description</u></strong>
 
 > **WORK IN PROGRESS**
@@ -27,21 +28,18 @@
 > and efficient native audio player that
 > fits the needs of anyone.
 
-> **[!] Notice**
-> This Halcyon version is the main "downstream"
-> image, with Exoad's Halcyon being the upstream
-> provider; this repository is production code.
-
-**A robust and intuitive audio player**
+- Features an intuitive API with inbuilt [localization](repo/text/localization.md)
+- OpenGL pipeline backend to boost the nature of [Java's Swing Framework](https://jogamp.org/deployment/jogamp-next/javadoc/jogl/javadoc/overview-summary.html)
+- Scalable plugin interfaces for [quick plugin development](repo/text/plugin_interfacing.md)
 
 ### <strong><u>Features</u></strong>
 
-- Plugin Loading for quick third party alterations of the program to your own desires
-- A robust and malleable Audio Engine that can be used by third party plugins to alter sound
-- Adaptive GUI. The GUI can be compiled to be made into a style you prefer.
-- Efficient Pipelines. Both GUI and Audio pipelines utilize the latest versions of their respective operating system counterparts (OpenGL,X11,ASIO, etc.)
-- A wide range of supported formats so you don't have to use converters often
-- Inbuilt muxing & transposing of audio stream data right in the end users' hands
+- Efficient Audio Pipeline: Tailwind
+- Fully implemented and documented Audio Math Library
+- Many supported audio formats (and more to be supported)
+- Inbuilt Swing extendable (BlurredUILayer, Scalable Frames, etc.) that you can use in your own programs
+- OpenGL backing for Swing Frameworks, enabling better performance and better flow control over the GUI wrapper.
+- Lightweight image manipulation library (Cosmos / DeImage)
 
 ### <strong><u>Supported Formats</u></strong>
 
@@ -53,17 +51,27 @@
 - Vorbis OGG (.ogg, .oga)
 - FLAC (.flac)
 - AU (.au)
+- MP2 & MP1 Layers (.mp2)
+- AIFC (.aifc)
 - Opus (.opus, .oga)
 
 <details close>
 <summary><strong>Soon To Support / Partially Supported</strong></summary>
 
+- AAC
+- M4A
 - WMA
+- RAW
+- DSD
+- AC3
 - M4R
 - RA
 - APE
 - ACC
+- MIDI
+- SNG
 - ACC
+- WAVPACK
 - TTA
 - MPC
 </details>
