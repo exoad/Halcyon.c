@@ -29,7 +29,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
-      - run: bash ${GITHUB_WORKSPACE}/run.sh linux n x64
+      - run: bash ${GITHUB_WORKSPACE}/run_MASTA.sh linux n x64
       - run: rm -rf ./hlib/out
       - uses: actions/upload-artifact@v3
         with:
@@ -47,7 +47,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
-      - run: bash ${GITHUB_WORKSPACE}/run.sh linux n x86
+      - run: bash ${GITHUB_WORKSPACE}/run_MASTA.sh linux n x86
       - run: rm -rf ./hlib/out
       - uses: actions/upload-artifact@v3
         with:
@@ -65,7 +65,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
-      - run: bash ${GITHUB_WORKSPACE}/run.sh osx n x64
+      - run: bash ${GITHUB_WORKSPACE}/run_MASTA.sh osx n x64
       - run: rm -rf ./hlib/out
       - uses: actions/upload-artifact@v3
         with:
@@ -85,7 +85,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
-      - run: bash ${GITHUB_WORKSPACE}/run.sh win32 n x64
+      - run: bash ${GITHUB_WORKSPACE}/run_MASTA.sh win32 n x64
         shell: bash
       - run: rm -rf ./hlib/out
         shell: bash
@@ -107,7 +107,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17" # my own workspace uses 17 but Java 1.8 and above all works fine and have been tested
-      - run: bash ${GITHUB_WORKSPACE}/run.sh win32 n x86
+      - run: bash ${GITHUB_WORKSPACE}/run_MASTA.sh win32 n x86
         shell: bash
       - run: rm -rf ./hlib/out
         shell: bash
