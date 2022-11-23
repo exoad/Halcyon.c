@@ -63,21 +63,13 @@
 <summary><strong>Soon To Support / Partially Supported</strong></summary>
 
 - AAC
-- M4A
 - WMA
-- RAW
-- DSD
-- AC3
 - M4R
-- RA
 - APE
 - ACC
 - MIDI
 - SNG
-- ACC
 - WAVPACK
-- TTA
-- MPC
 </details>
 
 <hr>
