@@ -1,9 +1,10 @@
-package com.jackmeng.halcyon;
+package com.jackmeng;
 
 import java.util.Timer;
 
-import com.jackmeng.halcyon.apps.impl_App;
-import com.jackmeng.halcyon.apps.impl_ForYou;
+import com.jackmeng.halcyon.use_Halcyon;
+import com.jackmeng.halcyon.abst.impl_App;
+import com.jackmeng.halcyon.abst.impl_ForYou;
 import com.jackmeng.tailwind.use_TailwindPlaylist;
 import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.tailwind.use_TailwindPlaylist.playlist_Traits;
@@ -32,8 +33,11 @@ public final class const_Global
     / method should only be used to add ACTUALY file system findable folders /
     /-----------------------------------------------------------------------*/
     if (PLAY_LIST_POOL.get(parentFolder) == null)
-      PLAY_LIST_POOL.addPoolObject(new use_TailwindPlaylist(new playlist_Traits(false, true, true, false), parentFolder,
-          use_Halcyon.acceptedEndings()));
+    {
+      PLAY_LIST_POOL
+          .addPoolObject(new use_TailwindPlaylist(new playlist_Traits(false, true, true, false), parentFolder,
+              use_Halcyon.acceptedEndings()));
+    }
   }
 
   public static void append_to_liked(String fileABS)

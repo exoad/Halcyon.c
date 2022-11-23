@@ -1,6 +1,6 @@
 package com.test;
 
-import com.jackmeng.halcyon.apps.impl_Callback;
+import com.jackmeng.halcyon.abst.impl_Callback;
 import com.jackmeng.sys.use_AnsiColors;
 import com.jackmeng.sys.use_AnsiStrConstr;
 

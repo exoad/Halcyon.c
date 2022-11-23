@@ -8,6 +8,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,6 +20,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import com.jackmeng.halcyon.abst.impl_ForYou;
 
 public final class use_FSys
 {
@@ -53,6 +59,51 @@ public final class use_FSys
       }
     }
     return false;
+  }
+
+  public static void serialize_OBJ(String locale, Serializable e, impl_ForYou< Exception > errorCallback)
+  {
+    try
+    {
+      File t = new File(locale);
+      if (!t.exists())
+        t.createNewFile();
+      FileOutputStream fos = new FileOutputStream(t);
+      ObjectOutputStream oos = new ObjectOutputStream(fos);
+      oos.writeObject(e);
+      oos.close();
+      fos.close();
+    } catch (Exception err)
+    {
+      err.printStackTrace();
+      errorCallback.forYou(err);
+    }
+  }
+
+  public static < T > void deserialize_OBJ(String locale, Class< T > example, impl_ForYou< Exception > errorCallback,
+      impl_ForYou< T > promise)
+  {
+      if (!new File(locale).exists())
+      {
+        promise.forYou(null);
+        return;
+      }
+      T obj = null;
+      try
+      {
+        FileInputStream fis = new FileInputStream(new File(locale));
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        obj = example.cast(ois.readObject());
+        ois.close();
+        fis.close();
+      } catch (Exception e)
+      {
+        e.printStackTrace();
+        errorCallback.forYou(e);
+        promise.forYou(null);
+      }
+      promise.forYou(obj);
+
   }
 
   public static boolean s_containsOnlyFiles(File dir)

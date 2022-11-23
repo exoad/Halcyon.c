@@ -6,16 +6,20 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Properties;
 
+import com.jackmeng.const_Global;
+import com.jackmeng.halcyon.abst.impl_ForYou;
 import com.jackmeng.sys.pstream;
+import com.jackmeng.sys.use_FSys;
 import com.jackmeng.sys.use_Program;
 import com.jackmeng.tailwind.use_TailwindPlaylist;
 import com.jackmeng.tailwind.use_TailwindTrack;
-import com.jackmeng.util.use_Primitives;
+import com.jackmeng.util.use_Commons;
 
 public final class use_HalcyonFolder
 {
@@ -159,7 +163,7 @@ public final class use_HalcyonFolder
 
   public void log(Exception ex)
   {
-    log(use_Primitives.expand_exception(ex));
+    log(use_Commons.expand_exception(ex));
   }
 
   public void check(halcyonfolder_Content e)
@@ -186,6 +190,19 @@ public final class use_HalcyonFolder
     }
     else
       pstream.log.warn("UNRECOGNIZED FOLDER_CONTENT_ENUM_NAME: " + e.name());
+  }
+
+  public void serialize(String completeFilename, Serializable e)
+  {
+    use_FSys.serialize_OBJ(halcyonfolder_Content.CACHE_d.val + use_Halcyon.getFileSeparator() + completeFilename, e,
+        this::log);
+  }
+
+  public < T > void deserialize(String completeFileName, Class< T > t, impl_ForYou< Exception > error,
+      impl_ForYou< T > promise)
+  {
+    use_FSys.deserialize_OBJ(halcyonfolder_Content.CACHE_d.val + use_Halcyon.getFileSeparator() + completeFileName, t,
+        error, promise);
   }
 
   public void save_playlists()
@@ -260,6 +277,7 @@ public final class use_HalcyonFolder
       }
     }
   }
+
   public void check()
   {
     if (!locale.isDirectory() || !locale.exists())

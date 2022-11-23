@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.jackmeng.halcyon.apps.impl_ForYou;
+import com.jackmeng.halcyon.abst.impl_ForYou;
 
 public class use_ListenerPool_ForYou< E, T extends impl_ForYou< E > >
     implements Iterable< T >

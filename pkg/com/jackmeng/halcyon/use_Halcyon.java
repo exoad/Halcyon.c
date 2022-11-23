@@ -1,6 +1,7 @@
 package com.jackmeng.halcyon;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJTheme;
+import com.jackmeng.const_Global;
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
 import com.jackmeng.util.use_Color;

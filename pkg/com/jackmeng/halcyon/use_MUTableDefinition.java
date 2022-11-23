@@ -1,9 +1,9 @@
 package com.jackmeng.halcyon;
 
-import com.jackmeng.halcyon.apps.impl_Callback;
-import com.jackmeng.halcyon.apps.impl_ForYou;
-import com.jackmeng.halcyon.apps.impl_Guard;
-import com.jackmeng.halcyon.apps.impl_Identifiable;
+import com.jackmeng.halcyon.abst.impl_Callback;
+import com.jackmeng.halcyon.abst.impl_ForYou;
+import com.jackmeng.halcyon.abst.impl_Guard;
+import com.jackmeng.halcyon.abst.impl_Identifiable;
 
 public final class use_MUTableDefinition
     implements impl_Identifiable

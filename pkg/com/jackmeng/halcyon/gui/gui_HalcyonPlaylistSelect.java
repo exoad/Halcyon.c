@@ -1,15 +1,18 @@
 package com.jackmeng.halcyon.gui;
 
-import com.jackmeng.halcyon.apps.evnt_AddPlaylist;
+import com.jackmeng.halcyon.abst.evnt_AddPlaylist;
 import com.jackmeng.sys.pstream;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
 import static com.jackmeng.halcyon.gui.const_Lang.*;
 
 public final class gui_HalcyonPlaylistSelect
-    implements Runnable
+    implements
+    Runnable,
+    Serializable
 {
   private JFileChooser chooser;
   /*----------------------- /
@@ -19,7 +22,7 @@ public final class gui_HalcyonPlaylistSelect
   /*----------------------------- /
   / private final TitledFrame tf; /
   /------------------------------*/
-  private evnt_AddPlaylist playlist;
+  private transient evnt_AddPlaylist playlist;
 
   public gui_HalcyonPlaylistSelect(JFrame parent, String currDir)
   {

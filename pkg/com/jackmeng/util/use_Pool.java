@@ -1,8 +1,8 @@
 package com.jackmeng.util;
 
-import com.jackmeng.halcyon.apps.impl_HalcyonRefreshable;
-import com.jackmeng.halcyon.apps.impl_Identifiable;
-import com.jackmeng.halcyon.apps.impl_Guard;
+import com.jackmeng.halcyon.abst.impl_Guard;
+import com.jackmeng.halcyon.abst.impl_HalcyonRefreshable;
+import com.jackmeng.halcyon.abst.impl_Identifiable;
 import com.jackmeng.sys.use_Task;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
@@ -16,6 +16,7 @@ public class use_Pool< T extends impl_Identifiable >
   private Map< String, T > poolObjects;
   private List< impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > > refreshables;
   private impl_Guard< impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > > guards;
+  private impl_Guard< T > guards2;
 
   public use_Pool()
   {
@@ -27,6 +28,15 @@ public class use_Pool< T extends impl_Identifiable >
       /---------------------------------------------------------------------*/
       @Override
       public boolean check(impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > e)
+      {
+        return true;
+      }
+
+    };
+    guards2 = new impl_Guard<>() {
+
+      @Override
+      public boolean check(T e)
       {
         return true;
       }
@@ -54,18 +64,31 @@ public class use_Pool< T extends impl_Identifiable >
     }
   }
 
-  public void setGuard(impl_Guard< impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > > e)
+  public void setRefreshableGuard(
+      impl_Guard< impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > > e)
   {
     this.guards = e;
+  }
+
+  public void setGuard(impl_Guard< T > e)
+  {
+    this.guards2 = e;
   }
 
   /**
    * @param object
    */
-  public void addPoolObject(T object)
+  public boolean addPoolObject(T object)
   {
-    poolObjects.put(object.id(), object);
-    notifyRefreshers(false, new struct_Pair<>(Optional.of(object.id()), Optional.of(object)));
+    if (guards2.check(object))
+    {
+      poolObjects.put(object.id(), object);
+      notifyRefreshers(false, new struct_Pair<>(Optional.of(object.id()), Optional.of(object)));
+      return true;
+    }
+    else
+      return false;
+
   }
 
   /**
@@ -83,6 +106,11 @@ public class use_Pool< T extends impl_Identifiable >
       if (poolObjects.get(r).getClass().getCanonicalName().equals(e.getCanonicalName()))
         return poolObjects.get(r);
     return null;
+  }
+
+  public boolean hasObj(T e)
+  {
+    return get(e.id()) != null;
   }
 
   public boolean contains_objOf_T(Class< ? extends T > e)

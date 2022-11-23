@@ -1,4 +1,4 @@
-package com.jackmeng.halcyon.apps;
+package com.jackmeng.halcyon.abst;
 
 @FunctionalInterface
 public abstract interface impl_Callback< T >

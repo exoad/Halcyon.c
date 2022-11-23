@@ -18,12 +18,12 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 
-import com.jackmeng.halcyon.apps.impl_Identifiable;
+import com.jackmeng.halcyon.abst.impl_Identifiable;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_Image;
-import com.jackmeng.util.use_Primitives;
+import com.jackmeng.util.use_Commons;
 import com.jackmeng.util.use_ResourceFetcher;
 
 import java.awt.image.*;
@@ -78,7 +78,7 @@ public final class use_TailwindTrack
 
   private static Object iem(Object e, tailwindtrack_Tags elseE)
   {
-    return use_Primitives.str_empty((String) e) ? elseE.value : e;
+    return use_Commons.str_empty((String) e) ? elseE.value : e;
   }
 
   public use_TailwindTrack(String str)
@@ -198,7 +198,7 @@ public final class use_TailwindTrack
       return header.getTrackLength();
     else if (er == tailwindtrack_Tags.MEDIA_TITLE)
       return tag == null ? content.getName()
-          : use_Primitives.str_empty(tag.getFirst(er.key)) ? content.getName() : tag.getFirst(er.key);
+          : use_Commons.str_empty(tag.getFirst(er.key)) ? content.getName() : tag.getFirst(er.key);
     else if (tag != null && tag.getFirst(er.key) != null)
       return er == tailwindtrack_Tags.MEDIA_YEAR ? get_artwork() : iem(tag.getFirst(er.key), er);
     return er.value;

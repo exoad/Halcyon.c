@@ -1,6 +1,6 @@
 package com.jackmeng.halcyon.ploogin;
 
-import com.jackmeng.halcyon.apps.impl_App;
+import com.jackmeng.halcyon.abst.impl_App;
 
 public abstract interface impl_Ploogin
     extends impl_App

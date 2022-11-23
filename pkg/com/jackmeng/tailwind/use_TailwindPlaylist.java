@@ -1,9 +1,9 @@
 package com.jackmeng.tailwind;
 
-import com.jackmeng.halcyon.apps.impl_Identifiable;
 import com.jackmeng.sys.use_Program;
-import com.jackmeng.util.use_Primitives;
+import com.jackmeng.util.use_Commons;
 import com.jackmeng.halcyon.use_Halcyon;
+import com.jackmeng.halcyon.abst.impl_Identifiable;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -140,7 +140,7 @@ public class use_TailwindPlaylist
   public void addChild(String child)
   {
     File t = new File(child);
-    if (!use_Primitives.ends_with(child, endings) || !t.isFile() || !t.exists() || !t.canRead()
+    if (!use_Commons.ends_with(child, endings) || !t.isFile() || !t.exists() || !t.canRead()
         || !child.split(
             use_Halcyon.getFileSeparator())[child.split(use_Halcyon.getFileSeparator()).length - 2]
                 .equals(parent))
@@ -232,7 +232,7 @@ public class use_TailwindPlaylist
   @Override
   public String id()
   {
-    return getParent() + this.hashCode();
+    return getParent();
   }
 
   /**

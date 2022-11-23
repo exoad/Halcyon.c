@@ -1,4 +1,4 @@
-package com.jackmeng.halcyon.apps;
+package com.jackmeng.halcyon.abst;
 
 public abstract interface impl_Guard< T >
 {

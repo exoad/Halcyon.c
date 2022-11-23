@@ -461,17 +461,20 @@ public class gui_HalcyonFrame
         cr.setMinimumSize(frame.getMinimumSize());
         frame.setSize(
             new Dimension(frame.getPreferredSize().width, content.getSize().height + titleBar.getSize().height));
+
         if (const_MUTableKeys.gui_use_debug)
         {
-          use_GuiUtil.guiutil_General.listComponents_OfContainer(frame).forEach(x -> {
-            try
-            {
-              if (x instanceof JComponent)
-                ((JComponent) x).setBorder(use_Halcyon.getDebugBorder());
-            } catch (Exception e)
-            {
-              // IGNORE, probably some .setBorder() not supported bs
-            }
+          SwingUtilities.invokeLater(() -> {
+            use_GuiUtil.guiutil_General.listComponents_OfContainer(frame).forEach(x -> {
+              try
+              {
+                if (x instanceof JComponent && ((JComponent) x).getBorder() != null)
+                  ((JComponent) x).setBorder(use_Halcyon.getDebugBorder());
+              } catch (Exception e)
+              {
+                // IGNORE, probably some .setBorder() not supported bs
+              }
+            });
           });
         }
       }

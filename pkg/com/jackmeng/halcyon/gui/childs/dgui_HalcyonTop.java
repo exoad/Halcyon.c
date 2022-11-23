@@ -2,10 +2,11 @@ package com.jackmeng.halcyon.gui.childs;
 
 import javax.swing.*;
 import java.awt.*;
-import com.jackmeng.halcyon.const_Global;
+
+import com.jackmeng.const_Global;
 import com.jackmeng.halcyon.const_MUTableKeys;
 import com.jackmeng.halcyon.use_Halcyon;
-import com.jackmeng.halcyon.apps.evnt_SelectPlaylistTrack;
+import com.jackmeng.halcyon.abst.evnt_SelectPlaylistTrack;
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_Manager;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
@@ -86,31 +87,34 @@ public class dgui_HalcyonTop
       mainTitle.setFont(use_Halcyon.boldFont().deriveFont(22F));
       mainTitle.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
       mainTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
+      mainTitle.setOpaque(false);
 
       miscTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_ARTIST.value);
       miscTitle.setFont(use_Halcyon.regularFont().deriveFont(14.5F));
       miscTitle.setForeground(Color.WHITE);
       miscTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
+      miscTitle.setOpaque(false);
 
       otherTitle = new JLabel("0kpbs | 0kHz | 00:00:00");
       otherTitle.setFont(use_Halcyon.regularFont().deriveFont(12F));
       otherTitle.setForeground(const_ColorManager.DEFAULT_GRAY_FG);
       otherTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
+      otherTitle.setOpaque(false);
 
       infoDisplayer.add(mainTitle);
       infoDisplayer.add(miscTitle);
       infoDisplayer.add(otherTitle);
+      infoDisplayer.setOpaque(false);
 
       artwork = new halcyonTop_Info_Artworklabel(false, const_MUTableKeys.top_artwork_wxh);
       artwork.setIMG((BufferedImage) tailwindtrack_Tags.MEDIA_ART.value);
+      artwork.setOpaque(false);
 
       add(artwork);
       add(infoDisplayer);
 
-      /*-------------------------------------------------- /
-      / setOpaque(true);                                   /
-      / setBackground(const_ColorManager.DEFAULT_BLUE_FG); /
-      /---------------------------------------------------*/
+      setOpaque(true);
+      setBackground(const_ColorManager.DEFAULT_BLUE_FG);
 
       const_Global.SELECTION_LISTENERS.add_listener(this);
     }

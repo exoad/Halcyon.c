@@ -2,7 +2,7 @@ package com.jackmeng.util;
 
 import java.nio.ByteBuffer;
 
-import com.jackmeng.halcyon.apps.impl_PeekChunk;
+import com.jackmeng.halcyon.abst.impl_PeekChunk;
 
 public final class use_Buffer
 {

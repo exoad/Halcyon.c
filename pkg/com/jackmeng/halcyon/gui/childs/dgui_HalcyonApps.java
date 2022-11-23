@@ -1,14 +1,15 @@
 package com.jackmeng.halcyon.gui.childs;
 
-import com.jackmeng.halcyon.apps.impl_App;
-import com.jackmeng.halcyon.apps.impl_HalcyonRefreshable;
-import com.jackmeng.halcyon.const_Global;
 import com.jackmeng.halcyon.gui.const_Manager;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
 import com.jackmeng.halcyon.gui.gui_HalcyonMoreApps;
 import com.jackmeng.halcyon.gui.gui_HalcyonPlaylistSelect;
 import com.jackmeng.halcyon.ploogin.impl_Ploogin;
+import com.jackmeng.const_Global;
 import com.jackmeng.halcyon.use_Halcyon;
+import com.jackmeng.halcyon.use_HalcyonFolder;
+import com.jackmeng.halcyon.abst.impl_App;
+import com.jackmeng.halcyon.abst.impl_HalcyonRefreshable;
 import com.jackmeng.sys.use_Task;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_Image;
@@ -28,15 +29,24 @@ public class dgui_HalcyonApps
 {
 
   private transient gui_HalcyonMoreApps apps;
+  private transient gui_HalcyonPlaylistSelect fileChooser;
 
   public dgui_HalcyonApps()
   {
     /*----------------------------------------------------------------------------- /
     / !!: make the current dir be able to dynamic or where the user last selected /
     /------------------------------------------------------------------------------*/
-    gui_HalcyonPlaylistSelect fileChooser = new gui_HalcyonPlaylistSelect(use_Halcyon.getInheritableFrame(),
-        ".");
+    use_HalcyonFolder.FOLDER.deserialize("PLAYLIST_SELECT_FOLDER.x",
+        gui_HalcyonPlaylistSelect.class, x -> {
+          use_HalcyonFolder.FOLDER.log(x);
+          fileChooser = new gui_HalcyonPlaylistSelect(use_Halcyon.getInheritableFrame(),
+              ".");
+        }, x -> fileChooser = x != null ? new gui_HalcyonPlaylistSelect(use_Halcyon.getInheritableFrame(),
+            ".") : x);
     fileChooser.setListener(const_Global::append_to_Playlist);
+
+    Runtime.getRuntime()
+        .addShutdownHook(new Thread(() -> use_HalcyonFolder.FOLDER.serialize("PLAYLIST_SELECT_FOLDER.x", fileChooser)));
 
     apps = new gui_HalcyonMoreApps();
 
@@ -115,7 +125,8 @@ public class dgui_HalcyonApps
           btn.setBackground(null);
           btn.setRolloverEnabled(false);
           btn.setContentAreaFilled(false);
-        } else
+        }
+        else
         {
           btn.setBackground(use_Color.rndColor());
         }

@@ -1,8 +1,8 @@
 package com.jackmeng.util;
 
-public final class use_Primitives
+public final class use_Commons
 {
-  private use_Primitives()
+  private use_Commons()
   {
   }
 
@@ -11,6 +11,22 @@ public final class use_Primitives
     public native float rnd_1(long[] num);
 
     public native float exp_dev(long[] num);
+  }
+
+  public static String weak_delimiter(String str, String delimiter, int validLength)
+  {
+    return str != null ? str.length() > validLength ? str.substring(0, validLength) + delimiter
+        : str.length() < validLength ? str + copies_Of(validLength, " ") : str : "";
+  }
+
+  public static String strong_delimiter(String str, String delimiter, int validLength)
+  {
+    return str != null ? str.length() > validLength ? str.substring(0, validLength) + delimiter : str : "";
+  }
+
+  public static String copies_Of(int n, String s)
+  {
+    return String.valueOf(s).repeat(Math.max(0, n + 1));
   }
 
   /**
@@ -28,7 +44,8 @@ public final class use_Primitives
 
   public static String expand_exception(Exception e)
   {
-    StringBuilder sb = new StringBuilder("Exception Occurred: " + e.getMessage()).append("\nLocalized:" + e.getLocalizedMessage());
+    StringBuilder sb = new StringBuilder("Exception Occurred: " + e.getMessage())
+        .append("\nLocalized:" + e.getLocalizedMessage());
     for (StackTraceElement s : e.getStackTrace())
       sb.append("\tat " + s.getClassName() + "." + s.getMethodName()
           + "(" + s.getFileName() + ":" + s.getLineNumber() + ")" + "\n");

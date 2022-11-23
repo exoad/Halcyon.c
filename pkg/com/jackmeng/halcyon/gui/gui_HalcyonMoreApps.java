@@ -11,10 +11,10 @@ import java.awt.event.*;
 import java.util.Optional;
 
 import com.jackmeng.Halcyon;
-import com.jackmeng.halcyon.const_Global;
-import com.jackmeng.halcyon.apps.evnt_WindowFocusAdapter;
-import com.jackmeng.halcyon.apps.impl_App;
-import com.jackmeng.halcyon.apps.impl_HalcyonRefreshable;
+import com.jackmeng.const_Global;
+import com.jackmeng.halcyon.abst.evnt_WindowFocusAdapter;
+import com.jackmeng.halcyon.abst.impl_App;
+import com.jackmeng.halcyon.abst.impl_HalcyonRefreshable;
 import com.jackmeng.halcyon.gui.gui_HalcyonFrame.TitledFrame;
 import com.jackmeng.halcyon.ploogin.impl_Ploogin;
 import com.jackmeng.util.use_ResourceFetcher;

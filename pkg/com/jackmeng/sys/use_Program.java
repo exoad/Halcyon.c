@@ -2,7 +2,7 @@ package com.jackmeng.sys;
 
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.gui_HalcyonGenericWindow;
-import com.jackmeng.util.use_Primitives;
+import com.jackmeng.util.use_Commons;
 import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
@@ -58,7 +58,7 @@ public final class use_Program
     new gui_HalcyonGenericWindow(use_ResourceFetcher.fetcher.getFromAsImageIcon("resources/app/oh_no.png"),
         _lang(LANG_OH_NO_4),
         "<html><strong>" + _lang(LANG_EXCEPTION_OH_SOMETHING_WENT_WRONG_CONTENT) + "</strong><br>"
-            + use_Primitives.expand_exception(e)
+            + use_Commons.expand_exception(e)
             + "</html>",
         const_ColorManager.DEFAULT_RED_FG, null)
             .run();
@@ -131,6 +131,7 @@ public final class use_Program
       r.run();
     } catch (Exception e)
     {
+      e.printStackTrace();
       error_gui(e);
     }
   }

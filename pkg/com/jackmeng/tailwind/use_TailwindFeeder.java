@@ -1,6 +1,6 @@
 package com.jackmeng.tailwind;
 
-import com.jackmeng.halcyon.apps.impl_Identifiable;
+import com.jackmeng.halcyon.abst.impl_Identifiable;
 
 public final class use_TailwindFeeder
     implements
