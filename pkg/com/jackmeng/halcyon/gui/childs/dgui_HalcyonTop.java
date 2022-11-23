@@ -13,7 +13,6 @@ import com.jackmeng.sys.use_Chronos;
 import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
 import com.jackmeng.util.use_Color;
-import com.jackmeng.util.use_Image;
 import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
@@ -32,13 +31,13 @@ public class dgui_HalcyonTop
     {
       private transient BufferedImage img;
       private boolean retain;
-      private int width, height;
+      private int x_width, x_height;
 
       public halcyonTop_Info_Artworklabel(boolean retainOnNull, struct_Pair< Integer, Integer > resizeSize)
       {
         this.retain = retainOnNull;
-        this.width = Math.abs(resizeSize.first);
-        this.height = Math.abs(resizeSize.second);
+        this.x_width = Math.abs(resizeSize.first);
+        this.x_height = Math.abs(resizeSize.second);
       }
 
       public void setIMG(BufferedImage i)
@@ -56,7 +55,7 @@ public class dgui_HalcyonTop
           g2.drawImage((img.getWidth() > img.getHeight()
               ? img.getSubimage(img.getWidth() / 2 - img.getHeight() / 2, 0, img.getHeight(), img.getHeight())
               : img.getSubimage(0, img.getHeight() / 2 - img.getWidth() / 2, img.getWidth(), img.getWidth()))
-                  .getScaledInstance(const_MUTableKeys.top_artwork_wxh.first, const_MUTableKeys.top_artwork_wxh.second,
+                  .getScaledInstance(x_width, x_height,
                       Image.SCALE_SMOOTH),
               null, null);
           g2.dispose();

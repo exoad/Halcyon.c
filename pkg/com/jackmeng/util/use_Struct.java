@@ -1,11 +1,26 @@
 package com.jackmeng.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jackmeng.halcyon.apps.impl_ForYou;
 
 public final class use_Struct
 {
   private use_Struct()
   {
+  }
+
+  public static final class struct_Node< T >
+  {
+    public Object key;
+    public List< struct_Node< ? > > partners;
+
+    public struct_Node(T i)
+    {
+      key = i;
+      partners = new ArrayList<>();
+    }
   }
 
   /*------------------------------------------------------------ /

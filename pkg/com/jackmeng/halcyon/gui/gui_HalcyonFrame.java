@@ -2,21 +2,20 @@ package com.jackmeng.halcyon.gui;
 
 import com.jackmeng.halcyon.const_MUTableKeys;
 import com.jackmeng.halcyon.use_HalcyonProperties;
+import com.jackmeng.halcyon.gui.childs.dgui_RoundBorder;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Program;
 import com.jackmeng.sys.use_Task;
 import com.jackmeng.util.use_Color;
-import com.jackmeng.util.use_Image;
 import com.jackmeng.util.use_ResourceFetcher;
-import com.jackmeng.util.use_Struct.struct_Trio;
 
+import javax.naming.ldap.Rdn;
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class gui_HalcyonFrame
     implements Runnable
@@ -303,7 +302,6 @@ public class gui_HalcyonFrame
     }
 
     private final JFrame frame;
-    private JLabel status;
     private boolean maximizedFrame = false;
     private final int titleHeight;
     private int pX = 0;
@@ -329,20 +327,34 @@ public class gui_HalcyonFrame
 
     public static ComponentResizer cr = new ComponentResizer();
 
+    private void set_debug_border(JPanel e)
+    {
+      Component[] er = e.getComponents();
+      for (int i = 0; i < er.length; i++)
+      {
+        if (er[i] instanceof JPanel)
+          set_debug_border((JPanel)er[i]);
+        else if (er[i] instanceof JComponent && !(er[i] instanceof JPanel)){
+          pstream.log.warn("COMPONENT_DEBUG_BORDER: " + er[i].getClass());
+          ((JComponent) er[i]).setBorder(use_HalcyonProperties.getDebugBorder());
+        }
+      }
+    }
+
     public TitledFrame(final TitleBarConfig conf, final int tH, final JComponent content)
     {
       int titleHeightOffSub = 3;
       int contentOff = tH - titleHeightOffSub;
-
       frame = new JFrame();
+
       frame.setTitle(conf.titleStr);
       if (conf.icon != null)
         frame.setIconImage(conf.icon.getImage());
       frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
       if (tH <= titleHeightOffSub || !Toolkit.getDefaultToolkit().isFrameStateSupported(Frame.MAXIMIZED_BOTH)
           || const_MUTableKeys.title_frame_styling)
       {
+
         frame.setUndecorated(false);
         this.titleHeight = 0;
         frame.setPreferredSize(content.getPreferredSize());
@@ -352,9 +364,11 @@ public class gui_HalcyonFrame
       else
       {
         frame.setUndecorated(true);
+
         this.titleHeight = tH;
         frame.setPreferredSize(
             new Dimension(content.getPreferredSize().width, titleHeight + content.getPreferredSize().height));
+        frame.setMinimumSize(frame.getPreferredSize());
         frame.getRootPane()
             .setBorder(BorderFactory.createLineBorder(conf.borderColor != null ? conf.borderColor : Color.BLACK, 3));
         if (content.getMaximumSize() == null
@@ -373,7 +387,7 @@ public class gui_HalcyonFrame
         /-------------------------------------------------------------*/
 
         JPanel titleBar = new JPanel();
-        titleBar.setPreferredSize(new Dimension(content.getPreferredSize().width, titleHeight));
+        titleBar.setPreferredSize(new Dimension(content.getSize().width, titleHeight));
         titleBar.addComponentListener(new ComponentAdapter() {
           @Override
           public void componentResized(ComponentEvent e)
@@ -403,8 +417,6 @@ public class gui_HalcyonFrame
             frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
           }
         });
-        titleBar.setOpaque(true);
-        titleBar.setBackground(conf.bg);
         titleBar.setLayout(new BorderLayout(10, 0));
 
         JLabel titleBarStr = new JLabel(conf.titleStr);
@@ -417,17 +429,8 @@ public class gui_HalcyonFrame
         JPanel btns = new JPanel();
         btns.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
         btns.setOpaque(true);
+        btns.setAlignmentY(Component.CENTER_ALIGNMENT);
         btns.setBackground(conf.bg);
-
-        status = new JLabel("", SwingConstants.CENTER);
-        status
-            .setPreferredSize(new Dimension(const_Manager.FRAME_TITLEBAR_HEIGHT, const_Manager.FRAME_TITLEBAR_HEIGHT));
-        status.setMaximumSize(new Dimension(const_Manager.FRAME_TITLEBAR_HEIGHT, const_Manager.FRAME_TITLEBAR_HEIGHT));
-        status.setOpaque(true);
-        status.setAutoscrolls(true);
-        /*----------------- /
-        / btns.add(status); /
-        /------------------*/
 
         if (conf.bgMis != null)
           btns.add(gen_Button(conf.bgMis, () -> frame.setAlwaysOnTop(!frame.isAlwaysOnTop())));
@@ -469,48 +472,61 @@ public class gui_HalcyonFrame
             }
           }
         });
-
-        JPanel bigPane = new JPanel();
-        bigPane.setLayout(new BorderLayout());
-        bigPane.setAlignmentY(Component.CENTER_ALIGNMENT);
-        bigPane.add(titleBar, BorderLayout.NORTH);
-        bigPane.add(content, BorderLayout.SOUTH);
-
-        frame.getContentPane().add(bigPane);
+        frame.getContentPane().setLayout(new BorderLayout());
+        frame.getContentPane().add(titleBar, BorderLayout.NORTH);
+        frame.getContentPane().add(content, BorderLayout.SOUTH);
         cr.setMinimumSize(frame.getMinimumSize());
-        cr.setSnapSize(new Dimension(3,3));
-      }
-      frame.setMinimumSize(frame.getPreferredSize());
-      frame.setLocation(use_Program.screen_center().first - (frame.getPreferredSize().width / 2),
-          use_Program.screen_center().second - (frame.getPreferredSize().height / 2));
-    }
-
-    public void askStatus(struct_Trio< ImageIcon, String, Optional< Runnable > > exec, boolean autoresize)
-    {
-      pstream.log.info("Status Update for frame title: " + exec.second);
-      use_Task.run_Snb_1(() -> {
-        status.setToolTipText(exec.second);
-        if (autoresize)
+        frame.setSize(
+            new Dimension(frame.getPreferredSize().width, content.getSize().height + titleBar.getSize().height));
+        if (const_MUTableKeys.gui_use_debug)
         {
-          exec.first.setImage(use_Image
-              .resize_fast_1(status.getPreferredSize().width, status.getPreferredSize().height, exec.first).getImage());
+          Component[] e = frame.getContentPane().getComponents();
+          for (int i = 0; i < e.length; i++)
+          {
+            if (e[i] instanceof JComponent)
+            {
+              JComponent r = (JComponent) e[i];
+              r.setBorder(use_HalcyonProperties.getDebugBorder());
+              if (r instanceof JPanel)
+              {
+                set_debug_border((JPanel) r);
+              }
+            }
+          }
         }
-        status.setIcon(exec.first);
-        pstream.log.info("Status Update for frame icon: " + exec.first.getDescription());
-        status.repaint(50L);
-        status.revalidate();
-        exec.third.ifPresent(Runnable::run);
-      });
+      }
     }
 
-    public void askStatus()
-    {
-      pstream.log.info("Status cancelling...");
-      use_Task.run_Snb_1(() -> {
-        status.setToolTipText(null);
-        status.setIcon(null);
-      });
-    }
+    /*---------------------------------------------------------------------------------------------------------------- /
+    / public void askStatus(struct_Trio< ImageIcon, String, Optional< Runnable > > exec, boolean autoresize)           /
+    / {                                                                                                                /
+    /   pstream.log.info("Status Update for frame title: " + exec.second);                                             /
+    /   use_Task.run_Snb_1(() -> {                                                                                     /
+    /     status.setToolTipText(exec.second);                                                                          /
+    /     if (autoresize)                                                                                              /
+    /     {                                                                                                            /
+    /       exec.first.setImage(use_Image                                                                              /
+    /           .resize_fast_1(status.getPreferredSize().width, status.getPreferredSize().height, exec.first).getImage()); /
+    /     }                                                                                                            /
+    /     status.setIcon(exec.first);                                                                                  /
+    /     pstream.log.info("Status Update for frame icon: " + exec.first.getDescription());                            /
+    /     status.repaint(50L);                                                                                         /
+    /     status.revalidate();                                                                                         /
+    /     exec.third.ifPresent(Runnable::run);                                                                         /
+    /   });                                                                                                            /
+    / }                                                                                                                /
+    /-----------------------------------------------------------------------------------------------------------------*/
+
+    /*------------------------------------------- /
+    / public void askStatus()                     /
+    / {                                           /
+    /   pstream.log.info("Status cancelling..."); /
+    /   use_Task.run_Snb_1(() -> {                /
+    /     status.setToolTipText(null);            /
+    /     status.setIcon(null);                   /
+    /   });                                       /
+    / }                                           /
+    /--------------------------------------------*/
 
     public JFrame expose()
     {
@@ -662,9 +678,14 @@ public class gui_HalcyonFrame
         System.exit(0);
       }
     });
-    frame.expose().getRootPane().setBorder(
-        BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_GREEN_FG, 1),
-            BorderFactory.createLineBorder(const_ColorManager.DEFAULT_BG, 5)));
+    /*-------------------------------------------------------------------------------------------------------------- /
+    / frame.expose().getRootPane().setBorder(                                                                        /
+    /     BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_GREEN_FG, 1), /
+    /         BorderFactory.createLineBorder(const_ColorManager.DEFAULT_BG, 5)));                                    /
+    /---------------------------------------------------------------------------------------------------------------*/
+    frame.expose().getRootPane().setBorder(new dgui_RoundBorder(const_ColorManager.DEFAULT_GREEN_FG, 25, 1));
+    frame.expose().setShape(new java.awt.geom.RoundRectangle2D.Double(0, 0, frame.expose().getPreferredSize().width,
+        frame.expose().getPreferredSize().height, 25, 25));
   }
 
   /**
