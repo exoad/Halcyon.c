@@ -33,7 +33,7 @@ public final class const_Global
     /-----------------------------------------------------------------------*/
     if (PLAY_LIST_POOL.get(parentFolder) == null)
       PLAY_LIST_POOL.addPoolObject(new use_TailwindPlaylist(new playlist_Traits(false, true, true, false), parentFolder,
-          use_HalcyonProperties.acceptedEndings()));
+          use_Halcyon.acceptedEndings()));
   }
 
   public static void append_to_liked(String fileABS)

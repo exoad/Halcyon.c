@@ -20,9 +20,9 @@ import java.util.ResourceBundle;
 import java.util.TimerTask;
 import java.util.logging.LogManager;
 
-public final class use_HalcyonProperties
+public final class use_Halcyon
 {
-  private use_HalcyonProperties()
+  private use_Halcyon()
   {
   }
 

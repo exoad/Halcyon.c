@@ -8,7 +8,7 @@ import com.jackmeng.halcyon.gui.const_ResourceManager;
 import com.jackmeng.halcyon.gui.gui_HalcyonMoreApps;
 import com.jackmeng.halcyon.gui.gui_HalcyonPlaylistSelect;
 import com.jackmeng.halcyon.ploogin.impl_Ploogin;
-import com.jackmeng.halcyon.use_HalcyonProperties;
+import com.jackmeng.halcyon.use_Halcyon;
 import com.jackmeng.sys.use_Task;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_Image;
@@ -34,7 +34,7 @@ public class dgui_HalcyonApps
     /*----------------------------------------------------------------------------- /
     / !!: make the current dir be able to dynamic or where the user last selected /
     /------------------------------------------------------------------------------*/
-    gui_HalcyonPlaylistSelect fileChooser = new gui_HalcyonPlaylistSelect(use_HalcyonProperties.getInheritableFrame(),
+    gui_HalcyonPlaylistSelect fileChooser = new gui_HalcyonPlaylistSelect(use_Halcyon.getInheritableFrame(),
         ".");
     fileChooser.setListener(const_Global::append_to_Playlist);
 
@@ -49,7 +49,7 @@ public class dgui_HalcyonApps
     setMaximumSize(new Dimension(const_Manager.DGUI_APPS_WIDTH + 20, const_Manager.FRAME_MIN_HEIGHT / 2));
     setLayout(new FlowLayout(FlowLayout.CENTER, const_Manager.DGUI_APPS_APPS_ICON_HGAP,
         const_Manager.DGUI_APPS_APPS_ICON_VGAP));
-    setFont(use_HalcyonProperties.regularFont());
+    setFont(use_Halcyon.regularFont());
 
     if (const_Manager.DEBUG_GRAPHICS)
     {
@@ -64,29 +64,29 @@ public class dgui_HalcyonApps
         make_DefaultApp(_lang(LANG_APPS_ADD_PLAYLIST_TOOLTIP), fileChooser,
             const_ResourceManager.DGUI_APPS_ADD_PLAYLIST));
     const_Global.APPS_POOL.addPoolObject(
-        make_DefaultApp(_lang(LANG_APPS_OPEN_LIKED_LIST), use_HalcyonProperties::do_nothing,
+        make_DefaultApp(_lang(LANG_APPS_OPEN_LIKED_LIST), use_Halcyon::do_nothing,
             const_ResourceManager.DGUI_APPS_PLAYER_LIKED_MUSIC));
     const_Global.APPS_POOL.addPoolObject(
-        make_DefaultApp(_lang(LANG_APPS_AUDIO_CTRLERS), use_HalcyonProperties::do_nothing,
+        make_DefaultApp(_lang(LANG_APPS_AUDIO_CTRLERS), use_Halcyon::do_nothing,
             const_ResourceManager.DGUI_APPS_AUDIO_CTRLER));
     const_Global.APPS_POOL.addPoolObject(
-        make_DefaultApp(_lang(LANG_APPS_OPEN_MINI_PLAYER), use_HalcyonProperties::do_nothing,
+        make_DefaultApp(_lang(LANG_APPS_OPEN_MINI_PLAYER), use_Halcyon::do_nothing,
             const_ResourceManager.DGUI_APPS_MINI_PLAYER));
     const_Global.APPS_POOL.addPoolObject(
         make_DefaultApp(
-            _lang(LANG_APPS_OPEN_SETTINGS), use_HalcyonProperties::do_nothing,
+            _lang(LANG_APPS_OPEN_SETTINGS), use_Halcyon::do_nothing,
             const_ResourceManager.DGUI_APPS_PLAYER_SETTINGS));
     const_Global.APPS_POOL.addPoolObject(
         make_DefaultApp(
-            _lang(LANG_APPS_PLAYLIST_VIEWER), use_HalcyonProperties::do_nothing,
+            _lang(LANG_APPS_PLAYLIST_VIEWER), use_Halcyon::do_nothing,
             const_ResourceManager.DGUI_APPS_PLAYER_LISTVIEW));
     const_Global.APPS_POOL.addPoolObject(
         make_DefaultApp(
-            _lang(LANG_APPS_REFRESH_PLAYLISTS), use_HalcyonProperties::do_nothing,
+            _lang(LANG_APPS_REFRESH_PLAYLISTS), use_Halcyon::do_nothing,
             const_ResourceManager.DGUI_APPS_PLAYER_REFRESH));
     const_Global.APPS_POOL.addPoolObject(
         make_DefaultApp(
-            _lang(LANG_APPS_INFO), use_HalcyonProperties::do_nothing,
+            _lang(LANG_APPS_INFO), use_Halcyon::do_nothing,
             const_ResourceManager.DGUI_APPS_PLAYER_INFO));
     const_Global.APPS_POOL.addPoolObject(
         make_DefaultApp(_lang(LANG_APPS_VIEW_MORE), apps,

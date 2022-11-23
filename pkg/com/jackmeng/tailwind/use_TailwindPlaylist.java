@@ -3,7 +3,7 @@ package com.jackmeng.tailwind;
 import com.jackmeng.halcyon.apps.impl_Identifiable;
 import com.jackmeng.sys.use_Program;
 import com.jackmeng.util.use_Primitives;
-import com.jackmeng.halcyon.use_HalcyonProperties;
+import com.jackmeng.halcyon.use_Halcyon;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -93,7 +93,7 @@ public class use_TailwindPlaylist
   public String getCanonicalParent_2()
   {
     return getParent().split(
-        use_HalcyonProperties.getFileSeparator())[getParent().split(use_HalcyonProperties.getFileSeparator()).length
+        use_Halcyon.getFileSeparator())[getParent().split(use_Halcyon.getFileSeparator()).length
             - 1];
   }
 
@@ -142,7 +142,7 @@ public class use_TailwindPlaylist
     File t = new File(child);
     if (!use_Primitives.ends_with(child, endings) || !t.isFile() || !t.exists() || !t.canRead()
         || !child.split(
-            use_HalcyonProperties.getFileSeparator())[child.split(use_HalcyonProperties.getFileSeparator()).length - 2]
+            use_Halcyon.getFileSeparator())[child.split(use_Halcyon.getFileSeparator()).length - 2]
                 .equals(parent))
       return;
     children.add(child);

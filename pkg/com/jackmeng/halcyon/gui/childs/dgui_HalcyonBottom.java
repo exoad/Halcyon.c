@@ -2,7 +2,7 @@ package com.jackmeng.halcyon.gui.childs;
 
 import com.jackmeng.halcyon.const_Global;
 import com.jackmeng.halcyon.const_MUTableKeys;
-import com.jackmeng.halcyon.use_HalcyonProperties;
+import com.jackmeng.halcyon.use_Halcyon;
 import com.jackmeng.halcyon.apps.evnt_RemoveTab;
 import com.jackmeng.halcyon.apps.evnt_SelectPlaylistTrack;
 import com.jackmeng.halcyon.apps.impl_HalcyonRefreshable;
@@ -159,13 +159,13 @@ public class dgui_HalcyonBottom
       pane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
       pane.setFocusable(false);
       pane.setOpaque(true);
-      pane.setFont(use_HalcyonProperties.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE));
+      pane.setFont(use_Halcyon.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE));
 
       if (const_MUTableKeys.use_filelist_titled_border)
       {
         border = BorderFactory.createTitledBorder(_lang(LANG_FILELIST_BORDER_TITLE));
         border.setBorder(BorderFactory.createEmptyBorder());
-        border.setTitleFont(use_HalcyonProperties.boldFont().deriveFont(15F));
+        border.setTitleFont(use_Halcyon.boldFont().deriveFont(15F));
         setBorder(border);
         pane.addChangeListener(x -> {
           JTabbedPane t = (JTabbedPane) x.getSource();
@@ -286,7 +286,7 @@ public class dgui_HalcyonBottom
               DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree1.getLastSelectedPathComponent();
               if (node.getParent() != null && !node.getParent().toString().equals(tree.getParent().toString()))
               {
-                File f = new File(tree.getName() + use_HalcyonProperties.getFileSeparator() + node);
+                File f = new File(tree.getName() + use_Halcyon.getFileSeparator() + node);
                 if (last == null)
                   last = f;
 

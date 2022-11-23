@@ -1,15 +1,12 @@
 package com.jackmeng.halcyon.gui;
 
 import com.jackmeng.halcyon.const_MUTableKeys;
-import com.jackmeng.halcyon.use_HalcyonProperties;
-import com.jackmeng.halcyon.gui.childs.dgui_RoundBorder;
+import com.jackmeng.halcyon.use_Halcyon;
 import com.jackmeng.sys.pstream;
-import com.jackmeng.sys.use_Program;
 import com.jackmeng.sys.use_Task;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_ResourceFetcher;
 
-import javax.naming.ldap.Rdn;
 import javax.swing.*;
 
 import java.awt.*;
@@ -327,20 +324,6 @@ public class gui_HalcyonFrame
 
     public static ComponentResizer cr = new ComponentResizer();
 
-    private void set_debug_border(JPanel e)
-    {
-      Component[] er = e.getComponents();
-      for (int i = 0; i < er.length; i++)
-      {
-        if (er[i] instanceof JPanel)
-          set_debug_border((JPanel)er[i]);
-        else if (er[i] instanceof JComponent && !(er[i] instanceof JPanel)){
-          pstream.log.warn("COMPONENT_DEBUG_BORDER: " + er[i].getClass());
-          ((JComponent) er[i]).setBorder(use_HalcyonProperties.getDebugBorder());
-        }
-      }
-    }
-
     public TitledFrame(final TitleBarConfig conf, final int tH, final JComponent content)
     {
       int titleHeightOffSub = 3;
@@ -480,19 +463,16 @@ public class gui_HalcyonFrame
             new Dimension(frame.getPreferredSize().width, content.getSize().height + titleBar.getSize().height));
         if (const_MUTableKeys.gui_use_debug)
         {
-          Component[] e = frame.getContentPane().getComponents();
-          for (int i = 0; i < e.length; i++)
-          {
-            if (e[i] instanceof JComponent)
+          use_GuiUtil.guiutil_General.listComponents_OfContainer(frame).forEach(x -> {
+            try
             {
-              JComponent r = (JComponent) e[i];
-              r.setBorder(use_HalcyonProperties.getDebugBorder());
-              if (r instanceof JPanel)
-              {
-                set_debug_border((JPanel) r);
-              }
+              if (x instanceof JComponent)
+                ((JComponent) x).setBorder(use_Halcyon.getDebugBorder());
+            } catch (Exception e)
+            {
+              // IGNORE, probably some .setBorder() not supported bs
             }
-          }
+          });
         }
       }
     }
@@ -662,7 +642,7 @@ public class gui_HalcyonFrame
 
     frame = new TitledFrame(new TitleBarConfig("Halcyon (uwu)",
         use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.GUI_PROGRAM_LOGO),
-        use_HalcyonProperties.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE),
+        use_Halcyon.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE),
         const_ColorManager.DEFAULT_GREEN_FG, const_ColorManager.DEFAULT_BG, const_ColorManager.DEFAULT_RED_FG,
         const_ColorManager.DEFAULT_YELLOW_FG, const_ColorManager.DEFAULT_GREEN_FG, const_ColorManager.DEFAULT_PINK_FG,
         const_ColorManager.DEFAULT_BG),
@@ -678,14 +658,13 @@ public class gui_HalcyonFrame
         System.exit(0);
       }
     });
-    /*-------------------------------------------------------------------------------------------------------------- /
-    / frame.expose().getRootPane().setBorder(                                                                        /
-    /     BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_GREEN_FG, 1), /
-    /         BorderFactory.createLineBorder(const_ColorManager.DEFAULT_BG, 5)));                                    /
-    /---------------------------------------------------------------------------------------------------------------*/
-    frame.expose().getRootPane().setBorder(new dgui_RoundBorder(const_ColorManager.DEFAULT_GREEN_FG, 25, 1));
-    frame.expose().setShape(new java.awt.geom.RoundRectangle2D.Double(0, 0, frame.expose().getPreferredSize().width,
-        frame.expose().getPreferredSize().height, 25, 25));
+    frame.expose().getRootPane().setBorder(
+        BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_GREEN_FG, 1),
+            BorderFactory.createLineBorder(const_ColorManager.DEFAULT_BG, 5)));
+    /*---------------------------------------------------------------------------------------------------------------- /
+    / frame.expose().setShape(new java.awt.geom.RoundRectangle2D.Double(0, 0, frame.expose().getPreferredSize().width, /
+    /     frame.expose().getPreferredSize().height, 25, 25));                                                          /
+    /-----------------------------------------------------------------------------------------------------------------*/
   }
 
   /**

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import com.jackmeng.halcyon.const_Global;
 import com.jackmeng.halcyon.const_MUTableKeys;
-import com.jackmeng.halcyon.use_HalcyonProperties;
+import com.jackmeng.halcyon.use_Halcyon;
 import com.jackmeng.halcyon.apps.evnt_SelectPlaylistTrack;
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_Manager;
@@ -83,17 +83,17 @@ public class dgui_HalcyonTop
       infoDisplayer.setPreferredSize(new Dimension());
 
       mainTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_TITLE.value);
-      mainTitle.setFont(use_HalcyonProperties.boldFont().deriveFont(22F));
+      mainTitle.setFont(use_Halcyon.boldFont().deriveFont(22F));
       mainTitle.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
       mainTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
 
       miscTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_ARTIST.value);
-      miscTitle.setFont(use_HalcyonProperties.regularFont().deriveFont(14.5F));
+      miscTitle.setFont(use_Halcyon.regularFont().deriveFont(14.5F));
       miscTitle.setForeground(Color.WHITE);
       miscTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
 
       otherTitle = new JLabel("0kpbs | 0kHz | 00:00:00");
-      otherTitle.setFont(use_HalcyonProperties.regularFont().deriveFont(12F));
+      otherTitle.setFont(use_Halcyon.regularFont().deriveFont(12F));
       otherTitle.setForeground(const_ColorManager.DEFAULT_GRAY_FG);
       otherTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
 
