@@ -12,7 +12,7 @@ File Naming, source suffixing, represents how most Java Source Files are named b
 | :------: | :-----------: |
 | <code>gui_</code> | Represents standalone GUI Components that depend on <code>dgui_</code> components to make a whole usable component. Also known as the boilerplate GUI Component |
 | <code>dgui_</code> | Represents dependent GUI Components that require itself to be added to a <code>gui_</code> based component for it to work |
-| <code>use_</code> | Defines general functionality; functionalities could either be all <code>static</code> or a usuable class defining an instance for functionality. Generally known as a usable. |
+| <code>use_</code> | Defines general functionality; functionalities could either be all <code>static</code> or a usuable class defining an instance for functionality. Generally known as a usable. Note: If all usability functions are declared as static, this usable known as a "boilerplate usable"  |
 | <code>const_</code> | Defines constants, most often encountered as an <code>interface</code>. Should not define a constructor & functions (unless for additionally functionality to the constants) |
 | <code>sys_</code> | A </code>use_</code> variation that clearly specifies that this class defines and/or uses functionality that are defined with <code>native</code> |
 | <code>NONE</code> | When no prefix is encountered, it should be noted as a "Runner" class meaning it most likely defines a <code>public static void main</code> OR it could be a <code>use_</code> (or variations of it) that is used commonly: saves time typing |
