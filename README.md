@@ -53,9 +53,7 @@
 - WAVE (.wav)
 - AIFF (.aiff, .aif)
 - Vorbis OGG (.ogg, .oga)
-- FLAC (.flac)
 - AU (.au)
-- MP2 & MP1 Layers (.mp2)
 - AIFC (.aifc)
 - Opus (.opus, .oga)
 
@@ -68,7 +66,6 @@
 - APE
 - ACC
 - MIDI
-- SNG
 - WAVPACK
 </details>
 
