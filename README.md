@@ -20,6 +20,7 @@
 
     COPYRIGHT © Jack Meng 2021-2022
 -->
+
 <a href="https://halcyoninae.github.io/.github/">
 <img src="repo/img/upload.png" alt="Snapshot from the GUI wrapper for the internal Audio API"
     width="419" align="right" />
@@ -68,6 +69,14 @@
 - MIDI
 - WAVPACK
 </details>
+
+<hr>
+
+## <strong>Download It!</strong>
+
+Checks `Releases` tab on GitHub to find the most recent PUBLIC releases.
+
+You may also check out nightly versions but use them at your own risk.
 
 <hr>
 
