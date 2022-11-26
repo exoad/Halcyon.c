@@ -30,6 +30,7 @@ Things relating to your operating system.
 > the host machine being able to run a JRE
 
 **Recommended-JRE-Version** 17
+
 **Min-JRE-Version** 11
 
 ## Hardware Requirements
@@ -37,33 +38,35 @@ Things relating to your operating system.
 ### Native Images
 
 **Requirements**
+
 *Recommended*
-Storage: 150 MB
-Memory: 100 MB
-Processor: Any X64 bit processor
-Graphics: OpenGL Compatible (or X11 on Linux)
-Soundcard: Non specific
+* Storage: 150 MB
+* Memory: 100 MB
+* Processor: Any X64 bit processor
+* Graphics: OpenGL Compatible (or X11 on Linux)
+* Soundcard: Non specific
 
 *Minimum*
-Storage: ~70 MB
-Memory: 50 MB (! Can be unstable !)
-Processor: Any X64 bit processor
-Graphics: OpenGL Compatible 
-Soundcard: Non specific
+* Storage: ~70 MB
+* Memory: 50 MB (! Can be unstable !)
+* Processor: Any X64 bit processor
+* Graphics: OpenGL Compatible 
+* Soundcard: Non specific
 
 ### JAR-With precompiled native libraries
 
 **Requirements**
+
 *Recommended*
-Storage: 80 MB
-Memory: Dependent on JRE being used
-Processor: Dependent on JRE being used
-Graphics: OpenGL compatible
-Soundcard: Non specific
+* Storage: 80 MB
+* Memory: Dependent on JRE being used
+* Processor: Dependent on JRE being used
+* Graphics: OpenGL compatible
+* Soundcard: Non specific
 
 *Minimum*
-Storage: ~50 MB
-Memory: Dependent on JRE being used
-Processor: Dependent on JRE being used
-Graphics: OpenGL Compatible or X11
-Soundcard: Non specific
+* Storage: ~50 MB
+* Memory: Dependent on JRE being used
+* Processor: Dependent on JRE being used
+* Graphics: OpenGL Compatible or X11
+* Soundcard: Non specific
