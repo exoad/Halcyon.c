@@ -19,6 +19,8 @@ File Naming, source suffixing, represents how most Java Source Files are named b
 | <code>impl_</code> | Defines a abstraction of <code>abstract class</code> OR <code>abstract interface</code> where certain functionality is abstracted and to be implemented. |
 | <code>evnt_</code> | A <code>impl_</code> variation that clearly specifies that this abstraction is used for event handling, specifically for event callbacks |
 
+**For child classes** like the class `use_Struct.java`, which defines usable data structures, all child classes start with the class name (excluding prefix & underscore), so an existing child class would be `struct_Pair` or `struct_Trio` under `use_Struct`.
+
 ### SCRIPT Files
 | <strong>Prefix</strong> | <strong>Description</strong> |
 | :------: | :-----------: |
