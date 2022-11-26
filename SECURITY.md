@@ -18,7 +18,7 @@ Things relating to your operating system.
 **Supported:**
 
 1. Linux (Any major flavors: Ubuntu, Fedora, etc..)
-2. OSX (Darwin)
+2. OSX (Leopard 10.5.8 and above)
 3. Windows (7, 8, 10, 11)
 
 **Unsupported:**
