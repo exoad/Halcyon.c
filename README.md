@@ -4,10 +4,6 @@
 
 <hr>
 
-> Exoad's Halcyon is the main upstream dev channel providing
-> production builds to the official downstream receiver:
-> Halcyoninae/Halcyon
-
 ![](https://img.shields.io/static/v1?label=Halcyon&message=b3.4.1&color=89EDA4&labelColor=21252B&style=for-the-badge)
 
 <!--
