@@ -78,6 +78,8 @@ Checks `Releases` tab on GitHub to find the most recent PUBLIC releases.
 
 You may also check out nightly versions but use them at your own risk.
 
+> Check `SECURITY.md` for additional information on specific system requirements & support.
+
 <hr>
 
 > Everything is a work in progress :)
