@@ -80,4 +80,4 @@ d. This License constitutes the entire agreement between the parties with respec
 >
 > Except for the limited purpose of indicating to the public that the Work is licensed under the CCPL, neither party will use the trademark "Creative Commons" or any related trademark or logo of Creative Commons without the prior written consent of Creative Commons. Any permitted use will be in compliance with Creative Commons' then-current trademark usage guidelines, as may be published on its website or otherwise made available upon request from time to time.
 >
-> Creative Commons may be contacted at https://creativecommons.org/.
+> Creative Commons may be contacted at <https://creativecommons.org/>.
