@@ -34,6 +34,7 @@ Things relating to your operating system.
 **Min-JRE-Version** 11
 
 **Unsupported-JRE-Version(s)** 8 and below
+<br>It is highly unrecommended to build a native image of the program with Java standard of 10 and below, as there are certain features that are not introduced and certain program optimizations that are not taken into consideration. For the best consumer experience, use the prebundled native images and lean away from building your own!
 
 **Untested-JRE-Version(s)** 9, 10
 
