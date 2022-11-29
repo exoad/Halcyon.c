@@ -29,9 +29,13 @@ Things relating to your operating system.
 > A JAR file is compiled and is packaged together with the necessary native libraries. Purely reliant on
 > the host machine being able to run a JRE
 
-**Recommended-JRE-Version** 17
+**Recommended-JRE-Version** 15
 
 **Min-JRE-Version** 11
+
+**Unsupported-JRE-Version(s)** 8 and below
+
+**Untested-JRE-Version(s)** 9, 10
 
 ## Hardware Requirements
 
