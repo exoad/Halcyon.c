@@ -4,7 +4,7 @@ import com.jackmeng.halcyon.use_Halcyon;
 
 public abstract interface const_ResourceManager
 {
-  String RESOURCES = "resources" + use_Halcyon.getFileSeparator();
+  String RESOURCES = "assets" + use_Halcyon.getFileSeparator();
 
   /*------------------------------------------------------------------- /
   / The following block of constants define resources for the dependent /
