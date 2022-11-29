@@ -114,7 +114,7 @@ public final class use_Halcyon
    */
   public static Font regularFont()
   {
-    return getFont(use_ResourceFetcher.fetcher.getFromAsFile("resources/font/HalcyonFont-Regular.ttf"));
+    return getFont(use_ResourceFetcher.fetcher.getFromAsFile("assets/font/HalcyonFont-Regular.ttf"));
   }
 
   /**
@@ -122,7 +122,7 @@ public final class use_Halcyon
    */
   public static Font boldFont()
   {
-    return getFont(use_ResourceFetcher.fetcher.getFromAsFile("resources/font/HalcyonFont-Bold.ttf"));
+    return getFont(use_ResourceFetcher.fetcher.getFromAsFile("assets/font/HalcyonFont-Bold.ttf"));
   }
 
   /**
@@ -218,13 +218,13 @@ public final class use_Halcyon
 
     g.registerFont(
         Font.createFont(Font.TRUETYPE_FONT,
-            use_ResourceFetcher.fetcher.getFromAsFile("resources/font/HalcyonFont-Regular.ttf")));
+            use_ResourceFetcher.fetcher.getFromAsFile("assets/font/HalcyonFont-Regular.ttf")));
     g.registerFont(
         Font.createFont(Font.TRUETYPE_FONT,
-            use_ResourceFetcher.fetcher.getFromAsFile("resources/font/HalcyonFont-Bold.ttf")));
+            use_ResourceFetcher.fetcher.getFromAsFile("assets/font/HalcyonFont-Bold.ttf")));
     g.registerFont(
         Font.createFont(Font.TRUETYPE_FONT,
-            use_ResourceFetcher.fetcher.getFromAsFile("resources/font/HalcyonFont-Italic.ttf")));
+            use_ResourceFetcher.fetcher.getFromAsFile("assets/font/HalcyonFont-Italic.ttf")));
 
     setUIFont(new FontUIResource(regularFont().getFontName(), Font.TRUETYPE_FONT, 13));
 

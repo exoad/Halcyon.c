@@ -55,7 +55,7 @@ public final class use_Program
 
   public static void error_gui(Exception e)
   {
-    new gui_HalcyonGenericWindow(use_ResourceFetcher.fetcher.getFromAsImageIcon("resources/app/oh_no.png"),
+    new gui_HalcyonGenericWindow(use_ResourceFetcher.fetcher.getFromAsImageIcon("assets/app/oh_no.png"),
         _lang(LANG_OH_NO_4),
         "<html><strong>" + _lang(LANG_EXCEPTION_OH_SOMETHING_WENT_WRONG_CONTENT) + "</strong><br>"
             + use_Commons.expand_exception(e)

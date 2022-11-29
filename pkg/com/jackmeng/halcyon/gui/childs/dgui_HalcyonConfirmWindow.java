@@ -16,7 +16,7 @@ public class dgui_HalcyonConfirmWindow
   public dgui_HalcyonConfirmWindow(String title, String content_HTML, Runnable onConfirm, Runnable onDeny,
       JFrame parent)
   {
-    super(use_ResourceFetcher.fetcher.getFromAsImageIcon("resources/app/oh_no.png"), title, content_HTML,
+    super(use_ResourceFetcher.fetcher.getFromAsImageIcon("assets/app/oh_no.png"), title, content_HTML,
         const_ColorManager.DEFAULT_YELLOW_FG, parent);
 
     JButton confirm = new JButton(_lang(LANG_CONFIRM_WINDOW_CONFIRM_BUTTON_OK));
