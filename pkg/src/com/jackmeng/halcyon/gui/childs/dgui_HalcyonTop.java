@@ -10,6 +10,7 @@ import com.jackmeng.halcyon.abst.evnt_SelectPlaylistTrack;
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_Manager;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
+import com.jackmeng.halcyon.gui.gui_LazyLoadingPanel;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Chronos;
 import com.jackmeng.tailwind.use_TailwindTrack;
@@ -17,7 +18,6 @@ import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_Image;
 import com.jackmeng.util.use_ResourceFetcher;
-import com.jackmeng.util.use_Struct.struct_Pair;
 
 import java.awt.image.*;
 
@@ -27,7 +27,7 @@ public class dgui_HalcyonTop
 {
 
   public static final class halcyonTop_Info
-      extends JPanel
+      extends gui_LazyLoadingPanel
       implements evnt_SelectPlaylistTrack
   {
 
@@ -122,6 +122,12 @@ public class dgui_HalcyonTop
       /     + use_Chronos.format_sec((Integer) e.get(tailwindtrack_Tags.MEDIA_DURATION))                              /
       /     + "</span></p></body></html>");                                                                           /
       /--------------------------------------------------------------------------------------------------------------*/
+    }
+
+    @Override
+    protected void constr()
+    {
+
     }
   }
 
