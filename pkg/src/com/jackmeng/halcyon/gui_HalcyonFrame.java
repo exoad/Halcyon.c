@@ -439,7 +439,6 @@ public class gui_HalcyonFrame
           titleBarICO.setOpaque(true);
           titleBarICO.setBackground(conf.fg);
         }
-        titleBarICO.setAutoscrolls(true);
         titleBarICO.setVerticalAlignment(SwingConstants.CENTER);
 
         titleBar.add(titleBarICO, BorderLayout.WEST);
@@ -663,7 +662,7 @@ public class gui_HalcyonFrame
     splitPane.setDividerLocation((top.getPreferredSize().height + bottom.getPreferredSize().height) / 2);
     splitPane.setDividerSize(0);
 
-    frame = new TitledFrame(new TitleBarConfig("Halcyon (uwu)",
+    frame = new TitledFrame(new TitleBarConfig("Halcyon",
         use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.GUI_PROGRAM_LOGO),
         use_Halcyon.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE),
         const_ColorManager.DEFAULT_GREEN_FG, const_ColorManager.DEFAULT_BG, const_ColorManager.DEFAULT_RED_FG,

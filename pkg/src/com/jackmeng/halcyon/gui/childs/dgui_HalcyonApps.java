@@ -6,6 +6,7 @@ import com.jackmeng.halcyon.gui.gui_HalcyonMoreApps;
 import com.jackmeng.halcyon.gui.gui_HalcyonPlaylistSelect;
 import com.jackmeng.halcyon.ploogin.impl_Ploogin;
 import com.jackmeng.halcyon.use_HalcyonFolder.halcyonfolder_Content;
+import com.jackmeng.Halcyon;
 import com.jackmeng.const_Global;
 import com.jackmeng.halcyon.use_Halcyon;
 import com.jackmeng.halcyon.use_HalcyonFolder;
@@ -40,11 +41,11 @@ public class dgui_HalcyonApps
     use_HalcyonFolder.FOLDER.deserialize(halcyonfolder_Content.PLAYLIST_SELECT_FOLDER_CACHE_f.val,
         gui_HalcyonPlaylistSelect.class, x -> {
           use_HalcyonFolder.FOLDER.log(x);
-          fileChooser = new gui_HalcyonPlaylistSelect(use_Halcyon.getInheritableFrame(),
+          fileChooser = new gui_HalcyonPlaylistSelect(Halcyon.main.expose(),
               ".");
           fileChooser.setListener(const_Global::append_to_Playlist);
         }, x -> {
-          fileChooser = x == null ? new gui_HalcyonPlaylistSelect(use_Halcyon.getInheritableFrame(),
+          fileChooser = x == null ? new gui_HalcyonPlaylistSelect(Halcyon.main.expose(),
               ".") : x;
           fileChooser.setListener(const_Global::append_to_Playlist);
         });

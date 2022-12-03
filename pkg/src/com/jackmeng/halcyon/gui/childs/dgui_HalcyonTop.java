@@ -10,10 +10,12 @@ import com.jackmeng.halcyon.abst.evnt_SelectPlaylistTrack;
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_Manager;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
+import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Chronos;
 import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
 import com.jackmeng.util.use_Color;
+import com.jackmeng.util.use_Image;
 import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
@@ -28,93 +30,54 @@ public class dgui_HalcyonTop
       extends JPanel
       implements evnt_SelectPlaylistTrack
   {
-    private static class halcyonTop_Info_Artworklabel extends JPanel
-    {
-      private transient BufferedImage img;
-      private boolean retain;
-      private int x_width, x_height;
 
-      public halcyonTop_Info_Artworklabel(boolean retainOnNull, struct_Pair< Integer, Integer > resizeSize)
-      {
-        this.retain = retainOnNull;
-        this.x_width = Math.abs(resizeSize.first);
-        this.x_height = Math.abs(resizeSize.second);
-      }
-
-      public void setIMG(BufferedImage i)
-      {
-        this.img = i;
-      }
-
-      @Override
-      public void paintComponent(Graphics g)
-      {
-        super.paintComponent(g);
-        if (img != null)
-        {
-          Graphics2D g2 = (Graphics2D) g;
-          g2.drawImage((img.getWidth() > img.getHeight()
-              ? img.getSubimage(img.getWidth() / 2 - img.getHeight() / 2, 0, img.getHeight(), img.getHeight())
-              : img.getSubimage(0, img.getHeight() / 2 - img.getWidth() / 2, img.getWidth(), img.getWidth()))
-                  .getScaledInstance(x_width, x_height,
-                      Image.SCALE_SMOOTH),
-              null, null);
-          g2.dispose();
-        }
-        else if (!retain)
-          g.clearRect(0, 0, getSize().width, getSize().height);
-        g.dispose();
-      }
-
-    }
-
-    private halcyonTop_Info_Artworklabel artwork;
     private JPanel infoDisplayer;
-    private JLabel mainTitle, miscTitle, otherTitle;
+    private JLabel mainTitle, miscTitle, otherTitle, artwork;
 
     public halcyonTop_Info()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH,
           (const_Manager.DGUI_TOP + 50) / 2));
-      setLayout(new GridLayout(1, 3, 15, ((const_Manager.DGUI_TOP + 50) / 2) / 2));
+      setLayout(new GridLayout(1, 2, 15, ((const_Manager.DGUI_TOP + 50) / 2) / 2));
       setOpaque(false);
 
       infoDisplayer = new JPanel();
       infoDisplayer.setLayout(new BoxLayout(infoDisplayer, BoxLayout.Y_AXIS));
-      infoDisplayer.setPreferredSize(new Dimension());
 
       mainTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_TITLE.value);
-      mainTitle.setFont(use_Halcyon.boldFont().deriveFont(22F));
+      mainTitle.setFont(use_Halcyon.boldFont().deriveFont(20F));
       mainTitle.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
-      mainTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
       mainTitle.setOpaque(false);
+      mainTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
+      mainTitle.setVerticalAlignment(SwingConstants.CENTER);
 
       miscTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_ARTIST.value);
-      miscTitle.setFont(use_Halcyon.regularFont().deriveFont(14.5F));
+      miscTitle.setFont(use_Halcyon.regularFont().deriveFont(15.5F));
       miscTitle.setForeground(Color.WHITE);
-      miscTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
       miscTitle.setOpaque(false);
+      miscTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
+      miscTitle.setVerticalAlignment(SwingConstants.CENTER);
 
       otherTitle = new JLabel("0kpbs | 0kHz | 00:00:00");
-      otherTitle.setFont(use_Halcyon.regularFont().deriveFont(12F));
-      otherTitle.setForeground(const_ColorManager.DEFAULT_GRAY_FG);
-      otherTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
+      otherTitle.setFont(use_Halcyon.regularFont().deriveFont(13F));
+      otherTitle.setForeground(Color.WHITE);
       otherTitle.setOpaque(false);
+      otherTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
+      otherTitle.setVerticalAlignment(SwingConstants.CENTER);
 
+      infoDisplayer.add(Box.createVerticalGlue());
       infoDisplayer.add(mainTitle);
       infoDisplayer.add(miscTitle);
       infoDisplayer.add(otherTitle);
+      infoDisplayer.add(Box.createVerticalGlue());
       infoDisplayer.setOpaque(false);
 
-      artwork = new halcyonTop_Info_Artworklabel(false, const_MUTableKeys.top_artwork_wxh);
-      artwork.setIMG((BufferedImage) tailwindtrack_Tags.MEDIA_ART.value);
-      artwork.setOpaque(false);
+      artwork = new JLabel(new ImageIcon((BufferedImage) tailwindtrack_Tags.MEDIA_ART.value));
+      artwork.setHorizontalAlignment(SwingConstants.CENTER);
+      artwork.setVerticalAlignment(SwingConstants.CENTER);
 
       add(artwork);
       add(infoDisplayer);
-
-      setOpaque(true);
-      setBackground(const_ColorManager.DEFAULT_BLUE_FG);
 
       const_Global.SELECTION_LISTENERS.add_listener(this);
     }
@@ -137,7 +100,13 @@ public class dgui_HalcyonTop
         otherTitle.setText((String) e.get(tailwindtrack_Tags.MEDIA_BITRATE) + "kpbs | "
             + e.get(tailwindtrack_Tags.MEDIA_SAMPLERATE) + "kHz | "
             + use_Chronos.format_sec((Integer) e.get(tailwindtrack_Tags.MEDIA_DURATION)));
-        artwork.setIMG(e.get_artwork());
+        BufferedImage img = e.get_artwork();
+        artwork.setIcon(new ImageIcon((img.getWidth() > img.getHeight()
+            ? img.getSubimage(img.getWidth() / 2 - img.getHeight() / 2, 0, img.getHeight(), img.getHeight())
+            : img.getSubimage(0, img.getHeight() / 2 - img.getWidth() / 2, img.getWidth(), img.getWidth()))
+                .getScaledInstance(const_MUTableKeys.top_artwork_wxh.first, const_MUTableKeys.top_artwork_wxh.second,
+                    Image.SCALE_FAST)));
+        pstream.log.warn(use_Color.colorToHex(use_Image.accents_color_1(img).get(0)));
         artwork.repaint(30L);
       });
 

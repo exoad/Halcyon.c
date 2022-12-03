@@ -2,6 +2,8 @@ package com.jackmeng.halcyon.gui;
 
 import java.util.*;
 
+import javax.swing.JComponent;
+
 import com.jackmeng.util.use_Struct.struct_Pair;
 
 import java.awt.*;
@@ -17,7 +19,7 @@ public final class use_GuiUtil
       for (Component comp : comps)
       {
         compList.add(comp);
-        if (comp instanceof Container)
+        if (comp instanceof Container || comp instanceof JComponent)
           compList.addAll(listComponents_OfContainer((Container) comp));
       }
       return compList;

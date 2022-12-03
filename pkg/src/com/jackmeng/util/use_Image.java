@@ -7,6 +7,7 @@ import com.jackmeng.util.use_Struct.struct_Trio;
 
 import java.awt.*;
 import java.awt.image.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -55,6 +56,40 @@ public final class use_Image
       g2.dispose();
     }
     return target;
+  }
+
+  public static java.util.List< Color > accents_color_1(BufferedImage img)
+  {
+    if (img.getWidth() > 512 || img.getHeight() > 512)
+      img = image_to_bi(img.getScaledInstance(512, 512, Image.SCALE_FAST), 512, 512);
+    Map< Integer, Integer > m = new HashMap<>();
+    for (int i = 0; i < img.getWidth(); i++)
+    {
+      for (int j = 0; j < img.getHeight(); j++)
+      {
+        int rgb = img.getRGB(i, j);
+        int[] arr = use_Color.parse_RGB(rgb);
+        if (!use_Color.is_gray(arr, 10))
+        {
+          Integer color = m.get(rgb);
+          if (color == null)
+            color = 0;
+          color++;
+          m.put(rgb, color);
+        }
+      }
+    }
+    java.util.List< Entry< Integer, Integer > > list = new LinkedList<>(m.entrySet());
+    Collections.sort(list, (x, y) -> {
+      return ((Comparable< Integer >) x.getValue())
+          .compareTo(y.getValue());
+    });
+    java.util.List< Color > l = new ArrayList<>();
+    list.forEach(x -> {
+      int[] parseRGB = use_Color.parse_RGB(x.getKey());
+      l.add(new Color(parseRGB[1], parseRGB[2], parseRGB[3]));
+    });
+    return l;
   }
 
   public static struct_Trio< Integer, Integer, Integer > accurate_accent_color_1(BufferedImage img)
