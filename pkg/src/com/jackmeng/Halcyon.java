@@ -1,16 +1,16 @@
 package com.jackmeng;
 
-import com.jackmeng.halcyon.gui.gui_HalcyonFrame;
 import com.jackmeng.halcyon.gui.childs.dgui_HalcyonBottom;
 import com.jackmeng.halcyon.gui.childs.dgui_HalcyonTop;
 import com.jackmeng.halcyon.const_MUTableKeys;
+import com.jackmeng.halcyon.gui_HalcyonFrame;
+import com.jackmeng.halcyon.gui_HalcyonFrame;
 import com.jackmeng.halcyon.use_HalcyonFolder;
 import com.jackmeng.halcyon.use_Halcyon;
 import com.jackmeng.sys.*;
 import com.test.Test;
 
 import java.io.File;
-import java.util.TimerTask;
 
 /*------------------------- /
 / unused imports are stupid /
@@ -19,7 +19,8 @@ import java.util.TimerTask;
 public final class Halcyon
 {
 
-   static {
+   static
+   {
       System.setProperty("sun.java2d.noddraw", "true");
       System.setProperty("sun.java2d.d3d", "false");
    }
@@ -61,14 +62,7 @@ public final class Halcyon
       use_HalcyonFolder.FOLDER.load_playlists();
       try
       {
-         const_Global.GENERAL_LOOP.schedule(new TimerTask() {
-            @Override
-            public void run()
-            {
-               // THIS IS VERY BAD PRACTICE AHHHH BRUH
-               System.gc();
-            }
-         }, 100, 3000);
+
          /*--------------- /
          / startup process /
          /----------------*/
@@ -84,7 +78,7 @@ public final class Halcyon
          /*------------------------------------ /
          / actual program related GUI processes /
          /-------------------------------------*/
-         use_Task.async_N1(() -> {
+         use_Task.async_N2(() -> {
             main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
             main.run();
          });
@@ -117,9 +111,9 @@ public final class Halcyon
          }, "halcyon-defaultShutdownHook");
          Runtime.getRuntime().addShutdownHook(yan_wang);
 
-
       } catch (Exception e)
       {
+         e.printStackTrace();
          use_HalcyonFolder.FOLDER.log(e);
          use_Program.error_gui(e);
       }

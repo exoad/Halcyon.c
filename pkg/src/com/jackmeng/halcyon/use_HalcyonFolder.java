@@ -43,7 +43,7 @@ public final class use_HalcyonFolder
     /--------------------------------------------------------------*/
     CACHE_d("caches"), USER_d("conf"), SHARED_LIBRARY_d("hlib"), PLOOGINS_d("extern"), LOGS_d("logs"), SYSCONF_f(
         "HALCYON.hal"), LANG_CONF_f("_locale.hal"), MASTADIR_d(
-            ""), PLAYLISTS_CONF_f("conf" + use_Halcyon.getFileSeparator() + "personal.hal");
+            ""), PLAYLISTS_CONF_f("conf" + use_Halcyon.getFileSeparator() + "personal.hal"), PLAYLIST_SELECT_FOLDER_CACHE_f("caches" + use_Halcyon.getFileSeparator() + "caches_playlist_select_folder.x");
 
     public final String val;
 
@@ -163,6 +163,7 @@ public final class use_HalcyonFolder
 
   public void log(Exception ex)
   {
+    ex.printStackTrace();
     log(use_Commons.expand_exception(ex));
   }
 
@@ -194,14 +195,14 @@ public final class use_HalcyonFolder
 
   public void serialize(String completeFilename, Serializable e)
   {
-    use_FSys.serialize_OBJ(halcyonfolder_Content.CACHE_d.val + use_Halcyon.getFileSeparator() + completeFilename, e,
+    use_FSys.serialize_OBJ(completeFilename, e,
         this::log);
   }
 
   public < T > void deserialize(String completeFileName, Class< T > t, impl_ForYou< Exception > error,
       impl_ForYou< T > promise)
   {
-    use_FSys.deserialize_OBJ(halcyonfolder_Content.CACHE_d.val + use_Halcyon.getFileSeparator() + completeFileName, t,
+    use_FSys.deserialize_OBJ(completeFileName, t,
         error, promise);
   }
 

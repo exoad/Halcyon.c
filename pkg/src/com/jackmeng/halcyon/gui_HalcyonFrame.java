@@ -1,7 +1,9 @@
-package com.jackmeng.halcyon.gui;
+package com.jackmeng.halcyon;
 
-import com.jackmeng.halcyon.const_MUTableKeys;
-import com.jackmeng.halcyon.use_Halcyon;
+import com.jackmeng.halcyon.gui.const_ColorManager;
+import com.jackmeng.halcyon.gui.const_Manager;
+import com.jackmeng.halcyon.gui.const_ResourceManager;
+import com.jackmeng.halcyon.gui.use_GuiUtil;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Task;
 import com.jackmeng.util.use_Color;
@@ -362,6 +364,7 @@ public class gui_HalcyonFrame
         {
           cr.registerComponent(frame);
           frame.addMouseListener(cr);
+          frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         }
         pstream.log.info("Launching a [CUSTOM] styled window");
 
@@ -436,14 +439,12 @@ public class gui_HalcyonFrame
           titleBarICO.setOpaque(true);
           titleBarICO.setBackground(conf.fg);
         }
-        titleBarICO.setAlignmentY(Component.CENTER_ALIGNMENT);
         titleBarICO.setAutoscrolls(true);
+        titleBarICO.setVerticalAlignment(JLabel.CENTER);
 
         titleBar.add(titleBarICO, BorderLayout.WEST);
         titleBar.add(titleBarStr, BorderLayout.CENTER);
         titleBar.add(btns, BorderLayout.EAST);
-        titleBar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleBar.setAlignmentY(Component.CENTER_ALIGNMENT);
         titleBar.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e)
@@ -455,15 +456,29 @@ public class gui_HalcyonFrame
             }
           }
         });
-        frame.getContentPane().setLayout(new BorderLayout());
-        frame.getContentPane().add(titleBar, BorderLayout.NORTH);
-        frame.getContentPane().add(content, BorderLayout.SOUTH);
+        final int TITLEBAR_HEIGHT_REFERENDUM = titleBar.getPreferredSize().height;
+        titleBar.addComponentListener(new ComponentAdapter() {
+          @Override
+          public void componentResized(ComponentEvent e)
+          {
+            if (titleBar.getSize().height > TITLEBAR_HEIGHT_REFERENDUM)
+              titleBar.setPreferredSize(new Dimension(frame.getSize().width, TITLEBAR_HEIGHT_REFERENDUM));
+          }
+        });
+        titleBar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleBar.setAlignmentY(Component.TOP_ALIGNMENT);
+        content.setAlignmentX(Component.CENTER_ALIGNMENT);
+        content.setAlignmentY(Component.TOP_ALIGNMENT);
+
+        frame.getContentPane().add(titleBar);
+        frame.getContentPane().add(content);
         cr.setMinimumSize(frame.getMinimumSize());
         frame.setSize(
             new Dimension(frame.getPreferredSize().width, content.getSize().height + titleBar.getSize().height));
 
         if (const_MUTableKeys.gui_use_debug)
         {
+          titleBar.setBorder(use_Halcyon.getDebugBorder());
           SwingUtilities.invokeLater(() -> {
             use_GuiUtil.guiutil_General.listComponents_OfContainer(frame).forEach(x -> {
               try
@@ -661,9 +676,11 @@ public class gui_HalcyonFrame
         System.exit(0);
       }
     });
+
     frame.expose().getRootPane().setBorder(
         BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(const_ColorManager.DEFAULT_GREEN_FG, 1),
             BorderFactory.createLineBorder(const_ColorManager.DEFAULT_BG, 5)));
+
     /*---------------------------------------------------------------------------------------------------------------- /
     / frame.expose().setShape(new java.awt.geom.RoundRectangle2D.Double(0, 0, frame.expose().getPreferredSize().width, /
     /     frame.expose().getPreferredSize().height, 25, 25));                                                          /

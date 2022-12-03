@@ -5,6 +5,7 @@ import com.jackmeng.halcyon.gui.const_ResourceManager;
 import com.jackmeng.halcyon.gui.gui_HalcyonMoreApps;
 import com.jackmeng.halcyon.gui.gui_HalcyonPlaylistSelect;
 import com.jackmeng.halcyon.ploogin.impl_Ploogin;
+import com.jackmeng.halcyon.use_HalcyonFolder.halcyonfolder_Content;
 import com.jackmeng.const_Global;
 import com.jackmeng.halcyon.use_Halcyon;
 import com.jackmeng.halcyon.use_HalcyonFolder;
@@ -36,17 +37,22 @@ public class dgui_HalcyonApps
     /*----------------------------------------------------------------------------- /
     / !!: make the current dir be able to dynamic or where the user last selected /
     /------------------------------------------------------------------------------*/
-    use_HalcyonFolder.FOLDER.deserialize("PLAYLIST_SELECT_FOLDER.x",
+    use_HalcyonFolder.FOLDER.deserialize(halcyonfolder_Content.PLAYLIST_SELECT_FOLDER_CACHE_f.val,
         gui_HalcyonPlaylistSelect.class, x -> {
           use_HalcyonFolder.FOLDER.log(x);
           fileChooser = new gui_HalcyonPlaylistSelect(use_Halcyon.getInheritableFrame(),
               ".");
-        }, x -> fileChooser = x != null ? new gui_HalcyonPlaylistSelect(use_Halcyon.getInheritableFrame(),
-            ".") : x);
-    fileChooser.setListener(const_Global::append_to_Playlist);
+          fileChooser.setListener(const_Global::append_to_Playlist);
+        }, x -> {
+          fileChooser = x == null ? new gui_HalcyonPlaylistSelect(use_Halcyon.getInheritableFrame(),
+              ".") : x;
+          fileChooser.setListener(const_Global::append_to_Playlist);
+        });
 
     Runtime.getRuntime()
-        .addShutdownHook(new Thread(() -> use_HalcyonFolder.FOLDER.serialize("PLAYLIST_SELECT_FOLDER.x", fileChooser)));
+        .addShutdownHook(new Thread(() -> use_HalcyonFolder.FOLDER
+            .serialize(halcyonfolder_Content.PLAYLIST_SELECT_FOLDER_CACHE_f.val,
+                fileChooser)));
 
     apps = new gui_HalcyonMoreApps();
 

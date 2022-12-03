@@ -2,6 +2,8 @@ package com.jackmeng.halcyon.gui;
 
 import java.util.*;
 
+import com.jackmeng.util.use_Struct.struct_Pair;
+
 import java.awt.*;
 
 public final class use_GuiUtil
@@ -19,6 +21,12 @@ public final class use_GuiUtil
           compList.addAll(listComponents_OfContainer((Container) comp));
       }
       return compList;
+    }
+
+    public static struct_Pair< Integer, Integer > center_OfScreen()
+    {
+      return new struct_Pair<>(Toolkit.getDefaultToolkit().getScreenSize().width / 2,
+          Toolkit.getDefaultToolkit().getScreenSize().height / 2);
     }
   }
 }

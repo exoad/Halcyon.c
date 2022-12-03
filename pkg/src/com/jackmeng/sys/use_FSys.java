@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -65,6 +64,7 @@ public final class use_FSys
   {
     try
     {
+      pstream.log.warn("SERIALIZING: " + locale + " content");
       File t = new File(locale);
       if (!t.exists())
         t.createNewFile();
