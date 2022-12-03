@@ -440,7 +440,7 @@ public class gui_HalcyonFrame
           titleBarICO.setBackground(conf.fg);
         }
         titleBarICO.setAutoscrolls(true);
-        titleBarICO.setVerticalAlignment(JLabel.CENTER);
+        titleBarICO.setVerticalAlignment(SwingConstants.CENTER);
 
         titleBar.add(titleBarICO, BorderLayout.WEST);
         titleBar.add(titleBarStr, BorderLayout.CENTER);
@@ -461,8 +461,8 @@ public class gui_HalcyonFrame
           @Override
           public void componentResized(ComponentEvent e)
           {
-            if (titleBar.getSize().height > TITLEBAR_HEIGHT_REFERENDUM)
-              titleBar.setPreferredSize(new Dimension(frame.getSize().width, TITLEBAR_HEIGHT_REFERENDUM));
+              titleBar.setSize(new Dimension(frame.getSize().width, TITLEBAR_HEIGHT_REFERENDUM));
+              content.setPreferredSize(new Dimension(frame.getSize().width, frame.getSize().height - TITLEBAR_HEIGHT_REFERENDUM));
           }
         });
         titleBar.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -472,9 +472,12 @@ public class gui_HalcyonFrame
 
         frame.getContentPane().add(titleBar);
         frame.getContentPane().add(content);
+        frame.getContentPane().add(Box.createHorizontalGlue());
         cr.setMinimumSize(frame.getMinimumSize());
-        frame.setSize(
-            new Dimension(frame.getPreferredSize().width, content.getSize().height + titleBar.getSize().height));
+
+        // all the above stuffs make the titlebar be pushed upwards so it doesn't go wonky on a custom titlebar
+        // this took a lot of debugging and mindless code breaking to get it to work!!!
+        // also pls fix code, bc rn this code is kind of lets say messy :|
 
         if (const_MUTableKeys.gui_use_debug)
         {
