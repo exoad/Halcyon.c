@@ -579,6 +579,8 @@ public class gui_HalcyonFrame
         setRolloverEnabled(false);
         setBorder(null);
         setContentAreaFilled(false);
+        setAlignmentX(Component.CENTER_ALIGNMENT);
+        setAlignmentY(Component.CENTER_ALIGNMENT);
         setPreferredSize(new Dimension(size + 1, size + 1));
         setMaximumSize(new Dimension(size + 1, size + 1));
       }
