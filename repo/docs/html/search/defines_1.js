@@ -1,4 +1,0 @@
-var searchData=
-[
-  ['eps_0',['EPS',['../d4/d70/prim__math_8cc.html#a6ebf6899d6c1c8b7b9d09be872c05aae',1,'prim_math.cc']]]
-];
