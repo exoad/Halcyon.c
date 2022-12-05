@@ -12,25 +12,24 @@ extern "C" {
  * Method:    out
  * Signature: (Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_jackmeng_sys_sys_1out_out(JNIEnv *, jobject,
-                                                          jstring);
+JNIEXPORT void JNICALL Java_com_jackmeng_sys_sys_1out_out
+  (JNIEnv *, jobject, jstring);
 
 /*
  * Class:     com_jackmeng_sys_sys_out
  * Method:    debug
  * Signature: (Ljava/lang/Object;)V
  */
-JNIEXPORT void JNICALL Java_com_jackmeng_sys_sys_1out_debug(JNIEnv *, jobject,
-                                                            jobject);
+JNIEXPORT void JNICALL Java_com_jackmeng_sys_sys_1out_debug
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_jackmeng_sys_sys_out
  * Method:    f_out
  * Signature: (Ljava/lang/String;[Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_jackmeng_sys_sys_1out_f_1out(JNIEnv *, jobject,
-                                                             jstring,
-                                                             jobjectArray);
+JNIEXPORT void JNICALL Java_com_jackmeng_sys_sys_1out_f_1out
+  (JNIEnv *, jobject, jstring, jobjectArray);
 
 #ifdef __cplusplus
 }

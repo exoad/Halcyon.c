@@ -20,4 +20,9 @@ int ran_bit_2(unsigned long*);
 
 }  // namespace halcyon_maffs
 
+namespace halcyon_simpleMaffs {
+  long rcr_gcd(long, long);
+  long itr_gcd(long, long);
+}
+
 #endif
