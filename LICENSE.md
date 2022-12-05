@@ -16,7 +16,7 @@ You may only use the bundled source/binary(s) only in compliance with this LICEN
 
 <pre align="center" style="text-align:center">
   
-Copyright © [YYYY] [NAMES]
+Copyright © Jack Meng 2022
 All rights reserved to the above copyright holder(s).
   
 </pre>
