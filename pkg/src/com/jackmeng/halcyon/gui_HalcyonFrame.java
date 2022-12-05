@@ -804,9 +804,11 @@ public class gui_HalcyonFrame
     {
       /*--------------------------------------------------------------------------------------- /
       / AHHH there's some funky shit with why it sometimes renders the frame with Transparency. /
-      /----------------------------------------------------------------------------------------*/
+      /-----------------------------2-----------------------------------------------------------*/
       frame.setAutoRequestFocus(true);
       frame.pack();
+      frame.setLocation(new Point(use_GuiUtil.guiutil_General.center_OfScreen().first - (frame.getSize().width / 2),
+          use_GuiUtil.guiutil_General.center_OfScreen().second - (frame.getSize().height / 2)));
       frame.setVisible(true);
     }
   }
