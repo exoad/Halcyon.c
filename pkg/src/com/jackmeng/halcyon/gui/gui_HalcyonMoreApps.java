@@ -15,7 +15,7 @@ import com.jackmeng.const_Global;
 import com.jackmeng.halcyon.abst.evnt_WindowFocusAdapter;
 import com.jackmeng.halcyon.abst.impl_App;
 import com.jackmeng.halcyon.abst.impl_HalcyonRefreshable;
-import com.jackmeng.halcyon.gui_HalcyonFrame.TitledFrame.ComponentResizer;
+import com.jackmeng.halcyon.gui.gui_HalcyonFrame.TitledFrame.ComponentResizer;
 import com.jackmeng.halcyon.ploogin.impl_Ploogin;
 import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_Struct.struct_Pair;

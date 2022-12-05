@@ -28,7 +28,7 @@ for i in $(ls pkg/halcyonstl) ; do
             gcc -dynamiclib -m32 -fPIC -o ./hlib/$(basename $i | cut -f1 -d".")_x86.dylib "./hlib/out/$(basename $i | cut -f1 -d".")_x86.o" -lc
         else
             gcc -c -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/darwin "./pkg/halcyonstl/$i" -o "./hlib/out/$(basename $i | cut -f1 -d".")_x64.o"
-            gcc -dynamiclib -fPIC -o ./hlib/$(basename $i | cut -f1 -d".")_x64.dylib "./hlib/out/$(basename $i | cut -f1 -d".")_x64.o" -lc
+            gcc -dynamiclib -lstdc++ -fPIC -o ./hlib/$(basename $i | cut -f1 -d".")_x64.dylib "./hlib/out/$(basename $i | cut -f1 -d".")_x64.o" -lc
         fi
     fi
 done

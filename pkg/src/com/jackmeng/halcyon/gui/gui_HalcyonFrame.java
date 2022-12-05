@@ -1,11 +1,10 @@
-package com.jackmeng.halcyon;
+package com.jackmeng.halcyon.gui;
 
-import com.jackmeng.halcyon.gui.const_ColorManager;
-import com.jackmeng.halcyon.gui.const_Manager;
-import com.jackmeng.halcyon.gui.const_ResourceManager;
-import com.jackmeng.halcyon.gui.use_GuiUtil;
+import com.jackmeng.halcyon.const_MUTableKeys;
+import com.jackmeng.halcyon.use_Halcyon;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Task;
+import com.jackmeng.util.sys_SimpleMaffs;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_ResourceFetcher;
 
@@ -545,7 +544,13 @@ public class gui_HalcyonFrame
                 && content.getMaximumSize().height <= frame.getMaximumSize().height))
         {
           cr.registerComponent(frame);
-          cr.setSnapSize(new Dimension(15, 15));
+          long[] r = sys_SimpleMaffs.simplify_ratio(use_GuiUtil.screen_space().width,
+              use_GuiUtil.screen_space().height);
+          if (r == null || r.length == 0 || r[1] == 0 || r[0] == 0)
+            r = new long[] { 1L, 1L };
+          cr.setSnapSize(new Dimension((int) (10 * (r[0] / r[1])),
+              (int) (10 *
+                  (r[0] / r[1]))));
           frame.addMouseMotionListener(cr);
           frame.addMouseListener(cr);
           frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
@@ -671,7 +676,7 @@ public class gui_HalcyonFrame
         {
           titleBar.setBorder(use_Halcyon.getDebugBorder());
           SwingUtilities.invokeLater(() -> {
-            use_GuiUtil.guiutil_General.listComponents_OfContainer(frame).forEach(x -> {
+            use_GuiUtil.listComponents_OfContainer(frame).forEach(x -> {
               try
               {
                 if (x instanceof JComponent && ((JComponent) x).getBorder() != null)
@@ -807,8 +812,8 @@ public class gui_HalcyonFrame
       /-----------------------------2-----------------------------------------------------------*/
       frame.setAutoRequestFocus(true);
       frame.pack();
-      frame.setLocation(new Point(use_GuiUtil.guiutil_General.center_OfScreen().first - (frame.getSize().width / 2),
-          use_GuiUtil.guiutil_General.center_OfScreen().second - (frame.getSize().height / 2)));
+      frame.setLocation(new Point(use_GuiUtil.center_OfScreen().first - (frame.getSize().width / 2),
+          use_GuiUtil.center_OfScreen().second - (frame.getSize().height / 2)));
       frame.setVisible(true);
     }
   }

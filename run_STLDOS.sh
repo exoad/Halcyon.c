@@ -28,7 +28,7 @@ for i in $(ls pkg/halcyonstl) ; do
             gcc -shared -m32 -fPIC -o ./hlib/$(basename $i | cut -f1 -d".")_x86.dll "./hlib/out/$(basename $i | cut -f1 -d".")_x86.exe" -Wl,--subsystem,windows
         else
             gcc -c -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/win32 "./pkg/halcyonstl/$i" -o "./hlib/out/$(basename $i | cut -f1 -d".")_x64.exe"
-            gcc -shared -fPIC -o ./hlib/$(basename $i | cut -f1 -d".")_x64.dll "./hlib/out/$(basename $i | cut -f1 -d".")_x64.exe" -Wl,--subsystem,windows
+            gcc -shared -lstdc++ -fPIC -o ./hlib/$(basename $i | cut -f1 -d".")_x64.dll "./hlib/out/$(basename $i | cut -f1 -d".")_x64.exe" -Wl,--subsystem,windows
         fi
 
     fi

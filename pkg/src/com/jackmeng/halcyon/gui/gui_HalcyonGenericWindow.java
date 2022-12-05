@@ -1,8 +1,8 @@
 package com.jackmeng.halcyon.gui;
 
 import com.jackmeng.halcyon.use_Halcyon;
-import com.jackmeng.halcyon.gui_HalcyonFrame.TitleBarConfig;
-import com.jackmeng.halcyon.gui_HalcyonFrame.TitledFrame;
+import com.jackmeng.halcyon.gui.gui_HalcyonFrame.TitleBarConfig;
+import com.jackmeng.halcyon.gui.gui_HalcyonFrame.TitledFrame;
 
 import javax.swing.*;
 import java.awt.*;
