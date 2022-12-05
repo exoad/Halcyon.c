@@ -110,7 +110,6 @@ public final class Halcyon
                               "Contingency: " + use_Program.uptime() + "ms in the world. Going down for shutdown." }));
          }, "halcyon-defaultShutdownHook");
          Runtime.getRuntime().addShutdownHook(yan_wang);
-
       } catch (Exception e)
       {
          e.printStackTrace();

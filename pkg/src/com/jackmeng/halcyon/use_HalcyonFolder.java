@@ -111,7 +111,7 @@ public final class use_HalcyonFolder
     check();
     try
     {
-      p.loadFromXML(new FileInputStream(halcyonfolder_Content.SYSCONF_f.val));
+      p.load(new FileInputStream(halcyonfolder_Content.SYSCONF_f.val));
     } catch (IOException e)
     {
       log(e);
@@ -123,7 +123,7 @@ public final class use_HalcyonFolder
       p.put(e.key, e.get() == null || e.get().isEmpty() ? e.defaultVal : e.get());
     try
     {
-      p.storeToXML(new FileOutputStream(halcyonfolder_Content.SYSCONF_f.make()),
+      p.store(new FileOutputStream(halcyonfolder_Content.SYSCONF_f.make()),
           "HALCYON_DEFAULT_PROGRAM_PROPERTIES\nCONFIGURE TO YOUR LIKINGS WITH CAUTION");
     } catch (IOException e1)
     {
@@ -137,7 +137,7 @@ public final class use_HalcyonFolder
     check();
     try
     {
-      p.loadFromXML(new FileInputStream(halcyonfolder_Content.SYSCONF_f.val));
+      p.load(new FileInputStream(halcyonfolder_Content.SYSCONF_f.val));
     } catch (IOException e)
     {
       log(e);
@@ -211,7 +211,7 @@ public final class use_HalcyonFolder
     check();
     try
     {
-      pUsr.loadFromXML(new FileInputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()));
+      pUsr.load(new FileInputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()));
     } catch (IOException e1)
     {
       log(e1);
@@ -229,7 +229,7 @@ public final class use_HalcyonFolder
     pUsr.put("liked", sb.toString());
     try
     {
-      pUsr.storeToXML(new FileOutputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()), "User personalized data");
+      pUsr.store(new FileOutputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()), "User personalized data");
     } catch (IOException e1)
     {
       log(e1);
@@ -246,7 +246,7 @@ public final class use_HalcyonFolder
   {
     try
     {
-      pUsr.loadFromXML(new FileInputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()));
+      pUsr.load(new FileInputStream(halcyonfolder_Content.PLAYLISTS_CONF_f.make()));
     } catch (IOException e1)
     {
       log(e1);

@@ -373,7 +373,7 @@ public class gui_HalcyonFrame
       @Override
       public void mouseDragged(MouseEvent e)
       {
-        if (resizing == false)
+        if (!resizing)
           return;
 
         Component source = e.getComponent();
@@ -507,7 +507,7 @@ public class gui_HalcyonFrame
       });
     }
 
-    public static ComponentResizer cr = new ComponentResizer();
+    private ComponentResizer cr = new ComponentResizer();
 
     public TitledFrame(final TitleBarConfig conf, final int tH, final JComponent content)
     {
@@ -522,7 +522,6 @@ public class gui_HalcyonFrame
       if (tH <= titleHeightOffSub || !Toolkit.getDefaultToolkit().isFrameStateSupported(Frame.MAXIMIZED_BOTH)
           || const_MUTableKeys.title_frame_styling)
       {
-
         frame.setUndecorated(false);
         this.titleHeight = 0;
         frame.setPreferredSize(content.getPreferredSize());
@@ -545,8 +544,9 @@ public class gui_HalcyonFrame
             || (content.getMaximumSize().width <= frame.getMaximumSize().width
                 && content.getMaximumSize().height <= frame.getMaximumSize().height))
         {
-          frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
           cr.registerComponent(frame);
+          cr.setSnapSize(new Dimension(15, 15));
+          frame.addMouseMotionListener(cr);
           frame.addMouseListener(cr);
           frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         }
@@ -597,16 +597,17 @@ public class gui_HalcyonFrame
         titleBarStr.setVerticalAlignment(SwingConstants.CENTER);
 
         JPanel btns = new JPanel();
-        btns.setLayout(new BoxLayout(btns, BoxLayout.X_AXIS));
+        btns.setLayout(new FlowLayout(FlowLayout.CENTER));
         btns.setOpaque(true);
-        btns.setBorder(BorderFactory.createLineBorder(Color.PINK));
-        btns.setAlignmentY(Component.CENTER_ALIGNMENT);
-        btns.setBackground(conf.bg);
 
         if (conf.bgMis != null)
+        {
           btns.add(gen_Button(conf.bgMis, () -> frame.setAlwaysOnTop(!frame.isAlwaysOnTop())));
+        }
         if (conf.bgMini != null)
+        {
           btns.add(gen_Button(conf.bgMini, () -> frame.setState(Frame.ICONIFIED)));
+        }
         if (conf.bgExp != null)
         {
           btns.add(gen_Button(conf.bgExp, () -> {
@@ -766,10 +767,10 @@ public class gui_HalcyonFrame
         setRolloverEnabled(false);
         setBorder(null);
         setContentAreaFilled(false);
-        setAlignmentX(Component.CENTER_ALIGNMENT);
         setAlignmentY(Component.CENTER_ALIGNMENT);
+        setAlignmentX(Component.CENTER_ALIGNMENT);
         setPreferredSize(new Dimension(size, size));
-        setMaximumSize(new Dimension(size, size));
+        setOpaque(true);
       }
 
       @Override
