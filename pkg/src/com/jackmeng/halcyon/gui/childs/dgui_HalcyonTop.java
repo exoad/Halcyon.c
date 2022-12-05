@@ -138,10 +138,9 @@ public class dgui_HalcyonTop
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP - 50) / 2));
       setOpaque(false);
-      /*------------------------------------------------- /
-      / setOpaque(true);                                  /
-      / setBackground(const_ColorManager.DEFAULT_RED_FG); /
-      /--------------------------------------------------*/
+
+      setLayout(new FlowLayout(FlowLayout.CENTER));
+
     }
   }
 
