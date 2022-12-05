@@ -38,7 +38,6 @@ public class dgui_HalcyonBottom
 {
 
   public static class dgui_HalcyonFileList
-      extends JScrollPane
       implements
       impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< use_TailwindPlaylist > > >,
       evnt_SelectPlaylistTrack
@@ -69,7 +68,7 @@ public class dgui_HalcyonBottom
     /                                                                                                                /
     /---------------------------------------------------------------------------------------------------------------*/
 
-    private final transient Map< String, struct_Trio< struct_Pair< Integer, JTree >, DefaultMutableTreeNode, java.util.List< DefaultMutableTreeNode > > > guiTrees;
+    private final Map< String, struct_Trio< struct_Pair< Integer, JTree >, DefaultMutableTreeNode, java.util.List< DefaultMutableTreeNode > > > guiTrees;
     /*------------------------------------------------------------------------------------------------------------------ /
     / stupid linter wants this to be transient for no goddamn reason when JComponent is serialized and inherited here????/
     /-------------------------------------------------------------------------------------------------------------------*/
@@ -80,7 +79,8 @@ public class dgui_HalcyonBottom
     /-----------------------------------------------*/
 
     private class filelist_TabButtons
-        extends JPanel
+        extends
+        JPanel
     {
       private final transient evnt_RemoveTab listener;
 
@@ -100,8 +100,10 @@ public class dgui_HalcyonBottom
       }
 
       private class filelist_CloseTab
-          extends JButton
-          implements ActionListener
+          extends
+          JButton
+          implements
+          ActionListener
       {
 
         public filelist_CloseTab()
@@ -143,19 +145,20 @@ public class dgui_HalcyonBottom
       }
     }
 
+    private JPanel fileListMasta;
+
     public dgui_HalcyonFileList()
     {
-      setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH - const_Manager.DGUI_APPS_WIDTH,
+      fileListMasta = new JPanel();
+      fileListMasta.setLayout(new BorderLayout());
+      fileListMasta.setPreferredSize(new Dimension(const_Manager.DGUI_APPS_FILELIST_WIDTH,
           const_Manager.DGUI_APPS_FILELIST_HEIGHT));
-      setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-      setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-      setPreferredSize(new Dimension(const_Manager.DGUI_APPS_FILELIST_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT));
       /*----------------------------------------------------------------- /
       / Dont add setMinimumSize(); it messes up app list resizing ability /
       /------------------------------------------------------------------*/
 
       pane = new JTabbedPane();
-      pane.setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH - const_Manager.DGUI_APPS_WIDTH,
+      pane.setPreferredSize(new Dimension(const_Manager.DGUI_APPS_FILELIST_WIDTH,
           const_Manager.DGUI_APPS_FILELIST_HEIGHT));
       pane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
       pane.setFocusable(false);
@@ -167,7 +170,7 @@ public class dgui_HalcyonBottom
         border = BorderFactory.createTitledBorder(_lang(LANG_FILELIST_BORDER_TITLE));
         border.setBorder(BorderFactory.createEmptyBorder());
         border.setTitleFont(use_Halcyon.boldFont().deriveFont(15F));
-        setBorder(border);
+        fileListMasta.setBorder(border);
         pane.addChangeListener(x -> {
           JTabbedPane t = (JTabbedPane) x.getSource();
           border
@@ -178,13 +181,13 @@ public class dgui_HalcyonBottom
                       + " | " + (t.getSelectedComponent().getName() == null ? " "
                           : t.getSelectedComponent().getName())
                   : _lang(LANG_FILELIST_BORDER_TITLE));
-          repaint(100L); // requires this repaint command in order for the title to actually display.
+          fileListMasta.repaint(100L); // requires this repaint command in order for the title to actually display.
         });
       }
       else
-        setBorder(BorderFactory.createEmptyBorder());
+        fileListMasta.setBorder(BorderFactory.createEmptyBorder());
 
-      getViewport().add(pane);
+      fileListMasta.add(pane, BorderLayout.CENTER);
 
       guiTrees = new HashMap<>();
 
@@ -326,8 +329,8 @@ public class dgui_HalcyonBottom
       jsp.setAutoscrolls(true);
       jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
       jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-      jsp.setBorder(BorderFactory.createEmptyBorder());
       jsp.setName(list.getParent());
+      jsp.setBorder(null);
       jsp.getViewport().add(tree);
 
       pane.addTab(use_Commons.strong_delimiter(list.getCanonicalParent_1(), "...", 2), jsp);
@@ -344,6 +347,7 @@ public class dgui_HalcyonBottom
       guiTrees.put(list.id(),
           new struct_Trio<>(
               new struct_Pair<>(pane.getTabCount() - 1, tree), root, nodes));
+
     }
 
     /**
@@ -367,6 +371,10 @@ public class dgui_HalcyonBottom
     {
       pstream.log.info("USER SELECTED TRACK: " + e.getContentFile().getAbsolutePath());
     }
+
+    public JPanel getMastaPanel(){
+      return fileListMasta;
+    }
   }
 
   private final dgui_HalcyonApps apps;
@@ -379,6 +387,6 @@ public class dgui_HalcyonBottom
     setOrientation(JSplitPane.HORIZONTAL_SPLIT);
     setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT));
     setLeftComponent(apps);
-    setRightComponent(filelistTabs);
+    setRightComponent(filelistTabs.getMastaPanel());
   }
 }

@@ -15,7 +15,7 @@ import com.jackmeng.const_Global;
 import com.jackmeng.halcyon.abst.evnt_WindowFocusAdapter;
 import com.jackmeng.halcyon.abst.impl_App;
 import com.jackmeng.halcyon.abst.impl_HalcyonRefreshable;
-import com.jackmeng.halcyon.gui_HalcyonFrame.TitledFrame;
+import com.jackmeng.halcyon.gui_HalcyonFrame.TitledFrame.ComponentResizer;
 import com.jackmeng.halcyon.ploogin.impl_Ploogin;
 import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_Struct.struct_Pair;
@@ -32,6 +32,7 @@ public class gui_HalcyonMoreApps
   private JScrollPane jsp;
   private JPanel panel;
   private int pX, pY;
+  private ComponentResizer cr = new ComponentResizer();
 
   public gui_HalcyonMoreApps()
   {
@@ -48,8 +49,8 @@ public class gui_HalcyonMoreApps
         frame.dispose();
       }
     });
-    TitledFrame.cr.registerComponent(frame);
-    frame.addMouseMotionListener(TitledFrame.cr);
+    cr.registerComponent(frame);
+    frame.addMouseMotionListener(cr);
     /*---------------------------------------------------------------------------------------------- /
     / dont add two motion listeners to a single frame!! this causes the frame to glitch when resized /
     / (when registered to a component resizer)                                                       /
