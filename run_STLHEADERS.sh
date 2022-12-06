@@ -15,7 +15,7 @@ fi
 echo "starting generation process"
 for i in $(find pkg -name "*.java") ; do
     echo "generating... $1"
-    javac -nowarn -h "pkg/halcyonstl/include" $i -cp "pkg/require/*" com.jackmeng.Halcyon -sourcepath pkg/src/*
+    javac -nowarn -h "pkg/halcyonstl/include" $i
 done
 echo "done -> Cleaning file directory"
 

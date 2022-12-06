@@ -43,7 +43,9 @@ public final class use_HalcyonFolder
     /--------------------------------------------------------------*/
     CACHE_d("caches"), USER_d("conf"), SHARED_LIBRARY_d("hlib"), PLOOGINS_d("extern"), LOGS_d("logs"), SYSCONF_f(
         "HALCYON.hal"), LANG_CONF_f("_locale.hal"), MASTADIR_d(
-            ""), PLAYLISTS_CONF_f("conf" + use_Halcyon.getFileSeparator() + "personal.hal"), PLAYLIST_SELECT_FOLDER_CACHE_f("caches" + use_Halcyon.getFileSeparator() + "caches_playlist_select_folder.x");
+            ""), PLAYLISTS_CONF_f(
+                "conf" + use_Halcyon.getFileSeparator() + "personal.hal"), PLAYLIST_SELECT_FOLDER_CACHE_f(
+                    "caches" + use_Halcyon.getFileSeparator() + "caches_playlist_select_folder.x");
 
     public final String val;
 
@@ -119,7 +121,7 @@ public final class use_HalcyonFolder
     /*------------------------------------ /
     / pulls everything from MutableManager /
     /-------------------------------------*/
-    for (use_MUTableDefinition e : use_Halcyon.DEFS)
+    for (use_MUTableDefinition e : use_Halcyon.DEFS.get())
       p.put(e.key, e.get() == null || e.get().isEmpty() ? e.defaultVal : e.get());
     try
     {
@@ -143,7 +145,7 @@ public final class use_HalcyonFolder
       log(e);
     }
     for (Object r : p.keySet())
-      for (use_MUTableDefinition er : use_Halcyon.DEFS)
+      for (use_MUTableDefinition er : use_Halcyon.DEFS.get())
         if (er.key.equals(r))
           er.validate((String) p.get(er.key));
   }

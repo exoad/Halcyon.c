@@ -14,6 +14,7 @@ import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.SoftReference;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Random;
@@ -27,53 +28,55 @@ public final class use_Halcyon
   {
   }
 
-  public static use_MUTableDefinition[] DEFS = {
-      new use_MUTableDefinition("Program Language", "halcyon.language", "en_US", new String[] { "en_US", "zh_CN" },
-          x -> {
-            const_MUTableKeys.lang_locale.forYou(x);
-            language = ResourceBundle.getBundle("com.jackmeng.include.locale.HalcyonLang",
-                new Locale(const_MUTableKeys.lang_locale.first, const_MUTableKeys.lang_locale.second));
-          }, x -> {
-            return const_MUTableKeys.lang_locale.first + "_" + const_MUTableKeys.lang_locale.second;
-          }),
-      new use_MUTableDefinition("Enable Logging", "halcyon.logging", "yes", new String[] { "yes", "no" },
-          x -> const_MUTableKeys.outstream = x.equalsIgnoreCase("yes"), x -> {
-            return const_MUTableKeys.outstream ? "yes" : "no";
-          }),
-      new use_MUTableDefinition("Enable Startup Testcase Check", "halcyon.tc_eval", "no", new String[] { "yes", "no" },
-          x -> const_MUTableKeys.run_tcs_on_start = !x.equalsIgnoreCase("no"), x -> {
-            return const_MUTableKeys.run_tcs_on_start ? "yes" : "no";
-          }),
-      new use_MUTableDefinition("TitleBar Styling", "halcyon.gui.title_bar_styling", "custom",
-          new String[] { "custom", "native" },
-          x -> const_MUTableKeys.title_frame_styling = !x.equalsIgnoreCase("custom"),
-          x -> {
-            return const_MUTableKeys.title_frame_styling ? "native" : "custom";
-          }),
-      new use_MUTableDefinition("Use blurring for the back cover art", "halcyon.gui.top_bg_panel_use_blur", "no",
-          new String[] { "yes", "no" },
-          x -> const_MUTableKeys.top_bg_panel_use_blur = !x.equalsIgnoreCase("no"), x -> {
-            return const_MUTableKeys.top_bg_panel_use_blur ? "yes" : "no";
-          }),
-      new use_MUTableDefinition("File Listing use a titled border", "halcyon.gui.filelist_titled_border", "no",
-          new String[] { "yes", "no" },
-          x -> const_MUTableKeys.use_filelist_titled_border = !x.equalsIgnoreCase("no"), x -> {
-            return const_MUTableKeys.use_filelist_titled_border ? "yes" : "no";
-          }),
-      new use_MUTableDefinition("Width & Height of Artwork in Top Pane.", "halcyon.gui.top_artwork_wxh", "132x132",
-          new String[0],
-          x -> {
-            const_MUTableKeys.top_artwork_wxh.first = Integer.parseInt(x.toLowerCase().split("x")[0]);
-            const_MUTableKeys.top_artwork_wxh.second = Integer.parseInt(x.toLowerCase().split("x")[1]);
-          }, x -> {
-            return const_MUTableKeys.top_artwork_wxh.first + "x" + const_MUTableKeys.top_artwork_wxh.second;
-          }),
-      new use_MUTableDefinition("Turn on debugging layouts for the GUI", "halcyon.gui.debug_layout", "no",
-          new String[] { "yes", "no" },
-          x -> const_MUTableKeys.gui_use_debug = !x.equalsIgnoreCase("no"), x -> {
-            return const_MUTableKeys.gui_use_debug ? "yes" : "no";
-          }),
-  };
+  public static SoftReference< use_MUTableDefinition[] > DEFS = new SoftReference<>(
+      new use_MUTableDefinition[] {
+          new use_MUTableDefinition("Program Language", "halcyon.language", "en_US", new String[] { "en_US", "zh_CN" },
+              x -> {
+                const_MUTableKeys.lang_locale.forYou(x);
+                language = ResourceBundle.getBundle("com.jackmeng.include.locale.HalcyonLang",
+                    new Locale(const_MUTableKeys.lang_locale.first, const_MUTableKeys.lang_locale.second));
+              }, x -> {
+                return const_MUTableKeys.lang_locale.first + "_" + const_MUTableKeys.lang_locale.second;
+              }),
+          new use_MUTableDefinition("Enable Logging", "halcyon.logging", "yes", new String[] { "yes", "no" },
+              x -> const_MUTableKeys.outstream = x.equalsIgnoreCase("yes"), x -> {
+                return const_MUTableKeys.outstream ? "yes" : "no";
+              }),
+          new use_MUTableDefinition("Enable Startup Testcase Check", "halcyon.tc_eval", "no",
+              new String[] { "yes", "no" },
+              x -> const_MUTableKeys.run_tcs_on_start = !x.equalsIgnoreCase("no"), x -> {
+                return const_MUTableKeys.run_tcs_on_start ? "yes" : "no";
+              }),
+          new use_MUTableDefinition("TitleBar Styling", "halcyon.gui.title_bar_styling", "custom",
+              new String[] { "custom", "native" },
+              x -> const_MUTableKeys.title_frame_styling = !x.equalsIgnoreCase("custom"),
+              x -> {
+                return const_MUTableKeys.title_frame_styling ? "native" : "custom";
+              }),
+          new use_MUTableDefinition("Use blurring for the back cover art", "halcyon.gui.top_bg_panel_use_blur", "no",
+              new String[] { "yes", "no" },
+              x -> const_MUTableKeys.top_bg_panel_use_blur = !x.equalsIgnoreCase("no"), x -> {
+                return const_MUTableKeys.top_bg_panel_use_blur ? "yes" : "no";
+              }),
+          new use_MUTableDefinition("File Listing use a titled border", "halcyon.gui.filelist_titled_border", "no",
+              new String[] { "yes", "no" },
+              x -> const_MUTableKeys.use_filelist_titled_border = !x.equalsIgnoreCase("no"), x -> {
+                return const_MUTableKeys.use_filelist_titled_border ? "yes" : "no";
+              }),
+          new use_MUTableDefinition("Width & Height of Artwork in Top Pane.", "halcyon.gui.top_artwork_wxh", "132x132",
+              new String[0],
+              x -> {
+                const_MUTableKeys.top_artwork_wxh.first = Integer.parseInt(x.toLowerCase().split("x")[0]);
+                const_MUTableKeys.top_artwork_wxh.second = Integer.parseInt(x.toLowerCase().split("x")[1]);
+              }, x -> {
+                return const_MUTableKeys.top_artwork_wxh.first + "x" + const_MUTableKeys.top_artwork_wxh.second;
+              }),
+          new use_MUTableDefinition("Turn on debugging layouts for the GUI", "halcyon.gui.debug_layout", "no",
+              new String[] { "yes", "no" },
+              x -> const_MUTableKeys.gui_use_debug = !x.equalsIgnoreCase("no"), x -> {
+                return const_MUTableKeys.gui_use_debug ? "yes" : "no";
+              }),
+      });
 
   public static final Random rng = new Random();
   public static ResourceBundle language = ResourceBundle.getBundle("com.jackmeng.include.locale.HalcyonLang",
