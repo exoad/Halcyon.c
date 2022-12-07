@@ -127,7 +127,8 @@ public final class use_ImgStrat
   }
 
   public static class imgstrat_Y_ImageGradient
-      implements BufferedImageOp
+      implements
+      BufferedImageOp
   {
 
     public enum imagegradient_GradientType {
@@ -209,7 +210,8 @@ public final class use_ImgStrat
   }
 
   public static class imgstrat_BlurhashBlur
-      implements BufferedImageOp
+      implements
+      BufferedImageOp
   {
     private int x, y;
     private double punch;
@@ -457,7 +459,8 @@ public final class use_ImgStrat
   }
 
   public static class imgstrat_FastBlur
-      implements BufferedImageOp
+      implements
+      BufferedImageOp
   {
     private int radius;
 
