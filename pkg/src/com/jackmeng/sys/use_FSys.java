@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,10 +18,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.util.function.BiConsumer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import com.jackmeng.halcyon.abst.impl_ForYou;
+import com.jackmeng.util.use_Struct.struct_Pair;
 
 public final class use_FSys
 {
@@ -80,29 +84,78 @@ public final class use_FSys
     }
   }
 
+  public static void writeToFile_O(Object content, File source) // overwrite mode
+  {
+    if (source.exists())
+    {
+      source.delete();
+    }
+    try
+    {
+      source.createNewFile();
+
+      PrintWriter pw = new PrintWriter(source);
+      pw.print(content.toString());
+      pw.flush();
+      pw.close();
+    } catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  public static void interpolated_ReadFromFile(File source,
+      BiConsumer< Long, StringTokenizer > readLambda)
+  {
+    assert readLambda != null;
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(source))))
+    {
+      for (long i = 0; br.ready(); i++)
+        readLambda.accept(i, new StringTokenizer(br.readLine()));
+    } catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  public static byte[] readFromFile_b(File source)
+  {
+    byte[] read = new byte[0];
+    try (FileInputStream fis = new FileInputStream(source))
+    {
+      read = new byte[(int) source.length()];
+      fis.read(read);
+    } catch (IOException e)
+    {
+      e.printStackTrace();
+      return read;
+    }
+    return read;
+  }
+
   public static < T > void deserialize_OBJ(String locale, Class< T > example, impl_ForYou< Exception > errorCallback,
       impl_ForYou< T > promise)
   {
-      if (!new File(locale).exists())
-      {
-        promise.forYou(null);
-        return;
-      }
-      T obj = null;
-      try
-      {
-        FileInputStream fis = new FileInputStream(new File(locale));
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        obj = example.cast(ois.readObject());
-        ois.close();
-        fis.close();
-      } catch (Exception e)
-      {
-        e.printStackTrace();
-        errorCallback.forYou(e);
-        promise.forYou(null);
-      }
-      promise.forYou(obj);
+    if (!new File(locale).exists())
+    {
+      promise.forYou(null);
+      return;
+    }
+    T obj = null;
+    try
+    {
+      FileInputStream fis = new FileInputStream(new File(locale));
+      ObjectInputStream ois = new ObjectInputStream(fis);
+      obj = example.cast(ois.readObject());
+      ois.close();
+      fis.close();
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+      errorCallback.forYou(e);
+      promise.forYou(null);
+    }
+    promise.forYou(obj);
 
   }
 

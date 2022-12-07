@@ -11,7 +11,6 @@ public abstract interface impl_Ploogin
 
   public default void unload()
   {
-
   }
 
   public default long version()

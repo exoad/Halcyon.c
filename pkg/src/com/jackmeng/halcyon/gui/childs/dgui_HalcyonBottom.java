@@ -348,16 +348,30 @@ public class dgui_HalcyonBottom
       guiTrees.put(list.id(),
           new struct_Trio<>(
               new struct_Pair<>(pane.getTabCount() - 1, tree), root, nodes));
+    }
 
+    public void removeFileList(use_TailwindPlaylist e)
+    {
+      for (String s : guiTrees.keySet())
+      {
+        if (s.equals(e.id()))
+        {
+          int i = guiTrees.get(s).first.first; // optimize this part if we allow tabs to move around!!
+          pane.removeTabAt(i);
+          guiTrees.remove(s);
+          break;
+        }
+      }
     }
 
     /**
      * @param refreshed
      */
     @Override
-    public void refresh(const_GeneralStatus type, struct_Pair< Optional< String >, Optional< use_TailwindPlaylist > > refreshed)
+    public void refresh(const_GeneralStatus type,
+        struct_Pair< Optional< String >, Optional< use_TailwindPlaylist > > refreshed)
     {
-      refreshed.second.ifPresent(this::pokeFileList);
+      refreshed.second.ifPresent(type == const_GeneralStatus.ADDITION ? this::pokeFileList : this::removeFileList);
     }
 
     @Override
@@ -373,7 +387,8 @@ public class dgui_HalcyonBottom
       pstream.log.info("USER SELECTED TRACK: " + e.getContentFile().getAbsolutePath());
     }
 
-    public JPanel getMastaPanel(){
+    public JPanel getMastaPanel()
+    {
       return fileListMasta;
     }
   }

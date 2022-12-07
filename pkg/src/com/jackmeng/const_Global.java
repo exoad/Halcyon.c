@@ -22,7 +22,8 @@ public final class const_Global
   public static final use_Pool< use_TailwindPlaylist > PLAY_LIST_POOL = new use_Pool<>();
   public static final use_Pool< use_TailwindTrack > LIKE_LIST_POOL = new use_Pool<>();
   public static final use_ListenerPool_ForYou< use_TailwindTrack, impl_ForYou< use_TailwindTrack > > SELECTION_LISTENERS = new use_ListenerPool_ForYou<>();
-  private static final Timer GENERAL_LOOP = new Timer("Halcyon;General_Loop");
+  private static final Timer GENERAL_LOOP = new Timer("Halcyon;General_Loop"),
+      SECONDARY_LOOP = new Timer("Halcyon;Secondary_Loop");
 
   /**
    * @param id
@@ -52,5 +53,12 @@ public final class const_Global
     if (repetition <= 0)
       GENERAL_LOOP.schedule(e, init_delay);
     else GENERAL_LOOP.schedule(e, init_delay, repetition);
+  }
+
+  public static void schedule_secondary_task(TimerTask e, long init_delay, long repetition)
+  {
+    if (repetition <= 0)
+      SECONDARY_LOOP.schedule(e, init_delay);
+    else SECONDARY_LOOP.schedule(e, init_delay, repetition);
   }
 }

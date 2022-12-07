@@ -20,10 +20,15 @@ public final class use_Chronos
     return df.format(date);
   }
 
+  public static long millisToMinutes(long millis)
+  {
+    return millis / 60_000L;
+  }
+
   public static String format_sec(int seconds)
   {
-    int hour = seconds / 3600;
-    int minute = (seconds % 3600) / 60;
+    int hour = seconds / 3_600;
+    int minute = (seconds % 3_600) / 60;
     int second = seconds % 60;
     return String.format("%02d:%02d:%02d", hour, minute, second);
   }

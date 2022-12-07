@@ -277,7 +277,7 @@ public final class use_Halcyon
         e.forEach(const_Global.PLAY_LIST_POOL::removePoolObj);
       }
 
-    }, 3000L, 3500L);
+    }, 1000L, 2500L);
 
     LogManager.getLogManager().reset();
   }
