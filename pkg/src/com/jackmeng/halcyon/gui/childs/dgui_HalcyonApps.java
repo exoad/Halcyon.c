@@ -12,7 +12,9 @@ import com.jackmeng.halcyon.use_Halcyon;
 import com.jackmeng.halcyon.use_HalcyonFolder;
 import com.jackmeng.halcyon.abst.impl_App;
 import com.jackmeng.halcyon.abst.impl_HalcyonRefreshable;
+import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Task;
+import com.jackmeng.util.const_GeneralStatus;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_Image;
 import com.jackmeng.util.use_ResourceFetcher;
@@ -21,6 +23,8 @@ import com.jackmeng.util.use_Struct.struct_Pair;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.jackmeng.halcyon.gui.const_Lang.*;
@@ -32,9 +36,11 @@ public class dgui_HalcyonApps
 
   private transient gui_HalcyonMoreApps apps;
   private transient gui_HalcyonPlaylistSelect fileChooser;
+  private transient Map< String, JButton > appMap; // Key: AppID Value: GUIComponent
 
   public dgui_HalcyonApps()
   {
+    appMap = new Hashtable<>();
     /*----------------------------------------------------------------------------- /
     / !!: make the current dir be able to dynamic or where the user last selected /
     /------------------------------------------------------------------------------*/
@@ -118,7 +124,7 @@ public class dgui_HalcyonApps
    */
   private void addApp(impl_App r)
   {
-    if (!(r instanceof impl_Ploogin))
+    if (!(r instanceof impl_Ploogin) && !appMap.containsKey(r.id()))
     {
       use_Task.run_Snb_1(() -> {
         JButton btn = new JButton();
@@ -141,9 +147,23 @@ public class dgui_HalcyonApps
           btn.setRolloverEnabled(true);
           btn.setRolloverIcon(rol);
         });
+        appMap.put(r.id(), btn);
         add(btn);
         revalidate();
       });
+    }
+    else
+      pstream.log.warn("Failed to add an instance of impl_App.\nRequirements checked: \n\t1. impl_Ploogin "
+          + (r instanceof impl_Ploogin) + "\n\t2. appMap containment " + (appMap.containsKey(r.id())));
+  }
+
+  private void removeApp(impl_App r)
+  {
+    if (appMap.containsKey(r.id()))
+    {
+      JButton e = appMap.get(r.id());
+      remove(e);
+      revalidate();
     }
   }
 
@@ -193,9 +213,9 @@ public class dgui_HalcyonApps
    * @param refreshed
    */
   @Override
-  public void refresh(struct_Pair< Optional< String >, Optional< impl_App > > refreshed)
+  public void refresh(const_GeneralStatus type, struct_Pair< Optional< String >, Optional< impl_App > > refreshed)
   {
-    refreshed.second.ifPresent(this::addApp);
+    refreshed.second.ifPresent(type == const_GeneralStatus.ADDITION ? this::addApp : this::removeApp);
   }
 
   @Override

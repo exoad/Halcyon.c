@@ -61,7 +61,6 @@ public final class Halcyon
       use_HalcyonFolder.FOLDER.load_playlists();
       try
       {
-
          /*--------------- /
          / startup process /
          /----------------*/

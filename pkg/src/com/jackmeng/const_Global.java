@@ -1,6 +1,7 @@
 package com.jackmeng;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 import com.jackmeng.halcyon.use_Halcyon;
 import com.jackmeng.halcyon.abst.impl_App;
@@ -21,7 +22,7 @@ public final class const_Global
   public static final use_Pool< use_TailwindPlaylist > PLAY_LIST_POOL = new use_Pool<>();
   public static final use_Pool< use_TailwindTrack > LIKE_LIST_POOL = new use_Pool<>();
   public static final use_ListenerPool_ForYou< use_TailwindTrack, impl_ForYou< use_TailwindTrack > > SELECTION_LISTENERS = new use_ListenerPool_ForYou<>();
-  public static final Timer GENERAL_LOOP = new Timer("Halcyon;General_Loop");
+  private static final Timer GENERAL_LOOP = new Timer("Halcyon;General_Loop");
 
   /**
    * @param id
@@ -44,5 +45,12 @@ public final class const_Global
   {
     if (LIKE_LIST_POOL.get(fileABS) == null)
       LIKE_LIST_POOL.addPoolObject(new use_TailwindTrack(fileABS));
+  }
+
+  public static void schedule_task(TimerTask e, long init_delay, long repetition)
+  {
+    if (repetition <= 0)
+      GENERAL_LOOP.schedule(e, init_delay);
+    else GENERAL_LOOP.schedule(e, init_delay, repetition);
   }
 }

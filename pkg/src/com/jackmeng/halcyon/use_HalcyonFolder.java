@@ -33,6 +33,7 @@ public final class use_HalcyonFolder
   public static final byte[] DELIMITER = { 0x0E, 0x00, 0x0E, (byte) 0x9E };
 
   private File locale;
+  private boolean properties_masta_fault = false;
   private Properties p, pUsr;
 
   public enum halcyonfolder_Content {
@@ -100,9 +101,8 @@ public final class use_HalcyonFolder
     Date d = new Date(System.currentTimeMillis());
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 
-    m_w_f(
-        new File(halcyonfolder_Content.LOGS_d.val + use_Halcyon.getFileSeparator() + "LOG_"
-            + new SimpleDateFormat("yyy-MM-dd_HH_mm_ss").format(d) + ".log"),
+    m_w_f(new File(halcyonfolder_Content.LOGS_d.val + use_Halcyon.getFileSeparator() + "LOG_"
+        + new SimpleDateFormat("yyy-MM-dd_HH_mm_ss").format(d) + ".log"),
         "Halcyon/MP4J - LOG EXCEPTION,LOGGED TELEMETRY DATA\nException caught time: " + df.format(d)
             + "\n"
             + ex);
@@ -110,27 +110,30 @@ public final class use_HalcyonFolder
 
   public void save_conf()
   {
-    check();
-    try
+    if (!properties_masta_fault)
     {
-      p.load(new FileInputStream(halcyonfolder_Content.SYSCONF_f.val));
-    } catch (IOException e)
-    {
-      log(e);
-    }
-    /*------------------------------------ /
-    / pulls everything from MutableManager /
-    /-------------------------------------*/
-    for (use_MUTableDefinition e : use_Halcyon.DEFS.get())
-      p.put(e.key, e.get() == null || e.get().isEmpty() ? e.defaultVal : e.get());
-    try
-    {
-      p.store(new FileOutputStream(halcyonfolder_Content.SYSCONF_f.make()),
-          "HALCYON_DEFAULT_PROGRAM_PROPERTIES\nCONFIGURE TO YOUR LIKINGS WITH CAUTION");
-    } catch (IOException e1)
-    {
-      e1.printStackTrace();
-      log(e1);
+      check();
+      try
+      {
+        p.load(new FileInputStream(halcyonfolder_Content.SYSCONF_f.val));
+      } catch (IOException e)
+      {
+        log(e);
+      }
+      /*------------------------------------ /
+      / pulls everything from MutableManager /
+      /-------------------------------------*/
+      for (use_MUTableDefinition e : use_Halcyon.DEFS.get())
+        p.put(e.key, e.get() == null || e.get().isEmpty() ? e.defaultVal : e.get());
+      try
+      {
+        p.store(new FileOutputStream(halcyonfolder_Content.SYSCONF_f.make()),
+            "HALCYON_DEFAULT_PROGRAM_PROPERTIES\nCONFIGURE TO YOUR LIKINGS WITH CAUTION");
+      } catch (IOException e1)
+      {
+        e1.printStackTrace();
+        log(e1);
+      }
     }
   }
 
@@ -142,6 +145,7 @@ public final class use_HalcyonFolder
       p.load(new FileInputStream(halcyonfolder_Content.SYSCONF_f.val));
     } catch (IOException e)
     {
+      properties_masta_fault = true;
       log(e);
     }
     for (Object r : p.keySet())

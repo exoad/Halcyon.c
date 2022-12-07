@@ -4,6 +4,8 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJT
 import com.jackmeng.const_Global;
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
+import com.jackmeng.sys.pstream;
+import com.jackmeng.tailwind.use_TailwindPlaylist;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_ResourceFetcher;
 
@@ -15,6 +17,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Random;
@@ -247,7 +250,7 @@ public final class use_Halcyon
     UIManager.getDefaults()
         .addResourceBundle("com.jackmeng.include.locale.HalcyonLang_" + language.getLocale());
 
-    const_Global.GENERAL_LOOP.schedule(new TimerTask() {
+    const_Global.schedule_task(new TimerTask() {
 
       @Override
       public void run()
@@ -256,6 +259,25 @@ public final class use_Halcyon
       }
 
     }, 1000L, 3500L);
+
+    const_Global.schedule_task(new TimerTask() {
+
+      @Override
+      public void run()
+      {
+        ArrayList< use_TailwindPlaylist > e = new ArrayList<>();
+        const_Global.PLAY_LIST_POOL.forEach(x -> {
+          File f = new File(x.getParent());
+          if (!f.exists() || !f.isDirectory() || f.isHidden())
+          {
+            e.add(x);
+            pstream.log.warn("Found a phantom playlist. Subject to removal: " + x.getParent());
+          }
+        });
+        e.forEach(const_Global.PLAY_LIST_POOL::removePoolObj);
+      }
+
+    }, 3000L, 3500L);
 
     LogManager.getLogManager().reset();
   }

@@ -16,7 +16,8 @@ public final class use_ImgStrat
   }
 
   public static class imgstrat_4_CornerGradient
-      implements BufferedImageOp
+      implements
+      BufferedImageOp
   {
 
     public double e;

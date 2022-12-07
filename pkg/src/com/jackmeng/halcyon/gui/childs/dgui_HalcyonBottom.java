@@ -14,6 +14,7 @@ import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Task;
 import com.jackmeng.tailwind.use_TailwindPlaylist;
 import com.jackmeng.tailwind.use_TailwindTrack;
+import com.jackmeng.util.const_GeneralStatus;
 import com.jackmeng.util.use_Commons;
 import com.jackmeng.util.use_Image;
 import com.jackmeng.util.use_ResourceFetcher;
@@ -354,7 +355,7 @@ public class dgui_HalcyonBottom
      * @param refreshed
      */
     @Override
-    public void refresh(struct_Pair< Optional< String >, Optional< use_TailwindPlaylist > > refreshed)
+    public void refresh(const_GeneralStatus type, struct_Pair< Optional< String >, Optional< use_TailwindPlaylist > > refreshed)
     {
       refreshed.second.ifPresent(this::pokeFileList);
     }

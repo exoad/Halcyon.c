@@ -17,6 +17,7 @@ import com.jackmeng.halcyon.abst.impl_App;
 import com.jackmeng.halcyon.abst.impl_HalcyonRefreshable;
 import com.jackmeng.halcyon.gui.gui_HalcyonFrame.TitledFrame.ComponentResizer;
 import com.jackmeng.halcyon.ploogin.impl_Ploogin;
+import com.jackmeng.util.const_GeneralStatus;
 import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
@@ -99,6 +100,7 @@ public class gui_HalcyonMoreApps
       action.setText(x.id());
     else
       action.setIcon(x.icon());
+
     if (x instanceof impl_Ploogin)
     {
       impl_Ploogin x2 = (impl_Ploogin) x;
@@ -120,9 +122,11 @@ public class gui_HalcyonMoreApps
   }
 
   @Override
-  public void refresh(struct_Pair< Optional< String >, Optional< impl_App > > refreshed)
+  public void refresh(const_GeneralStatus type, struct_Pair< Optional< String >, Optional< impl_App > > refreshed)
   {
-    refreshed.second.ifPresent(x -> panel.add(get_PlooginEntry(x)));
+    refreshed.second.ifPresent(type == const_GeneralStatus.ADDITION ? x -> panel.add(get_PlooginEntry(x))
+        : x -> panel.remove(get_PlooginEntry(x)));
+
   }
 
   @Override
