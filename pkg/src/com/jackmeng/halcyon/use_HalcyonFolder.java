@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Properties;
+import java.util.TimerTask;
 
 import com.jackmeng.const_Global;
 import com.jackmeng.halcyon.abst.impl_ForYou;
@@ -35,6 +36,7 @@ public final class use_HalcyonFolder
   private File locale;
   private boolean properties_masta_fault = false;
   private Properties p, pUsr;
+  private use_ClientProfile usr_proc;
 
   public enum halcyonfolder_Content {
     /*------------------------------------------------------------- /
@@ -46,7 +48,9 @@ public final class use_HalcyonFolder
         "HALCYON.hal"), LANG_CONF_f("_locale.hal"), MASTADIR_d(
             ""), PLAYLISTS_CONF_f(
                 "conf" + use_Halcyon.getFileSeparator() + "personal.hal"), PLAYLIST_SELECT_FOLDER_CACHE_f(
-                    "caches" + use_Halcyon.getFileSeparator() + "caches_playlist_select_folder.x");
+                    "caches" + use_Halcyon.getFileSeparator()
+                        + "caches_playlist_select_folder.x"), USER_PROFILE_CLIENT_f(
+                            "conf" + use_Halcyon.getFileSeparator() + "conf_user_client_profile.hal");
 
     public final String val;
 
@@ -61,12 +65,28 @@ public final class use_HalcyonFolder
     }
   }
 
+  public use_ClientProfile expose_ClientProfile()
+  {
+    return (use_ClientProfile) usr_proc.clone();
+  }
+
   private use_HalcyonFolder(final String r)
   {
     p = new Properties();
     pUsr = new Properties();
     locale = new File(r);
+    usr_proc = use_ClientProfile.load_instance(halcyonfolder_Content.USER_PROFILE_CLIENT_f.val);
     check();
+    usr_proc.run();
+    const_Global.schedule_task(new TimerTask() {
+
+      @Override
+      public void run()
+      {
+        usr_proc.sync();
+      }
+
+    }, 1000L, 4000L);
   }
 
   private void m_w_f(File e, String str)

@@ -105,13 +105,13 @@ public final class use_FSys
   }
 
   public static void interpolated_ReadFromFile(File source,
-      BiConsumer< Long, StringTokenizer > readLambda)
+      BiConsumer< Long, String > readLambda)
   {
     assert readLambda != null;
     try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(source))))
     {
       for (long i = 0; br.ready(); i++)
-        readLambda.accept(i, new StringTokenizer(br.readLine()));
+        readLambda.accept(i, br.readLine());
     } catch (IOException e)
     {
       e.printStackTrace();

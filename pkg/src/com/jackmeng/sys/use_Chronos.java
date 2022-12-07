@@ -20,9 +20,9 @@ public final class use_Chronos
     return df.format(date);
   }
 
-  public static long millisToMinutes(long millis)
+  public static double millisToMinutes(double millis)
   {
-    return millis / 60_000L;
+    return millis / 60_000;
   }
 
   public static String format_sec(int seconds)
