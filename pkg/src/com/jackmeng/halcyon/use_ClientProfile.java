@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.TimerTask;
 
+import java.awt.image.BufferedImage;
+
 import com.jackmeng.const_Global;
 import com.jackmeng.halcyon.abst.impl_Identifiable;
 import com.jackmeng.sys.pstream;
@@ -20,6 +22,7 @@ public class use_ClientProfile
 {
   private boolean locked = false;
   private String name, saveLocation;
+  private BufferedImage userAvatar;
   private float totalTimeUsed_Hours, currentTimeUsed_Minutes; // the LONG_MAX value should be enough I hope, its like
                                                               // 100000000 so centuries
 
