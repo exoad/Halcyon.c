@@ -55,7 +55,7 @@ public class use_ClientProfile
     this.totalTimeUsed_Hours = totalTimeUsed;
     this.name = name;
     Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-      pstream.log.info("CLIENT_PROFILE_STATS:\nTime_spent(hours): " + this.totalTimeUsed_Hours);
+      pstream.log.info("CLIENT_PROFILE_STATS:\nTime_spent(minutes_total): " + this.totalTimeUsed_Hours * 60);
       use_FSys.writeToFile_O(this.stringify(), new File(saveLocation));
     }));
   }
