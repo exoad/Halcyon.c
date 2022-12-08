@@ -37,7 +37,7 @@ public class TestCase
     } catch (Exception e)
     {
       System.out.println(new use_AnsiStrConstr(new use_AnsiColors[] { use_AnsiColors.GREEN_BG, use_AnsiColors.BLACK_TXT },
-          new Object[] { "FAILED ON EXCEPTIOn" }));
+          new Object[] { "FAILED ON EXCEPTION" }));
       e.printStackTrace();
       return;
     }
