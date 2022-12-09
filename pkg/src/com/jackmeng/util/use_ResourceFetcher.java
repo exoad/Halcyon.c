@@ -47,6 +47,11 @@ public class use_ResourceFetcher
     return i;
   }
 
+  public ImageIcon rz_fromImageIcon(String path, int expectWidth, int expectHeight)
+  {
+    return use_Image.resize_fast_1(expectWidth, expectWidth, getFromAsImageIcon(path));
+  }
+
   public BufferedImage getFromAsImage(String path)
   {
     if (lazyResource_cache.containsKey(path))

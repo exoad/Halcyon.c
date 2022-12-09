@@ -404,5 +404,11 @@ public class dgui_HalcyonBottom
     setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT));
     setLeftComponent(apps);
     setRightComponent(filelistTabs.getMastaPanel());
+    addPropertyChangeListener("dividerLocation", e -> {
+      int loc = ((Integer) e.getNewValue()).intValue();
+      // never let the divider go past 20% of the width
+      if (loc > (0.2F * getWidth()))
+        setDividerLocation((int) (0.2F * getWidth()));
+    });
   }
 }

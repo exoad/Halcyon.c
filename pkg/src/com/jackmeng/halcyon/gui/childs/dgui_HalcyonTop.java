@@ -13,6 +13,7 @@ import com.jackmeng.halcyon.abst.impl_Callback.callback_Specific;
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_Manager;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
+import com.jackmeng.halcyon.gui.dgui_DebugPanel;
 import com.jackmeng.halcyon.gui.gui_LazyLoadingPanel;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Chronos;
@@ -154,29 +155,31 @@ public class dgui_HalcyonTop
         setContentAreaFilled(false);
         setRolloverEnabled(false);
         setBorderPainted(false);
-        setBackground(null);
+        setIcon(normal);
         if (rollover != null)
         {
           addActionListener(x -> {
             if (rolloverGuard != null && rolloverGuard.call(rolled))
             {
               rolled = !rolled;
-              repaint(100L);
+              setIcon(rolled && rollover != null ? rollover : normal);
             }
           });
         }
         repaint();
       }
 
-      @Override
-      public void paintComponent(Graphics g)
-      {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.drawImage(rolled && rollover != null ? rollover.getImage() : normal.getImage(), null, this);
-        g2.dispose();
-      }
+      /*------------------------------------------------------------------------------------------------- /
+      / @Override                                                                                         /
+      / public void paintComponent(Graphics g)                                                            /
+      / {                                                                                                 /
+      /   super.paintComponent(g);                                                                        /
+      /   Graphics2D g2 = (Graphics2D) g;                                                                 /
+      /   g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);        /
+      /   g2.drawImage(rolled && rollover != null ? rollover.getImage() : normal.getImage(), null, this); /
+      /   g2.dispose();                                                                                   /
+      / }                                                                                                 /
+      /--------------------------------------------------------------------------------------------------*/
     }
 
     private final buttons_Funcs playPause_Button, trackInfo_Button, nextTrack_Button, lastTrack_Button,
@@ -186,40 +189,61 @@ public class dgui_HalcyonTop
     public halcyonTop_Buttons()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP - 50) / 2));
+      setLayout(new GridLayout(2, 1));
       setOpaque(true);
 
-      setLayout(new FlowLayout(FlowLayout.LEFT));
+      JPanel mastaJP = new JPanel();
+      mastaJP.setPreferredSize(new Dimension(getPreferredSize().width, getPreferredSize().height / 2));
+      mastaJP.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
+
       playPause_Button = new buttons_Funcs(
-          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_PLAY_TRACK),
-          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_PAUSE_TRACK),
+          use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_PLAY_TRACK,
+              const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH + 15, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH + 15),
+          use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_PAUSE_TRACK,
+              const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH + 15, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH + 15),
           use_MastaTemp::returnTrue);
       trackInfo_Button = new buttons_Funcs(
-          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_TRACK_INFORMATION), null,
+          use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_TRACK_INFORMATION,
+              const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
+          null,
           use_MastaTemp::returnTrue);
       nextTrack_Button = new buttons_Funcs(
-          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_NEXT_TRACK), null,
+          use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_NEXT_TRACK,
+              const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
+          null,
           use_MastaTemp::returnTrue);
       lastTrack_Button = new buttons_Funcs(
-          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_PREVIOUS_TRACK), null,
+          use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_PREVIOUS_TRACK,
+              const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
+          null,
           use_MastaTemp::returnTrue);
       loopTrack_Button = new buttons_Funcs(
-          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_LOOP_PLAYSTYLE), null,
+          use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_LOOP_PLAYSTYLE,
+              const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
+          null,
           use_MastaTemp::returnTrue);
       shufflePlaystyle_Button = new buttons_Funcs(
-          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_SHUFFLE_PLAYSTYLE), null,
+          use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_SHUFFLE_PLAYSTYLE,
+              const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
+          null,
           use_MastaTemp::returnTrue);
       likeTrack_Button = new buttons_Funcs(
-          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_UNLIKE_TRACK),
-          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_LIKE_TRACK),
+          use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_UNLIKE_TRACK,
+              const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
+          use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_LIKE_TRACK,
+              const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
           use_MastaTemp::returnTrue);
 
-      add(trackInfo_Button);
-      add(likeTrack_Button);
-      add(lastTrack_Button);
-      add(playPause_Button);
-      add(nextTrack_Button);
-      add(shufflePlaystyle_Button);
-      add(loopTrack_Button);
+      mastaJP.add(trackInfo_Button);
+      mastaJP.add(likeTrack_Button);
+      mastaJP.add(lastTrack_Button);
+      mastaJP.add(playPause_Button);
+      mastaJP.add(nextTrack_Button);
+      mastaJP.add(shufflePlaystyle_Button);
+      mastaJP.add(loopTrack_Button);
+
+      add(mastaJP);
+      add(new dgui_DebugPanel());
     }
   }
 
