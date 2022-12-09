@@ -48,11 +48,11 @@ public class dgui_HalcyonApps
     use_HalcyonFolder.FOLDER.deserialize(halcyonfolder_Content.PLAYLIST_SELECT_FOLDER_CACHE_f.val,
         gui_HalcyonPlaylistSelect.class, x -> { // on error
           use_HalcyonFolder.FOLDER.log(x);
-          fileChooser = new gui_HalcyonPlaylistSelect(Halcyon.main.expose(),
+          fileChooser = new gui_HalcyonPlaylistSelect(use_HalcyonCore.getInheritableFrame(),
               ".");
           fileChooser.setListener(const_Global::append_to_Playlist);
         }, x -> { // default promise
-          fileChooser = x == null ? new gui_HalcyonPlaylistSelect(Halcyon.main.expose(),
+          fileChooser = x == null ? new gui_HalcyonPlaylistSelect(use_HalcyonCore.getInheritableFrame(),
               ".") : x;
           fileChooser.setListener(const_Global::append_to_Playlist);
         });

@@ -147,11 +147,9 @@ public final class use_FSys
       obj = example.cast(ois.readObject());
       ois.close();
       fis.close();
-    } catch (Exception e)
+    } catch (IOException | ClassNotFoundException e)
     {
-      e.printStackTrace();
       errorCallback.forYou(e);
-      promise.forYou(null);
     }
     promise.forYou(obj);
 
