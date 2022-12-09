@@ -81,6 +81,11 @@ public class use_ClientProfile
     return totalTimeUsed_Hours;
   }
 
+  public BufferedImage exposeUserPfp()
+  {
+    return userAvatar;
+  }
+
   private synchronized void finalizeTime()
   {
     totalTimeUsed_Hours += currentTimeUsed_Minutes / 60;

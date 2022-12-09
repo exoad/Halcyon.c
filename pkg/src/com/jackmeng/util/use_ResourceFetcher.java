@@ -66,6 +66,8 @@ public class use_ResourceFetcher
       }
     }
     lazyResource_cache.put(path, i);
+    if (i != null)
+      use_Image.compat_Img(i);
     return i;
   }
 

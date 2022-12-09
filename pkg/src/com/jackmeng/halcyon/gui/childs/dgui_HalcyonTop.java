@@ -8,6 +8,8 @@ import com.jackmeng.const_Global;
 import com.jackmeng.halcyon.const_MUTableKeys;
 import com.jackmeng.halcyon.use_Halcyon;
 import com.jackmeng.halcyon.abst.evnt_SelectPlaylistTrack;
+import com.jackmeng.halcyon.abst.use_MastaTemp;
+import com.jackmeng.halcyon.abst.impl_Callback.callback_Specific;
 import com.jackmeng.halcyon.gui.const_ColorManager;
 import com.jackmeng.halcyon.gui.const_Manager;
 import com.jackmeng.halcyon.gui.const_ResourceManager;
@@ -19,8 +21,6 @@ import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_Image;
 import com.jackmeng.util.use_ResourceFetcher;
-
-import java.awt.image.*;
 
 public class dgui_HalcyonTop
     extends JPanel
@@ -101,12 +101,12 @@ public class dgui_HalcyonTop
         otherTitle.setText((String) e.get(tailwindtrack_Tags.MEDIA_BITRATE) + "kpbs | "
             + e.get(tailwindtrack_Tags.MEDIA_SAMPLERATE) + "kHz | "
             + use_Chronos.format_sec((Integer) e.get(tailwindtrack_Tags.MEDIA_DURATION)));
-        BufferedImage img = e.get_artwork();
+        final BufferedImage img = use_Image.compat_Img(e.get_artwork());
         artwork.setIcon(new ImageIcon((img.getWidth() > img.getHeight()
             ? img.getSubimage(img.getWidth() / 2 - img.getHeight() / 2, 0, img.getHeight(), img.getHeight())
             : img.getSubimage(0, img.getHeight() / 2 - img.getWidth() / 2, img.getWidth(), img.getWidth()))
                 .getScaledInstance(const_MUTableKeys.top_artwork_wxh.first, const_MUTableKeys.top_artwork_wxh.second,
-                    Image.SCALE_FAST)));
+                    Image.SCALE_AREA_AVERAGING)));
         pstream.log.warn(use_Color.colorToHex(use_Image.accents_color_1(img).get(0)));
         artwork.repaint(30L);
       });
@@ -137,17 +137,45 @@ public class dgui_HalcyonTop
       JPanel
   {
 
-    private static final class buttons_Funcs
+    private static class buttons_Funcs
         extends
         JButton
     {
-      public buttons_Funcs()
+
+      private ImageIcon normal, rollover;
+      private boolean rolled = false;
+
+      public buttons_Funcs(ImageIcon normal, ImageIcon rollover, callback_Specific< Boolean > rolloverGuard)
       {
+        assert normal != null;
+        this.normal = normal;
+        this.rollover = rollover;
         setBorder(null); // REST ASSURED YESSIR! o7
         setContentAreaFilled(false);
         setRolloverEnabled(false);
         setBorderPainted(false);
         setBackground(null);
+        if (rollover != null)
+        {
+          addActionListener(x -> {
+            if (rolloverGuard != null && rolloverGuard.call(rolled))
+            {
+              rolled = !rolled;
+              repaint(100L);
+            }
+          });
+        }
+        repaint();
+      }
+
+      @Override
+      public void paintComponent(Graphics g)
+      {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.drawImage(rolled && rollover != null ? rollover.getImage() : normal.getImage(), null, this);
+        g2.dispose();
       }
     }
 
@@ -158,17 +186,40 @@ public class dgui_HalcyonTop
     public halcyonTop_Buttons()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP - 50) / 2));
-      setOpaque(false);
+      setOpaque(true);
 
       setLayout(new FlowLayout(FlowLayout.LEFT));
-      playPause_Button = new buttons_Funcs();
-      trackInfo_Button = new buttons_Funcs();
-      nextTrack_Button = new buttons_Funcs();
-      lastTrack_Button = new buttons_Funcs();
-      loopTrack_Button = new buttons_Funcs();
-      shufflePlaystyle_Button = new buttons_Funcs();
-      likeTrack_Button = new buttons_Funcs();
+      playPause_Button = new buttons_Funcs(
+          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_PLAY_TRACK),
+          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_PAUSE_TRACK),
+          use_MastaTemp::returnTrue);
+      trackInfo_Button = new buttons_Funcs(
+          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_TRACK_INFORMATION), null,
+          use_MastaTemp::returnTrue);
+      nextTrack_Button = new buttons_Funcs(
+          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_NEXT_TRACK), null,
+          use_MastaTemp::returnTrue);
+      lastTrack_Button = new buttons_Funcs(
+          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_PREVIOUS_TRACK), null,
+          use_MastaTemp::returnTrue);
+      loopTrack_Button = new buttons_Funcs(
+          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_LOOP_PLAYSTYLE), null,
+          use_MastaTemp::returnTrue);
+      shufflePlaystyle_Button = new buttons_Funcs(
+          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_SHUFFLE_PLAYSTYLE), null,
+          use_MastaTemp::returnTrue);
+      likeTrack_Button = new buttons_Funcs(
+          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_UNLIKE_TRACK),
+          use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.CTRL_BUTTON_LIKE_TRACK),
+          use_MastaTemp::returnTrue);
 
+      add(trackInfo_Button);
+      add(likeTrack_Button);
+      add(lastTrack_Button);
+      add(playPause_Button);
+      add(nextTrack_Button);
+      add(shufflePlaystyle_Button);
+      add(loopTrack_Button);
     }
   }
 

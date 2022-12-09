@@ -27,6 +27,20 @@ public abstract interface const_ResourceManager
   String DGUI_FILELIST_LEAF_OPEN = FILELIST_ICONS + "leaf_opened.png";
   String DGUI_FILELIST_LEAF_2 = FILELIST_ICONS + "leaf_2.png";
 
+  /*--------------------------------------------------------------------------------------- /
+  / The following block of constants define resources for the TOP PANE BUTTON CONTROL ICONS /
+  /----------------------------------------------------------------------------------------*/
+  String CONTROL_BUTTONS = RESOURCES + "buttons" + use_Halcyon.getFileSeparator();
+  String CTRL_BUTTON_PREVIOUS_TRACK = CONTROL_BUTTONS + "previoustrack.png";
+  String CTRL_BUTTON_PLAY_TRACK = CONTROL_BUTTONS + "playtrack.png";
+  String CTRL_BUTTON_SHUFFLE_PLAYSTYLE = CONTROL_BUTTONS + "shuffleplaystyle.png";
+  String CTRL_BUTTON_PAUSE_TRACK = CONTROL_BUTTONS + "pausetrack.png";
+  String CTRL_BUTTON_UNLIKE_TRACK = CONTROL_BUTTONS + "unliketrack.png";
+  String CTRL_BUTTON_LOOP_PLAYSTYLE = CONTROL_BUTTONS + "loopplaystyle.png";
+  String CTRL_BUTTON_TRACK_INFORMATION = CONTROL_BUTTONS + "trackinformation.png";
+  String CTRL_BUTTON_NEXT_TRACK = CONTROL_BUTTONS + "nexttrack.png";
+  String CTRL_BUTTON_LIKE_TRACK = CONTROL_BUTTONS + "liketrack.png";
+
   /*--------------------------------------------------------------------- /
   / The following block of constants define resources for the APP itself. /
   / For example the logo                                                  /

@@ -26,6 +26,7 @@ public class use_Image
     Graphics g = img.getGraphics();
     g.drawImage(i, 0, 0, null);
     g.dispose();
+    compat_Img(img);
     return img;
   }
 
@@ -36,6 +37,7 @@ public class use_Image
     Graphics2D g2 = dst.createGraphics();
     g2.drawImage(img, 0, 0, null);
     g2.dispose();
+    compat_Img(img);
     return dst;
   }
 
