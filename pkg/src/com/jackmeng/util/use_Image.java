@@ -14,9 +14,9 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public final class use_Image
+public class use_Image
 {
-  private use_Image()
+  protected use_Image()
   {
   }
 

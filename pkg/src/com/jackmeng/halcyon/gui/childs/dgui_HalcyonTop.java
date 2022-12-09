@@ -2,6 +2,7 @@ package com.jackmeng.halcyon.gui.childs;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.*;
 
 import com.jackmeng.const_Global;
 import com.jackmeng.halcyon.const_MUTableKeys;
@@ -132,14 +133,41 @@ public class dgui_HalcyonTop
   }
 
   public static final class halcyonTop_Buttons
-      extends JPanel
+      extends
+      JPanel
   {
+
+    private static final class buttons_Funcs
+        extends
+        JButton
+    {
+      public buttons_Funcs()
+      {
+        setBorder(null); // REST ASSURED YESSIR! o7
+        setContentAreaFilled(false);
+        setRolloverEnabled(false);
+        setBorderPainted(false);
+        setBackground(null);
+      }
+    }
+
+    private final buttons_Funcs playPause_Button, trackInfo_Button, nextTrack_Button, lastTrack_Button,
+        loopTrack_Button,
+        shufflePlaystyle_Button, likeTrack_Button;
+
     public halcyonTop_Buttons()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP - 50) / 2));
       setOpaque(false);
 
-      setLayout(new FlowLayout(FlowLayout.CENTER));
+      setLayout(new FlowLayout(FlowLayout.LEFT));
+      playPause_Button = new buttons_Funcs();
+      trackInfo_Button = new buttons_Funcs();
+      nextTrack_Button = new buttons_Funcs();
+      lastTrack_Button = new buttons_Funcs();
+      loopTrack_Button = new buttons_Funcs();
+      shufflePlaystyle_Button = new buttons_Funcs();
+      likeTrack_Button = new buttons_Funcs();
 
     }
   }
