@@ -41,7 +41,8 @@ public class dgui_HalcyonTop
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH,
           (const_Manager.DGUI_TOP + 50) / 2));
       setLayout(new GridLayout(1, 2, 15, ((const_Manager.DGUI_TOP + 50) / 2) / 2));
-      setOpaque(false);
+      setOpaque(true);
+      setBackground(Color.BLUE);
 
       infoDisplayer = new JPanel();
       infoDisplayer.setLayout(new BoxLayout(infoDisplayer, BoxLayout.Y_AXIS));
@@ -190,9 +191,10 @@ public class dgui_HalcyonTop
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP - 50) / 2));
       setLayout(new GridLayout(2, 1));
-      setOpaque(true);
 
       JPanel mastaJP = new JPanel();
+      mastaJP.setOpaque(true);
+      mastaJP.setBackground(Color.PINK);
       mastaJP.setPreferredSize(new Dimension(getPreferredSize().width, getPreferredSize().height / 2));
       mastaJP.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
 
