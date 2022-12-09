@@ -1,5 +1,8 @@
 package com.jackmeng.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public final class use_Commons
 {
   private use_Commons()
@@ -60,6 +63,12 @@ public final class use_Commons
   public static boolean str_empty(String s)
   {
     return s == null || s.isBlank() || s.isEmpty() || s.length() == 0;
+  }
+
+
+  public static Number round_off_bd(Number e, int amount)
+  {
+    return BigDecimal.valueOf(e.doubleValue()).setScale(amount, RoundingMode.HALF_UP).doubleValue();
   }
 
   public static boolean is_generic(String str) throws ClassNotFoundException
