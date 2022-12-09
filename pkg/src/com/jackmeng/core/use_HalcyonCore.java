@@ -25,9 +25,9 @@ import java.util.ResourceBundle;
 import java.util.TimerTask;
 import java.util.logging.LogManager;
 
-public final class use_Halcyon
+public final class use_HalcyonCore
 {
-  private use_Halcyon()
+  private use_HalcyonCore()
   {
   }
 

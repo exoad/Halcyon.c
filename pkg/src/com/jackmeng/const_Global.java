@@ -3,7 +3,7 @@ package com.jackmeng;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.jackmeng.core.use_Halcyon;
+import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.core.abst.impl_App;
 import com.jackmeng.core.abst.impl_ForYou;
 import com.jackmeng.tailwind.use_TailwindPlaylist;
@@ -38,7 +38,7 @@ public final class const_Global
     {
       PLAY_LIST_POOL
           .addPoolObject(new use_TailwindPlaylist(new playlist_Traits(false, true, true, false), parentFolder,
-              use_Halcyon.acceptedEndings()));
+              use_HalcyonCore.acceptedEndings()));
     }
   }
 

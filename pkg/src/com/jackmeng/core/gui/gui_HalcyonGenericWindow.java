@@ -2,7 +2,7 @@ package com.jackmeng.core.gui;
 
 import javax.swing.*;
 
-import com.jackmeng.core.use_Halcyon;
+import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.core.gui.gui_HalcyonFrame.TitleBarConfig;
 import com.jackmeng.core.gui.gui_HalcyonFrame.TitledFrame;
 
@@ -25,7 +25,7 @@ public class gui_HalcyonGenericWindow
 
     frame = new TitledFrame(
         new TitleBarConfig(title, icon,
-            use_Halcyon.boldFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE),
+            use_HalcyonCore.boldFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE),
             const_ColorManager.DEFAULT_RED_FG, r, const_ColorManager.DEFAULT_RED_FG,
             const_ColorManager.DEFAULT_YELLOW_FG, const_ColorManager.DEFAULT_GREEN_FG, const_ColorManager.DEFAULT_PINK_FG, r),
         const_Manager.FRAME_TITLEBAR_HEIGHT, jsp);

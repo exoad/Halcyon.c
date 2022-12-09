@@ -6,7 +6,7 @@ import java.awt.image.*;
 
 import com.jackmeng.const_Global;
 import com.jackmeng.core.const_MUTableKeys;
-import com.jackmeng.core.use_Halcyon;
+import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.core.abst.evnt_SelectPlaylistTrack;
 import com.jackmeng.core.abst.use_MastaTemp;
 import com.jackmeng.core.abst.impl_Callback.callback_Specific;
@@ -48,21 +48,21 @@ public class dgui_HalcyonTop
       infoDisplayer.setLayout(new BoxLayout(infoDisplayer, BoxLayout.Y_AXIS));
 
       mainTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_TITLE.value);
-      mainTitle.setFont(use_Halcyon.boldFont().deriveFont(20F));
+      mainTitle.setFont(use_HalcyonCore.boldFont().deriveFont(20F));
       mainTitle.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
       mainTitle.setOpaque(false);
       mainTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
       mainTitle.setVerticalAlignment(SwingConstants.CENTER);
 
       miscTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_ARTIST.value);
-      miscTitle.setFont(use_Halcyon.regularFont().deriveFont(15.5F));
+      miscTitle.setFont(use_HalcyonCore.regularFont().deriveFont(15.5F));
       miscTitle.setForeground(Color.WHITE);
       miscTitle.setOpaque(false);
       miscTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
       miscTitle.setVerticalAlignment(SwingConstants.CENTER);
 
       otherTitle = new JLabel("0kpbs | 0kHz | 00:00:00");
-      otherTitle.setFont(use_Halcyon.regularFont().deriveFont(13F));
+      otherTitle.setFont(use_HalcyonCore.regularFont().deriveFont(13F));
       otherTitle.setForeground(Color.WHITE);
       otherTitle.setOpaque(false);
       otherTitle.setAlignmentY(Component.CENTER_ALIGNMENT);

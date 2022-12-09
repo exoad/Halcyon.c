@@ -1,6 +1,6 @@
 package com.jackmeng.core.gui;
 
-import com.jackmeng.core.use_Halcyon;
+import com.jackmeng.core.use_HalcyonCore;
 
 public final class const_Lang
 {
@@ -42,6 +42,6 @@ public final class const_Lang
    */
   public static String _lang(String key)
   {
-    return use_Halcyon.lang(key);
+    return use_HalcyonCore.lang(key);
   }
 }

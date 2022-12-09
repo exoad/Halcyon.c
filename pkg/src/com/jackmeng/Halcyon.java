@@ -1,7 +1,7 @@
 package com.jackmeng;
 
 import com.jackmeng.core.const_MUTableKeys;
-import com.jackmeng.core.use_Halcyon;
+import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.core.use_HalcyonFolder;
 import com.jackmeng.core.gui.gui_HalcyonFrame;
 import com.jackmeng.core.gui.childs.dgui_HalcyonBottom;
@@ -68,7 +68,7 @@ public final class Halcyon
          final long time = System.currentTimeMillis();
          try
          {
-            use_Halcyon.init_properties();
+            use_HalcyonCore.init_properties();
          } catch (Exception e)
          {
             pstream.log.err(e);

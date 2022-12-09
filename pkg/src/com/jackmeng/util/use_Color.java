@@ -1,6 +1,6 @@
 package com.jackmeng.util;
 
-import com.jackmeng.core.use_Halcyon;
+import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.util.use_Struct.struct_Trio;
 
 import java.awt.*;
@@ -73,8 +73,8 @@ public final class use_Color
    */
   public static Color rndColor()
   {
-    return new Color(use_Halcyon.rng.nextInt(255), use_Halcyon.rng.nextInt(255),
-        use_Halcyon.rng.nextInt(255));
+    return new Color(use_HalcyonCore.rng.nextInt(255), use_HalcyonCore.rng.nextInt(255),
+        use_HalcyonCore.rng.nextInt(255));
   }
 
   /**

@@ -1,7 +1,7 @@
 package com.jackmeng.core.gui;
 
 import com.jackmeng.core.const_MUTableKeys;
-import com.jackmeng.core.use_Halcyon;
+import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Task;
 import com.jackmeng.util.sys_SimpleMaffs;
@@ -674,13 +674,13 @@ public class gui_HalcyonFrame
 
         if (const_MUTableKeys.gui_use_debug)
         {
-          titleBar.setBorder(use_Halcyon.getDebugBorder());
+          titleBar.setBorder(use_HalcyonCore.getDebugBorder());
           SwingUtilities.invokeLater(() -> {
             use_GuiUtil.listComponents_OfContainer(frame).forEach(x -> {
               try
               {
                 if (x instanceof JComponent && ((JComponent) x).getBorder() != null)
-                  ((JComponent) x).setBorder(use_Halcyon.getDebugBorder());
+                  ((JComponent) x).setBorder(use_HalcyonCore.getDebugBorder());
               } catch (Exception e)
               {
                 // IGNORE, probably some .setBorder() not supported bs
@@ -860,7 +860,7 @@ public class gui_HalcyonFrame
 
     frame = new TitledFrame(new TitleBarConfig("Halcyon",
         use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.GUI_PROGRAM_LOGO),
-        use_Halcyon.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE),
+        use_HalcyonCore.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE),
         const_ColorManager.DEFAULT_GREEN_FG, const_ColorManager.DEFAULT_BG, const_ColorManager.DEFAULT_RED_FG,
         const_ColorManager.DEFAULT_YELLOW_FG, const_ColorManager.DEFAULT_GREEN_FG, const_ColorManager.DEFAULT_PINK_FG,
         const_ColorManager.DEFAULT_BG),

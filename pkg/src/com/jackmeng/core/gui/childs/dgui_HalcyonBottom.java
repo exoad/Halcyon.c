@@ -2,7 +2,7 @@ package com.jackmeng.core.gui.childs;
 
 import com.jackmeng.const_Global;
 import com.jackmeng.core.const_MUTableKeys;
-import com.jackmeng.core.use_Halcyon;
+import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.core.abst.evnt_RemoveTab;
 import com.jackmeng.core.abst.evnt_SelectPlaylistTrack;
 import com.jackmeng.core.abst.impl_Guard;
@@ -164,13 +164,13 @@ public class dgui_HalcyonBottom
       pane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
       pane.setFocusable(false);
       pane.setOpaque(true);
-      pane.setFont(use_Halcyon.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE));
+      pane.setFont(use_HalcyonCore.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE));
 
       if (const_MUTableKeys.use_filelist_titled_border)
       {
         border = BorderFactory.createTitledBorder(_lang(LANG_FILELIST_BORDER_TITLE));
         border.setBorder(BorderFactory.createEmptyBorder());
-        border.setTitleFont(use_Halcyon.boldFont().deriveFont(15F));
+        border.setTitleFont(use_HalcyonCore.boldFont().deriveFont(15F));
         fileListMasta.setBorder(border);
         pane.addChangeListener(x -> {
           JTabbedPane t = (JTabbedPane) x.getSource();
@@ -312,7 +312,7 @@ public class dgui_HalcyonBottom
               DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree1.getLastSelectedPathComponent();
               if (node.getParent() != null && !node.getParent().toString().equals(tree.getParent().toString()))
               {
-                File f = new File(tree.getName() + use_Halcyon.getFileSeparator() + node);
+                File f = new File(tree.getName() + use_HalcyonCore.getFileSeparator() + node);
                 if (last == null)
                   last = f;
 

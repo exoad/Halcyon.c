@@ -47,16 +47,16 @@ public final class use_HalcyonFolder
     CACHE_d("caches"), USER_d("conf"), SHARED_LIBRARY_d("hlib"), PLOOGINS_d("extern"), LOGS_d("logs"), SYSCONF_f(
         "HALCYON.hal"), LANG_CONF_f("_locale.hal"), MASTADIR_d(
             ""), PLAYLISTS_CONF_f(
-                "conf" + use_Halcyon.getFileSeparator() + "personal.hal"), PLAYLIST_SELECT_FOLDER_CACHE_f(
-                    "caches" + use_Halcyon.getFileSeparator()
+                "conf" + use_HalcyonCore.getFileSeparator() + "personal.hal"), PLAYLIST_SELECT_FOLDER_CACHE_f(
+                    "caches" + use_HalcyonCore.getFileSeparator()
                         + "caches_playlist_select_folder.x"), USER_PROFILE_CLIENT_f(
-                            "conf" + use_Halcyon.getFileSeparator() + "conf_user_client_profile.hal");
+                            "conf" + use_HalcyonCore.getFileSeparator() + "conf_user_client_profile.hal");
 
     public final String val;
 
     private halcyonfolder_Content(String name)
     {
-      this.val = MASTA_FOLDA + use_Halcyon.getFileSeparator() + name;
+      this.val = MASTA_FOLDA + use_HalcyonCore.getFileSeparator() + name;
     }
 
     public File make()
@@ -121,7 +121,7 @@ public final class use_HalcyonFolder
     Date d = new Date(System.currentTimeMillis());
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 
-    m_w_f(new File(halcyonfolder_Content.LOGS_d.val + use_Halcyon.getFileSeparator() + "LOG_"
+    m_w_f(new File(halcyonfolder_Content.LOGS_d.val + use_HalcyonCore.getFileSeparator() + "LOG_"
         + new SimpleDateFormat("yyy-MM-dd_HH_mm_ss").format(d) + ".log"),
         "Halcyon/MP4J - LOG EXCEPTION,LOGGED TELEMETRY DATA\nException caught time: " + df.format(d)
             + "\n"
@@ -143,7 +143,7 @@ public final class use_HalcyonFolder
       /*------------------------------------ /
       / pulls everything from MutableManager /
       /-------------------------------------*/
-      for (use_MUTableDefinition e : use_Halcyon.DEFS.get())
+      for (use_MUTableDefinition e : use_HalcyonCore.DEFS.get())
         p.put(e.key, e.get() == null || e.get().isEmpty() ? e.defaultVal : e.get());
       try
       {
@@ -169,7 +169,7 @@ public final class use_HalcyonFolder
       log(e);
     }
     for (Object r : p.keySet())
-      for (use_MUTableDefinition er : use_Halcyon.DEFS.get())
+      for (use_MUTableDefinition er : use_HalcyonCore.DEFS.get())
         if (er.key.equals(r))
           er.validate((String) p.get(er.key));
   }

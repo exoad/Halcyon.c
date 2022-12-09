@@ -1,6 +1,6 @@
 package com.jackmeng.tailwind;
 
-import com.jackmeng.core.use_Halcyon;
+import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.core.abst.impl_Identifiable;
 import com.jackmeng.sys.use_Program;
 import com.jackmeng.util.use_Commons;
@@ -93,7 +93,7 @@ public class use_TailwindPlaylist
   public String getCanonicalParent_2()
   {
     return getParent().split(
-        use_Halcyon.getFileSeparator())[getParent().split(use_Halcyon.getFileSeparator()).length
+        use_HalcyonCore.getFileSeparator())[getParent().split(use_HalcyonCore.getFileSeparator()).length
             - 1];
   }
 
@@ -142,7 +142,7 @@ public class use_TailwindPlaylist
     File t = new File(child);
     if (!use_Commons.ends_with(child, endings) || !t.isFile() || !t.exists() || !t.canRead()
         || !child.split(
-            use_Halcyon.getFileSeparator())[child.split(use_Halcyon.getFileSeparator()).length - 2]
+            use_HalcyonCore.getFileSeparator())[child.split(use_HalcyonCore.getFileSeparator()).length - 2]
                 .equals(parent))
       return;
     children.add(child);
