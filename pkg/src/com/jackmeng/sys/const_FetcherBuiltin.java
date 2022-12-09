@@ -1,6 +1,6 @@
 package com.jackmeng.sys;
 
-import com.jackmeng.halcyon.use_Halcyon;
+import com.jackmeng.core.use_Halcyon;
 
 public abstract interface const_FetcherBuiltin
 {

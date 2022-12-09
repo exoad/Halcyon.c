@@ -1,16 +1,16 @@
 package com.jackmeng.sys;
 
-import com.jackmeng.halcyon.gui.const_ColorManager;
-import com.jackmeng.halcyon.gui.gui_HalcyonGenericWindow;
+import com.jackmeng.core.gui.const_ColorManager;
+import com.jackmeng.core.gui.gui_HalcyonGenericWindow;
 import com.jackmeng.util.use_Commons;
 import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
+import static com.jackmeng.core.gui.const_Lang.*;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.lang.management.ManagementFactory;
-
-import static com.jackmeng.halcyon.gui.const_Lang.*;
 
 public final class use_Program
 {

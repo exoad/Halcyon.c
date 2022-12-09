@@ -3,9 +3,9 @@ package com.jackmeng;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.jackmeng.halcyon.use_Halcyon;
-import com.jackmeng.halcyon.abst.impl_App;
-import com.jackmeng.halcyon.abst.impl_ForYou;
+import com.jackmeng.core.use_Halcyon;
+import com.jackmeng.core.abst.impl_App;
+import com.jackmeng.core.abst.impl_ForYou;
 import com.jackmeng.tailwind.use_TailwindPlaylist;
 import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.tailwind.use_TailwindPlaylist.playlist_Traits;

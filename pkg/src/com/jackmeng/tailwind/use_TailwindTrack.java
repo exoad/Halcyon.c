@@ -18,8 +18,8 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 
-import com.jackmeng.halcyon.abst.impl_Identifiable;
-import com.jackmeng.halcyon.gui.const_ResourceManager;
+import com.jackmeng.core.abst.impl_Identifiable;
+import com.jackmeng.core.gui.const_ResourceManager;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_Image;
@@ -27,9 +27,10 @@ import com.jackmeng.util.use_Commons;
 import com.jackmeng.util.use_ResourceFetcher;
 
 import java.awt.image.*;
-import java.awt.*;
 
-import static com.jackmeng.halcyon.gui.const_Lang.*;
+import static com.jackmeng.core.gui.const_Lang.*;
+
+import java.awt.*;
 
 public final class use_TailwindTrack
     implements

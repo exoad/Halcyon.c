@@ -3,7 +3,7 @@ package com.jackmeng.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jackmeng.halcyon.abst.impl_ForYou;
+import com.jackmeng.core.abst.impl_ForYou;
 
 public final class use_Struct
 {

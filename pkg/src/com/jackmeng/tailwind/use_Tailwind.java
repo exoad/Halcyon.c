@@ -3,7 +3,7 @@ package com.jackmeng.tailwind;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jackmeng.halcyon.abst.impl_Identifiable;
+import com.jackmeng.core.abst.impl_Identifiable;
 
 public class use_Tailwind
     implements

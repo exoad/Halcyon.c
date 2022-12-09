@@ -1,6 +1,6 @@
 package com.jackmeng.util;
 
-import com.jackmeng.halcyon.use_Halcyon;
+import com.jackmeng.core.use_Halcyon;
 import com.jackmeng.util.use_Struct.struct_Trio;
 
 import java.awt.*;
