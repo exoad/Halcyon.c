@@ -95,6 +95,11 @@ public final class use_Color
     return String.format("#%02x%02x%02x", r.getRed(), r.getGreen(), r.getBlue());
   }
 
+  public static String intToHex(int color)
+  {
+    return String.format("#%06X", (0xFFFFFF & color));
+  }
+
   public static boolean is_gray(int[] rgba, int tolerance)
   {
     return (rgba[1] - rgba[2] > tolerance || rgba[1]
