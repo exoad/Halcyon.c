@@ -4,7 +4,6 @@ public abstract interface impl_Tailwind
 {
   public void play();
 
-  public void play(use_TailwindTrack e);
 
   public void pause();
 

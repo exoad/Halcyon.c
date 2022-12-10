@@ -32,12 +32,6 @@ public final class use_TailwindFeeder
   }
 
   @Override
-  public void play(use_TailwindTrack e)
-  {
-    player.play(e);
-  }
-
-  @Override
   public void pause()
   {
     player.pause();

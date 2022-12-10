@@ -55,6 +55,7 @@ public final class use_Commons
     return sb.toString();
   }
 
+
   public static boolean is_generic(Class< ? > c)
   {
     return c.getTypeParameters().length > 0;
