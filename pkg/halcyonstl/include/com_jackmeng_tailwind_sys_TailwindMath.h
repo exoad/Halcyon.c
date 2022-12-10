@@ -17,6 +17,14 @@ JNIEXPORT void JNICALL Java_com_jackmeng_tailwind_sys_1TailwindMath_normalize_1m
 
 /*
  * Class:     com_jackmeng_tailwind_sys_TailwindMath
+ * Method:    normalize_samples
+ * Signature: ([B)V
+ */
+JNIEXPORT void JNICALL Java_com_jackmeng_tailwind_sys_1TailwindMath_normalize_1samples
+  (JNIEnv *, jclass, jbyteArray);
+
+/*
+ * Class:     com_jackmeng_tailwind_sys_TailwindMath
  * Method:    window_func_1
  * Signature: ([FI)[F
  */

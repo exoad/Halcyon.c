@@ -35,3 +35,21 @@ Java_com_jackmeng_tailwind_sys_1TailwindMath_window_1func_11(
   env->ReleaseFloatArrayElements(windowed, window_elements, 0);
   return windowed;
 }
+
+JNIEXPORT void JNICALL
+Java_com_jackmeng_tailwind_sys_1TailwindMath_normalize_1samples(
+    JNIEnv *env, jclass obj, jbyteArray samples) {
+  jsize len = env->GetArrayLength(samples);
+  jbyte *ele = env->GetByteArrayElements(samples, NULL);
+  jbyte maxima = ele[0], minima = ele[0];
+  for (int i = 0; i < len; i++)
+    if (ele[i] > maxima)
+      maxima = ele[i];
+    else if (ele[i] < minima)
+      minima = ele[i];
+
+  double scale = (double)(maxima - minima) / 255.0;
+  for (int i = 0; i < len; i++)
+    ele[i] = (jbyte)(((double)ele[i] - minima) / scale);
+  env->ReleaseByteArrayElements(samples, ele, 0);
+}

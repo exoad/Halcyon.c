@@ -13,5 +13,8 @@ public final class sys_TailwindMath
   }
 
   public static native void normalize_mantissa_iee(double[] mantissa);
+
+  public static native void normalize_samples(byte[] samples);
+
   public static native float[] window_func_1(float[] samples, int type);
 }
