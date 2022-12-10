@@ -73,6 +73,7 @@ public final class use_TailwindTrack
   private File content;
   private transient Tag tag;
   private transient AudioHeader header;
+  private boolean playable = true;
   /*-------------------------------------------------------------- /
   / private transient Map< tailwindtrack_Tags, Object > MediaTags; /
   /---------------------------------------------------------------*/
@@ -84,19 +85,35 @@ public final class use_TailwindTrack
 
   public use_TailwindTrack(String str)
   {
-    this(new File(str));
+    this(new File(str), true);
   }
 
   public use_TailwindTrack(File file)
   {
-    hasArtwork = false;
-    setContentFile(file);
-    __init__();
+    this(file, true);
   }
 
   public use_TailwindTrack(URL path)
   {
-    this(new File(path.getFile()));
+    this(new File(path.getFile()), true);
+  }
+
+  public use_TailwindTrack(URL path, boolean playable)
+  {
+    this(new File(path.getFile()), playable);
+  }
+
+  public use_TailwindTrack(String str, boolean playable)
+  {
+    this(new File(str), playable);
+  }
+
+  public use_TailwindTrack(File file, boolean playable)
+  {
+    hasArtwork = false;
+    this.playable = playable;
+    setContentFile(file);
+    __init__();
   }
 
   private void __init__()
@@ -259,6 +276,16 @@ public final class use_TailwindTrack
   public void refresh()
   {
     __init__();
+  }
+
+  public void set_playability(boolean e)
+  {
+    playable = e;
+  }
+
+  public boolean playable()
+  {
+    return playable;
   }
 
   public void setContentFile(File f)

@@ -757,14 +757,14 @@ public class gui_HalcyonFrame
           public void mouseEntered(MouseEvent e)
           {
             hovering = true;
-            SwingUtilities.invokeLater(() -> repaint(50L));
+            SwingUtilities.invokeLater(() -> repaint(70L));
           }
 
           @Override
           public void mouseClicked(MouseEvent e)
           {
             hovering = true;
-            SwingUtilities.invokeLater(() -> repaint(50L));
+            SwingUtilities.invokeLater(() -> repaint(70L));
           }
         });
 
@@ -774,7 +774,7 @@ public class gui_HalcyonFrame
         setContentAreaFilled(false);
         setAlignmentY(Component.CENTER_ALIGNMENT);
         setAlignmentX(Component.CENTER_ALIGNMENT);
-        setPreferredSize(new Dimension(size, size));
+        setPreferredSize(new Dimension(size + 1, size + 1));
         setOpaque(true);
       }
 
@@ -782,6 +782,8 @@ public class gui_HalcyonFrame
       public void paintComponent(Graphics g)
       {
         Graphics2D g2 = (Graphics2D) g;
+        g2.clearRect(0, 0, getSize().width, getSize().height); // fixes the overlaying issue and prevents old content
+                                                               // from being overused
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(clr);
         g2.fillOval(0, 0, size, size);

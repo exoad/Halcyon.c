@@ -28,6 +28,7 @@ public final class dgui_DebugPanel
   @Override
   protected void paintComponent(Graphics g)
   {
+    g.clearRect(0, 0, getSize().width, getSize().height);
     g.setColor(use_Color.rndColor());
     g.fillRect(0, 0, getWidth(), getHeight());
     g.dispose();

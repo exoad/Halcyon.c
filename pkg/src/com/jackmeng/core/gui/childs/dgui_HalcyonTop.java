@@ -144,14 +144,12 @@ public class dgui_HalcyonTop
         JButton
     {
 
-      private ImageIcon normal, rollover;
       private boolean rolled = false;
 
       public buttons_Funcs(ImageIcon normal, ImageIcon rollover, callback_Specific< Boolean > rolloverGuard)
       {
         assert normal != null;
-        this.normal = normal;
-        this.rollover = rollover;
+
         setBorder(null); // REST ASSURED YESSIR! o7
         setContentAreaFilled(false);
         setRolloverEnabled(false);
@@ -190,7 +188,9 @@ public class dgui_HalcyonTop
     public halcyonTop_Buttons()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP - 50) / 2));
+      setMinimumSize(getPreferredSize());
       setLayout(new GridLayout(2, 1));
+      setOpaque(true);
 
       JPanel mastaJP = new JPanel();
       mastaJP.setOpaque(true);
@@ -255,7 +255,7 @@ public class dgui_HalcyonTop
   {
     setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_TOP));
     setMinimumSize(getPreferredSize());
-    setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+    setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
     setLayout(new OverlayLayout(this));
 
     JPanel copy = new JPanel();
