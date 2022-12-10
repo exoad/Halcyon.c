@@ -3,8 +3,8 @@
 
 #include "include/com_jackmeng_util_sys_SimpleMaffs.h"
 #include "include/com_jackmeng_util_use_Commons_primitives_Math.h"
-#include "include/halcyonstl.h"
-#include "include/maffs.h"
+#include "include/halcyonstl.hh"
+#include "include/maffs.hh"
 
 #define MSEED 161803398
 #define MBIG 1000000000
