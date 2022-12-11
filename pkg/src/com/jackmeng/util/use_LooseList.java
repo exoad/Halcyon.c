@@ -61,6 +61,11 @@ public class use_LooseList< T >
     return list.get(index).get();
   }
 
+  public void remove(int index)
+  {
+    list.remove(index);
+  }
+
   public int size()
   {
     return list.size();

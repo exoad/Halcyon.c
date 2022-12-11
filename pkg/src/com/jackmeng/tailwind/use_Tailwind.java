@@ -20,6 +20,7 @@ import com.jackmeng.core.abst.impl_ForYou;
 import com.jackmeng.core.abst.impl_Identifiable;
 import com.jackmeng.core.abst.use_MastaTemp;
 import com.jackmeng.sys.pstream;
+import com.jackmeng.sys.use_Task;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
 import com.jackmeng.util.const_Commons;
 import com.jackmeng.util.use_Struct.struct_Pair;
@@ -37,7 +38,7 @@ public class use_Tailwind
   /------------------------------------------------------*/
 
   public enum tailwind_Status {
-    PAUSED, PLAYING, CLOSED, STOPPED, ARMED, SEEK, FAILED_SEEK, FAILED_PLAY, FAIL_CLOSED, FAIL_STOPPING, FAIL_ARMING, FAIL_PAUSING, FAIL_UNKNOWN;
+    PAUSED, PLAYING, CLOSED, STOPPED, ARMED, SEEK, FAILED_SEEK, FAILED_PLAY, FAIL_CLOSED, FAIL_STOPPING, FAIL_ARMING, FAIL_PAUSING, FAIL_UNKNOWN, EOF;
   }
 
   private transient List< evnt_TailwindStatus > statusListener;
@@ -67,7 +68,10 @@ public class use_Tailwind
       // compareStatus = x.name().startsWith("FAILED") ? null : calculate_status();
     });
 
-    Runtime.getRuntime().addShutdownHook(new Thread(this::masta_drainage)); // safe resource juggling
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+      if (sourceLine != null)
+        sourceLine.close();
+    })); // safe resource juggling
     /*----------------------------------------------------------------------------------------------------- /
     / const_Global.schedule_secondary_task(new TimerTask() {                                                /
     /                                                                                                       /
@@ -104,7 +108,7 @@ public class use_Tailwind
 
   private void run_ping(tailwind_Status e)
   {
-    statusListener.forEach(x -> x.tailwind_status(e));
+    use_Task.async_N2(() -> statusListener.forEach(x -> x.tailwind_status(e)));
   }
 
   public use_TailwindTrack current_track()
@@ -224,6 +228,7 @@ public class use_Tailwind
           isPlaying = false;
           masta_drainage();
           ais.close();
+          run_ping(tailwind_Status.EOF);
         } catch (IOException | LineUnavailableException exception)
         {
           error_callback.forYou(new struct_Pair<>(tailwind_Status.FAILED_PLAY, exception));
@@ -240,10 +245,27 @@ public class use_Tailwind
     if (sourceLine != null)
     {
       sourceLine.drain();
-      sourceLine.stop();
       sourceLine.close();
-      run_ping(tailwind_Status.CLOSED);
     }
+  }
+
+  public final synchronized void resume()
+  {
+    if (currentTrack != null && currentTrack.playable())
+    {
+      if (!isPlaying)
+      {
+        play();
+        pstream.log.warn("PLAY_NEVER_PLAYED");
+      }
+      else if (isPlaying)
+      {
+        pstream.log.warn("RESUMING");
+        isPaused = false;
+        run_ping(tailwind_Status.PLAYING); // or should i make a separate enum for Resumed???
+      }
+    }
+
   }
 
   @Override
