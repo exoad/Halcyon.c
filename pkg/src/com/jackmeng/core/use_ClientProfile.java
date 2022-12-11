@@ -7,11 +7,11 @@ import java.util.TimerTask;
 
 import java.awt.image.BufferedImage;
 
-import com.jackmeng.const_Global;
+import com.jackmeng.const_Core;
 import com.jackmeng.core.abst.impl_Identifiable;
 import com.jackmeng.sys.pstream;
-import com.jackmeng.sys.use_Chronos;
 import com.jackmeng.sys.use_FSys;
+import com.jackmeng.util.use_Chronos;
 
 public class use_ClientProfile
     implements
@@ -46,7 +46,8 @@ public class use_ClientProfile
     {
       pstream.log.warn("Failed to load...\nRequirements:\nTime (lfloat): Found: " + tr[1] + " Requires: (lfloat)");
     }
-    return new use_ClientProfile(false, location, tr[0], Float.parseFloat(tr[1]));
+    return new use_ClientProfile(false, location, tr[0].isBlank() ? System.getProperty("user.name") : tr[0],
+        Float.parseFloat(tr[1]));
   }
 
   private use_ClientProfile(boolean locked, String saveLocation, String name, float totalTimeUsed)
@@ -76,6 +77,11 @@ public class use_ClientProfile
     return currentTimeUsed_Minutes;
   }
 
+  public String getUser_Name()
+  {
+    return name;
+  }
+
   public float exposeTotalHours()
   {
     return totalTimeUsed_Hours;
@@ -103,7 +109,7 @@ public class use_ClientProfile
   {
     if (!locked)
     {
-      const_Global.schedule_secondary_task(new TimerTask() {
+      const_Core.schedule_secondary_task(new TimerTask() {
         private float s = System.currentTimeMillis();
 
         @Override

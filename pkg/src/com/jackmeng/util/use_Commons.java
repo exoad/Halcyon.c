@@ -55,6 +55,10 @@ public final class use_Commons
     return sb.toString();
   }
 
+  public static String normalize_string(String e)
+  {
+    return e.substring(0, 1).toUpperCase() + e.substring(1, e.length() - 1).toLowerCase();
+  }
 
   public static boolean is_generic(Class< ? > c)
   {
@@ -65,7 +69,6 @@ public final class use_Commons
   {
     return s == null || s.isBlank() || s.isEmpty() || s.length() == 0;
   }
-
 
   public static Number round_off_bd(Number e, int amount)
   {

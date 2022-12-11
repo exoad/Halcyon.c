@@ -2,7 +2,7 @@ package com.jackmeng.core.gui;
 
 import javax.swing.JPanel;
 
-import com.jackmeng.const_Global;
+import com.jackmeng.const_Core;
 import com.jackmeng.util.use_Color;
 
 import java.awt.*;
@@ -14,7 +14,7 @@ public final class dgui_DebugPanel
 {
 
   {
-    const_Global.schedule_secondary_task(new TimerTask() {
+    const_Core.schedule_secondary_task(new TimerTask() {
 
       @Override
       public void run()

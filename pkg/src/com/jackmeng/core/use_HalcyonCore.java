@@ -1,7 +1,7 @@
 package com.jackmeng.core;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJTheme;
-import com.jackmeng.const_Global;
+import com.jackmeng.const_Core;
 import com.jackmeng.core.gui.const_ColorManager;
 import com.jackmeng.core.gui.const_ResourceManager;
 import com.jackmeng.sys.pstream;
@@ -250,7 +250,7 @@ public final class use_HalcyonCore
     UIManager.getDefaults()
         .addResourceBundle("com.jackmeng.include.locale.HalcyonLang_" + language.getLocale());
 
-    const_Global.schedule_task(new TimerTask() {
+    const_Core.schedule_task(new TimerTask() {
 
       @Override
       public void run()
@@ -258,15 +258,15 @@ public final class use_HalcyonCore
         use_HalcyonFolder.FOLDER.master_save();
       }
 
-    }, 1000L, 3500L);
+    }, 50L, 2500L);
 
-    const_Global.schedule_task(new TimerTask() {
+    const_Core.schedule_task(new TimerTask() {
 
       @Override
       public void run()
       {
         ArrayList< use_TailwindPlaylist > e = new ArrayList<>();
-        const_Global.PLAY_LIST_POOL.forEach(x -> {
+        const_Core.PLAY_LIST_POOL.forEach(x -> {
           File f = new File(x.getParent());
           if (!f.exists() || !f.isDirectory() || f.isHidden())
           {
@@ -274,10 +274,10 @@ public final class use_HalcyonCore
             pstream.log.warn("Found a phantom playlist. Subject to removal: " + x.getParent());
           }
         });
-        e.forEach(const_Global.PLAY_LIST_POOL::removePoolObj);
+        e.forEach(const_Core.PLAY_LIST_POOL::removePoolObj);
       }
 
-    }, 1000L, 2500L);
+    }, 0L, 1500L);
 
     LogManager.getLogManager().reset();
   }

@@ -1,12 +1,10 @@
-package com.jackmeng.core.gui.childs;
+package com.jackmeng.core.gui;
 
 import static com.jackmeng.core.gui.const_Lang.*;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import com.jackmeng.core.gui.const_ColorManager;
-import com.jackmeng.core.gui.gui_HalcyonGenericWindow;
 import com.jackmeng.util.use_ResourceFetcher;
 
 public class dgui_HalcyonConfirmWindow

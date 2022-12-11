@@ -13,7 +13,7 @@ import java.awt.event.*;
 import java.util.Optional;
 
 import com.jackmeng.Halcyon;
-import com.jackmeng.const_Global;
+import com.jackmeng.const_Core;
 import com.jackmeng.core.abst.evnt_WindowFocusAdapter;
 import com.jackmeng.core.abst.impl_App;
 import com.jackmeng.core.abst.impl_HalcyonRefreshable;
@@ -56,7 +56,7 @@ public class gui_HalcyonMoreApps
     / dont add two motion listeners to a single frame!! this causes the frame to glitch when resized /
     / (when registered to a component resizer)                                                       /
     /-----------------------------------------------------------------------------------------------*/
-    const_Global.APPS_POOL.addRefreshable(this);
+    const_Core.APPS_POOL.addRefreshable(this);
 
     panel = new JPanel();
     panel.setLayout(new FlowLayout(FlowLayout.CENTER));

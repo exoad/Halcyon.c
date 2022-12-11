@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Properties;
 import java.util.TimerTask;
 
-import com.jackmeng.const_Global;
+import com.jackmeng.const_Core;
 import com.jackmeng.core.abst.impl_ForYou;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_FSys;
@@ -78,7 +78,7 @@ public final class use_HalcyonFolder
     usr_proc = use_ClientProfile.load_instance(halcyonfolder_Content.USER_PROFILE_CLIENT_f.val);
     check();
     usr_proc.run();
-    const_Global.schedule_task(new TimerTask() {
+    const_Core.schedule_task(new TimerTask() {
 
       @Override
       public void run()
@@ -243,11 +243,11 @@ public final class use_HalcyonFolder
       log(e1);
     }
     StringBuilder sb = new StringBuilder();
-    for (use_TailwindPlaylist e : const_Global.PLAY_LIST_POOL)
+    for (use_TailwindPlaylist e : const_Core.PLAY_LIST_POOL)
       sb.append(e.getParent() + new String(DELIMITER));
     pUsr.setProperty("playlists", sb.toString());
     sb.setLength(0);
-    for (use_TailwindTrack e : const_Global.LIKE_LIST_POOL)
+    for (use_TailwindTrack e : const_Core.LIKE_LIST_POOL)
     {
       pstream.log.warn("Saving playlist (APPEND): " + e.id());
       sb.append(e.id() + new String(DELIMITER));
@@ -286,7 +286,7 @@ public final class use_HalcyonFolder
         if (f.isDirectory() && f.exists())
         {
           pstream.log.warn("PLAYLIST INVOKE: " + r);
-          const_Global.append_to_Playlist(r);
+          const_Core.append_to_Playlist(r);
         }
       }
     }
@@ -299,7 +299,7 @@ public final class use_HalcyonFolder
         if (f.isFile() && f.exists())
         {
           pstream.log.warn("LIKED INVOKE: " + r);
-          const_Global.append_to_liked(r);
+          const_Core.append_to_liked(r);
         }
       }
     }

@@ -1,14 +1,10 @@
-package com.jackmeng.core.gui.childs;
+package com.jackmeng.core.gui;
 
-import com.jackmeng.const_Global;
+import com.jackmeng.const_Core;
 import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.core.use_HalcyonFolder;
 import com.jackmeng.core.abst.impl_App;
 import com.jackmeng.core.abst.impl_HalcyonRefreshable;
-import com.jackmeng.core.gui.const_Manager;
-import com.jackmeng.core.gui.const_ResourceManager;
-import com.jackmeng.core.gui.gui_HalcyonMoreApps;
-import com.jackmeng.core.gui.gui_HalcyonPlaylistSelect;
 import com.jackmeng.core.ploogin.impl_Ploogin;
 import com.jackmeng.core.use_HalcyonFolder.halcyonfolder_Content;
 import com.jackmeng.sys.pstream;
@@ -53,11 +49,11 @@ public class dgui_HalcyonApps
                                                                                              // when u are still
                                                                                              // constructing that obj
               ".");
-          fileChooser.setListener(const_Global::append_to_Playlist);
+          fileChooser.setListener(const_Core::append_to_Playlist);
         }, x -> { // default promise
           fileChooser = x == null ? new gui_HalcyonPlaylistSelect(use_HalcyonCore.getInheritableFrame(),
               ".") : x;
-          fileChooser.setListener(const_Global::append_to_Playlist);
+          fileChooser.setListener(const_Core::append_to_Playlist);
         });
 
     Runtime.getRuntime()
@@ -70,7 +66,7 @@ public class dgui_HalcyonApps
     setPreferredSize(new Dimension(const_Manager.DGUI_APPS_WIDTH, const_Manager.FRAME_MIN_HEIGHT / 2));
     setMinimumSize(getPreferredSize());
     setMaximumSize(new Dimension(const_Manager.DGUI_APPS_WIDTH + 20, const_Manager.FRAME_MIN_HEIGHT / 2));
-    const_Global.APPS_POOL.addRefreshable(this);
+    const_Core.APPS_POOL.addRefreshable(this);
     setPreferredSize(new Dimension(const_Manager.DGUI_APPS_WIDTH, const_Manager.FRAME_MIN_HEIGHT / 2));
     setMinimumSize(getPreferredSize());
     setMaximumSize(new Dimension(const_Manager.DGUI_APPS_WIDTH + 20, const_Manager.FRAME_MIN_HEIGHT / 2));
@@ -87,35 +83,35 @@ public class dgui_HalcyonApps
     // =========================================================================
     // This part designates the default created pool of apps to be added
     // =========================================================================
-    const_Global.APPS_POOL.addPoolObject(
+    const_Core.APPS_POOL.addPoolObject(
         make_DefaultApp(_lang(LANG_APPS_ADD_PLAYLIST_TOOLTIP), fileChooser,
             const_ResourceManager.DGUI_APPS_ADD_PLAYLIST));
-    const_Global.APPS_POOL.addPoolObject(
+    const_Core.APPS_POOL.addPoolObject(
         make_DefaultApp(_lang(LANG_APPS_OPEN_LIKED_LIST), use_HalcyonCore::do_nothing,
             const_ResourceManager.DGUI_APPS_PLAYER_LIKED_MUSIC));
-    const_Global.APPS_POOL.addPoolObject(
+    const_Core.APPS_POOL.addPoolObject(
         make_DefaultApp(_lang(LANG_APPS_AUDIO_CTRLERS), use_HalcyonCore::do_nothing,
             const_ResourceManager.DGUI_APPS_AUDIO_CTRLER));
-    const_Global.APPS_POOL.addPoolObject(
+    const_Core.APPS_POOL.addPoolObject(
         make_DefaultApp(_lang(LANG_APPS_OPEN_MINI_PLAYER), use_HalcyonCore::do_nothing,
             const_ResourceManager.DGUI_APPS_MINI_PLAYER));
-    const_Global.APPS_POOL.addPoolObject(
+    const_Core.APPS_POOL.addPoolObject(
         make_DefaultApp(
             _lang(LANG_APPS_OPEN_SETTINGS), use_HalcyonCore::do_nothing,
             const_ResourceManager.DGUI_APPS_PLAYER_SETTINGS));
-    const_Global.APPS_POOL.addPoolObject(
+    const_Core.APPS_POOL.addPoolObject(
         make_DefaultApp(
             _lang(LANG_APPS_PLAYLIST_VIEWER), use_HalcyonCore::do_nothing,
             const_ResourceManager.DGUI_APPS_PLAYER_LISTVIEW));
-    const_Global.APPS_POOL.addPoolObject(
+    const_Core.APPS_POOL.addPoolObject(
         make_DefaultApp(
             _lang(LANG_APPS_REFRESH_PLAYLISTS), use_HalcyonCore::do_nothing,
             const_ResourceManager.DGUI_APPS_PLAYER_REFRESH));
-    const_Global.APPS_POOL.addPoolObject(
+    const_Core.APPS_POOL.addPoolObject(
         make_DefaultApp(
             _lang(LANG_APPS_INFO), use_HalcyonCore::do_nothing,
             const_ResourceManager.DGUI_APPS_PLAYER_INFO));
-    const_Global.APPS_POOL.addPoolObject(
+    const_Core.APPS_POOL.addPoolObject(
         make_DefaultApp(_lang(LANG_APPS_VIEW_MORE), apps,
             const_ResourceManager.DGUI_APPS_PLAYER_MOREAPPS));
     /*---------------------------------------------- /
@@ -225,6 +221,6 @@ public class dgui_HalcyonApps
   @Override
   public void dry_refresh()
   {
-    const_Global.APPS_POOL.objs().forEach(x -> addApp(const_Global.APPS_POOL.get(x)));
+    const_Core.APPS_POOL.objs().forEach(x -> addApp(const_Core.APPS_POOL.get(x)));
   }
 }

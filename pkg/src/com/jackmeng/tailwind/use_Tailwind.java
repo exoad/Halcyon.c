@@ -21,6 +21,7 @@ import com.jackmeng.core.abst.impl_Identifiable;
 import com.jackmeng.core.abst.use_MastaTemp;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
+import com.jackmeng.util.const_Commons;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
 public class use_Tailwind
@@ -62,8 +63,11 @@ public class use_Tailwind
     statusListener = new ArrayList<>();
     add_status_listener(x -> {
       pstream.log.warn("TAILWIND_PLAYER#" + this.hashCode() + ": IS_" + x.name());
+      compareStatus = x;
       // compareStatus = x.name().startsWith("FAILED") ? null : calculate_status();
     });
+
+    Runtime.getRuntime().addShutdownHook(new Thread(this::masta_drainage)); // safe resource juggling
     /*----------------------------------------------------------------------------------------------------- /
     / const_Global.schedule_secondary_task(new TimerTask() {                                                /
     /                                                                                                       /
@@ -212,14 +216,13 @@ public class use_Tailwind
               totalPausedTime += (resumeTime - pauseTime);
               sourceLine.start();
             }
-
+            if (bytes_read == const_Commons.EOF)
+              break;
             sourceLine.write(buffer, 0, bytes_read);
             currentFrame += bytes_read / frame_size_bytes;
           }
           isPlaying = false;
-          sourceLine.drain();
-          sourceLine.stop();
-          sourceLine.close();
+          masta_drainage();
           ais.close();
         } catch (IOException | LineUnavailableException exception)
         {
@@ -229,6 +232,17 @@ public class use_Tailwind
       bernard.setPriority(Thread.MAX_PRIORITY);
       bernard.start();
       run_ping(tailwind_Status.PLAYING);
+    }
+  }
+
+  private void masta_drainage() // template method used for play()
+  {
+    if (sourceLine != null)
+    {
+      sourceLine.drain();
+      sourceLine.stop();
+      sourceLine.close();
+      run_ping(tailwind_Status.CLOSED);
     }
   }
 
@@ -366,6 +380,11 @@ public class use_Tailwind
         gain = (float) (Math.log(percent) / Math.log(10.0D) * 20.0D);
     gain = minima + (maxima - minima) * gain / 100F;
     ((FloatControl) sourceLine.getControl(FloatControl.Type.MASTER_GAIN)).setValue(gain);
+  }
+
+  public final tailwind_Status state()
+  {
+    return compareStatus;
   }
 
   @Override

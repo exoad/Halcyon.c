@@ -1,24 +1,21 @@
-package com.jackmeng.core.gui.childs;
+package com.jackmeng.core.gui;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;
 
-import com.jackmeng.const_Global;
+import com.jackmeng.const_Core;
 import com.jackmeng.core.const_MUTableKeys;
 import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.core.abst.evnt_SelectPlaylistTrack;
 import com.jackmeng.core.abst.use_MastaTemp;
 import com.jackmeng.core.abst.impl_Callback.callback_Specific;
-import com.jackmeng.core.gui.const_ColorManager;
-import com.jackmeng.core.gui.const_Manager;
-import com.jackmeng.core.gui.const_ResourceManager;
-import com.jackmeng.core.gui.dgui_DebugPanel;
-import com.jackmeng.core.gui.gui_LazyLoadingPanel;
 import com.jackmeng.sys.pstream;
-import com.jackmeng.sys.use_Chronos;
+import com.jackmeng.tailwind.evnt_TailwindStatus;
+import com.jackmeng.tailwind.use_Tailwind.tailwind_Status;
 import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
+import com.jackmeng.util.use_Chronos;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_Image;
 import com.jackmeng.util.use_ResourceFetcher;
@@ -41,8 +38,7 @@ public class dgui_HalcyonTop
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH,
           (const_Manager.DGUI_TOP + 50) / 2));
       setLayout(new GridLayout(1, 2, 15, ((const_Manager.DGUI_TOP + 50) / 2) / 2));
-      setOpaque(true);
-      setBackground(Color.BLUE);
+      setOpaque(false);
 
       infoDisplayer = new JPanel();
       infoDisplayer.setLayout(new BoxLayout(infoDisplayer, BoxLayout.Y_AXIS));
@@ -82,7 +78,7 @@ public class dgui_HalcyonTop
       add(artwork);
       add(infoDisplayer);
 
-      const_Global.SELECTION_LISTENERS.add_listener(this);
+      const_Core.SELECTION_LISTENERS.add_listener(this);
     }
 
     @Override
@@ -137,6 +133,8 @@ public class dgui_HalcyonTop
   public static final class halcyonTop_Buttons
       extends
       JPanel
+      implements
+      evnt_TailwindStatus
   {
 
     private static class buttons_Funcs
@@ -190,20 +188,20 @@ public class dgui_HalcyonTop
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP - 50) / 2));
       setMinimumSize(getPreferredSize());
       setLayout(new GridLayout(2, 1));
-      setOpaque(true);
+      setOpaque(false);
 
       JPanel mastaJP = new JPanel();
-      mastaJP.setOpaque(true);
-      mastaJP.setBackground(Color.PINK);
       mastaJP.setPreferredSize(new Dimension(getPreferredSize().width, getPreferredSize().height / 2));
-      mastaJP.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
+      mastaJP.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 0));
 
       playPause_Button = new buttons_Funcs(
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_PLAY_TRACK,
               const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH + 15, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH + 15),
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_PAUSE_TRACK,
               const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH + 15, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH + 15),
-          use_MastaTemp::returnTrue);
+          x -> {
+            return x && const_Core.PLAYER.expose().state() == tailwind_Status.PLAYING;
+          });
       trackInfo_Button = new buttons_Funcs(
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_TRACK_INFORMATION,
               const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
@@ -245,7 +243,14 @@ public class dgui_HalcyonTop
       mastaJP.add(loopTrack_Button);
 
       add(mastaJP);
-      add(new dgui_DebugPanel());
+      add(new JPanel());
+    }
+
+    @Override
+    public void forYou(tailwind_Status e)
+    {
+      // TODO Auto-generated method stub
+
     }
   }
 
@@ -258,13 +263,17 @@ public class dgui_HalcyonTop
     setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
     setLayout(new OverlayLayout(this));
 
+    JComponent e = new halcyonTop_Info(), x = new halcyonTop_Buttons();
+
+    e.setAlignmentX(Component.CENTER_ALIGNMENT);
+    x.setAlignmentX(Component.CENTER_ALIGNMENT);
+
     JPanel copy = new JPanel();
     copy.setPreferredSize(getPreferredSize());
     copy.setOpaque(false);
-    copy.setLayout(new BorderLayout());
-    copy.add(new halcyonTop_Info(), BorderLayout.NORTH);
-    copy.add(new halcyonTop_Buttons(), BorderLayout.SOUTH);
-    copy.setAlignmentX(Component.CENTER_ALIGNMENT);
+    copy.setLayout(new BoxLayout(copy, BoxLayout.Y_AXIS));
+    copy.add(e);
+    copy.add(x);
 
     bgPanel = new JPanel() {
       @Override
@@ -278,11 +287,12 @@ public class dgui_HalcyonTop
     add(copy);
     add(bgPanel);
 
-    const_Global.SELECTION_LISTENERS.add_listener(this);
+    const_Core.SELECTION_LISTENERS.add_listener(this);
   }
 
   @Override
   public void forYou(use_TailwindTrack e)
   {
+
   }
 }

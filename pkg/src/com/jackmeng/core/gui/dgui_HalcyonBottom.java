@@ -1,15 +1,12 @@
-package com.jackmeng.core.gui.childs;
+package com.jackmeng.core.gui;
 
-import com.jackmeng.const_Global;
+import com.jackmeng.const_Core;
 import com.jackmeng.core.const_MUTableKeys;
 import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.core.abst.evnt_RemoveTab;
 import com.jackmeng.core.abst.evnt_SelectPlaylistTrack;
 import com.jackmeng.core.abst.impl_Guard;
 import com.jackmeng.core.abst.impl_HalcyonRefreshable;
-import com.jackmeng.core.gui.const_ColorManager;
-import com.jackmeng.core.gui.const_Manager;
-import com.jackmeng.core.gui.const_ResourceManager;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.sys.use_Task;
 import com.jackmeng.tailwind.use_TailwindPlaylist;
@@ -196,13 +193,13 @@ public class dgui_HalcyonBottom
       /*-------------------------------------------------------------------------- /
       / this should be at bottom to avoid NULLABLE swing components being called!! /
       /---------------------------------------------------------------------------*/
-      const_Global.PLAY_LIST_POOL.addRefreshable(this);
+      const_Core.PLAY_LIST_POOL.addRefreshable(this);
 
-      const_Global.PLAY_LIST_POOL.setGuard(new impl_Guard< use_TailwindPlaylist >() {
+      const_Core.PLAY_LIST_POOL.setGuard(new impl_Guard< use_TailwindPlaylist >() {
         @Override
         public boolean check(use_TailwindPlaylist e)
         {
-          if (const_Global.PLAY_LIST_POOL.hasObj(e))
+          if (const_Core.PLAY_LIST_POOL.hasObj(e))
           {
             pstream.log.warn("I HAVE THIS PLAYLIST ADDED!!!");
             for (int i = 0; i < pane.getTabCount(); i++)
@@ -231,7 +228,7 @@ public class dgui_HalcyonBottom
       /     new use_StubPlaylist(new playlist_Traits(true, false, true, false), _lang(LANG_PLAYLIST_DEFAULT_LIKED_TITLE), new String[0], /
       /         use_HalcyonProperties.acceptedEndings()));                                                               /
       /-----------------------------------------------------------------------------------------------------------------*/
-      const_Global.SELECTION_LISTENERS.add_listener(this);
+      const_Core.SELECTION_LISTENERS.add_listener(this);
     }
 
     /**
@@ -318,7 +315,7 @@ public class dgui_HalcyonBottom
                   last = f;
 
                 use_TailwindTrack er = new use_TailwindTrack(f);
-                use_Task.run_Snb_1(() -> const_Global.SELECTION_LISTENERS.forEach(x -> x.forYou(er)));
+                use_Task.run_Snb_1(() -> const_Core.SELECTION_LISTENERS.forEach(x -> x.forYou(er)));
                 last = f;
               }
             }
@@ -340,7 +337,7 @@ public class dgui_HalcyonBottom
       {
         filelist_TabButtons buttons = new filelist_TabButtons(list.getCanonicalParent_1(), () -> {
           guiTrees.remove(list.id());
-          const_Global.PLAY_LIST_POOL.removePoolObject_ID(list.id());
+          const_Core.PLAY_LIST_POOL.removePoolObject_ID(list.id());
         });
         pane.setTabComponentAt(pane.getTabCount() - 1, buttons);
       }
@@ -378,8 +375,8 @@ public class dgui_HalcyonBottom
     @Override
     public void dry_refresh()
     {
-      const_Global.PLAY_LIST_POOL.objs().forEach(
-          x -> pokeFileList(const_Global.PLAY_LIST_POOL.get(x)));
+      const_Core.PLAY_LIST_POOL.objs().forEach(
+          x -> pokeFileList(const_Core.PLAY_LIST_POOL.get(x)));
     }
 
     @Override

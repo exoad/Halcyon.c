@@ -14,37 +14,43 @@ public final class use_TailwindFeeder
     this.player = e;
   }
 
+
   public use_TailwindFeeder()
   {
     this(new use_Tailwind());
   }
 
+  public final synchronized use_Tailwind expose()
+  {
+    return player;
+  }
+
   @Override
-  public String id()
+  public final String id()
   {
     return this.getClass().getCanonicalName();
   }
 
   @Override
-  public void play()
+  public final synchronized void play()
   {
     player.play();
   }
 
   @Override
-  public void pause()
+  public final synchronized void pause()
   {
     player.pause();
   }
 
   @Override
-  public void close()
+  public final synchronized void close()
   {
     player.close();
   }
 
   @Override
-  public long time_ms()
+  public final synchronized long time_ms()
   {
     return player.time_ms();
   }

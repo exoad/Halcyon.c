@@ -3,10 +3,12 @@ package com.jackmeng;
 import com.jackmeng.core.const_MUTableKeys;
 import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.core.use_HalcyonFolder;
+import com.jackmeng.core.gui.dgui_HalcyonBottom;
+import com.jackmeng.core.gui.dgui_HalcyonTop;
 import com.jackmeng.core.gui.gui_HalcyonFrame;
-import com.jackmeng.core.gui.childs.dgui_HalcyonBottom;
-import com.jackmeng.core.gui.childs.dgui_HalcyonTop;
 import com.jackmeng.sys.*;
+import com.jackmeng.util.use_Chronos;
+import com.jackmeng.util.use_Commons;
 import com.test.Test;
 
 import java.io.File;
@@ -74,7 +76,11 @@ public final class Halcyon
          /*--------------- /
          / startup process /
          /----------------*/
-         pstream.log.info("Hello world! (Now loading:) Booting Halcyon (" + use_Program.pid_2() + ")");
+         pstream.log
+               .log(new use_AnsiStrConstr(new use_AnsiColors[] { use_AnsiColors.MAGENTA_BG, use_AnsiColors.WHITE_TXT },
+                     new String[] {
+                           "Good " + use_Commons.normalize_string(use_Chronos.right_now().name() + ", "
+                                 + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name()) }));
          final long time = System.currentTimeMillis();
          try
          {
