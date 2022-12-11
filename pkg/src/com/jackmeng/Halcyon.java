@@ -17,14 +17,18 @@ import java.io.File;
 
 public final class Halcyon
 {
-
    static
    {
       System.setProperty("sun.java2d.noddraw", "true");
       System.setProperty("sun.java2d.d3d", "false");
+      System.setProperty("sun.java2d.opengl", "true");
+      System.setProperty("sun.java2d.ddforcevram", "true");
+      System.setProperty("sun.java2d.xrender", "true");
    }
 
-   public static void __LINK__()
+   private static boolean linked = false;
+
+   public static void __LINK__() // MASTA FUNCTION TO CALL
    {
       File r = new File("hlib/");
       System.setProperty("java.library.path", r.getAbsolutePath());
@@ -39,6 +43,12 @@ public final class Halcyon
          System.load(t.getAbsolutePath());
       }
       System.out.println("===================LINK DONE===================");
+      linked = true;
+   }
+
+   public static boolean is_linked()
+   {
+      return linked;
    }
 
    public static gui_HalcyonFrame main;

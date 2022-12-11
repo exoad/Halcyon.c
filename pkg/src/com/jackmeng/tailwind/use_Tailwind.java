@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.sound.sampled.AudioFormat;
@@ -17,13 +16,11 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
-import com.jackmeng.const_Global;
 import com.jackmeng.core.abst.impl_ForYou;
 import com.jackmeng.core.abst.impl_Identifiable;
 import com.jackmeng.core.abst.use_MastaTemp;
 import com.jackmeng.sys.pstream;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
-import com.jackmeng.util.const_Commons;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
 public class use_Tailwind
@@ -48,6 +45,7 @@ public class use_Tailwind
   private transient AudioInputStream ais;
   private transient AudioFormat af;
   private transient SourceDataLine sourceLine;
+  private transient Thread bernard;
   private transient tailwind_Status compareStatus = null; // a default ultimas status is "null"
   private volatile boolean isPlaying = false;
   private volatile boolean isPaused = false;
@@ -64,23 +62,25 @@ public class use_Tailwind
     statusListener = new ArrayList<>();
     add_status_listener(x -> {
       pstream.log.warn("TAILWIND_PLAYER#" + this.hashCode() + ": IS_" + x.name());
-      compareStatus = x.name().startsWith("FAILED") ? null : calculate_status();
+      // compareStatus = x.name().startsWith("FAILED") ? null : calculate_status();
     });
-    const_Global.schedule_secondary_task(new TimerTask() {
-
-      @Override
-      public void run()
-      {
-        if (compareStatus != null)
-        {
-          compareStatus = !compareStatus.equals(calculate_status()) ? calculate_status() : compareStatus;
-          if (compareStatus.equals(calculate_status()))
-            run_ping(compareStatus);
-        }
-        else compareStatus = calculate_status();
-      }
-
-    }, 1000L, 4500L);
+    /*----------------------------------------------------------------------------------------------------- /
+    / const_Global.schedule_secondary_task(new TimerTask() {                                                /
+    /                                                                                                       /
+    /   @Override                                                                                           /
+    /   public void run()                                                                                   /
+    /   {                                                                                                   /
+    /     if (compareStatus != null)                                                                        /
+    /     {                                                                                                 /
+    /       compareStatus = !compareStatus.equals(calculate_status()) ? calculate_status() : compareStatus; /
+    /       if (compareStatus.equals(calculate_status()))                                                   /
+    /         run_ping(compareStatus);                                                                      /
+    /     }                                                                                                 /
+    /     else compareStatus = calculate_status();                                                          /
+    /   }                                                                                                   /
+    /                                                                                                       /
+    / }, 1000L, 4500L);                                                                                     /
+    /------------------------------------------------------------------------------------------------------*/
   }
 
   public use_Tailwind(use_TailwindTrack e)
@@ -184,46 +184,50 @@ public class use_Tailwind
   {
     if (currentTrack != null && currentTrack.playable())
     {
-      try
-      {
-        ais = get_audio_inputstream(currentTrack.getContentFile().toURI().toURL());
-        af = ais.getFormat();
-        DataLine.Info inf = new DataLine.Info(SourceDataLine.class, af);
-        sourceLine = (SourceDataLine) AudioSystem.getLine(inf);
-        sourceLine.open(af);
-        int frame_size_bytes = af.getFrameSize(), buffer_length_frames = sourceLine.getBufferSize() / 8,
-            buffer_length_bytes = buffer_length_frames * frame_size_bytes;
-        byte[] buffer = new byte[buffer_length_bytes];
-        sourceLine.start();
-        isPlaying = true;
-        isPaused = false;
-        while (isPlaying && ais.available() > 0)
+      bernard = new Thread(() -> {
+        try
         {
-          int bytes_read = ais.read(buffer);
-          if (isPaused)
+          ais = get_audio_inputstream(currentTrack.getContentFile().toURI().toURL());
+          af = ais.getFormat();
+          DataLine.Info inf = new DataLine.Info(SourceDataLine.class, af);
+          sourceLine = (SourceDataLine) AudioSystem.getLine(inf);
+          sourceLine.open(af);
+          int frame_size_bytes = af.getFrameSize(), buffer_length_frames = sourceLine.getBufferSize() / 8,
+              buffer_length_bytes = buffer_length_frames * frame_size_bytes;
+          byte[] buffer = new byte[buffer_length_bytes];
+          sourceLine.start();
+          isPlaying = true;
+          isPaused = false;
+          int bytes_read;
+          while (isPlaying && !isPaused && sourceLine.isOpen()
+              && (bytes_read = ais.read(buffer)) != -1)
           {
-            pauseTime = System.currentTimeMillis();
-            sourceLine.stop();
-            while (isPaused)
-              Thread.yield();
-            resumeTime = System.currentTimeMillis();
-            totalPausedTime += (resumeTime - pauseTime);
-            sourceLine.start();
-          }
-          if (bytes_read == const_Commons.EOF)
-            break; // EOF
-          sourceLine.write(buffer, 0, bytes_read);
-          currentFrame += bytes_read / frame_size_bytes;
-        }
-        isPlaying = false;
-        sourceLine.drain();
-        sourceLine.close();
-        ais.close();
-      } catch (IOException | LineUnavailableException exception)
-      {
-        error_callback.forYou(new struct_Pair<>(tailwind_Status.FAILED_PLAY, exception));
-      }
+            if (isPaused)
+            {
+              pauseTime = System.currentTimeMillis();
+              sourceLine.stop();
+              while (isPaused)
+                Thread.yield();
+              resumeTime = System.currentTimeMillis();
+              totalPausedTime += (resumeTime - pauseTime);
+              sourceLine.start();
+            }
 
+            sourceLine.write(buffer, 0, bytes_read);
+            currentFrame += bytes_read / frame_size_bytes;
+          }
+          isPlaying = false;
+          sourceLine.drain();
+          sourceLine.stop();
+          sourceLine.close();
+          ais.close();
+        } catch (IOException | LineUnavailableException exception)
+        {
+          error_callback.forYou(new struct_Pair<>(tailwind_Status.FAILED_PLAY, exception));
+        }
+      });
+      bernard.setPriority(Thread.MAX_PRIORITY);
+      bernard.start();
       run_ping(tailwind_Status.PLAYING);
     }
   }
