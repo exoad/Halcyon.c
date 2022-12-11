@@ -2,6 +2,7 @@ package com.jackmeng.core.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.*;
 
 import com.jackmeng.const_Core;
@@ -141,13 +142,15 @@ public class dgui_HalcyonTop
         extends
         JButton
     {
-
+      private ImageIcon a, b;
       private boolean rolled = false;
 
-      public buttons_Funcs(ImageIcon normal, ImageIcon rollover, callback_Specific< Boolean > rolloverGuard)
+      public buttons_Funcs(ImageIcon normal, ImageIcon rollover, callback_Specific< Boolean > rolloverGuard,
+          ActionListener e)
       {
         assert normal != null;
-
+        this.a = normal;
+        this.b = rollover;
         setBorder(null); // REST ASSURED YESSIR! o7
         setContentAreaFilled(false);
         setRolloverEnabled(false);
@@ -163,7 +166,12 @@ public class dgui_HalcyonTop
             }
           });
         }
-        repaint();
+      }
+
+      public void set_rolled(boolean isRolled)
+      {
+        rolled = isRolled;
+        setIcon(isRolled ? b : a);
       }
 
       /*------------------------------------------------------------------------------------------------- /
@@ -201,38 +209,41 @@ public class dgui_HalcyonTop
               const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH + 15, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH + 15),
           x -> {
             return x && const_Core.PLAYER.expose().state() == tailwind_Status.PLAYING;
-          });
+          }, use_MastaTemp::doNothing);
+
+
+
       trackInfo_Button = new buttons_Funcs(
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_TRACK_INFORMATION,
               const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
           null,
-          use_MastaTemp::returnTrue);
+          use_MastaTemp::returnTrue, use_MastaTemp::doNothing);
       nextTrack_Button = new buttons_Funcs(
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_NEXT_TRACK,
               const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
           null,
-          use_MastaTemp::returnTrue);
+          use_MastaTemp::returnTrue, use_MastaTemp::doNothing);
       lastTrack_Button = new buttons_Funcs(
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_PREVIOUS_TRACK,
               const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
           null,
-          use_MastaTemp::returnTrue);
+          use_MastaTemp::returnTrue, use_MastaTemp::doNothing);
       loopTrack_Button = new buttons_Funcs(
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_LOOP_PLAYSTYLE,
               const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
           null,
-          use_MastaTemp::returnTrue);
+          use_MastaTemp::returnTrue, use_MastaTemp::doNothing);
       shufflePlaystyle_Button = new buttons_Funcs(
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_SHUFFLE_PLAYSTYLE,
               const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
           null,
-          use_MastaTemp::returnTrue);
+          use_MastaTemp::returnTrue, use_MastaTemp::doNothing);
       likeTrack_Button = new buttons_Funcs(
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_UNLIKE_TRACK,
               const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_LIKE_TRACK,
               const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
-          use_MastaTemp::returnTrue);
+          use_MastaTemp::returnTrue, use_MastaTemp::doNothing);
 
       mastaJP.add(trackInfo_Button);
       mastaJP.add(likeTrack_Button);
@@ -242,15 +253,16 @@ public class dgui_HalcyonTop
       mastaJP.add(shufflePlaystyle_Button);
       mastaJP.add(loopTrack_Button);
 
+      const_Core.PLAYER.expose().add_status_listener(this);
+
       add(mastaJP);
       add(new JPanel());
     }
 
     @Override
-    public void forYou(tailwind_Status e)
+    public void tailwind_status(tailwind_Status e)
     {
-      // TODO Auto-generated method stub
-
+      playPause_Button.set_rolled(e == tailwind_Status.PLAYING);
     }
   }
 
