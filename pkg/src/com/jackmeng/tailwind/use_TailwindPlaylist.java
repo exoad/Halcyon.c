@@ -9,6 +9,17 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.*;
 
+/**
+ * A semi-modifiable representation of a list of use_TailwindTracks.
+ * <br>
+ * Most of the time it could be representative of real physical data on the hard
+ * disk
+ * or custom created lists created during runtime (e.g. LikedTracksList,
+ * TracksBlackList). In turn, this class provides extensive functionalities
+ * for controlling data within these lists and offloading when necessary.
+ *
+ * @author Jack Meng
+ */
 public class use_TailwindPlaylist
     implements
     Iterable< String >,

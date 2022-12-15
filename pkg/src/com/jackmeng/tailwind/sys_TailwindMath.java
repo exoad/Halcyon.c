@@ -1,5 +1,11 @@
 package com.jackmeng.tailwind;
 
+/**
+ * Native Audio Processing. Used in conjunction
+ * with libsys_TailwindMath
+ *
+ * @author Jack Meng
+ */
 public final class sys_TailwindMath
 {
   private sys_TailwindMath()

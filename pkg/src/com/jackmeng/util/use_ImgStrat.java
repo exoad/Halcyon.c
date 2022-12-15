@@ -9,6 +9,12 @@ import java.awt.image.ColorModel;
 import java.util.Collections;
 import java.awt.MultipleGradientPaint.CycleMethod;
 
+/**
+ * A set of BufferedImageOp for GUI or other general purpose
+ * filtering and layering processings.
+ *
+ * @author Jack Meng
+ */
 public final class use_ImgStrat
 {
   private use_ImgStrat()

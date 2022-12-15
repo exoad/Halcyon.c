@@ -14,6 +14,13 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * Java based Image processing & manipulation general functionality class.
+ *
+ * Use the native sys_ImageProcessor for extra functionalities
+ *
+ * @author Jack Meng
+ */
 public class use_Image
 {
   protected use_Image()

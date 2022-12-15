@@ -12,6 +12,11 @@ import java.util.Arrays;
 / library CloudSpin                                        /
 /---------------------------------------------------------*/
 
+/**
+ * A blurring to hash implementation in Java
+ *
+ * @author Jack Meng
+ */
 public final class use_Blurhash
 {
 

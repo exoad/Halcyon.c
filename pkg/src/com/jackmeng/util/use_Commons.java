@@ -3,6 +3,12 @@ package com.jackmeng.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * Common & primitive manipulation and functionality
+ * functions.
+ *
+ * @author Jack Meng
+ */
 public final class use_Commons
 {
   private use_Commons()

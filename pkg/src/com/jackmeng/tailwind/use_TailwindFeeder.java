@@ -16,6 +16,17 @@ import com.jackmeng.core.abst.impl_Identifiable;
 import com.jackmeng.tailwind.use_Tailwind.tailwind_Status;
 import com.jackmeng.util.use_LooseList;
 
+/*---------------------------------------------------------------------------------- /
+/ a feeder uses a LIFO style for its history compression model, however there are no /
+/ modification values only initial write and initial read and read after             /
+/-----------------------------------------------------------------------------------*/
+
+/**
+ * LIFO Write once Read Only Data Processing Class
+ * targetted specifically for quick audio management on a large scale
+ *
+ * @author Jack Meng
+ */
 public final class use_TailwindFeeder
     implements
     impl_Identifiable,

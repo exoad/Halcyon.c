@@ -4,6 +4,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Functionality class dealing with time
+ *
+ * @author Jack Meng
+ */
 public final class use_Chronos
 {
   private use_Chronos()

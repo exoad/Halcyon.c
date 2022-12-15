@@ -5,6 +5,11 @@ import com.jackmeng.util.use_Struct.struct_Trio;
 
 import java.awt.*;
 
+/**
+ * General Functionality class dealing with Color manipulation
+ *
+ * @author Jack Meng
+ */
 public final class use_Color
 {
   private use_Color()

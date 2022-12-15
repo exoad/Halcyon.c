@@ -32,6 +32,15 @@ import static com.jackmeng.core.gui.const_Lang.*;
 
 import java.awt.*;
 
+/**
+ * A very low level yet concrete definition of a MusicTrack which can be used
+ * and parsed by a impl_Tailwind implementation to read data acquired from this
+ * file.
+ * <br>
+ * NOTE: Data is not directly streamed from this object!
+ *
+ * @author Jack Meng
+ */
 public final class use_TailwindTrack
     implements
     impl_Identifiable,

@@ -1,9 +1,13 @@
 package com.jackmeng.tailwind;
 
+/**
+ * Lightweight components & specifications for a Tailwind Clone
+ *
+ * @author Jack Meng
+ */
 public abstract interface impl_Tailwind
 {
   public void play();
-
 
   public void pause();
 

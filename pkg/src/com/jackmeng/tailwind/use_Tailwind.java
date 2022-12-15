@@ -25,6 +25,12 @@ import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
 import com.jackmeng.util.const_Commons;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
+/**
+ * This is the main class that represents a Tailwind Player that
+ * is not natively implement
+ *
+ * @author Jack Meng
+ */
 public class use_Tailwind
     implements
     impl_Identifiable,
