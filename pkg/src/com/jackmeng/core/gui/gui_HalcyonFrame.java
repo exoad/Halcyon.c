@@ -637,13 +637,27 @@ public class gui_HalcyonFrame
         titleBar.add(titleBarStr, BorderLayout.CENTER);
         titleBar.add(btns, BorderLayout.EAST);
         titleBar.addMouseListener(new MouseAdapter() {
+
           @Override
           public void mouseClicked(MouseEvent e)
           {
             if (e.getClickCount() >= 2)
             {
               frame.setExtendedState(maximizedFrame ? Frame.NORMAL : Frame.MAXIMIZED_BOTH);
+
               maximizedFrame = !maximizedFrame;
+            }
+          }
+        });
+
+        titleBar.addMouseMotionListener(new MouseMotionAdapter() {
+          @Override
+          public void mouseDragged(MouseEvent e)
+          {
+            if (maximizedFrame)
+            {
+              frame.setExtendedState(Frame.NORMAL);
+              maximizedFrame = false;
             }
           }
         });

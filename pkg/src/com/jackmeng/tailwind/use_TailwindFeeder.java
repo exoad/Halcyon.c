@@ -58,7 +58,7 @@ public final class use_TailwindFeeder
 
     this.player.add_status_listener(this);
 
-    const_Core.schedule_secondary_task(new TimerTask() {
+    use_TailwindScheduler.submit_Task_General(new TimerTask() {
 
       @Override
       public void run()

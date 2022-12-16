@@ -126,6 +126,7 @@ public final class Halcyon
          Runtime.getRuntime().addShutdownHook(yan_wang);
       } catch (Exception e)
       {
+         System.out.println("==PROGRAM PANICKED==\nHere is what happened:");
          e.printStackTrace();
          use_HalcyonFolder.FOLDER.log(e);
          use_Program.error_gui(e);

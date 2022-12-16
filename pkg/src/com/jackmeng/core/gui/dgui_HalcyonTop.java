@@ -1,6 +1,9 @@
 package com.jackmeng.core.gui;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.basic.BasicProgressBarUI;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -190,17 +193,19 @@ public class dgui_HalcyonTop
     private final buttons_Funcs playPause_Button, trackInfo_Button, nextTrack_Button, lastTrack_Button,
         loopTrack_Button,
         shufflePlaystyle_Button, likeTrack_Button;
+    protected final JSlider timeSlider, volumeSlider;
+    protected FlowLayout mastaJP_layout = new FlowLayout(FlowLayout.CENTER, 15, 0);
 
     public halcyonTop_Buttons()
     {
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP - 50) / 2));
       setMinimumSize(getPreferredSize());
       setLayout(new GridLayout(2, 1));
-      setOpaque(false);
 
       JPanel mastaJP = new JPanel();
       mastaJP.setPreferredSize(new Dimension(getPreferredSize().width, getPreferredSize().height / 2));
-      mastaJP.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 0));
+      mastaJP.setMinimumSize(mastaJP.getPreferredSize());
+      mastaJP.setLayout(mastaJP_layout);
 
       playPause_Button = new buttons_Funcs(
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_PLAY_TRACK,
@@ -210,8 +215,6 @@ public class dgui_HalcyonTop
           x -> {
             return x && const_Core.PLAYER.expose().state() == tailwind_Status.PLAYING;
           }, use_MastaTemp::doNothing);
-
-
 
       trackInfo_Button = new buttons_Funcs(
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_TRACK_INFORMATION,
@@ -245,6 +248,33 @@ public class dgui_HalcyonTop
               const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH, const_Manager.DGUI_TOP_CTRL_BUTTONS_DEF_WXH),
           use_MastaTemp::returnTrue, use_MastaTemp::doNothing);
 
+      volumeSlider = new JSlider(0, 100);
+      volumeSlider.setPaintTicks(true);
+      volumeSlider.setPreferredSize(new Dimension(110, 15));
+      volumeSlider.setMinimumSize(volumeSlider.getPreferredSize());
+      volumeSlider.setFocusable(false);
+      volumeSlider.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
+
+      JProgressBar pb = new JProgressBar();
+      pb.setStringPainted(true);
+      pb.setPreferredSize(new Dimension(100, 15));
+      pb.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
+      pb.setUI(new BasicProgressBarUI() {
+        @Override
+        protected Color getSelectionBackground()
+        {
+          return const_ColorManager.DEFAULT_GREEN_FG;
+        }
+      });
+      pb.setModel(volumeSlider.getModel());
+
+      JPanel volumeSlider_alignment = new JPanel();
+      volumeSlider_alignment.setLayout(new BorderLayout());
+      volumeSlider_alignment.setPreferredSize(new Dimension(110, 30));
+      volumeSlider_alignment.add(volumeSlider, BorderLayout.NORTH);
+      volumeSlider_alignment.add(pb, BorderLayout.SOUTH);
+
+      mastaJP.add(volumeSlider_alignment);
       mastaJP.add(trackInfo_Button);
       mastaJP.add(likeTrack_Button);
       mastaJP.add(lastTrack_Button);
@@ -253,10 +283,25 @@ public class dgui_HalcyonTop
       mastaJP.add(shufflePlaystyle_Button);
       mastaJP.add(loopTrack_Button);
 
+      timeSlider = new JSlider(0, 100);
+      timeSlider.setValue(0);
+      timeSlider.setFocusable(false);
+      timeSlider.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
+
+      addComponentListener(new ComponentAdapter() {
+        @Override
+        public void componentResized(ComponentEvent e)
+        {
+          SwingUtilities.invokeLater(() -> {
+            timeSlider.setMaximum(Math.min(100, getSize().width)); // expanding -> more smooth ticking
+          });
+        }
+      });
+
       const_Core.PLAYER.expose().add_status_listener(this);
 
       add(mastaJP);
-      add(new JPanel());
+      add(timeSlider);
     }
 
     @Override
