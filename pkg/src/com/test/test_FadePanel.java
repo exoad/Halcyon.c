@@ -18,7 +18,7 @@ public class test_FadePanel
     j.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     j.setSize(new Dimension(300, 300));
 
-    dgui_FadePanel f = new dgui_FadePanel(1000L, 1);
+    dgui_FadePanel f = new dgui_FadePanel(0.1F, 1000L, 100L);
     f.setPreferredSize(new Dimension(300, 300));
     f.setOpaque(true);
     f.setBackground(Color.PINK);
@@ -28,5 +28,6 @@ public class test_FadePanel
     f.add(pp);
     j.getContentPane().add(f);
     j.setVisible(true);
+    f.run();
   }
 }

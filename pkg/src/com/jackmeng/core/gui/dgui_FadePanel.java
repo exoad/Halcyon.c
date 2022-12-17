@@ -1,89 +1,92 @@
 package com.jackmeng.core.gui;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
-import com.jackmeng.sys.pstream;
-
-import java.awt.image.*;
-
+import java.awt.AlphaComposite;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.*;
-import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class dgui_FadePanel extends JPanel
+import javax.swing.JPanel;
+
+public class dgui_FadePanel
+    extends JPanel
+    implements
+    Runnable
 {
-  private transient BufferedImage transferBuffer;
-  private long init_fade_delay;
-  private float curr = 1.0F, fade_step;
-  private boolean is_fading = true;
 
-  public dgui_FadePanel(long delay, float fade_step) // milliseconds
+  private float alpha = 1.0F;
+
+  private float fadeStep;
+
+  private long initialDelay, per_step;
+
+  private transient Timer timer;
+
+  public dgui_FadePanel(float fadeStep, long initialDelay)
   {
-    transferBuffer = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-    this.init_fade_delay = delay;
-    this.fade_step = Math.abs(fade_step);
+    this(fadeStep, initialDelay, 50L);
+  }
+
+  public dgui_FadePanel(float fadeStep, long initDelay, long delay_per_step)
+  {
+    assert fadeStep >= 0F && fadeStep <= 1F;
+    this.fadeStep = fadeStep;
+    this.initialDelay = initDelay;
+    this.per_step = delay_per_step;
     addMouseListener(new MouseAdapter() {
       @Override
       public void mouseEntered(MouseEvent e)
       {
-        if (is_fading)
+        if (timer != null)
         {
-          is_fading = false;
-          curr = 1.0F;
-          repaint(70L);
-          pstream.log.warn("FADING_PANEL: FADING_DENIED");
+          alpha = 1.0F;
+          timer.cancel();
+          timer.purge();
+          repaint(10L);
         }
       }
 
       @Override
-      public void mouseExited(MouseEvent e) {
-        is_fading = true;
-        repaint(70L);
-        pstream.log.warn("FADING_PANEL: FADING_RESUMED");
+      public void mouseExited(MouseEvent e)
+      {
+        run();
       }
     });
   }
 
-  public float current_visibility()
-  {
-    return curr;
-  }
-
-  public void set_visibility(float x)
-  {
-    this.curr = x;
-    repaint(50L);
-  }
-
   @Override
-  public void setVisible(boolean visible)
-  {
-    if (visible)
-    {
-      is_fading = true;
-      new Timer((int) init_fade_delay / 100, x -> {
-        curr -= fade_step;
-        if (curr <= 0)
-        {
-          ((Timer) x.getSource()).stop();
-          curr = 0.0F;
-        }
-        repaint(50L);
-      }).start();
-    }
-    super.setVisible(visible);
-  }
-
-  @Override
-  protected void paintComponent(Graphics g)
+  public void paintComponent(Graphics g)
   {
     super.paintComponent(g);
-    transferBuffer = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
-    Graphics2D g2 = transferBuffer.createGraphics();
-    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, curr));
-    g2.setColor(getBackground());
-    g2.fillRect(0, 0, getWidth(), getHeight());
-    g2.dispose();
-    g.drawImage(transferBuffer, 0, 0, null);
+    Graphics2D g2d = (Graphics2D) g;
+    AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+    g2d.setComposite(alphaComposite);
+  }
+
+  public void run()
+  {
+    timer = new Timer();
+
+    timer.schedule(new TimerTask() {
+      @Override
+      public void run()
+      {
+        alpha -= fadeStep;
+
+        repaint(10L);
+
+        if (alpha <= 0)
+        {
+          timer.cancel();
+          timer.purge();
+          setVisible(false);
+          if (getParent() != null)
+          {
+            getParent().remove(dgui_FadePanel.this);
+          }
+        }
+      }
+    }, initialDelay, per_step);
   }
 }
