@@ -42,7 +42,7 @@ public final class use_GuiUtil
   }
 
   public static JPopupMenu make_PopupMenu(String label,
-      use_Struct.struct_Pair< Object, Consumer< ActionEvent > >[] contents)
+      java.util.List< use_Struct.struct_Pair< Object, Consumer< ActionEvent > > > contents)
   {
     JPopupMenu e = new JPopupMenu(label);
     for (use_Struct.struct_Pair< Object, Consumer< ActionEvent > > r : contents)
