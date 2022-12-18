@@ -178,6 +178,14 @@ public class use_Image
     return i;
   }
 
+  public static Image subimage_resizing(int newwidth, int newheight, BufferedImage img)
+  {
+    return (img.getWidth() > img.getHeight()
+        ? img.getSubimage(img.getWidth() / 2 - img.getHeight() / 2, 0, img.getHeight(), img.getHeight())
+        : img.getSubimage(0, img.getHeight() / 2 - img.getWidth() / 2, img.getWidth(), img.getWidth()))
+            .getScaledInstance(newwidth, newheight, Image.SCALE_AREA_AVERAGING);
+  }
+
   public static ImageIcon resize_2(int w, int h, ImageIcon i)
   {
     i.setImage(i.getImage().getScaledInstance(w, h, Image.SCALE_REPLICATE));

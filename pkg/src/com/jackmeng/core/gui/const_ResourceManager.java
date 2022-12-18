@@ -56,4 +56,9 @@ public abstract interface const_ResourceManager
   /------------------------------------------------------------------------------*/
   String HLL = RESOURCES + "hlls" + use_HalcyonCore.getFileSeparator();
   String HLL_HALCYONTOP_TOOLTIP = HLL + "dguiHalcyonTop_toolTip.hll";
+
+  /*----------------------------------------------------------------------- /
+  / The follow block of constants define SCENE IMAGES, which are not stable /
+  /------------------------------------------------------------------------*/
+  String SCENES = RESOURCES + "scenes" + use_HalcyonCore.getFileSeparator();
 }

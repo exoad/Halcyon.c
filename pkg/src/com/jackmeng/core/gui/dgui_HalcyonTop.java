@@ -158,6 +158,7 @@ public class dgui_HalcyonTop
         setContentAreaFilled(false);
         setRolloverEnabled(false);
         setBorderPainted(false);
+        setOpaque(false);
         setIcon(normal);
         if (rollover != null)
         {
@@ -201,11 +202,13 @@ public class dgui_HalcyonTop
       setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, (const_Manager.DGUI_TOP - 50) / 2));
       setMinimumSize(getPreferredSize());
       setLayout(new GridLayout(2, 1));
+      setOpaque(false);
 
       JPanel mastaJP = new JPanel();
       mastaJP.setPreferredSize(new Dimension(getPreferredSize().width, getPreferredSize().height / 2));
       mastaJP.setMinimumSize(mastaJP.getPreferredSize());
       mastaJP.setLayout(mastaJP_layout);
+      mastaJP.setOpaque(false);
 
       playPause_Button = new buttons_Funcs(
           use_ResourceFetcher.fetcher.rz_fromImageIcon(const_ResourceManager.CTRL_BUTTON_PLAY_TRACK,
@@ -249,32 +252,12 @@ public class dgui_HalcyonTop
           use_MastaTemp::returnTrue, use_MastaTemp::doNothing);
 
       volumeSlider = new JSlider(0, 100);
-      volumeSlider.setPaintTicks(true);
       volumeSlider.setPreferredSize(new Dimension(110, 15));
       volumeSlider.setMinimumSize(volumeSlider.getPreferredSize());
       volumeSlider.setFocusable(false);
       volumeSlider.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
 
-      JProgressBar pb = new JProgressBar();
-      pb.setStringPainted(true);
-      pb.setPreferredSize(new Dimension(100, 15));
-      pb.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
-      pb.setUI(new BasicProgressBarUI() {
-        @Override
-        protected Color getSelectionBackground()
-        {
-          return const_ColorManager.DEFAULT_GREEN_FG;
-        }
-      });
-      pb.setModel(volumeSlider.getModel());
-
-      JPanel volumeSlider_alignment = new JPanel();
-      volumeSlider_alignment.setLayout(new BorderLayout());
-      volumeSlider_alignment.setPreferredSize(new Dimension(110, 30));
-      volumeSlider_alignment.add(volumeSlider, BorderLayout.NORTH);
-      volumeSlider_alignment.add(pb, BorderLayout.SOUTH);
-
-      mastaJP.add(volumeSlider_alignment);
+      mastaJP.add(volumeSlider);
       mastaJP.add(trackInfo_Button);
       mastaJP.add(likeTrack_Button);
       mastaJP.add(lastTrack_Button);
@@ -331,12 +314,21 @@ public class dgui_HalcyonTop
     copy.setLayout(new BoxLayout(copy, BoxLayout.Y_AXIS));
     copy.add(e);
     copy.add(x);
-
+    String r = ((use_Chronos.right_now().isDaylight ? "daylight_" : "nightlight_")
+        + (use_HalcyonCore.rng.nextInt(18) + 1) + ".jpg");
+    pstream.log.info("FETCHING_SCENE: " + r);
+    final Image curr_scene = use_Image.subimage_resizing(getPreferredSize().width, getPreferredSize().height,
+        use_ResourceFetcher.fetcher.getFromAsImage(const_ResourceManager.SCENES
+            + r));
     bgPanel = new JPanel() {
       @Override
       public void paintComponent(Graphics g)
       {
-        g.dispose();
+        g.clearRect(0, 0, getWidth(), getHeight());
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1F));
+        g2.drawImage(curr_scene, null, null);
+        g2.dispose();
       }
     };
     bgPanel.setPreferredSize(getPreferredSize());
