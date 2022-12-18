@@ -26,7 +26,7 @@ public final class Halcyon
    {
       System.setProperty("sun.java2d.noddraw", "true");
       System.setProperty("sun.java2d.d3d", "false");
-      System.setProperty("sun.java2d.opengl", "true");
+      System.setProperty("sun.java2d.opengl", "True");
       System.setProperty("sun.java2d.ddforcevram", "true");
       System.setProperty("sun.java2d.xrender", "true");
    }

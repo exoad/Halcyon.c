@@ -2,6 +2,7 @@ package com.jackmeng.core.gui;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.plaf.LayerUI;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import java.awt.*;
@@ -22,7 +23,9 @@ import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
 import com.jackmeng.util.use_Chronos;
 import com.jackmeng.util.use_Color;
 import com.jackmeng.util.use_Image;
+import com.jackmeng.util.use_ImgStrat;
 import com.jackmeng.util.use_ResourceFetcher;
+import com.jackmeng.util.use_ImgStrat.imgstrat_BlurhashBlur;
 
 public class dgui_HalcyonTop
     extends JPanel
@@ -295,12 +298,13 @@ public class dgui_HalcyonTop
   }
 
   private JPanel bgPanel;
+  private Image i;
 
   public dgui_HalcyonTop()
   {
     setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_TOP));
     setMinimumSize(getPreferredSize());
-    setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+    setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
     setLayout(new OverlayLayout(this));
 
     JComponent e = new halcyonTop_Info(), x = new halcyonTop_Buttons();
@@ -317,24 +321,46 @@ public class dgui_HalcyonTop
     String r = ((use_Chronos.right_now().isDaylight ? "daylight_" : "nightlight_")
         + (use_HalcyonCore.rng.nextInt(18) + 1) + ".jpg");
     pstream.log.info("FETCHING_SCENE: " + r);
-    final Image curr_scene = use_Image.subimage_resizing(getPreferredSize().width, getPreferredSize().height,
+    i = use_Image.subimage_resizing(getPreferredSize().width, getPreferredSize().height,
         use_ResourceFetcher.fetcher.getFromAsImage(const_ResourceManager.SCENES
             + r));
     bgPanel = new JPanel() {
       @Override
       public void paintComponent(Graphics g)
       {
-        g.clearRect(0, 0, getWidth(), getHeight());
+        g.clearRect(0, 0, e.getPreferredSize().width, e.getPreferredSize().height);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1F));
-        g2.drawImage(curr_scene, null, null);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.15F));
+        g2.drawImage(i, null, null);
         g2.dispose();
       }
     };
-    bgPanel.setPreferredSize(getPreferredSize());
+    bgPanel.setPreferredSize(e.getPreferredSize());
+
+    JLayer< Component > blur = new JLayer<>(bgPanel, new LayerUI<>() {
+      private transient imgstrat_BlurhashBlur e = new imgstrat_BlurhashBlur(3, 4, 1.0d);
+
+      @Override
+      public void paint(Graphics g, JComponent comp)
+      {
+        if (comp.getWidth() == 0 || comp.getHeight() == 0)
+          return;
+
+        BufferedImage img = new BufferedImage(comp.getWidth(), comp.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D ig2 = img.createGraphics();
+        ig2.setClip(g.getClip());
+        super.paint(ig2, comp);
+        ig2.dispose();
+        Graphics2D g2 = (Graphics2D) g;
+        g2.drawImage(img, e, 0, 0);
+        g2.dispose();
+        g.dispose();
+      }
+    });
 
     add(copy);
-    add(bgPanel);
+    add(blur);
 
     const_Core.SELECTION_LISTENERS.add_listener(this);
   }
@@ -342,6 +368,7 @@ public class dgui_HalcyonTop
   @Override
   public void forYou(use_TailwindTrack e)
   {
-
+    i = e.get_artwork();
+    repaint(300L);
   }
 }
