@@ -42,12 +42,12 @@ public class use_ClientProfile
     try
     {
       Float.parseFloat(tr[1]);
-    } catch (NumberFormatException e)
+    } catch (NumberFormatException | NullPointerException e)
     {
       pstream.log.warn("Failed to load...\nRequirements:\nTime (lfloat): Found: " + tr[1] + " Requires: (lfloat)");
     }
-    return new use_ClientProfile(false, location, tr[0].isBlank() ? System.getProperty("user.name") : tr[0],
-        Float.parseFloat(tr[1]));
+    return new use_ClientProfile(false, location, tr[0] == null || tr[0].isBlank() ? System.getProperty("user.name") : tr[0],
+        Float.parseFloat(tr[1] == null ? "0" : tr[1]));
   }
 
   private use_ClientProfile(boolean locked, String saveLocation, String name, float totalTimeUsed)

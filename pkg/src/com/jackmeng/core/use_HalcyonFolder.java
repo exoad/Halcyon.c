@@ -31,6 +31,11 @@ public final class use_HalcyonFolder
   private static final String MASTA_FOLDA = "halcyon";
 
   public static final use_HalcyonFolder FOLDER = new use_HalcyonFolder(MASTA_FOLDA);
+  static
+  {
+    FOLDER.check();
+  }
+
   public static final byte[] DELIMITER = { 0x0E, 0x00, 0x0E, (byte) 0x9E };
 
   private File locale;
@@ -67,7 +72,7 @@ public final class use_HalcyonFolder
 
   public use_ClientProfile expose_ClientProfile()
   {
-    return (use_ClientProfile) usr_proc.clone();
+    return usr_proc;
   }
 
   private use_HalcyonFolder(final String r)
@@ -75,8 +80,8 @@ public final class use_HalcyonFolder
     p = new Properties();
     pUsr = new Properties();
     locale = new File(r);
-    usr_proc = use_ClientProfile.load_instance(halcyonfolder_Content.USER_PROFILE_CLIENT_f.val);
     check();
+    usr_proc = use_ClientProfile.load_instance(halcyonfolder_Content.USER_PROFILE_CLIENT_f.val);
     usr_proc.run();
     const_Core.schedule_task(new TimerTask() {
 
@@ -308,7 +313,10 @@ public final class use_HalcyonFolder
   public void check()
   {
     if (!locale.isDirectory() || !locale.exists())
+    {
+      pstream.log.info("LOCALE_DOES_NOT_EXIST");
       locale.mkdir();
+    }
     for (halcyonfolder_Content e : halcyonfolder_Content.CACHE_d.getDeclaringClass().getEnumConstants())
       check(e);
   }
