@@ -1,6 +1,6 @@
 package com.jackmeng.core.gui;
 
-import static com.jackmeng.core.gui.const_Lang.*;
+import static com.jackmeng.core.const_Lang.*;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

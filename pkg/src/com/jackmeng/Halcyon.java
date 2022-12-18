@@ -14,6 +14,8 @@ import com.test.Test;
 
 import java.io.File;
 
+import static com.jackmeng.core.const_Lang.*;
+
 /*------------------------- /
 / unused imports are stupid /
 /--------------------------*/
@@ -97,7 +99,10 @@ public final class Halcyon
             main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
             main.run();
             main.expose_internal().notificationManager.dispatch_notification(
-                  dgui_NotificationArena.generate_notification_html_1("<html><strong>HELLO!</strong></html>"), (Runnable[]) null);
+                  dgui_NotificationArena.generate_notification_html_1("<html><p><strong>" + _lang(LANG_GOOD) + " "
+                        + _lang(use_Chronos.right_now().LANG_KEY) + "</strong>, "
+                        + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name() + "</p></html>"),
+                  (Runnable[]) null);
          });
 
          pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");

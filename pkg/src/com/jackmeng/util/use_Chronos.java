@@ -2,7 +2,10 @@ package com.jackmeng.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import com.jackmeng.sys.pstream;
 
 /**
  * Functionality class dealing with time
@@ -31,26 +34,34 @@ public final class use_Chronos
   }
 
   public enum chronos_DayCategory {
-    MORNING, AFTERNOON, NIGHT, DAWN, EVENING, NOON;
+    MORNING("chronos_morning", true), AFTERNOON("chronos_afternoon", true), NIGHT("chronos_night", false), DAWN(
+        "chronos_dawn", true), EVENING(
+            "chronos_evening", false), NOON("chronos_noon", true);
+
+    public final String LANG_KEY;
+    public final boolean isDaylight;
+
+    private chronos_DayCategory(String e, boolean isDaylight)
+    {
+      this.LANG_KEY = e;
+      this.isDaylight = isDaylight;
+    }
   }
 
   public static chronos_DayCategory right_now()
   {
-    short hour = (short) (System.currentTimeMillis() / (60L * 60L * 1_000L));
+    long hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+    pstream.log.info("24HOUR CHRONOS: " + hour);
     // ok this is based on this wikipedia page:
     // https://www.britannica.com/dictionary/eb/qa/parts-of-the-day-early-morning-late-morning-etc
     // yea im dumb
-    return hour >= 4 && hour < 6 ? chronos_DayCategory.DAWN
-        : hour >= 6 && hour < 10 ? chronos_DayCategory.MORNING
-            : hour >= 10 && hour < 13 ? chronos_DayCategory.NOON
-                : hour >= 13 && hour < 16 ? chronos_DayCategory.AFTERNOON
-                    : hour >= 16 && hour < 19 ? chronos_DayCategory.EVENING
-                        : hour >= 19 && hour < 4 ? chronos_DayCategory.NIGHT : chronos_DayCategory.MORNING; // default
-                                                                                                            // to
-                                                                                                            // morning
-                                                                                                            // cuz i
-                                                                                                            // feel like
-                                                                                                            // it :D
+    return (hour >= 3 && hour < 10)
+        ? chronos_DayCategory.MORNING
+        : (hour >= 10 && hour < 13) ? chronos_DayCategory.NOON
+
+            : (hour >= 13 && hour < 16) ? chronos_DayCategory.AFTERNOON
+                : (hour >= 16 && hour < 22) ? chronos_DayCategory.EVENING
+                    : (hour >= 22 || hour < 3) ? chronos_DayCategory.NIGHT : chronos_DayCategory.MORNING;
   }
 
   public static String format_sec(int seconds)

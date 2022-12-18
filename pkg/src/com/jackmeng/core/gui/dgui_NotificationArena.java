@@ -33,7 +33,6 @@ public final class dgui_NotificationArena
     queue = new ArrayDeque<>(max_notifs_displayable);
     this.max = max_notifs_displayable;
     setOpaque(false);
-    setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH - 15, 30));
     setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
   }
 
@@ -64,7 +63,7 @@ public final class dgui_NotificationArena
         g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 10, 10);
       }
     };
-    notif.setPreferredSize(new Dimension(300, 40));
+    notif.setPreferredSize(new Dimension(e.getPreferredSize().width + 50, e.getPreferredSize().height + 5));
     notif.setLayout(new BorderLayout());
     notif.setOpaque(true);
     notif.setBackground(const_ColorManager.DEFAULT_DARK_BG);
@@ -78,7 +77,6 @@ public final class dgui_NotificationArena
         this.getParent().revalidate();
       queue.remove();
     });
-    notif.repaint(20L);
     if (listeners != null && listeners.length > 0)
       for (Runnable ex : listeners)
         notif.add_FadeOutListener(ex);

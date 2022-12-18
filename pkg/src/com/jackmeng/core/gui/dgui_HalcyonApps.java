@@ -17,7 +17,7 @@ import com.jackmeng.util.use_Struct.struct_Pair;
 
 import javax.swing.*;
 
-import static com.jackmeng.core.gui.const_Lang.*;
+import static com.jackmeng.core.const_Lang.*;
 
 import java.awt.*;
 import java.io.File;

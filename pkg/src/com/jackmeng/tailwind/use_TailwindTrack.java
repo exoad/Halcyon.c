@@ -28,7 +28,7 @@ import com.jackmeng.util.use_ResourceFetcher;
 
 import java.awt.image.*;
 
-import static com.jackmeng.core.gui.const_Lang.*;
+import static com.jackmeng.core.const_Lang.*;
 
 import java.awt.*;
 

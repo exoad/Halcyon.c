@@ -1,6 +1,4 @@
-package com.jackmeng.core.gui;
-
-import com.jackmeng.core.use_HalcyonCore;
+package com.jackmeng.core;
 
 public final class const_Lang
 {
@@ -35,6 +33,7 @@ public final class const_Lang
   public static final String LANG_UNKNOWN = "unknown";
   public static final String LANG_CONFIRM_WINDOW_CONFIRM_BUTTON_OK = "confirm_window_button_ok";
   public static final String LANG_CONFIRM_WINDOW_CONFIRM_BUTTON_DENY = "confirm_window_button_deny";
+  public static final String LANG_GOOD = "good";
 
   /**
    * @param key

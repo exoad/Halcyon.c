@@ -5,7 +5,7 @@ import com.jackmeng.sys.pstream;
 
 import javax.swing.*;
 
-import static com.jackmeng.core.gui.const_Lang.*;
+import static com.jackmeng.core.const_Lang.*;
 
 import java.awt.*;
 import java.io.Serializable;

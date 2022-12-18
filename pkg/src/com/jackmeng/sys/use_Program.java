@@ -6,7 +6,7 @@ import com.jackmeng.util.use_Commons;
 import com.jackmeng.util.use_ResourceFetcher;
 import com.jackmeng.util.use_Struct.struct_Pair;
 
-import static com.jackmeng.core.gui.const_Lang.*;
+import static com.jackmeng.core.const_Lang.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
