@@ -1,11 +1,15 @@
 package com.test;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
+import javax.swing.border.Border;
 
 import com.jackmeng.Halcyon;
+import com.jackmeng.core.gui.const_ColorManager;
 import com.jackmeng.core.gui.dgui_FadePanel;
+import com.jackmeng.core.gui.use_RoundCornerBorder;
 
 import java.awt.*;
 
@@ -22,6 +26,7 @@ public class test_FadePanel
     f.setPreferredSize(new Dimension(300, 300));
     f.setOpaque(true);
     f.setBackground(Color.PINK);
+    f.setBorder(new use_RoundCornerBorder(15, 2, const_ColorManager.DEFAULT_DARK_BG_2));
 
     JLabel pp = new JLabel("AMOGUS");
 

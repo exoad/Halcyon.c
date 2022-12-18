@@ -10,7 +10,7 @@ public final class pstream
   / is a pain in the ass. so here is a shitty implementation of that.                                  /
   /---------------------------------------------------------------------------------------------------*/
 
-  public boolean enabled;
+  private boolean enabled;
   private sys_out out;
 
   public static final pstream log = new pstream(true);
@@ -19,6 +19,14 @@ public final class pstream
   {
     out = new sys_out();
     enabled = true;
+  }
+
+  public void use_stream(boolean enabled) {
+    this.enabled = enabled;
+  }
+
+  public boolean enabled() {
+    return enabled;
   }
 
   /**

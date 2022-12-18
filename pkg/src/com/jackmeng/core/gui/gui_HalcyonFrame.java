@@ -507,13 +507,14 @@ public class gui_HalcyonFrame
     }
 
     private ComponentResizer cr = new ComponentResizer();
+    public final dgui_NotificationArena notificationManager;
 
     public TitledFrame(final TitleBarConfig conf, final int tH, final JComponent content)
     {
       int titleHeightOffSub = 3;
       int contentOff = tH - titleHeightOffSub;
       frame = new JFrame();
-
+      notificationManager = new dgui_NotificationArena(1);
       frame.setTitle(conf.titleStr);
       if (conf.icon != null)
         frame.setIconImage(conf.icon.getImage());
@@ -676,8 +677,25 @@ public class gui_HalcyonFrame
         content.setAlignmentX(Component.CENTER_ALIGNMENT);
         content.setAlignmentY(Component.TOP_ALIGNMENT);
 
+        /*----------------------------------------------------------------- /
+        / JPanel wrapper1 = new JPanel();                                   /
+        / wrapper1.setLayout(new OverlayLayout(wrapper1));                  /
+        / wrapper1.setPreferredSize(content.getPreferredSize());            /
+        / notificationManager.setPreferredSize(content.getPreferredSize()); /
+        / wrapper1.add(notificationManager);                                /
+        / wrapper1.add(content);                                            /
+        /                                                                   /
+        /------------------------------------------------------------------*/
+
+        notificationManager.setBounds(0, 0, notificationManager.getPreferredSize().width, notificationManager.getPreferredSize().height);
+
+        JLayeredPane wrapper1 = new JLayeredPane();
+        wrapper1.setLayout(new OverlayLayout(wrapper1));
+        wrapper1.add(notificationManager, 2, 1);
+        wrapper1.add(content, 1, 2);
+
         frame.getContentPane().add(titleBar);
-        frame.getContentPane().add(content);
+        frame.getContentPane().add(wrapper1);
         frame.getContentPane().add(Box.createHorizontalGlue());
         cr.setMinimumSize(frame.getMinimumSize());
 

@@ -5,6 +5,7 @@ import com.jackmeng.core.use_HalcyonCore;
 import com.jackmeng.core.use_HalcyonFolder;
 import com.jackmeng.core.gui.dgui_HalcyonBottom;
 import com.jackmeng.core.gui.dgui_HalcyonTop;
+import com.jackmeng.core.gui.dgui_NotificationArena;
 import com.jackmeng.core.gui.gui_HalcyonFrame;
 import com.jackmeng.sys.*;
 import com.jackmeng.util.use_Chronos;
@@ -69,7 +70,7 @@ public final class Halcyon
       use_HalcyonFolder.FOLDER.load_conf();
       if (const_MUTableKeys.run_tcs_on_start)
          Test.main((String[]) null);
-      pstream.log.enabled = const_MUTableKeys.outstream;
+      pstream.log.use_stream(const_MUTableKeys.outstream);
       use_HalcyonFolder.FOLDER.load_playlists();
       try
       {
@@ -95,6 +96,8 @@ public final class Halcyon
          use_Task.async_N2(() -> {
             main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
             main.run();
+            main.expose_internal().notificationManager.dispatch_notification(
+                  dgui_NotificationArena.generate_notification_html_1("<html><strong>HELLO!</strong></html>"), (Runnable[]) null);
          });
 
          pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
