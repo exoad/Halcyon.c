@@ -360,7 +360,7 @@ public class dgui_HalcyonTop
     });
 
     add(copy);
-    add(blur);
+    //add(bgPanel);
 
     const_Core.SELECTION_LISTENERS.add_listener(this);
   }

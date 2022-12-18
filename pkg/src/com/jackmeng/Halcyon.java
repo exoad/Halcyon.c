@@ -28,7 +28,7 @@ public final class Halcyon
       System.setProperty("sun.java2d.d3d", "false");
       System.setProperty("sun.java2d.opengl", "True");
       System.setProperty("sun.java2d.ddforcevram", "true");
-      System.setProperty("sun.java2d.xrender", "true");
+      System.setProperty("sun.java2d.xrender", "false");
    }
 
    private static boolean linked = false;
@@ -103,6 +103,8 @@ public final class Halcyon
                         + _lang(use_Chronos.right_now().LANG_KEY) + "</strong>, "
                         + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name() + "</p></html>"),
                   (Runnable[]) null);
+
+                  
          });
 
          pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");

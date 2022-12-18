@@ -3,6 +3,8 @@ package com.jackmeng.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import com.jackmeng.core.use_HalcyonCore;
+
 /**
  * Common & primitive manipulation and functionality
  * functions.
@@ -49,6 +51,14 @@ public final class use_Commons
       if (r.endsWith(key))
         return true;
     return false;
+  }
+
+  public static String rndstr(int length, int left, int right) // length, ascii_min, ascii_max
+  {
+    StringBuilder sb = new StringBuilder();
+    while (length-- > 0)
+      sb.append((char) (left + (int) (use_HalcyonCore.rng.nextDouble() * (right - left + 1))));
+    return sb.toString();
   }
 
   public static String expand_exception(Exception e)

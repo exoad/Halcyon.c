@@ -58,9 +58,8 @@ public final class use_Chronos
     return (hour >= 3 && hour < 10)
         ? chronos_DayCategory.MORNING
         : (hour >= 10 && hour < 13) ? chronos_DayCategory.NOON
-
-            : (hour >= 13 && hour < 16) ? chronos_DayCategory.AFTERNOON
-                : (hour >= 16 && hour < 22) ? chronos_DayCategory.EVENING
+            : (hour >= 13 && hour < 18) ? chronos_DayCategory.AFTERNOON
+                : (hour >= 18 && hour < 22) ? chronos_DayCategory.EVENING
                     : (hour >= 22 || hour < 3) ? chronos_DayCategory.NIGHT : chronos_DayCategory.MORNING;
   }
 

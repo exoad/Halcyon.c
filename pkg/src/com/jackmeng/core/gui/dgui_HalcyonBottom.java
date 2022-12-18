@@ -113,6 +113,7 @@ public class dgui_HalcyonBottom
           setContentAreaFilled(false);
           setBorderPainted(false);
           setFocusable(false);
+          setOpaque(false);
           setRolloverEnabled(false);
           addActionListener(this);
         }
@@ -121,7 +122,7 @@ public class dgui_HalcyonBottom
         public void paintComponent(Graphics g)
         {
           super.paintComponent(g);
-          g.clearRect(0, 0, getSize().width, getSize().height);
+          // dont call g.clearRect, it makes a weird box shape that is opaque
           Graphics2D g2 = (Graphics2D) g;
           g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
           g2.setStroke(new BasicStroke(1.5F));
