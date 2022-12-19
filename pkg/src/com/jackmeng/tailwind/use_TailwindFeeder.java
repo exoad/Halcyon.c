@@ -22,7 +22,7 @@ import com.jackmeng.util.use_LooseList;
 /-----------------------------------------------------------------------------------*/
 
 /**
- * LIFO Write once Read Only Data Processing Class
+ * LIFO Write once Read Many Data Processing Class
  * targetted specifically for quick audio management on a large scale
  *
  * @author Jack Meng
