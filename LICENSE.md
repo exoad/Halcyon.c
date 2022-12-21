@@ -1,5 +1,5 @@
 <!-- Yay, no errors, warnings, or alerts! -->
-  
+
 <h1 align="center"> <strong><span style="text-decoration:underline;">Halcyon 2.0 License</span></strong> </h1>
 
 <div align="center">
@@ -15,10 +15,10 @@ _A safe-permissive license that enables friendly end-user consumption_
 You may only use the bundled source/binary(s) only in compliance with this LICENSE.
 
 <pre align="center" style="text-align:center">
-  
+
 Copyright © Jack Meng 2022
 All rights reserved to the above copyright holder(s).
-  
+
 </pre>
 
 This license with all subsiding terms & conditions applies to all forms (source and/or binary, without or without modifications) for USE, REPRODUCTION, MODIFICATION, & DISTRIBUTION.
@@ -30,6 +30,7 @@ Notice: This license covers only SOURCE & BINARY Software; however it only has a
 <h3 align="center"> LICENSE’S TERMS & CONDITIONS: </h3>
 
 ## 1. **Retention of Copyright**
+
 
 Source: All deriving works that directly modify the original software must reproduce the above copyright notice including this list of terms & conditions in FULL (raw retention).
 
