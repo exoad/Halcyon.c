@@ -103,8 +103,6 @@ public final class Halcyon
                         + _lang(use_Chronos.right_now().LANG_KEY) + "</strong>, "
                         + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name() + "</p></html>"),
                   (Runnable[]) null);
-
-                  
          });
 
          pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");

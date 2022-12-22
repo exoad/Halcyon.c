@@ -8,6 +8,40 @@ File Naming, source suffixing, represents how most Java Source Files are named b
 
 ### JAVA Source Files
 
+**Formatting**
+Most if not all Java Source Files provided do not align directly with the standard Java Coding Standards/Conventions. Instead archaic formatting from other common languages are borrowed:
+
+1. Indentation Style "[Allman](https://en.wikipedia.org/wiki/Indentation_style#Allman_style)":
+   Using the Allman indentation style with opening `{` braces on a new line.
+
+```java
+public class Test_IO
+{
+  public static native void print(String... e);
+}
+```
+
+2. Type Attributes `extends`,`implements` -> `class`,`interface`,`abstract class`
+   Attributes are presented in a vertical list like manner for easy readability.<br>
+
+```java
+public class HelloMe
+    extends
+    World
+    implements
+    Runnable,
+    Comparable<Integer>,
+    Serializable
+{
+
+}
+```
+
+3. [Snake Case](https://en.wikipedia.org/wiki/Snake_case), [Pascal Case](https://wiki.c2.com/?PascalCase), [Camel Case](https://en.wikipedia.org/wiki/Camel_case)
+   Most Java source files use method names with snake casing with some camel casing for methods are to be used for outside of the standard Halcyon environment.
+
+**File Name Prefixing**
+
 | <strong>Prefix</strong> |                                                                                                                            <strong>Description</strong>                                                                                                                             |
 | :---------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |   <code>gui\_</code>    |                                                          Represents standalone GUI Components that depend on <code>dgui\_</code> components to make a whole usable component. Also known as the boilerplate GUI Component                                                           |
