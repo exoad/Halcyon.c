@@ -9,7 +9,7 @@ File Naming, source suffixing, represents how most Java Source Files are named b
 ### JAVA Source Files
 
 **Formatting**
-Most if not all Java Source Files provided do not align directly with the standard Java Coding Standards/Conventions. Instead archaic formatting from other common languages are borrowed:
+Most if not all Java Source Files provided do not align directly with the standard Java Coding Standards/Conventions. Instead archaic formatting from other common languages are used. This is because some common Java Standards make the code much more verbose and harder to understand/read at an instant. This specific format is not perfect and is designed for quick and specific attributes to stand out and thus be easier to debug.
 
 1. Indentation Style "[Allman](https://en.wikipedia.org/wiki/Indentation_style#Allman_style)":
    Using the Allman indentation style with opening `{` braces on a new line.
@@ -39,6 +39,26 @@ public class HelloMe
 
 3. [Snake Case](https://en.wikipedia.org/wiki/Snake_case), [Pascal Case](https://wiki.c2.com/?PascalCase), [Camel Case](https://en.wikipedia.org/wiki/Camel_case)
    Most Java source files use method names with snake casing with some camel casing for methods are to be used for outside of the standard Halcyon environment.
+
+4. Type & Importance expression
+   For generics and other specific type definitions, spacing is required and other important expressions are separated to make them stand out.
+
+`Halcyon.java$__LINK__()`: (Underscores before and after to indicate a very important method to call)
+
+```java
+public static void __LINK__()
+{
+  /*...*/
+}
+```
+
+Average Generics:
+
+```java
+List< AtomicInteger > e = new ArrayList< >();
+//   ^^^^^^^^^^^^^^^
+// Types here are spaced out from the brackets for better readability
+```
 
 **File Name Prefixing**
 
