@@ -18,7 +18,6 @@ File Naming, source suffixing, represents how most Java Source Files are named b
 |    <code>NONE</code>    |                   When no prefix is encountered, it should be noted as a "Runner" class meaning it most likely defines a <code>public static void main</code> OR it could be a <code>use\_</code> (or variations of it) that is used commonly: saves time typing                    |
 |   <code>impl\_</code>   |                                                              Defines a abstraction of <code>abstract class</code> OR <code>abstract interface</code> where certain functionality is abstracted and to be implemented.                                                               |
 |   <code>evnt\_</code>   |                                                                      A <code>impl\_</code> variation that clearly specifies that this abstraction is used for event handling, specifically for event callbacks                                                                      |
-|    <code>t\_</code>     |                                                                                                  A <code>use\_</code> variation that specifically defines a usable TYPE definition                                                                                                  |
 
 **For child classes** like the class `use_Struct.java`, which defines usable data structures, all child classes start with the class name (excluding prefix & underscore), so an existing child class would be `struct_Pair` or `struct_Trio` under `use_Struct`.
 
