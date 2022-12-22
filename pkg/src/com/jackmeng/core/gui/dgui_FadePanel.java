@@ -12,7 +12,7 @@ import java.util.TimerTask;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import com.jackmeng.sys.pstream;
+import com.jackmeng.core.util.pstream;
 
 public class dgui_FadePanel
     extends

@@ -1,6 +1,6 @@
 package com.jackmeng.core.gui;
 
-import com.jackmeng.core.use_HalcyonCore;
+import com.jackmeng.use_HalcyonCore;
 
 public abstract interface const_ResourceManager
 {

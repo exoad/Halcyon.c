@@ -1,12 +1,12 @@
 package com.jackmeng.core.gui;
 
-import com.jackmeng.core.const_MUTableKeys;
-import com.jackmeng.core.use_HalcyonCore;
-import com.jackmeng.sys.pstream;
-import com.jackmeng.sys.use_Task;
-import com.jackmeng.util.sys_SimpleMaffs;
-import com.jackmeng.util.use_Color;
-import com.jackmeng.util.use_ResourceFetcher;
+import com.jackmeng.const_MUTableKeys;
+import com.jackmeng.use_HalcyonCore;
+import com.jackmeng.core.util.pstream;
+import com.jackmeng.core.util.use_Color;
+import com.jackmeng.core.util.use_ResourceFetcher;
+import com.jackmeng.core.util.use_Task;
+import com.jackmeng.platform.sys_SimpleMaffs;
 
 import javax.swing.*;
 

@@ -1,8 +1,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "include/com_jackmeng_util_sys_SimpleMaffs.h"
-#include "include/com_jackmeng_util_use_Commons_primitives_Math.h"
+#include "include/com_jackmeng_platform_sys_SimpleMaffs.h"
 #include "include/halcyonstl.hh"
 #include "include/maffs.hh"
 
@@ -24,7 +23,7 @@
 / appends a uniform deviate /
 /--------------------------*/
 JNIEXPORT jfloat JNICALL
-Java_com_jackmeng_util_use_1Commons_00024primitives_1Math_rnd_11(
+Java_com_jackmeng_platform_use_1Commons_00024primitives_1Math_rnd_11(
     JNIEnv* env, jclass obj, jlongArray arr) {
   long* cont;
   env->GetLongArrayRegion(arr, 0, env->GetArrayLength(arr), (jlong*)cont);
@@ -66,7 +65,7 @@ Java_com_jackmeng_util_use_1Commons_00024primitives_1Math_rnd_11(
 }
 
 JNIEXPORT jlongArray JNICALL
-Java_com_jackmeng_util_sys_1SimpleMaffs_simplify_1ratio(JNIEnv* env, jclass obj,
+Java_com_jackmeng_platform_sys_1SimpleMaffs_simplify_1ratio(JNIEnv* env, jclass obj,
                                                         jlong a, jlong b) {
   jlongArray res;
   res = env->NewLongArray(2);
@@ -178,7 +177,7 @@ inline int halcyon_maffs::ran_bit_2(unsigned long* maxim) {
 / p(y)dy=|dx/dy|dy=e^(-y)dy                                     /
 /--------------------------------------------------------------*/
 JNIEXPORT jfloat JNICALL
-Java_com_jackmeng_util_use_1Commons_00024primitives_1Math_exp_1dev(
+Java_com_jackmeng_platform_use_1Commons_00024primitives_1Math_exp_1dev(
     JNIEnv* env, jclass obj, jlongArray arr) {
   long* cont;
   env->GetLongArrayRegion(arr, 0, env->GetArrayLength(arr), (jlong*)cont);

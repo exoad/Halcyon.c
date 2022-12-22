@@ -2,7 +2,7 @@ package com.jackmeng.core.gui;
 
 import javax.swing.*;
 
-import com.jackmeng.core.use_HalcyonCore;
+import com.jackmeng.use_HalcyonCore;
 import com.jackmeng.core.gui.gui_HalcyonFrame.TitleBarConfig;
 import com.jackmeng.core.gui.gui_HalcyonFrame.TitledFrame;
 

@@ -19,11 +19,11 @@ import javax.sound.sampled.SourceDataLine;
 import com.jackmeng.core.abst.impl_ForYou;
 import com.jackmeng.core.abst.impl_Identifiable;
 import com.jackmeng.core.abst.use_MastaTemp;
-import com.jackmeng.sys.pstream;
-import com.jackmeng.sys.use_Task;
+import com.jackmeng.core.util.const_Commons;
+import com.jackmeng.core.util.pstream;
+import com.jackmeng.core.util.use_Task;
+import com.jackmeng.core.util.use_Struct.struct_Pair;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
-import com.jackmeng.util.const_Commons;
-import com.jackmeng.util.use_Struct.struct_Pair;
 
 /**
  * This is the main class that represents a Tailwind Player that

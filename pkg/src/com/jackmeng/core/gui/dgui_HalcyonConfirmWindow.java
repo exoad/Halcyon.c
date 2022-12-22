@@ -1,11 +1,11 @@
 package com.jackmeng.core.gui;
 
-import static com.jackmeng.core.const_Lang.*;
+import static com.jackmeng.const_Lang.*;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import com.jackmeng.util.use_ResourceFetcher;
+import com.jackmeng.core.util.use_ResourceFetcher;
 
 public class dgui_HalcyonConfirmWindow
     extends gui_HalcyonGenericWindow

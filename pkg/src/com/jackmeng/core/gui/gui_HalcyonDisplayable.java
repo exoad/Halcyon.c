@@ -3,17 +3,18 @@ package com.jackmeng.core.gui;
 import javax.swing.*;
 
 import com.jackmeng.core.abst.evnt_SelectPlaylistTrack;
+import com.jackmeng.core.util.use_Struct.*;
 import com.jackmeng.tailwind.use_TailwindTrack;
-import com.jackmeng.util.use_Struct.*;
 
 import java.awt.image.*;
+
+import static com.jackmeng.const_Lang.*;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import static com.jackmeng.core.const_Lang.*;
 
 public final class gui_HalcyonDisplayable
     extends

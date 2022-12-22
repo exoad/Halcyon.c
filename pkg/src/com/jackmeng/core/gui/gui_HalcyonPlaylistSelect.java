@@ -1,11 +1,11 @@
 package com.jackmeng.core.gui;
 
 import com.jackmeng.core.abst.evnt_AddPlaylist;
-import com.jackmeng.sys.pstream;
+import com.jackmeng.core.util.pstream;
 
 import javax.swing.*;
 
-import static com.jackmeng.core.const_Lang.*;
+import static com.jackmeng.const_Lang.*;
 
 import java.awt.*;
 import java.io.Serializable;

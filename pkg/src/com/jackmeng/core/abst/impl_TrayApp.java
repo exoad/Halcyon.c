@@ -1,6 +1,6 @@
 package com.jackmeng.core.abst;
 
-import com.jackmeng.util.use_Struct.struct_Pair;
+import com.jackmeng.core.util.use_Struct.struct_Pair;
 
 public abstract interface impl_TrayApp
     extends impl_App

@@ -2,10 +2,10 @@
 #include <cmath>
 
 #include "cstring"
-#include "include/com_jackmeng_util_sys_sys_ImageProcessor.h"
+#include "include/com_jackmeng_platform_sys_ImageProcessor.h"
 
 JNIEXPORT jint JNICALL
-Java_com_jackmeng_util_sys_sys_1ImageProcessor_img_1accent_1color(
+Java_com_jackmeng_platform_sys_sys_1ImageProcessor_img_1accent_1color(
     JNIEnv *env, jclass obj, jintArray pixels) {
   jsize len = env->GetArrayLength(pixels);
   jintArray freqs = env->NewIntArray(len);
@@ -27,7 +27,7 @@ Java_com_jackmeng_util_sys_sys_1ImageProcessor_img_1accent_1color(
 }
 
 JNIEXPORT jintArray JNICALL
-Java_com_jackmeng_util_sys_sys_1ImageProcessor_img_1accent_1color_1palette(
+Java_com_jackmeng_platform_sys_sys_1ImageProcessor_img_1accent_1color_1palette(
     JNIEnv *env, jclass obj, jintArray pixels, jint depth) {
   jsize len = env->GetArrayLength(pixels);
   jint *pixelsElements = env->GetIntArrayElements(pixels, NULL);

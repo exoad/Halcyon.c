@@ -1,9 +1,9 @@
 package com.jackmeng.tailwind;
 
-import com.jackmeng.core.use_HalcyonCore;
+import com.jackmeng.use_HalcyonCore;
 import com.jackmeng.core.abst.impl_Identifiable;
-import com.jackmeng.sys.use_Program;
-import com.jackmeng.util.use_Commons;
+import com.jackmeng.core.util.use_Commons;
+import com.jackmeng.core.util.use_Program;
 
 import java.io.File;
 import java.io.FilenameFilter;

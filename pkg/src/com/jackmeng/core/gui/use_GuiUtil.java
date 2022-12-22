@@ -8,10 +8,11 @@ import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import com.jackmeng.sys.pstream;
-import com.jackmeng.util.use_Commons;
-import com.jackmeng.util.use_Struct;
-import com.jackmeng.util.use_Struct.struct_Pair;
+import com.jackmeng.core.util.pstream;
+import com.jackmeng.core.util.use_Commons;
+import com.jackmeng.core.util.use_Struct;
+import com.jackmeng.core.util.use_Struct.struct_Pair;
+
 import java.awt.event.*;
 
 import java.awt.*;

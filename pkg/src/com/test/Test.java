@@ -6,11 +6,11 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 import com.jackmeng.Halcyon;
-import com.jackmeng.core.use_HalcyonFolder;
-import com.jackmeng.sys.pstream;
-import com.jackmeng.sys.use_Program;
-import com.jackmeng.util.use_Color;
-import com.jackmeng.util.use_Image;
+import com.jackmeng.use_HalcyonFolder;
+import com.jackmeng.core.util.pstream;
+import com.jackmeng.core.util.use_Color;
+import com.jackmeng.core.util.use_Image;
+import com.jackmeng.core.util.use_Program;
 
 public class Test
 {

@@ -20,15 +20,15 @@ import org.jaudiotagger.tag.TagException;
 
 import com.jackmeng.core.abst.impl_Identifiable;
 import com.jackmeng.core.gui.const_ResourceManager;
-import com.jackmeng.sys.pstream;
-import com.jackmeng.util.use_Color;
-import com.jackmeng.util.use_Image;
-import com.jackmeng.util.use_Commons;
-import com.jackmeng.util.use_ResourceFetcher;
+import com.jackmeng.core.util.pstream;
+import com.jackmeng.core.util.use_Color;
+import com.jackmeng.core.util.use_Commons;
+import com.jackmeng.core.util.use_Image;
+import com.jackmeng.core.util.use_ResourceFetcher;
 
 import java.awt.image.*;
 
-import static com.jackmeng.core.const_Lang.*;
+import static com.jackmeng.const_Lang.*;
 
 import java.awt.*;
 

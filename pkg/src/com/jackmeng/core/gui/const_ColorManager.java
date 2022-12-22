@@ -2,7 +2,7 @@ package com.jackmeng.core.gui;
 
 import java.awt.*;
 
-import com.jackmeng.util.use_Color;
+import com.jackmeng.core.util.use_Color;
 
 public final class const_ColorManager
 {

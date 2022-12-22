@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import static com.jackmeng.core.const_Lang.*;
+import static com.jackmeng.const_Lang.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -19,9 +19,9 @@ import com.jackmeng.core.abst.impl_App;
 import com.jackmeng.core.abst.impl_HalcyonRefreshable;
 import com.jackmeng.core.gui.gui_HalcyonFrame.TitledFrame.ComponentResizer;
 import com.jackmeng.core.ploogin.impl_Ploogin;
-import com.jackmeng.util.const_GeneralStatus;
-import com.jackmeng.util.use_ResourceFetcher;
-import com.jackmeng.util.use_Struct.struct_Pair;
+import com.jackmeng.core.util.const_GeneralStatus;
+import com.jackmeng.core.util.use_ResourceFetcher;
+import com.jackmeng.core.util.use_Struct.struct_Pair;
 
 public class gui_HalcyonMoreApps
     implements

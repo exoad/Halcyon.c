@@ -3,7 +3,7 @@ package com.jackmeng.core.gui;
 import javax.swing.JPanel;
 
 import com.jackmeng.const_Core;
-import com.jackmeng.util.use_Color;
+import com.jackmeng.core.util.use_Color;
 
 import java.awt.*;
 import java.util.TimerTask;

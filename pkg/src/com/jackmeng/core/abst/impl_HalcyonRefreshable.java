@@ -1,6 +1,6 @@
 package com.jackmeng.core.abst;
 
-import com.jackmeng.util.const_GeneralStatus;
+import com.jackmeng.core.util.const_GeneralStatus;
 
 public abstract interface impl_HalcyonRefreshable< T >
 {
