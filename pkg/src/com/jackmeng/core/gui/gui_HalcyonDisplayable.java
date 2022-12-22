@@ -56,7 +56,6 @@ public final class gui_HalcyonDisplayable
     @Override
     public void forYou(use_TailwindTrack e)
     {
-      // TODO Auto-generated method stub
 
     }
 

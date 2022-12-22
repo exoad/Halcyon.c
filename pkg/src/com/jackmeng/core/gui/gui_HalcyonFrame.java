@@ -16,14 +16,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class gui_HalcyonFrame
-    implements Runnable
+    implements
+    Runnable
 {
 
   public static class TitledFrame
-      implements Runnable
+      implements
+      Runnable
   {
     public static class ComponentResizer
-        extends MouseAdapter
+        extends
+        MouseAdapter
     {
       private static final Dimension MINIMUM_SIZE = new Dimension(10, 10);
       private static final Dimension MAXIMUM_SIZE = new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);

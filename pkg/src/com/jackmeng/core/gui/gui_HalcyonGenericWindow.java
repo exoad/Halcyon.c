@@ -9,7 +9,8 @@ import com.jackmeng.core.gui.gui_HalcyonFrame.TitledFrame;
 import java.awt.*;
 
 public class gui_HalcyonGenericWindow
-    implements Runnable
+    implements
+    Runnable
 {
   protected final TitledFrame frame;
 

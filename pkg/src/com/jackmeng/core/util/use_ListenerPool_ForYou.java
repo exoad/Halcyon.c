@@ -7,7 +7,8 @@ import java.util.List;
 import com.jackmeng.core.abst.impl_ForYou;
 
 public class use_ListenerPool_ForYou< E, T extends impl_ForYou< E > >
-    implements Iterable< T >
+    implements
+    Iterable< T >
 {
   private List< T > listeners;
 

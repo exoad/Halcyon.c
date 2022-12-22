@@ -3,7 +3,8 @@ package com.jackmeng.core.ploogin;
 import com.jackmeng.core.abst.impl_App;
 
 public abstract interface impl_Ploogin
-    extends impl_App
+    extends
+    impl_App
 {
   public String description();
 

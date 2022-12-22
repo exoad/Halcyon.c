@@ -26,8 +26,10 @@ import java.util.Map;
 import java.util.Optional;
 
 public class dgui_HalcyonApps
-    extends JPanel
-    implements impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< impl_App > > >
+    extends
+    JPanel
+    implements
+    impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< impl_App > > >
 {
 
   private transient gui_HalcyonMoreApps apps;

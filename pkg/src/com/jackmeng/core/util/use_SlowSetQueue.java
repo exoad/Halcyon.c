@@ -8,7 +8,9 @@ import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.Set;
 
-public class use_SlowSetQueue< T > implements Queue< T >
+public class use_SlowSetQueue< T >
+    implements
+    Queue< T >
 {
 
   private final Queue< T > queue = new LinkedList<>();

@@ -24,8 +24,10 @@ import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
 
 public class dgui_HalcyonTop
-    extends JPanel
-    implements evnt_SelectPlaylistTrack
+    extends
+    JPanel
+    implements
+    evnt_SelectPlaylistTrack
 {
 
   public static final class halcyonTop_Info

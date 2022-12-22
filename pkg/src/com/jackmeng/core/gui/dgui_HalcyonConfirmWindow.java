@@ -8,7 +8,8 @@ import javax.swing.JFrame;
 import com.jackmeng.core.util.use_ResourceFetcher;
 
 public class dgui_HalcyonConfirmWindow
-    extends gui_HalcyonGenericWindow
+    extends
+    gui_HalcyonGenericWindow
 {
 
   public dgui_HalcyonConfirmWindow(String title, String content_HTML, Runnable onConfirm, Runnable onDeny,

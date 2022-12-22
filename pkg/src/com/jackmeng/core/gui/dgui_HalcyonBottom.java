@@ -32,7 +32,8 @@ import java.io.File;
 import java.util.*;
 
 public class dgui_HalcyonBottom
-    extends JSplitPane
+    extends
+    JSplitPane
 {
 
   public static class dgui_HalcyonFileList

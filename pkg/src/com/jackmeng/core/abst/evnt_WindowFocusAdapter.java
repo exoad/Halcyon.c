@@ -3,7 +3,8 @@ package com.jackmeng.core.abst;
 import java.awt.event.*;
 
 public abstract class evnt_WindowFocusAdapter
-    implements WindowFocusListener
+    implements
+    WindowFocusListener
 {
   protected evnt_WindowFocusAdapter()
   {

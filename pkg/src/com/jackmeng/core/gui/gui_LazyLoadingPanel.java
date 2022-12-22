@@ -4,7 +4,8 @@ import javax.swing.JPanel;
 import java.awt.*;
 
 public abstract class gui_LazyLoadingPanel
-    extends JPanel
+    extends
+    JPanel
 {
   protected boolean construction = false, finished = false;
 

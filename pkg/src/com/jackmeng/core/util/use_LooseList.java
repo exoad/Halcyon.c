@@ -10,7 +10,8 @@ public class use_LooseList< T >
     implements
     Iterable< T >
 {
-  private static class looselist_Iterator< T > implements Iterator< T >
+  private static class looselist_Iterator< T >
+      implements Iterator< T >
   {
     private List< SoftReference< T > > queue;
     private int i;

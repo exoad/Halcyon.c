@@ -3,7 +3,9 @@ package com.jackmeng.core.gui;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class use_RoundCornerBorder implements Border
+public class use_RoundCornerBorder
+    implements
+    Border
 {
 
   private int radius, strokeThickness;
