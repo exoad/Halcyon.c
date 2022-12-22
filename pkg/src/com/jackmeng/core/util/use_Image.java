@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * Java based Image processing & manipulation general functionality class.
+ * Java based Image processing and manipulation general functionality class.
  *
  * Use the native sys_ImageProcessor for extra functionalities
  *

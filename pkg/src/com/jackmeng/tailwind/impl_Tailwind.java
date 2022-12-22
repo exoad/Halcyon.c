@@ -1,7 +1,7 @@
 package com.jackmeng.tailwind;
 
 /**
- * Lightweight components & specifications for a Tailwind Clone
+ * Lightweight components and specifications for a Tailwind Clone
  *
  * @author Jack Meng
  */

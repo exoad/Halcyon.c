@@ -31,7 +31,7 @@ public final class const_Core
       SECONDARY_LOOP = new Timer("Halcyon;Secondary_Loop");
 
   /**
-   * @param id
+   * @param parentFolder
    *          -> The absolute path of the folder to be added as a playlist
    */
   public static void append_to_Playlist(String parentFolder)

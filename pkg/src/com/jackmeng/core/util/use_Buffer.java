@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import com.jackmeng.core.abst.impl_PeekChunk;
 
 /**
- * A collection of Buffer data structures & abstract data types representing
+ * A collection of Buffer data structures and abstract data types representing
  * Data Buffer handlers. One example: Circular Buffer
  *
  * @author Jack Meng

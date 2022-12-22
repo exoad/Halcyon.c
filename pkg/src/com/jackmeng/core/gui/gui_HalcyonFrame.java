@@ -191,7 +191,7 @@ public class gui_HalcyonFrame
       /**
        * Remove listeners from the specified component
        *
-       * @param component
+       * @param components
        *          the component the listeners are removed from
        */
       public void deregisterComponent(Component... components)
@@ -206,7 +206,7 @@ public class gui_HalcyonFrame
       /**
        * Add the required listeners to the specified component
        *
-       * @param component
+       * @param components
        *          the component the listeners are added to
        */
       public void registerComponent(Component... components)

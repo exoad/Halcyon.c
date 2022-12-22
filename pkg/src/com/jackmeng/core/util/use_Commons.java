@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 import com.jackmeng.use_HalcyonCore;
 
 /**
- * Common & primitive manipulation and functionality
+ * Common and primitive manipulation and functionality
  * functions.
  *
  * @author Jack Meng

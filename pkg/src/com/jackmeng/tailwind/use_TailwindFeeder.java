@@ -89,7 +89,6 @@ public final class use_TailwindFeeder
 
   public synchronized void bump_as_next(use_TailwindTrack e)
   {
-    toPl
   }
 
   private void run_ping(tailwindfeeder_FeederStates e)
@@ -108,7 +107,7 @@ public final class use_TailwindFeeder
     if(ptr == memory_bloc.size() - 1) // if a "PREVIOUS_TRACK" initiate was called then we are still in the location of the memory_bloc section
       player.open(memory_bloc.get(ptr+1));
     else {
-      player.open()
+      //player.open();
     }
     player.play();
     ptr++;
@@ -178,7 +177,6 @@ public final class use_TailwindFeeder
   {
     if(e == tailwind_Status.CLOSED)
     {
-      if()
     }
   }
 }
