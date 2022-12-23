@@ -76,8 +76,8 @@ public class use_ResourceFetcher
 
   private WeakHashMap< String, String > lazyHLL_Cache = new WeakHashMap<>();
 
-  @use_ErrorCode(code = "ERR_SCHEMA_01", description = "Emitted by this method to show an incorrect loading schema. Schema loading is mostly likely to do with loading of important files from the bundled resource folder")
-  public String load_n_parse_hll(String path, Object... args)
+  @has_ErrorCode(code = "ERR_SCHEMA_01", description = "Emitted by this method to show an incorrect loading schema. Schema loading is mostly likely to do with loading of important files from the bundled resource folder") public String load_n_parse_hll(
+      String path, Object... args)
   {
     String loaded = null;
     if (lazyHLL_Cache.containsKey(path))

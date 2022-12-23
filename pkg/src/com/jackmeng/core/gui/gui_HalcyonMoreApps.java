@@ -44,8 +44,7 @@ public class gui_HalcyonMoreApps
     frame.setUndecorated(true);
     frame.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, const_ColorManager.DEFAULT_DARK_BG));
     frame.addWindowFocusListener(new evnt_WindowFocusAdapter() {
-      @Override
-      public void windowLostFocus(WindowEvent e)
+      @Override public void windowLostFocus(WindowEvent e)
       {
         frame.dispose();
       }
@@ -64,22 +63,19 @@ public class gui_HalcyonMoreApps
     jsp = new JScrollPane(panel);
     jsp.setBorder(BorderFactory.createEmptyBorder());
     jsp.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mousePressed(MouseEvent me)
+      @Override public void mousePressed(MouseEvent me)
       {
         pX = me.getX();
         pY = me.getY();
       }
 
-      @Override
-      public void mouseDragged(MouseEvent me)
+      @Override public void mouseDragged(MouseEvent me)
       {
         frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
       }
     });
     jsp.addMouseMotionListener(new MouseMotionAdapter() {
-      @Override
-      public void mouseDragged(MouseEvent me)
+      @Override public void mouseDragged(MouseEvent me)
       {
         frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
       }
@@ -113,24 +109,22 @@ public class gui_HalcyonMoreApps
     return main;
   }
 
-  @Override
-  public void run()
+  @Override public void run()
   {
     frame.pack();
     frame.setLocationRelativeTo(Halcyon.main.expose());
     frame.setVisible(true);
   }
 
-  @Override
-  public void refresh(const_GeneralStatus type, struct_Pair< Optional< String >, Optional< impl_App > > refreshed)
+  @Override public void refresh(const_GeneralStatus type,
+      struct_Pair< Optional< String >, Optional< impl_App > > refreshed)
   {
     refreshed.second.ifPresent(type == const_GeneralStatus.ADDITION ? x -> panel.add(get_PlooginEntry(x))
         : x -> panel.remove(get_PlooginEntry(x)));
 
   }
 
-  @Override
-  public void dry_refresh()
+  @Override public void dry_refresh()
   {
     // DO NOTHING
   }

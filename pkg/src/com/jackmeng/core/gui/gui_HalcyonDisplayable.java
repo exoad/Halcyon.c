@@ -41,8 +41,7 @@ public final class gui_HalcyonDisplayable
       return this.x;
     }
 
-    @Override
-    public void paintComponent(Graphics g)
+    @Override public void paintComponent(Graphics g)
     {
       super.paintComponent(g);
       if (x)
@@ -53,8 +52,7 @@ public final class gui_HalcyonDisplayable
       }
     }
 
-    @Override
-    public void forYou(use_TailwindTrack e)
+    @Override public void forYou(use_TailwindTrack e)
     {
 
     }
@@ -71,8 +69,7 @@ public final class gui_HalcyonDisplayable
     setSize(use_GuiUtil.screen_space());
     add(pane, BorderLayout.CENTER);
     addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e)
+      @Override public void mouseClicked(MouseEvent e)
       {
         if (e.getButton() == MouseEvent.BUTTON1)
         {
@@ -94,8 +91,7 @@ public final class gui_HalcyonDisplayable
     return pane;
   }
 
-  @Override
-  public void run()
+  @Override public void run()
   {
     pack();
     setVisible(true);

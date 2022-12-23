@@ -178,6 +178,19 @@ public final class use_HalcyonCore
   public static void init_properties() throws Exception
   {
     System.setProperty("file.encoding", "UTF-8");
+    Toolkit.getDefaultToolkit().setDynamicLayout(false);
+    /*---------------------------------------------------------------------------------------------------------------- /
+    / Desktop.getDesktop().setAboutHandler(e -> {                                                                      /
+    /   try                                                                                                            /
+    /   {                                                                                                              /
+    /     use_GuiUtil.package_text_frame(use_FSys.fread_1(const_ResourceManager.RESOURCES + "files/ABOUT_SOFTWARE.html"), /
+    /         "Halcyon ~ exoad", null, 400, 570);                                                                      /
+    /   } catch (IOException e1)                                                                                       /
+    /   {                                                                                                              /
+    /     use_HalcyonFolder.FOLDER.log(e1);                                                                            /
+    /   }                                                                                                              /
+    / });                                                                                                              /
+    /-----------------------------------------------------------------------------------------------------------------*/
 
     /*----------------------------------- /
     / Set all UI element based properties /

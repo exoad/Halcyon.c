@@ -18,8 +18,7 @@ public class use_RoundCornerBorder
     this.strokeThickness = thickness;
   }
 
-  @Override
-  public void paintBorder(Component c, Graphics g, int x, int y, int width, int height)
+  @Override public void paintBorder(Component c, Graphics g, int x, int y, int width, int height)
   {
     Graphics2D g2 = (Graphics2D) g;
     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -31,14 +30,12 @@ public class use_RoundCornerBorder
     g2.setClip(null);
   }
 
-  @Override
-  public Insets getBorderInsets(Component c)
+  @Override public Insets getBorderInsets(Component c)
   {
     return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
   }
 
-  @Override
-  public boolean isBorderOpaque()
+  @Override public boolean isBorderOpaque()
   {
     return true;
   }

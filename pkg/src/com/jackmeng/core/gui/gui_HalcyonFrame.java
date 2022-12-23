@@ -265,8 +265,7 @@ public class gui_HalcyonFrame
 
       /**
        */
-      @Override
-      public void mouseMoved(MouseEvent e)
+      @Override public void mouseMoved(MouseEvent e)
       {
         Component source = e.getComponent();
         Point location = e.getPoint();
@@ -298,8 +297,7 @@ public class gui_HalcyonFrame
         }
       }
 
-      @Override
-      public void mouseEntered(MouseEvent e)
+      @Override public void mouseEntered(MouseEvent e)
       {
         if (!resizing)
         {
@@ -308,8 +306,7 @@ public class gui_HalcyonFrame
         }
       }
 
-      @Override
-      public void mouseExited(MouseEvent e)
+      @Override public void mouseExited(MouseEvent e)
       {
         if (!resizing)
         {
@@ -318,8 +315,7 @@ public class gui_HalcyonFrame
         }
       }
 
-      @Override
-      public void mousePressed(MouseEvent e)
+      @Override public void mousePressed(MouseEvent e)
       {
         // The mouseMoved event continually updates this variable
 
@@ -350,8 +346,7 @@ public class gui_HalcyonFrame
       /**
        * Restore the original state of the Component
        */
-      @Override
-      public void mouseReleased(MouseEvent e)
+      @Override public void mouseReleased(MouseEvent e)
       {
         resizing = false;
 
@@ -372,8 +367,7 @@ public class gui_HalcyonFrame
        * All calculations are done using the bounds of the component when the
        * resizing started.
        */
-      @Override
-      public void mouseDragged(MouseEvent e)
+      @Override public void mouseDragged(MouseEvent e)
       {
         if (!resizing)
           return;
@@ -495,14 +489,12 @@ public class gui_HalcyonFrame
     {
       this(conf, tH, content);
       frame.addWindowListener(new WindowAdapter() {
-        @Override
-        public void windowClosing(WindowEvent e)
+        @Override public void windowClosing(WindowEvent e)
         {
           endExec.run();
         }
 
-        @Override
-        public void windowClosed(WindowEvent e)
+        @Override public void windowClosed(WindowEvent e)
         {
           endExec.run();
         }
@@ -568,30 +560,26 @@ public class gui_HalcyonFrame
         JPanel titleBar = new JPanel();
         titleBar.setPreferredSize(new Dimension(content.getSize().width, titleHeight));
         titleBar.addComponentListener(new ComponentAdapter() {
-          @Override
-          public void componentResized(ComponentEvent e)
+          @Override public void componentResized(ComponentEvent e)
           {
             if (titleBar.getPreferredSize().height > titleHeight)
               titleBar.setSize(new Dimension(frame.getPreferredSize().width, titleHeight));
           }
         });
         titleBar.addMouseListener(new MouseAdapter() {
-          @Override
-          public void mousePressed(MouseEvent me)
+          @Override public void mousePressed(MouseEvent me)
           {
             pX = me.getX();
             pY = me.getY();
           }
 
-          @Override
-          public void mouseDragged(MouseEvent me)
+          @Override public void mouseDragged(MouseEvent me)
           {
             frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
           }
         });
         titleBar.addMouseMotionListener(new MouseMotionAdapter() {
-          @Override
-          public void mouseDragged(MouseEvent me)
+          @Override public void mouseDragged(MouseEvent me)
           {
             frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
           }
@@ -642,8 +630,7 @@ public class gui_HalcyonFrame
         titleBar.add(btns, BorderLayout.EAST);
         titleBar.addMouseListener(new MouseAdapter() {
 
-          @Override
-          public void mouseClicked(MouseEvent e)
+          @Override public void mouseClicked(MouseEvent e)
           {
             if (e.getClickCount() >= 2)
             {
@@ -655,8 +642,7 @@ public class gui_HalcyonFrame
         });
 
         titleBar.addMouseMotionListener(new MouseMotionAdapter() {
-          @Override
-          public void mouseDragged(MouseEvent e)
+          @Override public void mouseDragged(MouseEvent e)
           {
             if (maximizedFrame)
             {
@@ -667,8 +653,7 @@ public class gui_HalcyonFrame
         });
         final int TITLEBAR_HEIGHT_REFERENDUM = titleBar.getPreferredSize().height;
         titleBar.addComponentListener(new ComponentAdapter() {
-          @Override
-          public void componentResized(ComponentEvent e)
+          @Override public void componentResized(ComponentEvent e)
           {
             titleBar.setSize(new Dimension(frame.getSize().width, TITLEBAR_HEIGHT_REFERENDUM));
             content.setPreferredSize(
@@ -690,7 +675,8 @@ public class gui_HalcyonFrame
         /                                                                   /
         /------------------------------------------------------------------*/
 
-        notificationManager.setBounds(0, 0, notificationManager.getPreferredSize().width, notificationManager.getPreferredSize().height);
+        notificationManager.setBounds(0, 0, notificationManager.getPreferredSize().width,
+            notificationManager.getPreferredSize().height);
 
         JLayeredPane wrapper1 = new JLayeredPane();
         wrapper1.setLayout(new OverlayLayout(wrapper1));
@@ -774,29 +760,25 @@ public class gui_HalcyonFrame
         this.clr = color;
 
         addMouseListener(new MouseAdapter() {
-          @Override
-          public void mousePressed(MouseEvent e)
+          @Override public void mousePressed(MouseEvent e)
           {
             hovering = true;
             SwingUtilities.invokeLater(() -> repaint(50L));
           }
 
-          @Override
-          public void mouseExited(MouseEvent e)
+          @Override public void mouseExited(MouseEvent e)
           {
             hovering = false;
             SwingUtilities.invokeLater(() -> repaint(50L));
           }
 
-          @Override
-          public void mouseEntered(MouseEvent e)
+          @Override public void mouseEntered(MouseEvent e)
           {
             hovering = true;
             SwingUtilities.invokeLater(() -> repaint(70L));
           }
 
-          @Override
-          public void mouseClicked(MouseEvent e)
+          @Override public void mouseClicked(MouseEvent e)
           {
             hovering = true;
             SwingUtilities.invokeLater(() -> repaint(70L));
@@ -813,8 +795,7 @@ public class gui_HalcyonFrame
         setOpaque(true);
       }
 
-      @Override
-      public void paintComponent(Graphics g)
+      @Override public void paintComponent(Graphics g)
       {
         Graphics2D g2 = (Graphics2D) g;
         g2.clearRect(0, 0, getSize().width, getSize().height); // fixes the overlaying issue and prevents old content
@@ -841,8 +822,7 @@ public class gui_HalcyonFrame
       return new TitleBarButton(15, color, func);
     }
 
-    @Override
-    public void run()
+    @Override public void run()
     {
       /*--------------------------------------------------------------------------------------- /
       / AHHH there's some funky shit with why it sometimes renders the frame with Transparency. /
@@ -904,8 +884,7 @@ public class gui_HalcyonFrame
         const_Manager.FRAME_TITLEBAR_HEIGHT, splitPane);
 
     frame.expose().addWindowListener(new WindowAdapter() {
-      @Override
-      public void windowClosed(WindowEvent e)
+      @Override public void windowClosed(WindowEvent e)
       {
         /*------------------------------------------------------------------------------ /
         / dont have to wait for the JVM to actually realise the root component is gone!! /
@@ -933,8 +912,7 @@ public class gui_HalcyonFrame
     return frame;
   }
 
-  @Override
-  public final void run()
+  @Override public final void run()
   {
     use_Task.run_Snb_1(frame);
   }

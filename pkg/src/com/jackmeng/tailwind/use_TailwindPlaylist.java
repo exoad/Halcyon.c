@@ -201,8 +201,7 @@ public class use_TailwindPlaylist
   public static use_TailwindPlaylist construct(File e, String[] endings)
   {
     return new use_TailwindPlaylist(e.getAbsolutePath(), e.list(new FilenameFilter() {
-      @Override
-      public boolean accept(File dir, String name)
+      @Override public boolean accept(File dir, String name)
       {
         for (String e : endings)
         {
@@ -219,8 +218,7 @@ public class use_TailwindPlaylist
   /**
    * @return Iterator:String
    */
-  @Override
-  public Iterator< String > iterator()
+  @Override public Iterator< String > iterator()
   {
     return children.iterator();
   }
@@ -240,8 +238,7 @@ public class use_TailwindPlaylist
   /**
    * @return String
    */
-  @Override
-  public String id()
+  @Override public String id()
   {
     return getParent();
   }

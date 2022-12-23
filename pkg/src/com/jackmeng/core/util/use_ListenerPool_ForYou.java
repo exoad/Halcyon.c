@@ -48,8 +48,7 @@ public class use_ListenerPool_ForYou< E, T extends impl_ForYou< E > >
     listeners.forEach(x -> x.forYou(optionals));
   }
 
-  @Override
-  public Iterator< T > iterator()
+  @Override public Iterator< T > iterator()
   {
     return listeners.iterator();
   }

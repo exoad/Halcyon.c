@@ -5,8 +5,11 @@ import java.util.function.Consumer;
 
 import javax.swing.Icon;
 import javax.swing.JComponent;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
 
 import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_Commons;
@@ -67,6 +70,26 @@ public final class use_GuiUtil
       e.add(item);
     }
     return e;
+  }
+
+  public static Runnable package_text_frame(String htmlText, String title, Image optionalIcon, int width, int height)
+  {
+    JFrame f = new JFrame(title);
+    f.setIconImage(optionalIcon);
+    f.setPreferredSize(new Dimension(width, height));
+    f.getContentPane().setLayout(new BorderLayout());
+
+    JEditorPane j = new JEditorPane("text/html", htmlText);
+    j.setPreferredSize(new Dimension(width, height));
+    j.setEditable(false);
+
+    f.getContentPane().add(j, BorderLayout.CENTER);
+
+    return () -> {
+      f.pack();
+      f.setVisible(true);
+      f.setLocationRelativeTo(null);
+    };
   }
 
   public static Dimension screen_space()

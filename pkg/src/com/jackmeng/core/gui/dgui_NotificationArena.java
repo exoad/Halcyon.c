@@ -50,8 +50,7 @@ public final class dgui_NotificationArena
       queue.remove();
     }
     dgui_FadePanel notif = new dgui_FadePanel(0.05F, 2000L, 70L) {
-      @Override
-      public void paintComponent(Graphics g)
+      @Override public void paintComponent(Graphics g)
       {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;

@@ -31,8 +31,10 @@ public class dgui_HalcyonTop
 {
 
   public static final class halcyonTop_Info
-      extends gui_LazyLoadingPanel
-      implements evnt_SelectPlaylistTrack
+      extends
+      gui_LazyLoadingPanel
+      implements
+      evnt_SelectPlaylistTrack
   {
 
     private JPanel infoDisplayer;
@@ -86,8 +88,7 @@ public class dgui_HalcyonTop
       const_Core.SELECTION_LISTENERS.add_listener(this);
     }
 
-    @Override
-    public void forYou(use_TailwindTrack e)
+    @Override public void forYou(use_TailwindTrack e)
     {
       SwingUtilities.invokeLater(() -> {
         infoDisplayer
@@ -128,8 +129,7 @@ public class dgui_HalcyonTop
       /--------------------------------------------------------------------------------------------------------------*/
     }
 
-    @Override
-    protected void constr()
+    @Override protected void constr()
     {
 
     }
@@ -273,8 +273,7 @@ public class dgui_HalcyonTop
       timeSlider.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
 
       addComponentListener(new ComponentAdapter() {
-        @Override
-        public void componentResized(ComponentEvent e)
+        @Override public void componentResized(ComponentEvent e)
         {
           SwingUtilities.invokeLater(() -> {
             timeSlider.setMaximum(Math.min(100, getSize().width)); // expanding -> more smooth ticking
@@ -288,8 +287,7 @@ public class dgui_HalcyonTop
       add(timeSlider);
     }
 
-    @Override
-    public void tailwind_status(tailwind_Status e)
+    @Override public void tailwind_status(tailwind_Status e)
     {
       playPause_Button.set_rolled(e == tailwind_Status.PLAYING);
     }
@@ -323,8 +321,7 @@ public class dgui_HalcyonTop
         use_ResourceFetcher.fetcher.getFromAsImage(const_ResourceManager.SCENES
             + r));
     bgPanel = new JPanel() {
-      @Override
-      public void paintComponent(Graphics g)
+      @Override public void paintComponent(Graphics g)
       {
         g.clearRect(0, 0, e.getPreferredSize().width, e.getPreferredSize().height);
         Graphics2D g2 = (Graphics2D) g;
@@ -338,8 +335,7 @@ public class dgui_HalcyonTop
     JLayer< Component > blur = new JLayer<>(bgPanel, new LayerUI<>() {
       private transient imgstrat_BlurhashBlur e = new imgstrat_BlurhashBlur(3, 4, 1.0d);
 
-      @Override
-      public void paint(Graphics g, JComponent comp)
+      @Override public void paint(Graphics g, JComponent comp)
       {
         if (comp.getWidth() == 0 || comp.getHeight() == 0)
           return;
@@ -358,13 +354,12 @@ public class dgui_HalcyonTop
     });
 
     add(copy);
-    //add(bgPanel);
+    // add(bgPanel);
 
     const_Core.SELECTION_LISTENERS.add_listener(this);
   }
 
-  @Override
-  public void forYou(use_TailwindTrack e)
+  @Override public void forYou(use_TailwindTrack e)
   {
     i = e.get_artwork();
     repaint(300L);

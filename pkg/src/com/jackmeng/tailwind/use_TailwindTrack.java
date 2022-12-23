@@ -310,8 +310,7 @@ public final class use_TailwindTrack
     return content;
   }
 
-  @Override
-  public String id()
+  @Override public String id()
   {
     return locale;
   }

@@ -16,8 +16,7 @@ public final class dgui_DebugPanel
   {
     const_Core.schedule_secondary_task(new TimerTask() {
 
-      @Override
-      public void run()
+      @Override public void run()
       {
         repaint(500L);
       }
@@ -25,8 +24,7 @@ public final class dgui_DebugPanel
     }, 1000L, 3500L);
   }
 
-  @Override
-  protected void paintComponent(Graphics g)
+  @Override protected void paintComponent(Graphics g)
   {
     g.clearRect(0, 0, getSize().width, getSize().height);
     g.setColor(use_Color.rndColor());

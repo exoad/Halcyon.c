@@ -71,8 +71,7 @@ public final class gui_HalcyonPlaylistSelect
   / }                                 /
   /----------------------------------*/
 
-  @Override
-  public void run()
+  @Override public void run()
   {
     int result = chooser.showOpenDialog(parent);
     if (result == JFileChooser.APPROVE_OPTION && playlist != null)

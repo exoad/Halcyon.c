@@ -28,8 +28,7 @@ public class use_Pool< T extends impl_Identifiable >
       /*-------------------------------------------------------------------- /
       / by default the pool will always return true for all entered elements /
       /---------------------------------------------------------------------*/
-      @Override
-      public boolean check(impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > e)
+      @Override public boolean check(impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > e)
       {
         return true;
       }
@@ -37,8 +36,7 @@ public class use_Pool< T extends impl_Identifiable >
     };
     guards2 = new impl_Guard<>() {
 
-      @Override
-      public boolean check(T e)
+      @Override public boolean check(T e)
       {
         return true;
       }
@@ -173,8 +171,7 @@ public class use_Pool< T extends impl_Identifiable >
     return "OBJECT_POOL{\n" + refreshables.toString() + "\n" + poolObjects.toString() + "\n}";
   }
 
-  @Override
-  public Iterator< T > iterator()
+  @Override public Iterator< T > iterator()
   {
     return poolObjects.values().iterator();
   }

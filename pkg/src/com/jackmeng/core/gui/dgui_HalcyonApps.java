@@ -178,33 +178,28 @@ public class dgui_HalcyonApps
   public static impl_App make_DefaultApp(String tooltip, Runnable run, String iconLocale)
   {
     return new impl_App() {
-      @Override
-      public void run()
+      @Override public void run()
       {
         run.run();
       }
 
-      @Override
-      public ImageIcon icon()
+      @Override public ImageIcon icon()
       {
         return use_Image.resize_fast_1(const_Manager.DGUI_APPS_ICON_BTN_WIDTH, const_Manager.DGUI_APPS_ICON_BTN_WIDTH,
             use_ResourceFetcher.fetcher.getFromAsImageIcon(iconLocale));
       }
 
-      @Override
-      public String toolTip()
+      @Override public String toolTip()
       {
         return tooltip;
       }
 
-      @Override
-      public Optional< ImageIcon > rolloverIcon()
+      @Override public Optional< ImageIcon > rolloverIcon()
       {
         return Optional.of(icon());
       }
 
-      @Override
-      public String id()
+      @Override public String id()
       {
         return new File(iconLocale).getName();
       }
@@ -214,14 +209,13 @@ public class dgui_HalcyonApps
   /**
    * @param refreshed
    */
-  @Override
-  public void refresh(const_GeneralStatus type, struct_Pair< Optional< String >, Optional< impl_App > > refreshed)
+  @Override public void refresh(const_GeneralStatus type,
+      struct_Pair< Optional< String >, Optional< impl_App > > refreshed)
   {
     refreshed.second.ifPresent(type == const_GeneralStatus.ADDITION ? this::addApp : this::removeApp);
   }
 
-  @Override
-  public void dry_refresh()
+  @Override public void dry_refresh()
   {
     const_Core.APPS_POOL.objs().forEach(x -> addApp(const_Core.APPS_POOL.get(x)));
   }

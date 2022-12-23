@@ -57,8 +57,7 @@ public final class use_TailwindFeeder
 
     use_TailwindScheduler.submit_Task_General(new TimerTask() {
 
-      @Override
-      public void run()
+      @Override public void run()
       {
         List< Integer > toRemove = new ArrayList<>();
         for (int i = 0; i < memory_bloc.size(); i++)
@@ -101,10 +100,12 @@ public final class use_TailwindFeeder
   public synchronized void next()
   {
     player.close();
-    if(ptr == memory_bloc.size() - 1) // if a "PREVIOUS_TRACK" initiate was called then we are still in the location of the memory_bloc section
-      player.open(memory_bloc.get(ptr+1));
-    else {
-      //player.open();
+    if (ptr == memory_bloc.size() - 1) // if a "PREVIOUS_TRACK" initiate was called then we are still in the location
+                                       // of the memory_bloc section
+      player.open(memory_bloc.get(ptr + 1));
+    else
+    {
+      // player.open();
     }
     player.play();
     ptr++;
@@ -133,46 +134,39 @@ public final class use_TailwindFeeder
     return player;
   }
 
-  @Override
-  public String id()
+  @Override public String id()
   {
     return this.getClass().getCanonicalName();
   }
 
-  @Override
-  public synchronized void play()
+  @Override public synchronized void play()
   {
     player.play();
   }
 
-  @Override
-  public synchronized void pause()
+  @Override public synchronized void pause()
   {
     player.pause();
   }
 
-  @Override
-  public synchronized void close()
+  @Override public synchronized void close()
   {
     player.close();
   }
 
-  @Override
-  public synchronized long time_ms()
+  @Override public synchronized long time_ms()
   {
     return player.time_ms();
   }
 
-  @Override
-  public Iterator< String > iterator()
+  @Override public Iterator< String > iterator()
   {
     return memory_bloc.iterator();
   }
 
-  @Override
-  public void tailwind_status(tailwind_Status e)
+  @Override public void tailwind_status(tailwind_Status e)
   {
-    if(e == tailwind_Status.CLOSED)
+    if (e == tailwind_Status.CLOSED)
     {
     }
   }

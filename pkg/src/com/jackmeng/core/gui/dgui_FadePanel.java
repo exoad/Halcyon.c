@@ -40,8 +40,7 @@ public class dgui_FadePanel
     this.per_step = delay_per_step;
     onfadeOut = new ArrayList<>();
     addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseEntered(MouseEvent e)
+      @Override public void mouseEntered(MouseEvent e)
       {
         if (timer != null)
         {
@@ -53,8 +52,7 @@ public class dgui_FadePanel
         }
       }
 
-      @Override
-      public void mouseExited(MouseEvent e)
+      @Override public void mouseExited(MouseEvent e)
       {
         pstream.log.warn("FADING_PANEL_RESTARTED");
         run();
@@ -72,8 +70,7 @@ public class dgui_FadePanel
     onfadeOut.remove(r);
   }
 
-  @Override
-  public void paintComponent(Graphics g)
+  @Override public void paintComponent(Graphics g)
   {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
@@ -87,14 +84,12 @@ public class dgui_FadePanel
     }
   }
 
-  @Override
-  public final void run()
+  @Override public final void run()
   {
     timer = new Timer();
 
     timer.schedule(new TimerTask() {
-      @Override
-      public void run()
+      @Override public void run()
       {
         alpha -= fadeStep;
 

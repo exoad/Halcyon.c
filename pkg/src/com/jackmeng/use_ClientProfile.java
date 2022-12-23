@@ -21,7 +21,7 @@ public class use_ClientProfile
 {
   private boolean locked = false;
   private String name, saveLocation;
-  private BufferedImage userAvatar;
+  private transient BufferedImage userAvatar;
   private float totalTimeUsed_Hours, currentTimeUsed_Minutes; // the LONG_MAX value should be enough I hope, its like
                                                               // 100000000 so centuries
 
@@ -45,7 +45,8 @@ public class use_ClientProfile
     {
       pstream.log.warn("Failed to load...\nRequirements:\nTime (lfloat): Found: " + tr[1] + " Requires: (lfloat)");
     }
-    return new use_ClientProfile(false, location, tr[0] == null || tr[0].isBlank() ? System.getProperty("user.name") : tr[0],
+    return new use_ClientProfile(false, location,
+        tr[0] == null || tr[0].isBlank() ? System.getProperty("user.name") : tr[0],
         Float.parseFloat(tr[1] == null ? "0" : tr[1]));
   }
 
@@ -103,16 +104,14 @@ public class use_ClientProfile
     return name + "\n" + totalTimeUsed_Hours + "\n";
   }
 
-  @Override
-  public synchronized void run()
+  @Override public synchronized void run()
   {
     if (!locked)
     {
       const_Core.schedule_secondary_task(new TimerTask() {
         private float s = System.currentTimeMillis();
 
-        @Override
-        public void run()
+        @Override public void run()
         {
           float t = System.currentTimeMillis();
           currentTimeUsed_Minutes += use_Chronos.millisToMinutes(t - s);
@@ -122,8 +121,7 @@ public class use_ClientProfile
     }
   }
 
-  @Override
-  public Object clone()
+  @Override public Object clone()
   {
     return new use_ClientProfile(true, saveLocation, name, totalTimeUsed_Hours);
   }

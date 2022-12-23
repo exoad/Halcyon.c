@@ -1,7 +1,6 @@
 package com.jackmeng.core.abst;
 
-@FunctionalInterface
-public abstract interface impl_Callback< T >
+@FunctionalInterface public abstract interface impl_Callback< T >
 {
   public T call(Object... params);
 

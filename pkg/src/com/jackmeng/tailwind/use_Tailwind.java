@@ -193,8 +193,7 @@ public class use_Tailwind
     run_ping(tailwind_Status.ARMED);
   }
 
-  @Override
-  public final synchronized void play()
+  @Override public final synchronized void play()
   {
     if (currentTrack != null && currentTrack.playable())
     {
@@ -274,8 +273,7 @@ public class use_Tailwind
 
   }
 
-  @Override
-  public final synchronized void pause()
+  @Override public final synchronized void pause()
   {
     if (currentTrack != null && currentTrack.playable())
     {
@@ -284,15 +282,13 @@ public class use_Tailwind
     }
   }
 
-  @Override
-  public final synchronized void stop()
+  @Override public final synchronized void stop()
   {
     if (currentTrack != null && currentTrack.playable())
       isPlaying = false;
   }
 
-  @Override
-  public final synchronized void close()
+  @Override public final synchronized void close()
   {
     if (currentTrack != null && currentTrack.playable())
     {
@@ -348,8 +344,7 @@ public class use_Tailwind
     }
   }
 
-  @Override
-  public final synchronized long time_ms() // returns the length of the track in milliseconds
+  @Override public final synchronized long time_ms() // returns the length of the track in milliseconds
   {
     return currentTrack != null && currentTrack.playable()
         ? (long) ((ais.getFrameLength() * 1000L) / af.getFrameRate())
@@ -415,8 +410,7 @@ public class use_Tailwind
     return compareStatus;
   }
 
-  @Override
-  public Object clone() throws CloneNotSupportedException
+  @Override public Object clone() throws CloneNotSupportedException
   {
     return super.clone();
   }

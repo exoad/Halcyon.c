@@ -60,8 +60,7 @@ public final class use_Struct
           + ":[" + first + "," + second + "]";
     }
 
-    @Override
-    public boolean equals(Object cum)
+    @Override public boolean equals(Object cum)
     {
       /*-------------------------------------------------------------------------------------- /
       / this shit prob shldnt do checks like this, as it concerns specific instanceof with     /
@@ -74,8 +73,7 @@ public final class use_Struct
       return makePair.first.equals(first) && makePair.second.equals(second);
     }
 
-    @Override
-    public int hashCode()
+    @Override public int hashCode()
     {
       /*------------------------------------------------------ /
       / stupid hashcode calculations on basis of Integer.BYTES /
@@ -90,9 +88,7 @@ public final class use_Struct
               ^ ((((1 << (Integer.BYTES * 8) + 1) - 1) & second.hashCode()) >> ((Integer.BYTES * 8) / 2)));
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public void forYou(String e)
+    @Override @SuppressWarnings("unchecked") public void forYou(String e)
     {
       this.first = (A) e.split("_")[0];
       this.second = (B) e.split("_")[1];
@@ -124,9 +120,7 @@ public final class use_Struct
           || use_Commons.is_generic(third.getClass()) ? null : new Object[] { first, second, third };
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public void forYou(String e)
+    @Override @SuppressWarnings("unchecked") public void forYou(String e)
     {
       this.first = (A) e.split("_")[0];
       this.second = (B) e.split("_")[1];

@@ -28,14 +28,14 @@ public class gui_HalcyonGenericWindow
         new TitleBarConfig(title, icon,
             use_HalcyonCore.boldFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE),
             const_ColorManager.DEFAULT_RED_FG, r, const_ColorManager.DEFAULT_RED_FG,
-            const_ColorManager.DEFAULT_YELLOW_FG, const_ColorManager.DEFAULT_GREEN_FG, const_ColorManager.DEFAULT_PINK_FG, r),
+            const_ColorManager.DEFAULT_YELLOW_FG, const_ColorManager.DEFAULT_GREEN_FG,
+            const_ColorManager.DEFAULT_PINK_FG, r),
         const_Manager.FRAME_TITLEBAR_HEIGHT, jsp);
     frame.expose().setLocationRelativeTo(parent);
     frame.expose().setAlwaysOnTop(true);
   }
 
-  @Override
-  public void run()
+  @Override public void run()
   {
     SwingUtilities.invokeLater(frame);
   }

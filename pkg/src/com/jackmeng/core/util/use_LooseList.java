@@ -22,14 +22,12 @@ public class use_LooseList< T >
       this.i = 0;
     }
 
-    @Override
-    public boolean hasNext()
+    @Override public boolean hasNext()
     {
       return i < queue.size();
     }
 
-    @Override
-    public T next()
+    @Override public T next()
     {
       if (!hasNext())
         throw new NoSuchElementException();
@@ -38,8 +36,7 @@ public class use_LooseList< T >
       return e;
     }
 
-    @Override
-    public void remove()
+    @Override public void remove()
     {
       throw new UnsupportedOperationException();
     }
@@ -72,8 +69,7 @@ public class use_LooseList< T >
     return list.size();
   }
 
-  @Override
-  public Iterator< T > iterator()
+  @Override public Iterator< T > iterator()
   {
     return new looselist_Iterator<>(list);
   }

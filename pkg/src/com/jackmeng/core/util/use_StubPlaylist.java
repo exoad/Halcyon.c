@@ -36,16 +36,14 @@ public class use_StubPlaylist
   /**
    * @param endings
    */
-  @Override
-  public void init(String[] endings)
+  @Override public void init(String[] endings)
   {
   }
 
   /**
    * @return String
    */
-  @Override
-  public String getCanonicalParent_2()
+  @Override public String getCanonicalParent_2()
   {
     return getParent();
   }
@@ -53,14 +51,12 @@ public class use_StubPlaylist
   /**
    * @return String
    */
-  @Override
-  public String getCanonicalParent_1()
+  @Override public String getCanonicalParent_1()
   {
     return getParent();
   }
 
-  @Override
-  public void refresh()
+  @Override public void refresh()
   {
     check_validity();
   }

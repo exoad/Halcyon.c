@@ -6,7 +6,8 @@ import com.jackmeng.core.abst.impl_Guard;
 import com.jackmeng.core.abst.impl_Identifiable;
 
 public final class use_MUTableDefinition
-    implements impl_Identifiable
+    implements
+    impl_Identifiable
 {
   public String name, key, defaultVal;
   private impl_Guard< String > onValidate;

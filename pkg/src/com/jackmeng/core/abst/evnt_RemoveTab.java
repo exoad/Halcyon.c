@@ -1,7 +1,6 @@
 package com.jackmeng.core.abst;
 
-@FunctionalInterface
-public abstract interface evnt_RemoveTab
+@FunctionalInterface public abstract interface evnt_RemoveTab
 {
 
   /**

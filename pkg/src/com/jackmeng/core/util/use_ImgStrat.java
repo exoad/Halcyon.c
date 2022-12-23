@@ -36,8 +36,7 @@ public final class use_ImgStrat
       this.b = endAlpha;
     }
 
-    @Override
-    public BufferedImage filter(BufferedImage src, BufferedImage dest)
+    @Override public BufferedImage filter(BufferedImage src, BufferedImage dest)
     {
       int w = src.getWidth();
       int h = src.getHeight();
@@ -99,14 +98,12 @@ public final class use_ImgStrat
       return dest;
     }
 
-    @Override
-    public Rectangle2D getBounds2D(BufferedImage srcum)
+    @Override public Rectangle2D getBounds2D(BufferedImage srcum)
     {
       return new Rectangle(0, 0, srcum.getWidth(), srcum.getHeight());
     }
 
-    @Override
-    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
+    @Override public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
     {
       if (cumCM == null)
       {
@@ -118,14 +115,12 @@ public final class use_ImgStrat
           cumCM.isAlphaPremultiplied(), null);
     }
 
-    @Override
-    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
+    @Override public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
     {
       return (Point2D) srcumPt.clone();
     }
 
-    @Override
-    public RenderingHints getRenderingHints()
+    @Override public RenderingHints getRenderingHints()
     {
       return (RenderingHints) Collections.emptyMap();
     }
@@ -152,8 +147,7 @@ public final class use_ImgStrat
       this.type = type;
     }
 
-    @Override
-    public BufferedImage filter(BufferedImage src, BufferedImage dest)
+    @Override public BufferedImage filter(BufferedImage src, BufferedImage dest)
     {
       if (type == imagegradient_GradientType.TOP)
       {
@@ -182,14 +176,12 @@ public final class use_ImgStrat
       return src;
     }
 
-    @Override
-    public Rectangle2D getBounds2D(BufferedImage srcum)
+    @Override public Rectangle2D getBounds2D(BufferedImage srcum)
     {
       return new Rectangle(0, 0, srcum.getWidth(), srcum.getHeight());
     }
 
-    @Override
-    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
+    @Override public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
     {
       if (cumCM == null)
       {
@@ -201,14 +193,12 @@ public final class use_ImgStrat
           cumCM.isAlphaPremultiplied(), null);
     }
 
-    @Override
-    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
+    @Override public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
     {
       return (Point2D) srcumPt.clone();
     }
 
-    @Override
-    public RenderingHints getRenderingHints()
+    @Override public RenderingHints getRenderingHints()
     {
       return (RenderingHints) Collections.emptyMap();
     }
@@ -262,14 +252,12 @@ public final class use_ImgStrat
       this.x = x;
     }
 
-    @Override
-    public Rectangle2D getBounds2D(BufferedImage srcum)
+    @Override public Rectangle2D getBounds2D(BufferedImage srcum)
     {
       return new Rectangle(0, 0, srcum.getWidth(), srcum.getHeight());
     }
 
-    @Override
-    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
+    @Override public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
     {
       if (cumCM == null)
       {
@@ -281,20 +269,17 @@ public final class use_ImgStrat
           cumCM.isAlphaPremultiplied(), null);
     }
 
-    @Override
-    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
+    @Override public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
     {
       return (Point2D) srcumPt.clone();
     }
 
-    @Override
-    public RenderingHints getRenderingHints()
+    @Override public RenderingHints getRenderingHints()
     {
       return (RenderingHints) Collections.emptyMap();
     }
 
-    @Override
-    public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
+    @Override public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
     {
       int width = srcum.getWidth();
       int height = srcum.getHeight();
@@ -336,14 +321,12 @@ public final class use_ImgStrat
       this(new float[] { 0.00599F, 0.060628F, 0.241844F, 0.383113F, 0.241823F, 0.060636F, 0.00528F });
     }
 
-    @Override
-    public Rectangle2D getBounds2D(BufferedImage srcum)
+    @Override public Rectangle2D getBounds2D(BufferedImage srcum)
     {
       return new Rectangle(0, 0, srcum.getWidth(), srcum.getHeight());
     }
 
-    @Override
-    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
+    @Override public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
     {
       if (cumCM == null)
       {
@@ -355,20 +338,17 @@ public final class use_ImgStrat
           cumCM.isAlphaPremultiplied(), null);
     }
 
-    @Override
-    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
+    @Override public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
     {
       return (Point2D) srcumPt.clone();
     }
 
-    @Override
-    public RenderingHints getRenderingHints()
+    @Override public RenderingHints getRenderingHints()
     {
       return (RenderingHints) Collections.emptyMap();
     }
 
-    @Override
-    public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
+    @Override public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
     {
       int width = srcum.getWidth();
       int height = srcum.getHeight();
@@ -408,8 +388,7 @@ public final class use_ImgStrat
       this.iterations = itr;
     }
 
-    @Override
-    public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
+    @Override public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
     {
       int width = srcum.getWidth();
       int height = srcum.getHeight();
@@ -432,14 +411,12 @@ public final class use_ImgStrat
       return cum;
     }
 
-    @Override
-    public Rectangle2D getBounds2D(BufferedImage srcum)
+    @Override public Rectangle2D getBounds2D(BufferedImage srcum)
     {
       return new Rectangle(0, 0, srcum.getWidth(), srcum.getHeight());
     }
 
-    @Override
-    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
+    @Override public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
     {
       if (cumCM == null)
       {
@@ -451,14 +428,12 @@ public final class use_ImgStrat
           cumCM.isAlphaPremultiplied(), null);
     }
 
-    @Override
-    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
+    @Override public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
     {
       return (Point2D) srcumPt.clone();
     }
 
-    @Override
-    public RenderingHints getRenderingHints()
+    @Override public RenderingHints getRenderingHints()
     {
       return (RenderingHints) Collections.emptyMap();
     }
@@ -569,8 +544,7 @@ public final class use_ImgStrat
       }
     }
 
-    @Override
-    public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
+    @Override public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
     {
       int width = srcum.getWidth();
       int height = srcum.getHeight();
@@ -586,14 +560,12 @@ public final class use_ImgStrat
       return cum;
     }
 
-    @Override
-    public Rectangle2D getBounds2D(BufferedImage srcum)
+    @Override public Rectangle2D getBounds2D(BufferedImage srcum)
     {
       return new Rectangle(0, 0, srcum.getWidth(), srcum.getHeight());
     }
 
-    @Override
-    public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
+    @Override public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
     {
       if (cumCM == null)
       {
@@ -605,14 +577,12 @@ public final class use_ImgStrat
           cumCM.isAlphaPremultiplied(), null);
     }
 
-    @Override
-    public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
+    @Override public Point2D getPoint2D(Point2D srcumPt, Point2D dstPt)
     {
       return (Point2D) srcumPt.clone();
     }
 
-    @Override
-    public RenderingHints getRenderingHints()
+    @Override public RenderingHints getRenderingHints()
     {
       return (RenderingHints) Collections.emptyMap();
     }

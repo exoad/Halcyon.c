@@ -119,8 +119,7 @@ public class dgui_HalcyonBottom
           addActionListener(this);
         }
 
-        @Override
-        public void paintComponent(Graphics g)
+        @Override public void paintComponent(Graphics g)
         {
           super.paintComponent(g);
           // dont call g.clearRect, it makes a weird box shape that is opaque
@@ -133,8 +132,7 @@ public class dgui_HalcyonBottom
           g2.dispose();
         }
 
-        @Override
-        public void actionPerformed(ActionEvent e)
+        @Override public void actionPerformed(ActionEvent e)
         {
           int i = dgui_HalcyonFileList.this.pane.indexOfTabComponent(filelist_TabButtons.this);
           if (i != -1)
@@ -198,8 +196,7 @@ public class dgui_HalcyonBottom
       const_Core.PLAY_LIST_POOL.addRefreshable(this);
 
       const_Core.PLAY_LIST_POOL.setGuard(new impl_Guard< use_TailwindPlaylist >() {
-        @Override
-        public boolean check(use_TailwindPlaylist e)
+        @Override public boolean check(use_TailwindPlaylist e)
         {
           if (const_Core.PLAY_LIST_POOL.hasObj(e))
           {
@@ -283,15 +280,13 @@ public class dgui_HalcyonBottom
         {
         }
 
-        @Override
-        public void mouseReleased(MouseEvent e)
+        @Override public void mouseReleased(MouseEvent e)
         {
           if (SwingUtilities.isRightMouseButton(e))
             call(e);
         }
 
-        @Override
-        public void mousePressed(MouseEvent e)
+        @Override public void mousePressed(MouseEvent e)
         {
           if (SwingUtilities.isRightMouseButton(e))
             call(e);
@@ -299,8 +294,7 @@ public class dgui_HalcyonBottom
 
         private File last = null;
 
-        @Override
-        public void mouseClicked(MouseEvent e)
+        @Override public void mouseClicked(MouseEvent e)
         {
 
           if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 2)
@@ -367,22 +361,19 @@ public class dgui_HalcyonBottom
     /**
      * @param refreshed
      */
-    @Override
-    public void refresh(const_GeneralStatus type,
+    @Override public void refresh(const_GeneralStatus type,
         struct_Pair< Optional< String >, Optional< use_TailwindPlaylist > > refreshed)
     {
       refreshed.second.ifPresent(type == const_GeneralStatus.ADDITION ? this::pokeFileList : this::removeFileList);
     }
 
-    @Override
-    public void dry_refresh()
+    @Override public void dry_refresh()
     {
       const_Core.PLAY_LIST_POOL.objs().forEach(
           x -> pokeFileList(const_Core.PLAY_LIST_POOL.get(x)));
     }
 
-    @Override
-    public void forYou(use_TailwindTrack e)
+    @Override public void forYou(use_TailwindTrack e)
     {
       pstream.log.info("USER SELECTED TRACK: " + e.getContentFile().getAbsolutePath());
     }

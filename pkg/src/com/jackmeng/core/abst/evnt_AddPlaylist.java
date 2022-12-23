@@ -1,7 +1,6 @@
 package com.jackmeng.core.abst;
 
-@FunctionalInterface
-public abstract interface evnt_AddPlaylist
+@FunctionalInterface public abstract interface evnt_AddPlaylist
 {
   public void addPlaylist(String folderName);
 }
