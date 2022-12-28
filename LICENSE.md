@@ -4,7 +4,7 @@
 
 <div align="center">
 <p style="text-align: right">
-Version 2.0, November 2022</p>
+Version 2.1, December 2022</p>
 
 
 <p style="text-align: right">
@@ -127,3 +127,34 @@ Third-party redistributions and authors may only redistribute under the terms th
 ## **10. Patent Claims & License(s)**
 
 This license is not provided with a patent claim, and users besides the original authors and license holders are not granted any patent claims & rights.
+
+## **11.   Resource(s)**
+
+_This clause only comes into effect if the original license holder DOES NOT provide a secondary license for resources and prefers to use this license as a whole to protect their work._
+
+This license does not fully protect any resource files (e.g. Image Files, Archive Files, Raw Documents *.doc, *.docx, *.pdf, etc.)
+
+All works are credited under a subcategory of licenses that should be made aware to the original authors & license holders. However, works that do not provide another license shall follow under the following declaration:
+
+1. Said works must be attributed clearly in any derivations of work
+2. Derivations of this software may not have these resources modified in any (except those that do not modify the original contents, e.g. file name, file date)
+3. Use of this content outside of the bundled software is not allowed unless stated. This means you are not allowed to use said content to promote elsewhere either for the authors & license holders OR for any other content.
+4. Acknowledgment that these resource files may use patented file formats or proprietary formats & you acknowledge the potential legal risks
+
+<h3 align="center"> END LICENSE’S TERMS & CONDITIONS </h3>
+
+<h3 align="center"> APPENDIX: </h3>
+
+**Reuse of license**
+
+If you wish to append this license or use this license in your own work, you simply change the above copyright notice:
+
+_Copyright © [YYYY] [NAMES]_
+
+Replace [YYYY] (without brackets) with the year
+
+Replace [NAMES] (without brackets) with all intended authors and license holders.
+
+By using this license, you acknowledge the potential legal risks and the purpose this license serves.
+
+<h3 align="center"> END APPENDIX </h3>
