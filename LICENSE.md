@@ -1,10 +1,11 @@
 <!-- Yay, no errors, warnings, or alerts! -->
-
+  
 <h1 align="center"> <strong><span style="text-decoration:underline;">Halcyon 2.0 License</span></strong> </h1>
 
 <div align="center">
 <p style="text-align: right">
 Version 2.0, November 2022</p>
+
 
 <p style="text-align: right">
 Copyright © Jack Meng 2020-2022</p>
@@ -15,12 +16,12 @@ _A safe-permissive license that enables friendly end-user consumption_
 You may only use the bundled source/binary(s) only in compliance with this LICENSE.
 
 <pre align="center" style="text-align:center">
-
-Copyright © Jack Meng 2022
+  
+Copyright © 2023 Jack Meng
 All rights reserved to the above copyright holder(s).
-
+  
 </pre>
-
+ 
 This license with all subsiding terms & conditions applies to all forms (source and/or binary, without or without modifications) for USE, REPRODUCTION, MODIFICATION, & DISTRIBUTION.
 
 Notice: This license covers only SOURCE & BINARY Software; however it only has a single clause protecting any other files. Files and artifacts that fall under “resources” must be labeled under a different license in order to be fully protected if need be. [See Clause 11]
@@ -31,18 +32,21 @@ Notice: This license covers only SOURCE & BINARY Software; however it only has a
 
 ## 1. **Retention of Copyright**
 
-
 Source: All deriving works that directly modify the original software must reproduce the above copyright notice including this list of terms & conditions in FULL (raw retention).
 
 Binary: All subsiding binaries that have been compiled by third-party roots must be able to reproduce the above copyright notices including this list of terms & conditions. Either via accompanied documentation or some other format that provides the user with direct access to these terms & conditions.
 
 In no way shall any derivations of this software be sub-licensed in any way except for files related to clause 11.
 
+
+
 ## 2. **Liability**
 
 In no event shall the authors or copyright holders be liable for any claim, damage, or other liabilities, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the software or the use or other dealings in the software.
 
-You accept that the software bundled may include but is not limited the to:
+You accept that the software bundled may include but is not limited to:
+
+
 
 * Incompatibility with your system(s)
 * Potential malfunctions
@@ -56,7 +60,7 @@ Trademarking of trade names, service marks, trademarks, and/or product names of 
 
 Plugin integration with the root software can be alienated from this license. However, if the desired plugin requires in any form THIS software to be bundled with it or requires it before the bundled software links/loads it, this license must be applied.
 
-By creating a plugin, you expect that no matter your purpose, your software is NOT TRUSTED. By creating potentially adverse/malicious plugins & software to be loaded by the bundled software, you are being exposed to potential damages that must be dealt with out of this LICENSE and its stated copyright holders & authors.
+By creating a plugin, you accept that no matter its purpose, that software is NOT TRUSTED. By creating potentially adverse/malicious plugins & software to be loaded by the bundled software, you are being exposed to potential damages that must be dealt with out of this LICENSE and its stated copyright holders & authors.
 
 Plug-ins loaded by the program CAN NOT AND MUST NOT modify any resources that violate the authors’ placed licenses or those construing with this license’s license.
 
@@ -64,13 +68,14 @@ Plug-ins loaded by the program CAN NOT AND MUST NOT modify any resources that vi
 
 Direct modification of the source software must retain this license. All source versions must contain a file titled “ATTRIBUTIONS” which provides literal attributions to works. In this file, you may state changes made, previous attributions (fork of a fork), and your own attribution to your modifications. This license file shall serve as a literal marker of attributions made.
 
-By creating and modifying, you also show your compliance to this license and acknowledge the risks, terms & conditions, and your role.
+By creating and modifying, you show your full compliance to this license and acknowledge the risks, terms & conditions, and your role.
 
-In no way shall this ATTRIBUTIONS file be used to restrict access to other contributors, it must only serve as a marker and not construe with the license and its overall accessibility.
+In no way shall this ATTRIBUTIONS file be used to restrict access to other contributors, it must only serve as a marker and not construe with the license and its overall accessibility. 
 
 If there is already an ATTRIBUTIONS file, you may append it to it.
 
 You pledge that your modifications are safe, reliable, and original. In no way shall your modifications cause adverse/malicious intents (unless it is a bug related to very specific system supports or some kind of third-party dependency used by the bundled software). Reliable in that, you have tested your modifications against test cases and have proven that it shall work against most targeted platforms. Original in that your proposals have not been duplicated, your idea wasn’t a deprecated feature, etc..
+
 
 ## 6. **Source Permissiveness**
 
@@ -80,11 +85,15 @@ You may only use this bundled software as a reference and in no way directly res
 
 Unless required by applicable law or agreed in writing, content distributed under this license is provided “as is”:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+
+
 
 ## 7. **Warranties**
 
 There shall be no third party imposed fees and royalties required for any versions of the bundled software. However, plugin authors may impose their own fee if need be.
+
+
 
 ## 8. **Consumption**
 
@@ -96,9 +105,13 @@ By utilizing any built in plugin loading functionalities, you also acknowledge t
 
  will and cannot be affiliated with the authors & copyright holders of this license.
 
+
+
 ## 9. **Redistribution**
 
 Third-party redistributions and authors may only redistribute under the terms that they:
+
+
 
 1. Cannot charge any form of royalties/fees.
 2. Disclose full origination
@@ -112,13 +125,13 @@ This license is not provided with a patent claim, and users besides the original
 
 ## **11.   Resource(s)**
 
-Check RESOURCE_LICENSE.md for Halcyon's software resource license.
-
 _This clause only comes into effect if the original license holder DOES NOT provide a secondary license for resources and prefers to use this license as a whole to protect their work._
 
-This license does not fully protect any resource files (e.g. Image Files, Archive Files, Raw Documents *.doc,*.docx, *.pdf, etc.)
+This license does not fully protect any resource files (e.g. Image Files, Archive Files, Raw Documents *.doc, *.docx, *.pdf, etc.)
 
 All works are credited under a subcategory of licenses that should be made aware to the original authors & license holders. However, works that do not provide another license shall follow under the following declaration:
+
+
 
 1. Said works must be attributed clearly in any derivations of work
 2. Derivations of this software may not have these resources modified in any (except those that do not modify the original contents, e.g. file name, file date)
