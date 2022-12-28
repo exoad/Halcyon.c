@@ -1,10 +1,8 @@
 package com.jackmeng.core.abst;
 
-public interface impl_Task< T, E >
+public interface impl_Task< T >
     extends Runnable
 {
-  public E run(T[] args);
-
   @Override public default void run()
   {
     // DO NOTHING

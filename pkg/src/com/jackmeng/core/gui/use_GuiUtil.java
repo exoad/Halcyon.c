@@ -9,7 +9,6 @@ import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JTextField;
 
 import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_Commons;
@@ -37,6 +36,13 @@ public final class use_GuiUtil
         compList.addAll(listComponents_OfContainer((Container) comp));
     }
     return compList;
+  }
+
+  public static RenderingHints defaultRenderingHints()
+  {
+    Map< RenderingHints.Key, Object > e = new HashMap<>();
+    e.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    return new RenderingHints(e);
   }
 
   public static struct_Pair< Integer, Integer > center_OfScreen()

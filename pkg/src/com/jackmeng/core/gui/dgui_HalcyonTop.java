@@ -5,6 +5,7 @@ import javax.swing.plaf.LayerUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.jackmeng.const_Core;
 import com.jackmeng.const_MUTableKeys;
@@ -15,20 +16,24 @@ import com.jackmeng.core.abst.impl_Callback.callback_Specific;
 import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_Chronos;
 import com.jackmeng.core.util.use_Color;
+import com.jackmeng.core.util.use_HideousTask;
 import com.jackmeng.core.util.use_Image;
+import com.jackmeng.core.util.use_ImgStrat;
 import com.jackmeng.core.util.use_ResourceFetcher;
-import com.jackmeng.core.util.use_ImgStrat.imgstrat_BlurhashBlur;
 import com.jackmeng.tailwind.evnt_TailwindStatus;
 import com.jackmeng.tailwind.use_Tailwind.tailwind_Status;
 import com.jackmeng.tailwind.use_TailwindTrack;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
 
-public class dgui_HalcyonTop
+public final class dgui_HalcyonTop
     extends
     JPanel
     implements
     evnt_SelectPlaylistTrack
 {
+
+  private static use_HideousTask< Void > manager = new use_HideousTask<>(null, "Halcyon_ImageScaler_DefaultTOPGUI");
+  private static use_HideousTask< Void > bgManager = new use_HideousTask<>(null, "Halcyon_BgImgScaler_DefaultTOPGUI");
 
   public static final class halcyonTop_Info
       extends
@@ -36,7 +41,6 @@ public class dgui_HalcyonTop
       implements
       evnt_SelectPlaylistTrack
   {
-
     private JPanel infoDisplayer;
     private JLabel mainTitle, miscTitle, otherTitle, artwork;
 
@@ -81,6 +85,7 @@ public class dgui_HalcyonTop
       artwork = new JLabel(new ImageIcon((BufferedImage) tailwindtrack_Tags.MEDIA_ART.value));
       artwork.setHorizontalAlignment(SwingConstants.CENTER);
       artwork.setVerticalAlignment(SwingConstants.CENTER);
+      artwork.setOpaque(false);
 
       add(artwork);
       add(infoDisplayer);
@@ -105,28 +110,16 @@ public class dgui_HalcyonTop
         otherTitle.setText((String) e.get(tailwindtrack_Tags.MEDIA_BITRATE) + "kpbs | "
             + e.get(tailwindtrack_Tags.MEDIA_SAMPLERATE) + "kHz | "
             + use_Chronos.format_sec((Integer) e.get(tailwindtrack_Tags.MEDIA_DURATION)));
-        final BufferedImage img = use_Image.compat_Img(e.get_artwork());
-        artwork.setIcon(new ImageIcon((img.getWidth() > img.getHeight()
-            ? img.getSubimage(img.getWidth() / 2 - img.getHeight() / 2, 0, img.getHeight(), img.getHeight())
-            : img.getSubimage(0, img.getHeight() / 2 - img.getWidth() / 2, img.getWidth(), img.getWidth()))
-                .getScaledInstance(const_MUTableKeys.top_artwork_wxh.first, const_MUTableKeys.top_artwork_wxh.second,
-                    Image.SCALE_AREA_AVERAGING)));
-        pstream.log.warn(use_Color.colorToHex(use_Image.accents_color_1(img).get(0)));
-        artwork.repaint(30L);
+        manager.push(() -> {
+          final BufferedImage img = use_Image.compat_Img(e.get_artwork());
+          artwork.setIcon(new ImageIcon((img.getWidth() > img.getHeight()
+              ? img.getSubimage(img.getWidth() / 2 - img.getHeight() / 2, 0, img.getHeight(), img.getHeight())
+              : img.getSubimage(0, img.getHeight() / 2 - img.getWidth() / 2, img.getWidth(), img.getWidth()))
+                  .getScaledInstance(const_MUTableKeys.top_artwork_wxh.first, const_MUTableKeys.top_artwork_wxh.second,
+                      Image.SCALE_AREA_AVERAGING)));
+          return (Void) null;
+        });
       });
-
-      /*------------------------------------------------------------------------------------------------------------- /
-      / infoDisplayer.setToolTipText("<html><body><p style=\"text-align: left;\"><span style=\"color: "               /
-      /     + use_Color.colorToHex(const_ColorManager.DEFAULT_GREEN_FG)                                               /
-      /     + ";font-size: 14px;\"><nobr><strong>" + e.get(tailwindtrack_Tags.MEDIA_TITLE)                            /
-      /     + "</strong></nobr></span></p><p style=\"text-align: left;\"><span style=\"color: "                       /
-      /     + use_Color.colorToHex(const_ColorManager.DEFAULT_PINK_FG) + ";font-size: 11px\">"                        /
-      /     + e.get(tailwindtrack_Tags.MEDIA_ARTIST)                                                                  /
-      /     + "</span></p><p style=\"text-align: left;\"><span style=\"color: #ffffffff;font-size:10px\">"            /
-      /     + e.get(tailwindtrack_Tags.MEDIA_BITRATE) + "kbps " + e.get(tailwindtrack_Tags.MEDIA_SAMPLERATE) + "kHz " /
-      /     + use_Chronos.format_sec((Integer) e.get(tailwindtrack_Tags.MEDIA_DURATION))                              /
-      /     + "</span></p></body></html>");                                                                           /
-      /--------------------------------------------------------------------------------------------------------------*/
     }
 
     @Override protected void constr()
@@ -294,7 +287,8 @@ public class dgui_HalcyonTop
   }
 
   private JPanel bgPanel;
-  private Image i;
+  private transient Image i;
+  private transient AtomicBoolean toDraw = new AtomicBoolean(false);
 
   public dgui_HalcyonTop()
   {
@@ -314,54 +308,39 @@ public class dgui_HalcyonTop
     copy.setLayout(new BoxLayout(copy, BoxLayout.Y_AXIS));
     copy.add(e);
     copy.add(x);
-    String r = ((use_Chronos.right_now().isDaylight ? "daylight_" : "nightlight_")
-        + (use_HalcyonCore.rng.nextInt(18) + 1) + ".jpg");
-    pstream.log.info("FETCHING_SCENE: " + r);
-    i = use_Image.subimage_resizing(getPreferredSize().width, getPreferredSize().height,
-        use_ResourceFetcher.fetcher.getFromAsImage(const_ResourceManager.SCENES
-            + r));
+
     bgPanel = new JPanel() {
+
       @Override public void paintComponent(Graphics g)
       {
-        g.clearRect(0, 0, e.getPreferredSize().width, e.getPreferredSize().height);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.15F));
-        g2.drawImage(i, null, null);
-        g2.dispose();
+        super.paintComponent(g);
+        if (toDraw.get())
+        {
+          Graphics2D g2 = (Graphics2D) g;
+          g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4F));
+          if (i != null)
+            g2.drawImage(i, null, this);
+          else
+            g2.clearRect(0, 0, getWidth(), getHeight());
+          g2.dispose();
+          toDraw.set(false);
+        }
       }
     };
-    bgPanel.setPreferredSize(e.getPreferredSize());
-
-    JLayer< Component > blur = new JLayer<>(bgPanel, new LayerUI<>() {
-      private transient imgstrat_BlurhashBlur e = new imgstrat_BlurhashBlur(3, 4, 1.0d);
-
-      @Override public void paint(Graphics g, JComponent comp)
-      {
-        if (comp.getWidth() == 0 || comp.getHeight() == 0)
-          return;
-
-        BufferedImage img = new BufferedImage(comp.getWidth(), comp.getHeight(), BufferedImage.TYPE_INT_ARGB);
-
-        Graphics2D ig2 = img.createGraphics();
-        ig2.setClip(g.getClip());
-        super.paint(ig2, comp);
-        ig2.dispose();
-        Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(img, e, 0, 0);
-        g2.dispose();
-        g.dispose();
-      }
-    });
 
     add(copy);
-    // add(bgPanel);
+    add(use_ImgStrat.acquireOpLayer(use_ImgStrat.convolutionLayer(3, 3, use_GuiUtil.defaultRenderingHints()), bgPanel));
 
     const_Core.SELECTION_LISTENERS.add_listener(this);
   }
 
   @Override public void forYou(use_TailwindTrack e)
   {
-    i = e.get_artwork();
-    repaint(300L);
+    bgManager.push(() -> {
+      i = e.get_artwork();
+      toDraw.set(true);
+      bgPanel.repaint(100L);
+      return (Void) null;
+    });
   }
 }

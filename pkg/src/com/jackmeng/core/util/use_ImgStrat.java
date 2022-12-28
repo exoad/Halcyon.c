@@ -3,10 +3,13 @@ package com.jackmeng.core.util;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ColorModel;
+import java.awt.image.*;
 import java.util.Collections;
+
+import javax.swing.JComponent;
+import javax.swing.JLayer;
+import javax.swing.plaf.LayerUI;
+
 import java.awt.MultipleGradientPaint.CycleMethod;
 
 /**
@@ -19,6 +22,39 @@ public final class use_ImgStrat
 {
   private use_ImgStrat()
   {
+  }
+
+  public static JLayer< JComponent > acquireOpLayer(BufferedImageOp e, JComponent over)
+  {
+    return new JLayer<>(over, new LayerUI<>() {
+
+      @Override public void paint(Graphics g, JComponent comp)
+      {
+        if (comp.getWidth() == 0 || comp.getHeight() == 0)
+          return;
+
+        BufferedImage img = new BufferedImage(comp.getWidth(), comp.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D ig2 = img.createGraphics();
+        ig2.setClip(g.getClip());
+        super.paint(ig2, comp);
+        ig2.dispose();
+        Graphics2D g2 = (Graphics2D) g;
+        g2.drawImage(img, e, 0, 0);
+        g2.dispose();
+        g.dispose();
+      }
+    });
+  }
+
+  public static BufferedImageOp convolutionLayer(int w, int h, RenderingHints e)
+  {
+    assert w > 0 && h > 0;
+    float[] matrix = new float[w * h];
+    float d = 1.0F / (w * h);
+    for (int i = 0; i < (w * h); i++)
+      matrix[i] = d;
+    return new ConvolveOp(new Kernel(w, h, matrix), ConvolveOp.EDGE_ZERO_FILL, e);
   }
 
   public static class imgstrat_4_CornerGradient

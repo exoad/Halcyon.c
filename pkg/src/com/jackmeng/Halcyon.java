@@ -17,10 +17,13 @@ import static com.jackmeng.const_Lang.*;
 
 import java.io.File;
 
-/*------------------------- /
-/ unused imports are stupid /
-/--------------------------*/
-
+/**
+ * Halcyon Java GUI partition starting class
+ *
+ * Copyright (C) Jack Meng 2023
+ *
+ * @author Jack Meng
+ */
 public final class Halcyon
 {
    static
@@ -107,23 +110,6 @@ public final class Halcyon
          });
 
          pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
-
-         /*------------------------------------------------------------------------------------------------ /
-         / main.expose_internal().askStatus(                                                                /
-         /     new struct_Trio<>(use_Image.resize_2(20, 20, use_ResourceFetcher.fetcher.getFromAsImageIcon( /
-         /         const_ResourceManager.GUI_SPINNER_PULSE)),                                               /
-         /         "Loading everything...", Optional.empty()),                                              /
-         /     false);                                                                                      /
-         /-------------------------------------------------------------------------------------------------*/
-         /*----------------------------------------------------------------------------------------------- /
-         / use_Task.async_N1(() -> {                                                                       /
-         /    try {                                                                                        /
-         /       ImageIO.write(use_Program.gui_conduct(main.expose()), "png", new File("screenshot.png")); /
-         /    } catch (IOException e) {                                                                    /
-         /       use_Program.error_gui(e);                                                                 /
-         /    }                                                                                            /
-         / });                                                                                             /
-         /------------------------------------------------------------------------------------------------*/
          use_Program.gc();
          Thread yan_wang = new Thread(() -> {
             use_HalcyonFolder.FOLDER.master_save();

@@ -1,9 +1,14 @@
 package com.jackmeng.core.util;
 
 import java.io.Serializable;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.jackmeng.core.abst.impl_Identifiable;
-import com.jackmeng.core.abst.impl_Task;
 
 // super based thread ;)
 
@@ -45,26 +50,57 @@ public final class use_HideousTask< T >
     impl_Identifiable
 {
   private String myName;
+  private transient Thread curr;
   private transient T res;
-  private transient impl_Task< T, ? > currentTask;
+  private transient AtomicBoolean running;
+  private transient Callable< T > currentTask;
 
   // wildcard because we literally dont know what might be thrown at this task
   // runner. Thus the return type is left for runtime
   // However intake type must be clearly defined. Most likely a Void
-  public use_HideousTask(impl_Task< T, ? > r, String name)
+  public use_HideousTask(Callable< T > r, String name)
   {
     this.myName = name;
     this.currentTask = r;
+    this.running = new AtomicBoolean(false);
+    this.curr = new Thread(myName);
   }
 
   public synchronized void destroy()
   {
+    if (is_processing())
+    {
+      curr.interrupt();
+      running.set(false);
+      currentTask = null;
+    }
+  }
 
+  /**
+   * Resets everything in this task manager
+   */
+  public synchronized void shakedown()
+  {
+    destroy();
+    res = null;
+    curr = new Thread(myName);
+  }
+
+  public boolean is_processing()
+  {
+    return curr.isAlive() || running.get() || !curr.isInterrupted();
   }
 
   @has_Nullable public T get()
   {
     return res;
+  }
+
+  public synchronized void gentle_push(Callable< T > task)
+  {
+    if (is_processing())
+      destroy();
+    currentTask = task;
   }
 
   /**
@@ -74,12 +110,19 @@ public final class use_HideousTask< T >
    * No compensation for the old task's listeners and handlers: they simply will
    * not be notified of what happened.
    *
+   * The current task is automatically started for execution. If you do not want
+   * execution
+   * to begin right away, you may use {@link #gentle_push(Callable)} which only
+   * kills and
+   * sets up the current task to be ran later.
+   *
    * @param task
    *          The current submission
    */
-  public synchronized void push(impl_Task< T, ? > task)
+  public synchronized void push(Callable< T > task)
   {
-
+    gentle_push(task);
+    run();
   }
 
   @Override public String id()
@@ -87,11 +130,32 @@ public final class use_HideousTask< T >
     return myName != null ? myName : getClass().getCanonicalName() + "->" + hashCode();
   }
 
-  @Override public void run()
+  @Override public String toString()
   {
-    if (currentTask != null)
-    {
-    }
+    return id();
   }
 
+  @Override public void run()
+  {
+    if (is_processing())
+      destroy();
+    if (currentTask != null && !running.get())
+    {
+      curr = new Thread(() -> {
+        T e = null;
+        try
+        {
+          e = currentTask.call();
+        } catch (Exception e1)
+        {
+          e1.printStackTrace();
+        }
+        running.set(false);
+        res = e;
+        destroy();
+      });
+      curr.start();
+      running.set(true);
+    }
+  }
 }
