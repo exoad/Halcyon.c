@@ -24,7 +24,7 @@ public final class use_ImgStrat
   {
   }
 
-  public static JLayer< JComponent > acquireOpLayer(BufferedImageOp e, JComponent over)
+  public static JLayer< Component > acquireOpLayer(BufferedImageOp e, JComponent over)
   {
     return new JLayer<>(over, new LayerUI<>() {
 
@@ -32,9 +32,7 @@ public final class use_ImgStrat
       {
         if (comp.getWidth() == 0 || comp.getHeight() == 0)
           return;
-
         BufferedImage img = new BufferedImage(comp.getWidth(), comp.getHeight(), BufferedImage.TYPE_INT_ARGB);
-
         Graphics2D ig2 = img.createGraphics();
         ig2.setClip(g.getClip());
         super.paint(ig2, comp);

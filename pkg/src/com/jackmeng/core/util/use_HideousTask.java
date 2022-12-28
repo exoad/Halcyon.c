@@ -150,6 +150,7 @@ public final class use_HideousTask< T >
         {
           e1.printStackTrace();
         }
+        pstream.log.warn("RUNNING A HIDEOUS TASK FOR: " + myName);
         running.set(false);
         res = e;
         destroy();

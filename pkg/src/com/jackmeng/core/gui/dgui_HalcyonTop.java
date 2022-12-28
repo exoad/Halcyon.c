@@ -13,7 +13,6 @@ import com.jackmeng.use_HalcyonCore;
 import com.jackmeng.core.abst.evnt_SelectPlaylistTrack;
 import com.jackmeng.core.abst.use_MastaTemp;
 import com.jackmeng.core.abst.impl_Callback.callback_Specific;
-import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_Chronos;
 import com.jackmeng.core.util.use_Color;
 import com.jackmeng.core.util.use_HideousTask;
@@ -53,6 +52,7 @@ public final class dgui_HalcyonTop
 
       infoDisplayer = new JPanel();
       infoDisplayer.setLayout(new BoxLayout(infoDisplayer, BoxLayout.Y_AXIS));
+      infoDisplayer.setOpaque(false);
 
       mainTitle = new JLabel((String) tailwindtrack_Tags.MEDIA_TITLE.value);
       mainTitle.setFont(use_HalcyonCore.boldFont().deriveFont(20F));
@@ -80,7 +80,6 @@ public final class dgui_HalcyonTop
       infoDisplayer.add(miscTitle);
       infoDisplayer.add(otherTitle);
       infoDisplayer.add(Box.createVerticalGlue());
-      infoDisplayer.setOpaque(false);
 
       artwork = new JLabel(new ImageIcon((BufferedImage) tailwindtrack_Tags.MEDIA_ART.value));
       artwork.setHorizontalAlignment(SwingConstants.CENTER);
@@ -298,9 +297,10 @@ public final class dgui_HalcyonTop
     setLayout(new OverlayLayout(this));
 
     JComponent e = new halcyonTop_Info(), x = new halcyonTop_Buttons();
-
     e.setAlignmentX(Component.CENTER_ALIGNMENT);
+    e.setOpaque(false);
     x.setAlignmentX(Component.CENTER_ALIGNMENT);
+    x.setOpaque(false);
 
     JPanel copy = new JPanel();
     copy.setPreferredSize(getPreferredSize());
@@ -327,9 +327,11 @@ public final class dgui_HalcyonTop
         }
       }
     };
-
+    bgPanel.setOpaque(false);
+    JLayer< Component > blur = use_ImgStrat
+        .acquireOpLayer(use_ImgStrat.convolutionLayer(30, 30, use_GuiUtil.defaultRenderingHints()), bgPanel);
     add(copy);
-    add(use_ImgStrat.acquireOpLayer(use_ImgStrat.convolutionLayer(3, 3, use_GuiUtil.defaultRenderingHints()), bgPanel));
+    add(blur);
 
     const_Core.SELECTION_LISTENERS.add_listener(this);
   }
@@ -338,6 +340,7 @@ public final class dgui_HalcyonTop
   {
     bgManager.push(() -> {
       i = e.get_artwork();
+      i = use_Image.subimage_resizing(getWidth(), getHeight(), (BufferedImage) i);
       toDraw.set(true);
       bgPanel.repaint(100L);
       return (Void) null;
