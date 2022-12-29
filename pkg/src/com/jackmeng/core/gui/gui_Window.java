@@ -2,7 +2,17 @@ package com.jackmeng.core.gui;
 
 import java.awt.Dimension;
 
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
+import javax.swing.JPopupMenu;
 import javax.swing.JWindow;
+
+import com.jackmeng.core.util.use_Struct;
+
+import static com.jackmeng.const_Lang.*;
 
 public final class gui_Window
     extends
@@ -43,6 +53,16 @@ public final class gui_Window
 
   public gui_Window()
   {
+    addMouseListener(new MouseAdapter() {
+      @Override public void mouseClicked(MouseEvent e)
+      {
+        List< use_Struct.struct_Pair< Object, Consumer< ActionEvent > > > c = new ArrayList<>();
+        c.add(new use_Struct.struct_Pair<>(_lang(LANG_QUIT), x -> gui_Window.this.setVisible(false)));
+        JPopupMenu r = use_GuiUtil.make_PopupMenu("?", c);
+        r.setBorder(new use_RoundCornerBorder(10, 1, null));
+        r.show(gui_Window.this, 15, 15);
+      }
+    });
   }
 
   public void make()
@@ -58,5 +78,4 @@ public final class gui_Window
     validate();
     onMaximize_Dim = getSize();
   }
-
 }

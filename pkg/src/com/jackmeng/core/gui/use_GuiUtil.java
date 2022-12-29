@@ -57,21 +57,8 @@ public final class use_GuiUtil
     JPopupMenu e = new JPopupMenu(label);
     for (use_Struct.struct_Pair< Object, Consumer< ActionEvent > > r : contents)
     {
-      JMenuItem item = null;
-      if (r.first instanceof String)
-      {
-        item = new JMenuItem((String) r.first);
-      }
-      else if (r.first instanceof Icon)
-      {
-        item = new JMenuItem((Icon) r.first);
-      }
-      else
-      {
-        String t = use_Commons.rndstr(10, 33, 122);
-        pstream.log.warn("[INVALID-ContinuingTho] JPOPUPMENU_SUPPLIED. Generating as: {" + t + "}");
-        item = new JMenuItem(t);
-      }
+      JMenuItem item = r.first instanceof String ? new JMenuItem((String) r.first)
+          : r.first instanceof Icon ? new JMenuItem((Icon) r.first) : new JMenuItem(use_Commons.rndstr(10, 33, 122));
       item.addActionListener(r.second::accept);
       e.add(item);
     }
