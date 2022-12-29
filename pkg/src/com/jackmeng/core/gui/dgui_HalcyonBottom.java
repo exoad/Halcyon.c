@@ -307,18 +307,18 @@ public class dgui_HalcyonBottom
               if (node.getParent() != null && !node.getParent().toString().equals(tree.getParent().toString()))
               {
                 File f = new File(tree.getName() + use_HalcyonCore.getFileSeparator() + node);
-                if (last == null)
-                  last = f;
-
-                use_TailwindTrack er = new use_TailwindTrack(f);
-                use_Task.run_Snb_1(() -> const_Core.SELECTION_LISTENERS.forEach(x -> x.forYou(er)));
+                if (last != null && !last.getAbsolutePath().equals(f.getAbsolutePath()))
+                {
+                  use_TailwindTrack er = new use_TailwindTrack(f);
+                  use_Task.run_Snb_1(() -> const_Core.SELECTION_LISTENERS.forEach(x -> x.forYou(er)));
+                }
                 last = f;
               }
             }
           }
         }
       });
-      pstream.log.info("INSERTS > " + list.getCanonicalParent_1());
+      pstream.log.log("INSERTS > " + list.getParent());
 
       JScrollPane jsp = new JScrollPane();
       jsp.setAutoscrolls(true);

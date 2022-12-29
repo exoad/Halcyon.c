@@ -16,6 +16,7 @@ import com.test.Test;
 import static com.jackmeng.const_Lang.*;
 
 import java.io.File;
+import java.util.TimerTask;
 
 /**
  * Halcyon Java GUI partition starting class
@@ -108,6 +109,13 @@ public final class Halcyon
                         + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name() + "</p></html>"),
                   (Runnable[]) null);
          });
+
+         const_Core.schedule_secondary_task(new TimerTask() {
+            @Override public void run()
+            {
+               use_Program.gc();
+            }
+         }, 1000L, 3500L);
 
          pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
          use_Program.gc();

@@ -100,6 +100,23 @@ public class use_Image
     return l;
   }
 
+  public static Color get_DominantColor(BufferedImage img)
+  {
+    int w = img.getWidth(), h = img.getHeight(), t = w * h;
+    long r_s = 0, g_s = 0, b_s = 0;
+    for(int i = 0; i < h; i++)
+    {
+      for(int j = 0; j < w; j++)
+      {
+        int c = img.getRGB(j, i), r = (c >> 16) & 0xFF, g = (c >> 8) & 0xFF, b = c & 0xFF;
+        r_s += r;
+        g_s += g;
+        b_s += b;
+      }
+    }
+    return new Color((int) (r_s / t), (int) (g_s / t), (int) (b_s / t));
+  }
+
   public static struct_Trio< Integer, Integer, Integer > accurate_accent_color_1(BufferedImage img)
   {
     if (img.getWidth() > 512 || img.getHeight() > 512)

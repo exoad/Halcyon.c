@@ -8,6 +8,8 @@ import com.jackmeng.use_HalcyonFolder;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.zip.ZipFile;
 import java.awt.image.*;
@@ -21,7 +23,7 @@ public class use_ResourceFetcher
   {
   }
 
-  private WeakHashMap< String, Object > lazyResource_cache = new WeakHashMap<>();
+  private Map< String, Object > lazyResource_cache = new HashMap<>();
 
   /**
    * @param path
@@ -81,10 +83,7 @@ public class use_ResourceFetcher
   {
     String loaded = null;
     if (lazyHLL_Cache.containsKey(path))
-    {
-      pstream.log.warn("HLL Loading: LAZY Cache");
       loaded = lazyHLL_Cache.get(path);
-    }
     try
     {
       lazyHLL_Cache.put(path, loaded == null ? use_FSys.fread_2(path) : loaded);

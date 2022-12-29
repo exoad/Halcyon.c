@@ -13,6 +13,7 @@ import com.jackmeng.use_HalcyonCore;
 import com.jackmeng.core.abst.evnt_SelectPlaylistTrack;
 import com.jackmeng.core.abst.use_MastaTemp;
 import com.jackmeng.core.abst.impl_Callback.callback_Specific;
+import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_Chronos;
 import com.jackmeng.core.util.use_Color;
 import com.jackmeng.core.util.use_HideousTask;
@@ -267,9 +268,8 @@ public final class dgui_HalcyonTop
       addComponentListener(new ComponentAdapter() {
         @Override public void componentResized(ComponentEvent e)
         {
-          SwingUtilities.invokeLater(() -> {
-            timeSlider.setMaximum(Math.min(100, getSize().width)); // expanding -> more smooth ticking
-          });
+          SwingUtilities.invokeLater(() -> timeSlider.setMaximum(Math.min(100, getSize().width))); // expanding -> more
+                                                                                                   // smooth ticking
         }
       });
 
@@ -323,13 +323,12 @@ public final class dgui_HalcyonTop
           else
             g2.clearRect(0, 0, getWidth(), getHeight());
           g2.dispose();
-          toDraw.set(false);
         }
       }
     };
     bgPanel.setOpaque(false);
     JLayer< Component > blur = use_ImgStrat
-        .acquireOpLayer(use_ImgStrat.convolutionLayer(30, 30, use_GuiUtil.defaultRenderingHints()), bgPanel);
+        .acquireOpLayer(use_ImgStrat.convolutionLayer(3, 3, use_GuiUtil.defaultRenderingHints()), bgPanel);
     add(copy);
     add(blur);
 
@@ -338,12 +337,21 @@ public final class dgui_HalcyonTop
 
   @Override public void forYou(use_TailwindTrack e)
   {
-    bgManager.push(() -> {
-      i = e.get_artwork();
-      i = use_Image.subimage_resizing(getWidth(), getHeight(), (BufferedImage) i);
-      toDraw.set(true);
+    if (e.has_artwork())
+    {
+      toDraw.set(false);
       bgPanel.repaint(100L);
-      return (Void) null;
-    });
+    }
+    else
+    {
+      bgManager.push(() -> {
+        i = e.get_artwork();
+        i = use_Image.subimage_resizing(getWidth(), getHeight(), (BufferedImage) i);
+        toDraw.set(true);
+        bgPanel.repaint(100L);
+        return (Void) null;
+      });
+    }
+
   }
 }

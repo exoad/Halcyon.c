@@ -49,7 +49,6 @@ public final class use_Chronos
   public static chronos_DayCategory right_now()
   {
     long hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-    pstream.log.info("24HOUR CHRONOS: " + hour);
     // ok this is based on this wikipedia page:
     // https://www.britannica.com/dictionary/eb/qa/parts-of-the-day-early-morning-late-morning-etc
     // yea im dumb

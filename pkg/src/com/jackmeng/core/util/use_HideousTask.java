@@ -71,6 +71,7 @@ public final class use_HideousTask< T >
     if (is_processing())
     {
       curr.interrupt();
+      curr = new Thread();
       running.set(false);
       currentTask = null;
     }
@@ -98,8 +99,7 @@ public final class use_HideousTask< T >
 
   public synchronized void gentle_push(Callable< T > task)
   {
-    if (is_processing())
-      destroy();
+    destroy();
     currentTask = task;
   }
 
@@ -137,8 +137,7 @@ public final class use_HideousTask< T >
 
   @Override public void run()
   {
-    if (is_processing())
-      destroy();
+    destroy();
     if (currentTask != null && !running.get())
     {
       curr = new Thread(() -> {
@@ -153,7 +152,9 @@ public final class use_HideousTask< T >
         pstream.log.warn("RUNNING A HIDEOUS TASK FOR: " + myName);
         running.set(false);
         res = e;
-        destroy();
+        curr.interrupt();
+        running.set(false);
+        currentTask = null;
       });
       curr.start();
       running.set(true);
