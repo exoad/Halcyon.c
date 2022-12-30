@@ -126,6 +126,9 @@ public class dgui_HalcyonApps
     /-----------------------------------------------*/
   }
 
+  public static final Insets APPS_BTN_BORDER_INSETS = new Insets(3, 3, 3, 3);
+  public static final use_RoundCornerBorder APPS_BTN_ROUND_BORDER = new use_RoundCornerBorder(15, 4, const_ColorManager.DEFAULT_DARK_BG, APPS_BTN_BORDER_INSETS);
+
   /**
    * @param r
    */
@@ -134,11 +137,21 @@ public class dgui_HalcyonApps
     if (!(r instanceof impl_Ploogin) && !appMap.containsKey(r.id()))
     {
       use_Task.run_Snb_1(() -> {
-        JButton btn = new JButton();
+        JButton btn = !const_Manager.DEBUG_GRAPHICS ? new JButton() {
+          @Override public void paintComponent(Graphics g)
+          {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g2.setColor(APPS_BTN_ROUND_BORDER.color);
+            g2.fillRoundRect(0, 0, this.getWidth(), this.getHeight(), 15, 15);
+            super.paintComponent(g2);
+          }
+        } : new JButton();
         btn.setToolTipText(r.toolTip());
         btn.setIcon(r.icon());
         btn.setOpaque(true);
-        btn.setBorder(BorderFactory.createEmptyBorder());
+        btn.setBorder(APPS_BTN_ROUND_BORDER);
         btn.addActionListener(e -> r.run());
         if (!const_Manager.DEBUG_GRAPHICS)
         {

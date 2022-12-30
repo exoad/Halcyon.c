@@ -6,6 +6,10 @@ public final class const_Lang
   {
   }
 
+  public enum lang_Locale {
+    ZH_CN, EN;
+  }
+
   public static final String LANG_EXCEPTION_OH_SOMETHING_WENT_WRONG_CONTENT = "exception_oh_something_went_wrong_content";
   public static final String LANG_OH_NO_1 = "oh_no_1";
   public static final String LANG_OH_NO_2 = "oh_no_2";
@@ -42,5 +46,11 @@ public final class const_Lang
   public static String _lang(String key)
   {
     return use_HalcyonCore.lang(key);
+  }
+
+  public static lang_Locale get_locale()
+  {
+    return use_HalcyonCore.language.getLocale().getLanguage().toLowerCase().startsWith("zh") ? lang_Locale.ZH_CN
+        : lang_Locale.EN;
   }
 }

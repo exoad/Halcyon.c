@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.JWindow;
 
-public final class gui_Window
+public class gui_Window
     extends
     JWindow
 {

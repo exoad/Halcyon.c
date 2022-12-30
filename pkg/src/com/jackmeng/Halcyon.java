@@ -108,8 +108,12 @@ public final class Halcyon
             main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
             main.run();
             main.expose_internal().notificationManager.dispatch_notification(
-                  dgui_NotificationArena.generate_notification_html_1("<html><p><strong>" + _lang(LANG_GOOD) + " "
-                        + _lang(use_Chronos.right_now().LANG_KEY) + "</strong>, "
+                  dgui_NotificationArena.generate_notification_html_1("<html><p><strong>"
+                        + (get_locale() == lang_Locale.EN ? (_lang(LANG_GOOD) + " "
+                              + _lang(use_Chronos.right_now().LANG_KEY))
+                              : (_lang(use_Chronos.right_now().LANG_KEY)) + " "
+                                    + _lang(LANG_GOOD))
+                        + "</strong>, " // probably have to make more conditions for different languages AHHHH
                         + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name() + "</p></html>"),
                   (Runnable[]) null);
          });
