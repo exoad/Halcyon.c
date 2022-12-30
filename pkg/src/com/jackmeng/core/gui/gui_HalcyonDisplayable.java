@@ -1,13 +1,13 @@
-package com.jackmeng.core.ploogin.builtin.artworkdisplay;
+package com.jackmeng.core.gui;
 
 import javax.swing.*;
 
 import com.jackmeng.const_Core;
 import com.jackmeng.core.abst.evnt_SelectPlaylistTrack;
 import com.jackmeng.core.abst.evnt_WindowFocusAdapter;
-import com.jackmeng.core.gui.use_GuiUtil;
 import com.jackmeng.core.util.use_Image;
 import com.jackmeng.core.util.use_ImgStrat;
+import com.jackmeng.core.util.use_ResourceFetcher;
 import com.jackmeng.core.util.use_Struct.*;
 import com.jackmeng.tailwind.use_TailwindTrack;
 
@@ -25,37 +25,38 @@ public final class gui_HalcyonDisplayable
     extends
     JWindow
     implements
-    Runnable
+    Runnable,
+    evnt_SelectPlaylistTrack
 {
   private static final class halcyondisplayable_PanelMain
       extends
-      JPanel
+      Canvas
       implements
       evnt_SelectPlaylistTrack
   {
     private transient BufferedImage current;
-    private boolean x = true;
+    private boolean r = true;
 
     public halcyondisplayable_PanelMain()
     {
-      setOpaque(false);
       const_Core.SELECTION_LISTENERS.add_listener(this);
+      createBufferStrategy(3);
     }
 
     public void draw_(boolean e)
     {
-      this.x = e;
+      this.r = r;
     }
 
     public boolean drawing()
     {
-      return this.x;
+      return this.r;
     }
 
-    @Override public void paintComponent(Graphics g)
+    @Override public void paint(Graphics g)
     {
-      super.paintComponent(g);
-      if (x && current != null)
+      super.paint(g);
+      if (r && current != null)
       {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
@@ -68,10 +69,12 @@ public final class gui_HalcyonDisplayable
     @Override public void forYou(use_TailwindTrack e)
     {
       current = e.get_artwork();
+      SwingUtilities.invokeLater(() -> repaint(100L));
     }
   }
 
   private halcyondisplayable_PanelMain pane;
+  private JLabel smallArtworkHolder;
 
   public gui_HalcyonDisplayable()
   {
@@ -79,17 +82,23 @@ public final class gui_HalcyonDisplayable
     pane = new halcyondisplayable_PanelMain();
     pane.setPreferredSize(use_GuiUtil.screen_space());
 
-    JPanel wrapperPane = new JPanel();
-    wrapperPane.setLayout(new BorderLayout());
-    wrapperPane.setOpaque(false);
-
     setLayout(new OverlayLayout(getContentPane()));
     setSize(use_GuiUtil.screen_space());
 
-    wrapperPane.add(pane, BorderLayout.CENTER);
+    JPanel smallerLabelling = new JPanel();
+    smallerLabelling.setPreferredSize(getSize());
+    smallerLabelling.setLayout(new BorderLayout());
+    smallerLabelling.setOpaque(false);
 
-    add(wrapperPane);
-    add(use_ImgStrat.acquireOpLayer(new use_ImgStrat.imgstrat_BlurhashBlur(3, 4, 1.0D), wrapperPane));
+    smallArtworkHolder = new JLabel();
+    smallArtworkHolder.setIcon(use_ResourceFetcher.fetcher.getFromAsImageIcon(const_ResourceManager.GUI_DISK_ICON));
+    smallArtworkHolder.setPreferredSize(new Dimension(500, 500));
+    smallArtworkHolder.setOpaque(false);
+
+    smallerLabelling.add(smallArtworkHolder, BorderLayout.CENTER);
+
+    add(smallerLabelling);
+    add(use_ImgStrat.acquireOpLayer(new use_ImgStrat.imgstrat_BlurhashBlur(3, 4, 1.0D), pane));
 
     addMouseListener(new MouseAdapter() {
       @Override public void mouseClicked(MouseEvent e)
@@ -124,5 +133,12 @@ public final class gui_HalcyonDisplayable
   {
     pack();
     setVisible(true);
+  }
+
+  @Override public void forYou(use_TailwindTrack e)
+  {
+    SwingUtilities.invokeLater(() -> {
+      smallArtworkHolder.setIcon(new ImageIcon(use_Image.subimage_resizing(500, 500, e.get_artwork())));
+    });
   }
 }

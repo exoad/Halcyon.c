@@ -4,6 +4,7 @@ import com.jackmeng.core.gui.dgui_HalcyonBottom;
 import com.jackmeng.core.gui.dgui_HalcyonTop;
 import com.jackmeng.core.gui.dgui_NotificationArena;
 import com.jackmeng.core.gui.gui_HalcyonFrame;
+import com.jackmeng.core.ploogin.use_PlooginLoader;
 import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_AnsiColors;
 import com.jackmeng.core.util.use_AnsiStrConstr;
@@ -67,6 +68,8 @@ public final class Halcyon
    {
    }
 
+   private static final use_PlooginLoader plg = new use_PlooginLoader();
+
    /**
     * @param args
     */
@@ -79,6 +82,7 @@ public final class Halcyon
          Test.main((String[]) null);
       pstream.log.use_stream(const_MUTableKeys.outstream);
       use_HalcyonFolder.FOLDER.load_playlists();
+      plg.run();
       try
       {
          /*--------------- /

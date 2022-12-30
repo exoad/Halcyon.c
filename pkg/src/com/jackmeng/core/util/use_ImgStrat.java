@@ -24,7 +24,7 @@ public final class use_ImgStrat
   {
   }
 
-  public static JLayer< Component > acquireOpLayer(BufferedImageOp e, JComponent over)
+  public static JLayer< Component > acquireOpLayer(BufferedImageOp e, Component over)
   {
     return new JLayer<>(over, new LayerUI<>() {
 

@@ -3,6 +3,7 @@ package com.jackmeng.core.gui;
 import com.jackmeng.const_Core;
 import com.jackmeng.use_HalcyonCore;
 import com.jackmeng.use_HalcyonFolder;
+import com.jackmeng.builtin.app_ArtworkDisplay;
 import com.jackmeng.core.abst.impl_App;
 import com.jackmeng.core.abst.impl_HalcyonRefreshable;
 import com.jackmeng.core.ploogin.impl_Ploogin;
@@ -113,6 +114,10 @@ public class dgui_HalcyonApps
         make_DefaultApp(
             _lang(LANG_APPS_INFO), use_HalcyonCore::do_nothing,
             const_ResourceManager.DGUI_APPS_PLAYER_INFO));
+    /*----------------------------------------------------------------------------------------------------------- /
+    / const_Core.APPS_POOL.addPoolObject(                                                                         /
+    /     make_DefaultApp("ArtworkDisplay", new app_ArtworkDisplay(), const_ResourceManager.DGUI_FILELIST_LEAF)); /
+    /------------------------------------------------------------------------------------------------------------*/
     const_Core.APPS_POOL.addPoolObject(
         make_DefaultApp(_lang(LANG_APPS_VIEW_MORE), apps,
             const_ResourceManager.DGUI_APPS_PLAYER_MOREAPPS));

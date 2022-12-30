@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.swing.ImageIcon;
 
 import com.jackmeng.core.gui.const_ResourceManager;
+import com.jackmeng.core.gui.gui_HalcyonDisplayable;
 import com.jackmeng.core.ploogin.impl_Ploogin;
 import com.jackmeng.core.util.use_ResourceFetcher;
 

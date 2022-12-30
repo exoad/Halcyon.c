@@ -31,7 +31,7 @@ public class use_ResourceFetcher
    */
   public ImageIcon getFromAsImageIcon(String path)
   {
-    if (lazyResource_cache.containsKey(path))
+    if (lazyResource_cache.containsKey(path) && lazyResource_cache.get(path) instanceof ImageIcon)
       return (ImageIcon) lazyResource_cache.get(path);
     ImageIcon i = null;
     try
@@ -54,7 +54,7 @@ public class use_ResourceFetcher
 
   public BufferedImage getFromAsImage(String path)
   {
-    if (lazyResource_cache.containsKey(path))
+    if (lazyResource_cache.containsKey(path) && lazyResource_cache.get(path) instanceof BufferedImage)
       return (BufferedImage) lazyResource_cache.get(path);
     BufferedImage i = null;
     try
@@ -82,7 +82,7 @@ public class use_ResourceFetcher
       String path, Object... args)
   {
     String loaded = null;
-    if (lazyHLL_Cache.containsKey(path))
+    if (lazyHLL_Cache.containsKey(path) && lazyResource_cache.get(path) instanceof CharSequence)
       loaded = lazyHLL_Cache.get(path);
     try
     {
