@@ -10,11 +10,11 @@ public abstract class evnt_WindowFocusAdapter
   {
   }
 
-  public void windowGainedFocus(WindowEvent e)
+  @Override public void windowGainedFocus(WindowEvent e)
   {
   }
 
-  public void windowLostFocus(WindowEvent e)
+  @Override public void windowLostFocus(WindowEvent e)
   {
   }
 }

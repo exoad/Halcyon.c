@@ -1,8 +1,13 @@
-package com.jackmeng.core.gui;
+package com.jackmeng.core.ploogin.builtin.artworkdisplay;
 
 import javax.swing.*;
 
+import com.jackmeng.const_Core;
 import com.jackmeng.core.abst.evnt_SelectPlaylistTrack;
+import com.jackmeng.core.abst.evnt_WindowFocusAdapter;
+import com.jackmeng.core.gui.use_GuiUtil;
+import com.jackmeng.core.util.use_Image;
+import com.jackmeng.core.util.use_ImgStrat;
 import com.jackmeng.core.util.use_Struct.*;
 import com.jackmeng.tailwind.use_TailwindTrack;
 
@@ -31,6 +36,12 @@ public final class gui_HalcyonDisplayable
     private transient BufferedImage current;
     private boolean x = true;
 
+    public halcyondisplayable_PanelMain()
+    {
+      setOpaque(false);
+      const_Core.SELECTION_LISTENERS.add_listener(this);
+    }
+
     public void draw_(boolean e)
     {
       this.x = e;
@@ -44,34 +55,46 @@ public final class gui_HalcyonDisplayable
     @Override public void paintComponent(Graphics g)
     {
       super.paintComponent(g);
-      if (x)
+      if (x && current != null)
       {
         Graphics2D g2 = (Graphics2D) g;
-
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+        g2.setRenderingHint(RenderingHints.KEY_RESOLUTION_VARIANT, RenderingHints.VALUE_RESOLUTION_VARIANT_DPI_FIT);
+        g2.drawImage(use_Image.subimage_resizing(getWidth(), getHeight(), current), null, null);
         g2.dispose();
       }
     }
 
     @Override public void forYou(use_TailwindTrack e)
     {
-
+      current = e.get_artwork();
     }
-
   }
 
   private halcyondisplayable_PanelMain pane;
 
   public gui_HalcyonDisplayable()
   {
+
     pane = new halcyondisplayable_PanelMain();
     pane.setPreferredSize(use_GuiUtil.screen_space());
-    setLayout(new BorderLayout());
+
+    JPanel wrapperPane = new JPanel();
+    wrapperPane.setLayout(new BorderLayout());
+    wrapperPane.setOpaque(false);
+
+    setLayout(new OverlayLayout(getContentPane()));
     setSize(use_GuiUtil.screen_space());
-    add(pane, BorderLayout.CENTER);
+
+    wrapperPane.add(pane, BorderLayout.CENTER);
+
+    add(wrapperPane);
+    add(use_ImgStrat.acquireOpLayer(new use_ImgStrat.imgstrat_BlurhashBlur(3, 4, 1.0D), wrapperPane));
+
     addMouseListener(new MouseAdapter() {
       @Override public void mouseClicked(MouseEvent e)
       {
-        if (e.getButton() == MouseEvent.BUTTON1)
+        if (e.getButton() == MouseEvent.BUTTON3)
         {
           List< struct_Pair< Object, Consumer< ActionEvent > > > rr = new ArrayList<>();
           rr.add(new struct_Pair<>(_lang(LANG_QUIT),
@@ -82,6 +105,12 @@ public final class gui_HalcyonDisplayable
           use_GuiUtil.make_PopupMenu("Displayability", rr).show(gui_HalcyonDisplayable.this, e.getX() + 10,
               e.getY() + 10);
         }
+      }
+    });
+    addWindowFocusListener(new evnt_WindowFocusAdapter() {
+      @Override public void windowLostFocus(WindowEvent e)
+      {
+        setVisible(false);
       }
     });
   }

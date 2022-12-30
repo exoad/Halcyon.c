@@ -1,7 +1,12 @@
 package com.jackmeng.core.util;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.jackmeng.use_HalcyonCore;
 
@@ -87,5 +92,12 @@ public final class use_Commons
   public static boolean is_generic(String str) throws ClassNotFoundException
   {
     return Class.forName(str).getTypeParameters().length > 0;
+  }
+
+  public static Set<Class> classes_in_pkg(String pkg)
+  {
+    InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(pkg.replaceAll("[.]", "/"));
+    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+    return br.lines().filter(x -> x.endsWith(".class")).map(x -> getClass(x, pkg)).collect(Collectors.toSet());
   }
 }
