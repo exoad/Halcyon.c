@@ -23,7 +23,7 @@ public class use_ResourceFetcher
   {
   }
 
-  private Map< String, Object > lazyResource_cache = new HashMap<>();
+  private final Map< String, Object > lazyResource_cache = new HashMap<>();
 
   /**
    * @param path
@@ -76,7 +76,7 @@ public class use_ResourceFetcher
     return i;
   }
 
-  private WeakHashMap< String, String > lazyHLL_Cache = new WeakHashMap<>();
+  private final WeakHashMap< String, String > lazyHLL_Cache = new WeakHashMap<>();
 
   @has_ErrorCode(code = "ERR_SCHEMA_01", description = "Emitted by this method to show an incorrect loading schema. Schema loading is mostly likely to do with loading of important files from the bundled resource folder") public String load_n_parse_hll(
       String path, Object... args)
@@ -103,7 +103,7 @@ public class use_ResourceFetcher
   {
     if (lazyResource_cache.containsKey(path))
       return (File) lazyResource_cache.get(path);
-    File i = null;
+    File i;
     try
     {
       i = new File(

@@ -1,7 +1,6 @@
 package com.jackmeng.core.gui;
 
 import javax.swing.*;
-import javax.swing.plaf.LayerUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -13,7 +12,6 @@ import com.jackmeng.use_HalcyonCore;
 import com.jackmeng.core.abst.evnt_SelectPlaylistTrack;
 import com.jackmeng.core.abst.use_MastaTemp;
 import com.jackmeng.core.abst.impl_Callback.callback_Specific;
-import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_Chronos;
 import com.jackmeng.core.util.use_Color;
 import com.jackmeng.core.util.use_HideousTask;
@@ -32,8 +30,8 @@ public final class dgui_HalcyonTop
     evnt_SelectPlaylistTrack
 {
 
-  private static use_HideousTask< Void > manager = new use_HideousTask<>(null, "Halcyon_ImageScaler_DefaultTOPGUI");
-  private static use_HideousTask< Void > bgManager = new use_HideousTask<>(null, "Halcyon_BgImgScaler_DefaultTOPGUI");
+  private static final use_HideousTask< Void > manager = new use_HideousTask<>(null, "Halcyon_ImageScaler_DefaultTOPGUI");
+  private static final use_HideousTask< Void > bgManager = new use_HideousTask<>(null, "Halcyon_BgImgScaler_DefaultTOPGUI");
 
   public static final class halcyonTop_Info
       extends
@@ -41,8 +39,11 @@ public final class dgui_HalcyonTop
       implements
       evnt_SelectPlaylistTrack
   {
-    private JPanel infoDisplayer;
-    private JLabel mainTitle, miscTitle, otherTitle, artwork;
+    private final JPanel infoDisplayer;
+    private final JLabel mainTitle;
+    private final JLabel miscTitle;
+    private final JLabel otherTitle;
+    private final JLabel artwork;
 
     public halcyonTop_Info()
     {
@@ -107,7 +108,7 @@ public final class dgui_HalcyonTop
                 use_Chronos.format_sec((Integer) e.get(tailwindtrack_Tags.MEDIA_DURATION))));
         mainTitle.setText((String) e.get(tailwindtrack_Tags.MEDIA_TITLE));
         miscTitle.setText((String) e.get(tailwindtrack_Tags.MEDIA_ARTIST));
-        otherTitle.setText((String) e.get(tailwindtrack_Tags.MEDIA_BITRATE) + "kpbs | "
+        otherTitle.setText(e.get(tailwindtrack_Tags.MEDIA_BITRATE) + "kpbs | "
             + e.get(tailwindtrack_Tags.MEDIA_SAMPLERATE) + "kHz | "
             + use_Chronos.format_sec((Integer) e.get(tailwindtrack_Tags.MEDIA_DURATION)));
         manager.push(() -> {
@@ -117,7 +118,7 @@ public final class dgui_HalcyonTop
               : img.getSubimage(0, img.getHeight() / 2 - img.getWidth() / 2, img.getWidth(), img.getWidth()))
                   .getScaledInstance(const_MUTableKeys.top_artwork_wxh.first, const_MUTableKeys.top_artwork_wxh.second,
                       Image.SCALE_AREA_AVERAGING)));
-          return (Void) null;
+          return null;
         });
       });
     }
@@ -139,7 +140,8 @@ public final class dgui_HalcyonTop
         extends
         JButton
     {
-      private ImageIcon a, b;
+      private final ImageIcon a;
+      private final ImageIcon b;
       private boolean rolled = false;
 
       public buttons_Funcs(ImageIcon normal, ImageIcon rollover, callback_Specific< Boolean > rolloverGuard,
@@ -160,7 +162,7 @@ public final class dgui_HalcyonTop
             if (rolloverGuard != null && rolloverGuard.call(rolled))
             {
               rolled = !rolled;
-              setIcon(rolled && rollover != null ? rollover : normal);
+              setIcon(rolled ? rollover : normal);
             }
           });
         }
@@ -188,8 +190,8 @@ public final class dgui_HalcyonTop
     private final buttons_Funcs playPause_Button, trackInfo_Button, nextTrack_Button, lastTrack_Button,
         loopTrack_Button,
         shufflePlaystyle_Button, likeTrack_Button;
-    protected final JSlider timeSlider, volumeSlider;
-    protected FlowLayout mastaJP_layout = new FlowLayout(FlowLayout.CENTER, 15, 0);
+    private final JSlider timeSlider, volumeSlider;
+    private FlowLayout mastaJP_layout = new FlowLayout(FlowLayout.CENTER, 15, 0);
 
     public halcyonTop_Buttons()
     {
@@ -285,9 +287,9 @@ public final class dgui_HalcyonTop
     }
   }
 
-  private JPanel bgPanel;
+  private final JPanel bgPanel;
   private transient Image i;
-  private transient AtomicBoolean toDraw = new AtomicBoolean(false);
+  private final transient AtomicBoolean toDraw = new AtomicBoolean(false);
 
   public dgui_HalcyonTop()
   {
@@ -349,7 +351,7 @@ public final class dgui_HalcyonTop
         i = use_Image.subimage_resizing(getWidth(), getHeight(), (BufferedImage) i);
         toDraw.set(true);
         bgPanel.repaint(100L);
-        return (Void) null;
+        return null;
       });
     }
 

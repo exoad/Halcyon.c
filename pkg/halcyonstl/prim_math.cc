@@ -65,8 +65,9 @@ Java_com_jackmeng_platform_use_1Commons_00024primitives_1Math_rnd_11(
 }
 
 JNIEXPORT jlongArray JNICALL
-Java_com_jackmeng_platform_sys_1SimpleMaffs_simplify_1ratio(JNIEnv* env, jclass obj,
-                                                        jlong a, jlong b) {
+Java_com_jackmeng_platform_sys_1SimpleMaffs_simplify_1ratio(JNIEnv* env,
+                                                            jclass obj, jlong a,
+                                                            jlong b) {
   jlongArray res;
   res = env->NewLongArray(2);
   if (res == NULL) return NULL;

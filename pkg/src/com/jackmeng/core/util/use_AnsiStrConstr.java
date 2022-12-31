@@ -24,13 +24,9 @@ public class use_AnsiStrConstr
   {
     StringBuilder sb = new StringBuilder();
     for (use_AnsiColors e : colors)
-    {
       sb.append(e.color());
-    }
     for (Object r : payload)
-    {
       sb.append(r);
-    }
     sb.append(use_AnsiColors.RESET.color());
     return sb.toString();
   }

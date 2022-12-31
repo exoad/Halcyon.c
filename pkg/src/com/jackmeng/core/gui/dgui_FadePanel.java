@@ -20,7 +20,7 @@ public class dgui_FadePanel
     implements
     Runnable
 {
-  private transient List< Runnable > onfadeOut;
+  private final transient List< Runnable > onfadeOut;
   protected float alpha = 1.0F;
   protected float fadeStep;
   protected long initialDelay, per_step;

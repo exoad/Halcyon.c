@@ -13,7 +13,7 @@ public class app_ArtworkDisplay
     implements impl_App
 {
 
-  private gui_HalcyonDisplayable gg = new gui_HalcyonDisplayable();
+  private final gui_HalcyonDisplayable gg = new gui_HalcyonDisplayable();
 
   @Override public void run()
   {

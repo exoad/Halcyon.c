@@ -70,14 +70,14 @@ public final class use_TailwindTrack
     public final Object value;
     public final FieldKey key;
 
-    private tailwindtrack_Tags(FieldKey key, Object Defvalue)
+    tailwindtrack_Tags(FieldKey key, Object Defvalue)
     {
       this.key = key;
       this.value = Defvalue;
     }
   }
 
-  private static WeakHashMap< String, Object > lazyColors_Cache = new WeakHashMap<>(10);
+  private static final WeakHashMap< String, Object > lazyColors_Cache = new WeakHashMap<>(10);
 
   private File content;
   private transient Tag tag;

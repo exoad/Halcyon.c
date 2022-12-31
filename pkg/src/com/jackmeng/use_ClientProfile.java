@@ -20,7 +20,8 @@ public class use_ClientProfile
     Cloneable
 {
   private boolean locked = false;
-  private String name, saveLocation;
+  private final String name;
+  private final String saveLocation;
   private transient BufferedImage userAvatar;
   private float totalTimeUsed_Hours, currentTimeUsed_Minutes; // the LONG_MAX value should be enough I hope, its like
                                                               // 100000000 so centuries
@@ -121,8 +122,8 @@ public class use_ClientProfile
     }
   }
 
-  @Override public Object clone()
-  {
+  @Override public Object clone() throws CloneNotSupportedException {
+    Object clone = super.clone();
     return new use_ClientProfile(true, saveLocation, name, totalTimeUsed_Hours);
   }
 }

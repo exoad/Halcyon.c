@@ -108,9 +108,9 @@ public final class use_Color
   public static boolean is_gray(int[] rgba, int tolerance)
   {
     return (rgba[1] - rgba[2] > tolerance || rgba[1]
-        - rgba[3] < -tolerance)
-        && (rgba[1]
-            - rgba[3] > tolerance || rgba[1] - rgba[2] < -tolerance) ? false : true;
+            - rgba[3] < -tolerance)
+            && (rgba[1]
+            - rgba[3] > tolerance || rgba[1] - rgba[2] < -tolerance);
   }
 
   public static int[] parse_RGB(int rgb)

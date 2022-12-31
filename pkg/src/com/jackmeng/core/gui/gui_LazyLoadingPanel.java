@@ -7,7 +7,7 @@ public abstract class gui_LazyLoadingPanel
     extends
     JPanel
 {
-  protected boolean construction = false, finished = false;
+  protected boolean construction = false, finished;
 
   protected abstract void constr();
 

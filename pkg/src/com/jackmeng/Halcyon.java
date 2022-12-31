@@ -4,7 +4,6 @@ import com.jackmeng.core.gui.dgui_HalcyonBottom;
 import com.jackmeng.core.gui.dgui_HalcyonTop;
 import com.jackmeng.core.gui.dgui_NotificationArena;
 import com.jackmeng.core.gui.gui_HalcyonFrame;
-import com.jackmeng.core.ploogin.use_PlooginLoader;
 import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_AnsiColors;
 import com.jackmeng.core.util.use_AnsiStrConstr;
@@ -17,6 +16,7 @@ import com.test.Test;
 import static com.jackmeng.const_Lang.*;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.TimerTask;
 
 /**
@@ -32,8 +32,9 @@ public final class Halcyon
    {
       System.setProperty("sun.java2d.d3d", "false");
       System.setProperty("sun.java2d.opengl", "True");
-      System.setProperty("sun.java2d.pmoffscreen", "false");
-      System.setProperty("sun.java2d.accthreshold", "4");
+      System.setProperty("sun.java2d.xrender", "True");
+      System.setProperty("sun.java2d.pmoffscreen", "true");
+      System.setProperty("sun.java2d.accthreshold", "2");
    }
 
    private static boolean linked = false;
@@ -47,9 +48,7 @@ public final class Halcyon
          /*---------------------------------------- /
          / actually load native libraries lets go?! /
          /-----------------------------------------*/
-         for (File t : r.listFiles((x, y) -> {
-            return y.endsWith("." + use_Program.arch_lib_extension());
-         }))
+         for (File t : Objects.requireNonNull(r.listFiles((x, y) -> y.endsWith("." + use_Program.arch_lib_extension()))))
          {
             System.out.println("[!] => PRE_REQ: loading library: " + t.getAbsolutePath());
             System.load(t.getAbsolutePath());
@@ -79,7 +78,7 @@ public final class Halcyon
       __LINK__();
       use_HalcyonFolder.FOLDER.load_conf();
       if (const_MUTableKeys.run_tcs_on_start)
-         Test.main((String[]) null);
+         Test.main(null);
       use_HalcyonFolder.FOLDER.load_playlists();
       try
       {

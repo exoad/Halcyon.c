@@ -3,7 +3,6 @@ package com.jackmeng.core.gui;
 import com.jackmeng.const_Core;
 import com.jackmeng.use_HalcyonCore;
 import com.jackmeng.use_HalcyonFolder;
-import com.jackmeng.builtin.app_ArtworkDisplay;
 import com.jackmeng.core.abst.impl_App;
 import com.jackmeng.core.abst.impl_HalcyonRefreshable;
 import com.jackmeng.core.ploogin.impl_Ploogin;
@@ -33,9 +32,8 @@ public class dgui_HalcyonApps
     impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< impl_App > > >
 {
 
-  private transient gui_HalcyonMoreApps apps;
   private transient gui_HalcyonPlaylistSelect fileChooser;
-  private transient Map< String, JButton > appMap; // Key: AppID Value: GUIComponent
+  private final transient Map< String, JButton > appMap; // Key: AppID Value: GUIComponent
 
   public dgui_HalcyonApps()
   {
@@ -64,7 +62,7 @@ public class dgui_HalcyonApps
             .serialize(halcyonfolder_Content.PLAYLIST_SELECT_FOLDER_CACHE_f.val,
                 fileChooser)));
 
-    apps = new gui_HalcyonMoreApps();
+    gui_HalcyonMoreApps apps = new gui_HalcyonMoreApps();
 
     setPreferredSize(new Dimension(const_Manager.DGUI_APPS_WIDTH, const_Manager.FRAME_MIN_HEIGHT / 2));
     setMinimumSize(getPreferredSize());

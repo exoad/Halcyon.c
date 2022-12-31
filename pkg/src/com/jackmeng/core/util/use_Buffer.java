@@ -54,9 +54,7 @@ public final class use_Buffer
 
     public void drop(int elementsCount)
     {
-      int t = elementsCount;
-      if (elementsCount > sz)
-        t = sz;
+      int t = Math.min(elementsCount, sz);
       int sz_1 = sz - t;
       int diff = sz - sz_1;
       start = calc_offset(start, diff, buffer.length);
@@ -156,13 +154,9 @@ public final class use_Buffer
       int f1 = start;
       int f1_sz = buffer.length - start;
       if (f1_sz > sz)
-      {
         f1_sz = sz;
-      }
       if (f1_sz >= read)
-      {
         f1_sz = read;
-      }
       System.arraycopy(data, f1, data, i, f1_sz);
       read -= f1_sz;
       if (read == 0)
@@ -170,9 +164,7 @@ public final class use_Buffer
       int f2 = offset <= start ? 0 : sz;
       int f2_sz = buffer.length - f1_sz;
       if (f2_sz >= read)
-      {
         f2_sz = read;
-      }
       System.arraycopy(data, f2, data, i + f1_sz, f2_sz);
       read -= f2_sz;
       return len - read;
@@ -200,9 +192,7 @@ public final class use_Buffer
         overflow = sz_1 - buffer.length;
       }
       else
-      {
         sz = sz_1;
-      }
       start = calc_offset(start, overflow, buffer.length);
     }
 

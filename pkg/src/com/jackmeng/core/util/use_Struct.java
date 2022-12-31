@@ -13,7 +13,7 @@ public final class use_Struct
 
   public static final class struct_Node< T >
   {
-    public Object key;
+    public T key;
     public List< struct_Node< ? > > partners;
 
     public struct_Node(T i)
@@ -67,9 +67,8 @@ public final class use_Struct
       / type struct_Pair with no wildcard which most likely on Java5 and below (shitty oracle) /
       / will always return false.                                                              /
       /---------------------------------------------------------------------------------------*/
-      if (!(cum instanceof struct_Pair))
+      if (!(cum instanceof struct_Pair<?, ?> makePair))
         return false;
-      struct_Pair< ?, ? > makePair = (struct_Pair< ?, ? >) cum;
       return makePair.first.equals(first) && makePair.second.equals(second);
     }
 

@@ -76,7 +76,7 @@ public final class use_Program
     /-----------------------*/
     WIN32, OSX, SOLARIS, LINUX, UNKNOWN;
 
-    private program_SysEnv()
+    program_SysEnv()
     {
     }
   }

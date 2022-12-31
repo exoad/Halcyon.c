@@ -10,7 +10,7 @@ public class use_ListenerPool_ForYou< E, T extends impl_ForYou< E > >
     implements
     Iterable< T >
 {
-  private List< T > listeners;
+  private final List< T > listeners;
 
   public use_ListenerPool_ForYou()
   {

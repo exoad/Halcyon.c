@@ -8,7 +8,7 @@ package com.jackmeng.core.abst;
    *
    * No arguments are provided.
    */
-  public void removedTab();
+  void removedTab();
   /*-------------------------------------------------------- /
   / This is a pretty lame way of getting an event to be run. /
   / But oh well.                                             /

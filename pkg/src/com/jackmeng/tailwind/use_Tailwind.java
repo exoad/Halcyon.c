@@ -21,6 +21,7 @@ import com.jackmeng.core.abst.impl_Identifiable;
 import com.jackmeng.core.abst.use_MastaTemp;
 import com.jackmeng.core.util.const_Commons;
 import com.jackmeng.core.util.pstream;
+import com.jackmeng.core.util.use_Struct;
 import com.jackmeng.core.util.use_Task;
 import com.jackmeng.core.util.use_Struct.struct_Pair;
 import com.jackmeng.tailwind.use_TailwindTrack.tailwindtrack_Tags;
@@ -53,11 +54,10 @@ public class use_Tailwind
   private transient AudioInputStream ais;
   private transient AudioFormat af;
   private transient SourceDataLine sourceLine;
-  private transient Thread bernard;
   private transient tailwind_Status compareStatus = null; // a default ultimas status is "null"
   private volatile boolean isPlaying = false;
   private volatile boolean isPaused = false;
-  private AtomicBoolean isClosed = new AtomicBoolean(true);
+  private final AtomicBoolean isClosed = new AtomicBoolean(true);
   private volatile long pauseTime = 0;
   private volatile long resumeTime = 0;
   private volatile long totalPausedTime = 0;
@@ -197,26 +197,24 @@ public class use_Tailwind
   {
     if (currentTrack != null && currentTrack.playable())
     {
-      bernard = new Thread(() -> {
-        try
-        {
+      Thread bernard = new Thread(() -> {
+        try {
           ais = get_audio_inputstream(currentTrack.getContentFile().toURI().toURL());
+          assert ais != null;
           af = ais.getFormat();
           DataLine.Info inf = new DataLine.Info(SourceDataLine.class, af);
           sourceLine = (SourceDataLine) AudioSystem.getLine(inf);
           sourceLine.open(af);
           int frame_size_bytes = af.getFrameSize(), buffer_length_frames = sourceLine.getBufferSize() / 8,
-              buffer_length_bytes = buffer_length_frames * frame_size_bytes;
+                  buffer_length_bytes = buffer_length_frames * frame_size_bytes;
           byte[] buffer = new byte[buffer_length_bytes];
           sourceLine.start();
           isPlaying = true;
           isPaused = false;
           int bytes_read;
           while (isPlaying && !isPaused && sourceLine.isOpen()
-              && (bytes_read = ais.read(buffer)) != -1)
-          {
-            if (isPaused)
-            {
+                  && (bytes_read = ais.read(buffer)) != -1) {
+            if (isPaused) {
               pauseTime = System.currentTimeMillis();
               sourceLine.stop();
               while (isPaused)
@@ -225,8 +223,6 @@ public class use_Tailwind
               totalPausedTime += (resumeTime - pauseTime);
               sourceLine.start();
             }
-            if (bytes_read == const_Commons.EOF)
-              break;
             sourceLine.write(buffer, 0, bytes_read);
             currentFrame += bytes_read / frame_size_bytes;
           }
@@ -234,8 +230,7 @@ public class use_Tailwind
           masta_drainage();
           ais.close();
           run_ping(tailwind_Status.EOF);
-        } catch (IOException | LineUnavailableException exception)
-        {
+        } catch (IOException | LineUnavailableException exception) {
           error_callback.forYou(new struct_Pair<>(tailwind_Status.FAILED_PLAY, exception));
         }
       });
@@ -263,7 +258,7 @@ public class use_Tailwind
         play();
         pstream.log.warn("PLAY_NEVER_PLAYED");
       }
-      else if (isPlaying)
+      else
       {
         pstream.log.warn("RESUMING");
         isPaused = false;
@@ -346,9 +341,12 @@ public class use_Tailwind
 
   @Override public final synchronized long time_ms() // returns the length of the track in milliseconds
   {
-    return currentTrack != null && currentTrack.playable()
-        ? (long) ((ais.getFrameLength() * 1000L) / af.getFrameRate())
-        : ((int) currentTrack.get(tailwindtrack_Tags.MEDIA_DURATION)) * 1000L;
+    if (currentTrack != null && currentTrack.playable()) {
+      return (long) ((ais.getFrameLength() * 1000L) / af.getFrameRate());
+    } else {
+      assert currentTrack != null;
+      return ((int) currentTrack.get(tailwindtrack_Tags.MEDIA_DURATION)) * 1000L;
+    }
   }
 
   public final synchronized long current_pos_ms()
@@ -397,7 +395,7 @@ public class use_Tailwind
 
   public final synchronized void gain_percent(float percent)
   {
-    percent = percent < 0F ? 0F : percent > 1F ? 1F : percent;
+    percent = percent < 0F ? 0F : Math.min(percent, 1F);
     float minima = ((FloatControl) sourceLine.getControl(FloatControl.Type.MASTER_GAIN)).getMaximum(),
         maxima = ((FloatControl) sourceLine.getControl(FloatControl.Type.MASTER_GAIN)).getMaximum(),
         gain = (float) (Math.log(percent) / Math.log(10.0D) * 20.0D);

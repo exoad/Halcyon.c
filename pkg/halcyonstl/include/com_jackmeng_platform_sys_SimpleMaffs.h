@@ -12,8 +12,9 @@ extern "C" {
  * Method:    simplify_ratio
  * Signature: (JJ)[J
  */
-JNIEXPORT jlongArray JNICALL Java_com_jackmeng_platform_sys_1SimpleMaffs_simplify_1ratio
-  (JNIEnv *, jclass, jlong, jlong);
+JNIEXPORT jlongArray JNICALL
+Java_com_jackmeng_platform_sys_1SimpleMaffs_simplify_1ratio(JNIEnv *, jclass,
+                                                            jlong, jlong);
 
 #ifdef __cplusplus
 }

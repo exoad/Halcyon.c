@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.TimerTask;
 
@@ -37,10 +38,11 @@ public final class use_HalcyonFolder
 
   public static final byte[] DELIMITER = { 0x0E, 0x00, 0x0E, (byte) 0x9E };
 
-  private File locale;
+  private final File locale;
   private boolean properties_masta_fault = false;
-  private Properties p, pUsr;
-  private use_ClientProfile usr_proc;
+  private final Properties p;
+  private final Properties pUsr;
+  private final use_ClientProfile usr_proc;
 
   public enum halcyonfolder_Content {
     /*------------------------------------------------------------- /
@@ -147,7 +149,7 @@ public final class use_HalcyonFolder
       /*------------------------------------ /
       / pulls everything from MutableManager /
       /-------------------------------------*/
-      for (use_MUTableDefinition e : use_HalcyonCore.DEFS.get())
+      for (use_MUTableDefinition e : Objects.requireNonNull(use_HalcyonCore.DEFS.get()))
         p.put(e.key, e.get() == null || e.get().isEmpty() ? e.defaultVal : e.get());
       try
       {
@@ -173,7 +175,7 @@ public final class use_HalcyonFolder
       log(e);
     }
     for (Object r : p.keySet())
-      for (use_MUTableDefinition er : use_HalcyonCore.DEFS.get())
+      for (use_MUTableDefinition er : Objects.requireNonNull(use_HalcyonCore.DEFS.get()))
         if (er.key.equals(r))
           er.validate((String) p.get(er.key));
   }
@@ -182,7 +184,7 @@ public final class use_HalcyonFolder
   {
     if (halcyonfolder_Content.LOGS_d.make().exists() && halcyonfolder_Content.LOGS_d.make().isDirectory())
     {
-      for (File r : halcyonfolder_Content.LOGS_d.make().listFiles())
+      for (File r : Objects.requireNonNull(halcyonfolder_Content.LOGS_d.make().listFiles()))
       { // dont put your files here!! File types are not
         // ignored... sadly, would be a pain to impl and
         // unnecessary
@@ -248,13 +250,13 @@ public final class use_HalcyonFolder
     }
     StringBuilder sb = new StringBuilder();
     for (use_TailwindPlaylist e : const_Core.PLAY_LIST_POOL)
-      sb.append(e.getParent() + new String(DELIMITER));
+      sb.append(e.getParent()).append(new String(DELIMITER));
     pUsr.setProperty("playlists", sb.toString());
     sb.setLength(0);
     for (use_TailwindTrack e : const_Core.LIKE_LIST_POOL)
     {
       pstream.log.warn("Saving playlist (APPEND): " + e.id());
-      sb.append(e.id() + new String(DELIMITER));
+      sb.append(e.id()).append(new String(DELIMITER));
     }
     pUsr.put("liked", sb.toString());
     try

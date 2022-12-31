@@ -57,7 +57,7 @@ public class gui_Window
 
       @Override public void windowClosed(WindowEvent er)
       {
-        if (r == true)
+        if (r)
           er.getComponent().setVisible(true);
       }
     });

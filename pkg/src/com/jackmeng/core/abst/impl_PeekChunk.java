@@ -4,5 +4,5 @@ import java.nio.ByteBuffer;
 
 public abstract interface impl_PeekChunk
 {
-  public void borrow_cheap(ByteBuffer chunk);
+  void borrow_cheap(ByteBuffer chunk);
 }

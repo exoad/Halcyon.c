@@ -22,8 +22,8 @@ public final class dgui_NotificationArena
     JPanel
 {
 
-  private transient Queue< struct_Pair< JComponent, JComponent > > queue;
-  private int max;
+  private final transient Queue< struct_Pair< JComponent, JComponent > > queue;
+  private final int max;
 
   public dgui_NotificationArena(int max_notifs_displayable)
   {
@@ -46,6 +46,7 @@ public final class dgui_NotificationArena
     pstream.log.info("DISPATCHING A NOTIFICATION: " + e.getName());
     if (queue.size() >= max)
     {
+      assert queue.peek() != null;
       remove(queue.peek().first);
       queue.remove();
     }

@@ -31,8 +31,8 @@ public class gui_HalcyonFrame
       private static final Dimension MINIMUM_SIZE = new Dimension(10, 10);
       private static final Dimension MAXIMUM_SIZE = new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
-      private static Map< Integer, Integer > cursors = new HashMap<>();
-      {
+      private static final Map< Integer, Integer > cursors = new HashMap<>();
+      static {
         cursors.put(1, Cursor.N_RESIZE_CURSOR);
         cursors.put(2, Cursor.W_RESIZE_CURSOR);
         cursors.put(4, Cursor.S_RESIZE_CURSOR);
@@ -501,7 +501,6 @@ public class gui_HalcyonFrame
       });
     }
 
-    private ComponentResizer cr = new ComponentResizer();
     public final dgui_NotificationArena notificationManager;
 
     public TitledFrame(final TitleBarConfig conf, final int tH, final JComponent content)
@@ -533,6 +532,7 @@ public class gui_HalcyonFrame
         frame.setMinimumSize(frame.getPreferredSize());
         frame.getRootPane()
             .setBorder(BorderFactory.createLineBorder(conf.borderColor != null ? conf.borderColor : Color.BLACK, 3));
+        ComponentResizer cr = new ComponentResizer();
         if (content.getMaximumSize() == null
             || !(content.getMaximumSize().width == content.getPreferredSize().width
                 && content.getMaximumSize().height == content.getPreferredSize().height)

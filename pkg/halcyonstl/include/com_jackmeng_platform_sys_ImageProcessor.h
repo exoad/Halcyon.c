@@ -12,16 +12,19 @@ extern "C" {
  * Method:    img_accent_color
  * Signature: ([I)I
  */
-JNIEXPORT jint JNICALL Java_com_jackmeng_platform_sys_1ImageProcessor_img_1accent_1color
-  (JNIEnv *, jclass, jintArray);
+JNIEXPORT jint JNICALL
+Java_com_jackmeng_platform_sys_1ImageProcessor_img_1accent_1color(JNIEnv *,
+                                                                  jclass,
+                                                                  jintArray);
 
 /*
  * Class:     com_jackmeng_platform_sys_ImageProcessor
  * Method:    img_accent_color_palette
  * Signature: ([II)[I
  */
-JNIEXPORT jintArray JNICALL Java_com_jackmeng_platform_sys_1ImageProcessor_img_1accent_1color_1palette
-  (JNIEnv *, jclass, jintArray, jint);
+JNIEXPORT jintArray JNICALL
+Java_com_jackmeng_platform_sys_1ImageProcessor_img_1accent_1color_1palette(
+    JNIEnv *, jclass, jintArray, jint);
 
 #ifdef __cplusplus
 }

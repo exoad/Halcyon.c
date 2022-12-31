@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_Commons;
 import com.jackmeng.core.util.use_Struct;
 import com.jackmeng.core.util.use_Struct.struct_Pair;
@@ -32,7 +31,7 @@ public final class use_GuiUtil
     for (Component comp : comps)
     {
       compList.add(comp);
-      if (comp instanceof Container || comp instanceof JComponent)
+      if (comp instanceof Container)
         compList.addAll(listComponents_OfContainer((Container) comp));
     }
     return compList;

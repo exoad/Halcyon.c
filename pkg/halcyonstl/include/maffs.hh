@@ -8,7 +8,9 @@
 #define HALCYON_MAFFS_BIT_2 2
 #define HALCYON_MAFFS_BIT_5 16
 #define HALCYON_MAFFS_BIT_18 131072
-#define HALCYON_MAFFS_RBIT_MASK (HALCYON_MAFFS_BIT_1 + HALCYON_MAFFS_BIT_2 + HALCYON_MAFFS_BIT_5 + HALCYON_MAFFS_BIT_18)
+#define HALCYON_MAFFS_RBIT_MASK                                      \
+  (HALCYON_MAFFS_BIT_1 + HALCYON_MAFFS_BIT_2 + HALCYON_MAFFS_BIT_5 + \
+   HALCYON_MAFFS_BIT_18)
 
 namespace halcyon_maffs {
 /*--------------------------------------- /
@@ -21,8 +23,8 @@ int ran_bit_2(unsigned long*);
 }  // namespace halcyon_maffs
 
 namespace halcyon_simpleMaffs {
-  long rcr_gcd(long, long);
-  long itr_gcd(long, long);
-}
+long rcr_gcd(long, long);
+long itr_gcd(long, long);
+}  // namespace halcyon_simpleMaffs
 
 #endif

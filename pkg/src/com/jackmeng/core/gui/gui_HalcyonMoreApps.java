@@ -29,11 +29,9 @@ public class gui_HalcyonMoreApps
     impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< impl_App > > >
 {
 
-  private JFrame frame;
-  private JScrollPane jsp;
-  private JPanel panel;
+  private final JFrame frame;
+  private final JPanel panel;
   private int pX, pY;
-  private ComponentResizer cr = new ComponentResizer();
 
   public gui_HalcyonMoreApps()
   {
@@ -49,6 +47,7 @@ public class gui_HalcyonMoreApps
         frame.dispose();
       }
     });
+    ComponentResizer cr = new ComponentResizer();
     cr.registerComponent(frame);
     frame.addMouseMotionListener(cr);
     /*---------------------------------------------------------------------------------------------- /
@@ -60,7 +59,7 @@ public class gui_HalcyonMoreApps
     panel = new JPanel();
     panel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-    jsp = new JScrollPane(panel);
+    JScrollPane jsp = new JScrollPane(panel);
     jsp.setBorder(BorderFactory.createEmptyBorder());
     jsp.addMouseListener(new MouseAdapter() {
       @Override public void mousePressed(MouseEvent me)
@@ -97,9 +96,8 @@ public class gui_HalcyonMoreApps
     else
       action.setIcon(x.icon());
 
-    if (x instanceof impl_Ploogin)
+    if (x instanceof impl_Ploogin x2)
     {
-      impl_Ploogin x2 = (impl_Ploogin) x;
       action.setToolTipText("<html><strong>Ploogin: " + x2.id() + "</strong><br>Author: " + x2.author()
           + "<br>Description: " + x2.description() + "</html>");
     }

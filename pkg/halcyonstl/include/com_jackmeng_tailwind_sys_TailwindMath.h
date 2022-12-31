@@ -12,24 +12,28 @@ extern "C" {
  * Method:    normalize_mantissa_iee
  * Signature: ([D)V
  */
-JNIEXPORT void JNICALL Java_com_jackmeng_tailwind_sys_1TailwindMath_normalize_1mantissa_1iee
-  (JNIEnv *, jclass, jdoubleArray);
+JNIEXPORT void JNICALL
+Java_com_jackmeng_tailwind_sys_1TailwindMath_normalize_1mantissa_1iee(
+    JNIEnv *, jclass, jdoubleArray);
 
 /*
  * Class:     com_jackmeng_tailwind_sys_TailwindMath
  * Method:    normalize_samples
  * Signature: ([B)V
  */
-JNIEXPORT void JNICALL Java_com_jackmeng_tailwind_sys_1TailwindMath_normalize_1samples
-  (JNIEnv *, jclass, jbyteArray);
+JNIEXPORT void JNICALL
+Java_com_jackmeng_tailwind_sys_1TailwindMath_normalize_1samples(JNIEnv *,
+                                                                jclass,
+                                                                jbyteArray);
 
 /*
  * Class:     com_jackmeng_tailwind_sys_TailwindMath
  * Method:    window_func_1
  * Signature: ([FI)[F
  */
-JNIEXPORT jfloatArray JNICALL Java_com_jackmeng_tailwind_sys_1TailwindMath_window_1func_11
-  (JNIEnv *, jclass, jfloatArray, jint);
+JNIEXPORT jfloatArray JNICALL
+Java_com_jackmeng_tailwind_sys_1TailwindMath_window_1func_11(JNIEnv *, jclass,
+                                                             jfloatArray, jint);
 
 #ifdef __cplusplus
 }

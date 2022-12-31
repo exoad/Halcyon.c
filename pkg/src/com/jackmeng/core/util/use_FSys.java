@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -46,19 +47,11 @@ public final class use_FSys
   public static boolean s_containsFileOfType(File dir, String... extensions)
   {
     if (!dir.isDirectory() || !dir.exists())
-    {
       return false;
-    }
-    for (String r : dir.list())
-    {
+    for (String r : Objects.requireNonNull(dir.list()))
       for (String t : extensions)
-      {
         if (r.endsWith(t))
-        {
           return true;
-        }
-      }
-    }
     return false;
   }
 
@@ -82,18 +75,16 @@ public final class use_FSys
     }
   }
 
-  public static void writeToFile_O(Object content, File source) // overwrite mode
+  public static void writeToFile_O(String content, File source) // overwrite mode
   {
     if (source.exists())
-    {
       source.delete();
-    }
     try
     {
       source.createNewFile();
 
       PrintWriter pw = new PrintWriter(source);
-      pw.print(content.toString());
+      pw.print(content);
       pw.flush();
       pw.close();
     } catch (IOException e)
@@ -158,16 +149,8 @@ public final class use_FSys
   public static boolean s_containsOnlyFiles(File dir)
   {
     if (!dir.isDirectory() || !dir.exists())
-    {
       return false;
-    }
-    return dir.listFiles(new FileFilter() {
-      @Override
-      public boolean accept(File pathname)
-      {
-        return pathname.isFile() && pathname.exists();
-      }
-    }).length != 0;
+    return Objects.requireNonNull(dir.listFiles(pathname -> pathname.isFile() && pathname.exists())).length != 0;
   }
 
   /**
@@ -211,9 +194,7 @@ public final class use_FSys
       {
         String temp;
         while ((temp = br.readLine()) != null)
-        {
           sb.append(temp);
-        }
       }
     }
     return sb.toString();

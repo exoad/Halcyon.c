@@ -9,7 +9,7 @@ public class TestCase
 {
   private String name;
   private impl_Callback< ? > action;
-  private Object expects;
+  private Integer expects;
 
   public TestCase(String name, impl_Callback< ? > action)
   {
@@ -17,7 +17,7 @@ public class TestCase
     this.action = action;
   }
 
-  public TestCase(String name, impl_Callback< ? > action, Object expect)
+  public TestCase(String name, impl_Callback< ? > action, Integer expect)
   {
     this(name, action);
     expects = expect;

@@ -13,12 +13,10 @@ public class gui_DevWindow
     Runnable
 {
 
-  private JPanel layout;
-
   public gui_DevWindow()
   {
     super(window_Operations.KILL_ON_CLOSE);
-    layout = new JPanel();
+    JPanel layout = new JPanel();
     layout.setLayout(new GridLayout(3,3));
     layout.setPreferredSize(new Dimension(400, 400));
 

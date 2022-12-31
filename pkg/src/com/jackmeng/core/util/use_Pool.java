@@ -11,37 +11,24 @@ public class use_Pool< T extends impl_Identifiable >
     implements
     Iterable< T >
 {
-  private Map< String, T > poolObjects;
-  private List< impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > > refreshables;
+  private final Map< String, T > poolObjects;
+  private final List< impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > > refreshables;
   private impl_Guard< impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > > guards;
   private impl_Guard< T > guards2;
 
   public enum pool_RefreshStatus {
-    ADDED, REMOVED;
+    ADDED, REMOVED
   }
 
   public use_Pool()
   {
     refreshables = new ArrayList<>();
     poolObjects = new HashMap<>();
-    guards = new impl_Guard< impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > >() {
-      /*-------------------------------------------------------------------- /
-      / by default the pool will always return true for all entered elements /
-      /---------------------------------------------------------------------*/
-      @Override public boolean check(impl_HalcyonRefreshable< struct_Pair< Optional< String >, Optional< T > > > e)
-      {
-        return true;
-      }
-
-    };
-    guards2 = new impl_Guard<>() {
-
-      @Override public boolean check(T e)
-      {
-        return true;
-      }
-
-    };
+    /*-------------------------------------------------------------------- /
+    / by default the pool will always return true for all entered elements /
+    /---------------------------------------------------------------------*/
+    guards = e -> true;
+    guards2 = e -> true;
   }
 
   /**
@@ -78,17 +65,14 @@ public class use_Pool< T extends impl_Identifiable >
   /**
    * @param object
    */
-  public boolean addPoolObject(T object)
+  public void addPoolObject(T object)
   {
     if (guards2.check(object))
     {
       poolObjects.put(object.id(), object);
-      notifyRefreshers(false, const_GeneralStatus.ADDITION,
+      notifyRefreshers(const_GeneralStatus.ADDITION,
           new struct_Pair<>(Optional.of(object.id()), Optional.of(object)));
-      return true;
     }
-    else
-      return false;
 
   }
 
@@ -98,13 +82,13 @@ public class use_Pool< T extends impl_Identifiable >
   public void removePoolObject_ID(String id)
   {
     poolObjects.remove(id);
-    notifyRefreshers(false, const_GeneralStatus.DELETION, new struct_Pair<>(Optional.of(id), Optional.empty()));
+    notifyRefreshers(const_GeneralStatus.DELETION, new struct_Pair<>(Optional.of(id), Optional.empty()));
   }
 
   public void removePoolObj(T e)
   {
     poolObjects.remove(e.id());
-    notifyRefreshers(false, const_GeneralStatus.DELETION, new struct_Pair<>(Optional.of(e.id()), Optional.of(e)));
+    notifyRefreshers(const_GeneralStatus.DELETION, new struct_Pair<>(Optional.of(e.id()), Optional.of(e)));
   }
 
   public T objOf_T(Class< ? extends T > e)
@@ -156,11 +140,10 @@ public class use_Pool< T extends impl_Identifiable >
   /**
    * @param removed
    */
-  private void notifyRefreshers(boolean dry, const_GeneralStatus type,
-      struct_Pair< Optional< String >, Optional< T > > removed)
+  private void notifyRefreshers(const_GeneralStatus type,
+                                struct_Pair<Optional<String>, Optional<T>> removed)
   {
-    use_Task.run_Snb_1(dry ? () -> refreshables.forEach(impl_HalcyonRefreshable::dry_refresh)
-        : () -> refreshables.forEach(x -> x.refresh(type, removed)));
+    use_Task.run_Snb_1(() -> refreshables.forEach(x -> x.refresh(type, removed)));
   }
 
   /**
@@ -168,7 +151,7 @@ public class use_Pool< T extends impl_Identifiable >
    */
   public String toString()
   {
-    return "OBJECT_POOL{\n" + refreshables.toString() + "\n" + poolObjects.toString() + "\n}";
+    return "OBJECT_POOL{\n" + refreshables + "\n" + poolObjects + "\n}";
   }
 
   @Override public Iterator< T > iterator()

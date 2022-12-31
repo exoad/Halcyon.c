@@ -1,14 +1,8 @@
 package com.jackmeng.tailwind;
 
 import java.io.File;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Queue;
-import java.util.Set;
-import java.util.TimerTask;
+import java.util.*;
+
 import com.jackmeng.core.abst.impl_Identifiable;
 import com.jackmeng.tailwind.use_Tailwind.tailwind_Status;
 import com.jackmeng.core.util.use_LooseList;
@@ -37,10 +31,10 @@ public final class use_TailwindFeeder
 
   private int ptr;
   private boolean isShuffle, isLoop;
-  private use_Tailwind player;
-  private use_LooseList< String > memory_bloc;
-  private Queue< use_TailwindTrack > toPlay; // FIFO
-  private Set< evnt_TailwindFeederStatus > stateListeners;
+  private final use_Tailwind player;
+  private final use_LooseList< String > memory_bloc;
+  private final Queue< use_TailwindTrack > toPlay; // FIFO
+  private final Set< evnt_TailwindFeederStatus > stateListeners;
 
   public use_TailwindFeeder(use_Tailwind e)
   {
@@ -66,7 +60,7 @@ public final class use_TailwindFeeder
           if (!f.exists() || !f.isFile() || !f.canRead())
             toRemove.add(i);
         }
-        toRemove.forEach(x -> memory_bloc.remove(x));
+        toRemove.forEach(memory_bloc::remove);
       }
 
     }, 1000L, 3300L);
@@ -74,8 +68,7 @@ public final class use_TailwindFeeder
 
   public synchronized void bump(use_TailwindTrack... tracks)
   {
-    for (use_TailwindTrack e : tracks)
-      toPlay.add(e);
+    Collections.addAll(toPlay, tracks);
   }
 
   public synchronized void bump(use_TailwindPlaylist e)

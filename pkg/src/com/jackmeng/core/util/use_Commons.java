@@ -7,10 +7,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.jackmeng.use_HalcyonCore;
@@ -30,18 +27,18 @@ public class use_Commons
   {
   }
 
-  public static final String weak_delimiter(String str, String delimiter, int validLength)
+  public static String weak_delimiter(String str, String delimiter, int validLength)
   {
     return str != null ? str.length() > validLength ? str.substring(0, validLength) + delimiter
         : str.length() < validLength ? str + copies_Of(validLength, " ") : str : "";
   }
 
-  public static final String strong_delimiter(String str, String delimiter, int validLength)
+  public static String strong_delimiter(String str, String delimiter, int validLength)
   {
     return str != null ? str.length() > validLength ? str.substring(0, validLength) + delimiter : str : "";
   }
 
-  public static final String copies_Of(int n, String s)
+  public static String copies_Of(int n, String s)
   {
     return String.valueOf(s).repeat(Math.max(0, n + 1));
   }
@@ -51,7 +48,7 @@ public class use_Commons
    * @param comparators
    * @return boolean
    */
-  public static final boolean ends_with(String key, String... comparators)
+  public static boolean ends_with(String key, String... comparators)
   {
     for (String r : comparators)
       if (r.endsWith(key))
@@ -59,7 +56,7 @@ public class use_Commons
     return false;
   }
 
-  public static final String rndstr(int length, int left, int right) // length, ascii_min, ascii_max
+  public static String rndstr(int length, int left, int right) // length, ascii_min, ascii_max
   {
     StringBuilder sb = new StringBuilder();
     while (length-- > 0)
@@ -67,32 +64,30 @@ public class use_Commons
     return sb.toString();
   }
 
-  public static final String expand_exception(Exception e)
+  public static String expand_exception(Exception e)
   {
-    StringBuilder sb = new StringBuilder("Exception Occurred: " + e.getMessage())
-        .append("\nLocalized:" + e.getLocalizedMessage());
+    StringBuilder sb = new StringBuilder("Exception Occurred: " + e.getMessage()).append("\nLocalized:").append(e.getLocalizedMessage());
     for (StackTraceElement s : e.getStackTrace())
-      sb.append("\tat " + s.getClassName() + "." + s.getMethodName()
-          + "(" + s.getFileName() + ":" + s.getLineNumber() + ")" + "\n");
+      sb.append("\tat ").append(s.getClassName()).append(".").append(s.getMethodName()).append("(").append(s.getFileName()).append(":").append(s.getLineNumber()).append(")").append("\n");
     return sb.toString();
   }
 
-  public static final String normalize_string(String e)
+  public static String normalize_string(String e)
   {
     return e.substring(0, 1).toUpperCase() + e.substring(1, e.length() - 1).toLowerCase();
   }
 
-  public static final boolean is_generic(Class< ? > c)
+  public static boolean is_generic(Class< ? > c)
   {
     return c.getTypeParameters().length > 0;
   }
 
-  public static final boolean str_empty(String s)
+  public static boolean str_empty(String s)
   {
-    return s == null || s.isBlank() || s.isEmpty() || s.length() == 0;
+    return s == null || s.isBlank() || s.length() == 0;
   }
 
-  public static final Number round_off_bd(Number e, int amount)
+  public static Number round_off_bd(Number e, int amount)
   {
     return BigDecimal.valueOf(e.doubleValue()).setScale(amount, RoundingMode.HALF_UP).doubleValue();
   }
@@ -127,7 +122,7 @@ public class use_Commons
   public final Set< Class< ? > > list_class(String pkgName)
   {
     return new BufferedReader(
-        new InputStreamReader(ClassLoader.getSystemClassLoader().getResourceAsStream(pkgName.replaceAll("[.]", "/"))))
+        new InputStreamReader(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResourceAsStream(pkgName.replaceAll("[.]", "/")))))
             .lines()
             .filter(x -> x.endsWith(".class")).map(x -> find_class(x, pkgName)).collect(Collectors.toSet());
   }

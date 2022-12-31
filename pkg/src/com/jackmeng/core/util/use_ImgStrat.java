@@ -140,9 +140,7 @@ public final class use_ImgStrat
     @Override public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
     {
       if (cumCM == null)
-      {
         cumCM = srcum.getColorModel();
-      }
       return new BufferedImage(cumCM,
           cumCM.createCompatibleWritableRaster(
               srcum.getWidth(), srcum.getHeight()),
@@ -167,7 +165,7 @@ public final class use_ImgStrat
   {
 
     public enum imagegradient_GradientType {
-      BOTTOM, TOP; // which side is the side to be gradiented (the one to have transparency reduced
+      BOTTOM, TOP // which side is the side to be gradiented (the one to have transparency reduced
                    // on)
     }
 
@@ -218,9 +216,7 @@ public final class use_ImgStrat
     @Override public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
     {
       if (cumCM == null)
-      {
         cumCM = srcum.getColorModel();
-      }
       return new BufferedImage(cumCM,
           cumCM.createCompatibleWritableRaster(
               srcum.getWidth(), srcum.getHeight()),
@@ -294,9 +290,7 @@ public final class use_ImgStrat
     @Override public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
     {
       if (cumCM == null)
-      {
         cumCM = srcum.getColorModel();
-      }
       return new BufferedImage(cumCM,
           cumCM.createCompatibleWritableRaster(
               srcum.getWidth(), srcum.getHeight()),
@@ -318,9 +312,7 @@ public final class use_ImgStrat
       int width = srcum.getWidth();
       int height = srcum.getHeight();
       if (cum == null)
-      {
         cum = createCompatibleDestImage(srcum, null);
-      }
 
       cum.setRGB(0, 0, width, height,
           use_Blurhash.dec(
@@ -335,7 +327,7 @@ public final class use_ImgStrat
   public static class imgstrat_TransposedGaussianBlur
       implements BufferedImageOp
   {
-    private float[] matrix;
+    private final float[] matrix;
 
     /*------------------------------------------------------------------- /
     / you can call the tranpose twice to untranspose it with effects kept /
@@ -363,9 +355,7 @@ public final class use_ImgStrat
     @Override public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
     {
       if (cumCM == null)
-      {
         cumCM = srcum.getColorModel();
-      }
       return new BufferedImage(cumCM,
           cumCM.createCompatibleWritableRaster(
               srcum.getWidth(), srcum.getHeight()),
@@ -388,9 +378,7 @@ public final class use_ImgStrat
       int height = srcum.getHeight();
 
       if (cum == null)
-      {
         cum = createCompatibleDestImage(srcum, null);
-      }
 
       for (int i = 0; i < height; i++)
       {
@@ -414,7 +402,8 @@ public final class use_ImgStrat
 
   public static class imgstrat_StackBlur implements BufferedImageOp
   {
-    private int radius, iterations;
+    private final int radius;
+    private final int iterations;
 
     public imgstrat_StackBlur(int radius, int itr)
     {
@@ -428,9 +417,7 @@ public final class use_ImgStrat
       int height = srcum.getHeight();
 
       if (cum == null)
-      {
         cum = createCompatibleDestImage(srcum, null);
-      }
 
       int[] srcum_px = new int[width * height];
       int[] cum_px = new int[width * height];
@@ -453,9 +440,7 @@ public final class use_ImgStrat
     @Override public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
     {
       if (cumCM == null)
-      {
         cumCM = srcum.getColorModel();
-      }
       return new BufferedImage(cumCM,
           cumCM.createCompatibleWritableRaster(
               srcum.getWidth(), srcum.getHeight()),
@@ -477,7 +462,7 @@ public final class use_ImgStrat
       implements
       BufferedImageOp
   {
-    private int radius;
+    private final int radius;
 
     public imgstrat_FastBlur(int radius)
     {
@@ -508,12 +493,8 @@ public final class use_ImgStrat
 
       int[] indexLookupTable = new int[radiusPlusOne];
       if (radius < width)
-      {
         for (int i = 0; i < indexLookupTable.length; i++)
-        {
           indexLookupTable[i] = i;
-        }
-      }
       else
       {
         for (int i = 0; i < width; i++)
@@ -602,9 +583,7 @@ public final class use_ImgStrat
     @Override public BufferedImage createCompatibleDestImage(BufferedImage srcum, ColorModel cumCM)
     {
       if (cumCM == null)
-      {
         cumCM = srcum.getColorModel();
-      }
       return new BufferedImage(cumCM,
           cumCM.createCompatibleWritableRaster(
               srcum.getWidth(), srcum.getHeight()),

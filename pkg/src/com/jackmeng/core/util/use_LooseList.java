@@ -13,7 +13,7 @@ public class use_LooseList< T >
   private static class looselist_Iterator< T >
       implements Iterator< T >
   {
-    private List< SoftReference< T > > queue;
+    private final List< SoftReference< T > > queue;
     private int i;
 
     public looselist_Iterator(List< SoftReference< T > > l)
@@ -42,7 +42,7 @@ public class use_LooseList< T >
     }
   }
 
-  private List< SoftReference< T > > list;
+  private final List< SoftReference< T > > list;
 
   public use_LooseList()
   {

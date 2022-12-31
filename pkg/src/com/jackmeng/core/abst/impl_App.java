@@ -9,18 +9,18 @@ public abstract interface impl_App
     Runnable,
     impl_Identifiable
 {
-  public ImageIcon icon();
+  ImageIcon icon();
 
   /**
    * Tooltip referencia
    *
    * @return
    */
-  public String toolTip();
+  String toolTip();
 
-  public Optional< ImageIcon > rolloverIcon();
+  Optional< ImageIcon > rolloverIcon();
 
-  public default boolean hidden()
+  default boolean hidden()
   {
     return true;
   }

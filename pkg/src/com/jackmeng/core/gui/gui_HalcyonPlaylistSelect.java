@@ -15,7 +15,7 @@ public final class gui_HalcyonPlaylistSelect
     Runnable,
     Serializable
 {
-  private JFileChooser chooser;
+  private final JFileChooser chooser;
   /*----------------------- /
   / private boolean opened; /
   /------------------------*/

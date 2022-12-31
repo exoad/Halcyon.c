@@ -112,22 +112,6 @@ public final class use_Blurhash
     {
     }
 
-    public static double _max(double[][] arr)
-    {
-      double max = arr[0][0];
-      for (double[] doubles : arr)
-      {
-        for (double aDouble : doubles)
-        {
-          if (aDouble > max)
-          {
-            max = aDouble;
-          }
-        }
-      }
-      return max;
-    }
-
     /**
      * @param val
      * @param exp
@@ -149,9 +133,8 @@ public final class use_Blurhash
      *          The buffer to write to (contains values)
      * @param offset
      *          The offset to start writing at
-     * @return The encoded value as a string
      */
-    public static String encode(long val, int length, char[] buff, int offset)
+    public static void encode(long val, int length, char[] buff, int offset)
     {
       int _i = 1;
       for (int i = 1; i <= length; i++)
@@ -160,7 +143,6 @@ public final class use_Blurhash
         buff[offset + length - i] = TABLE[curr];
         _i *= 83;
       }
-      return new String(buff);
     }
 
     /**
@@ -239,12 +221,8 @@ public final class use_Blurhash
     public static int find(char c)
     {
       for (int i = 0; i < TABLE.length; i++)
-      {
         if (TABLE[i] == c)
-        {
           return i;
-        }
-      }
       return -1;
     }
   }
@@ -278,15 +256,9 @@ public final class use_Blurhash
   {
     double max = 0;
     for (double[] doubles : val)
-    {
       for (double aDouble : doubles)
-      {
         if (aDouble > max)
-        {
           max = aDouble;
-        }
-      }
-    }
     return max;
   }
 
@@ -313,9 +285,7 @@ public final class use_Blurhash
   {
     int _l = Arrays.binarySearch(__ll, val);
     if (_l < 0)
-    {
       _l = ~_l;
-    }
     return _l < 0 ? 0 : (_l >= 256 ? 255 : _l);
   }
 
@@ -389,9 +359,7 @@ public final class use_Blurhash
     blurhash_base83.encode(blurhash_base83.encodeDC(dc), 4, hash, 2);
 
     for (int i = 1; i < factorsLength; i++)
-    {
       blurhash_base83.encode(blurhash_base83.encodeAC(factors[i], maximumValue), 2, hash, 4 + 2 * i);
-    }
     return new String(hash);
   }
 
@@ -413,9 +381,7 @@ public final class use_Blurhash
   {
     int blurHashLength = blurHash.length();
     if (blurHashLength < 6)
-    {
       throw new IllegalArgumentException("BlurHash must be at least 6 characters long");
-    }
     int sizeInfo = blurhash_base83.decode(blurHash.substring(0, 1));
     int sizeY = sizeInfo / 9 + 1;
     int sizeX = sizeInfo % 9 + 1;

@@ -6,11 +6,11 @@
 <p style="text-align: right">
 Version 2.1, December 2022</p>
 
-
 <p style="text-align: right">
 Copyright © Jack Meng 2020-2022</p>
 
 _A safe-permissive license that enables friendly end-user consumption_
+
 </div>
 <hr>
 You may only use the bundled source or binary(s) in compliance with this LICENSE.
@@ -36,21 +36,15 @@ Binary: All subsiding binaries that have been compiled by third-party roots must
 
 Except for files related to clause 11, no derivatives of this software may be sublicensed in any way.
 
-
-
-
 ## 2. **Liability**
 
 In no event shall the authors or copyright holders be liable for any claim, damage, or other liabilities, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the software or the use or other dealings in the software.
 
 You accept that the software bundled may include, but is not limited to:
 
-
-
-
-* Incompatibility with your system(s)
-* Potential malfunctions
-* Bugs
+- Incompatibility with your system(s)
+- Potential malfunctions
+- Bugs
 
 ## 3. **Trademarking, Trademarks**
 
@@ -76,8 +70,6 @@ If there is already an ATTRIBUTIONS file, you may append it to it.
 
 You pledge that your modifications are safe, reliable, and original. In no way shall your modifications cause adverse/malicious intents (unless it is a bug related to very specific system support or some kind of third-party dependency used by the bundled software). Reliable in the sense that you have tested your modifications against test cases and demonstrated that they will work on the majority of targeted platforms.
 
-
-
 ## 6. **Source Permissiveness**
 
 The authors and copyright holders may restrict access to certain content parts. This does not give you the legal right to modify and redistribute the part, but it does allow you to modify it for personal use only.
@@ -88,15 +80,9 @@ Unless required by applicable law or agreed in writing, content distributed unde
 
 THE SOFTWARE IS PROVIDED “AS IS,"  WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND INFRINGEMENT.
 
-
-
-
 ## 7. **Warranties**
 
 There shall be no third party imposed fees or royalties required for any version of the bundled software. However, plugin authors may impose their own fee if need be.
-
-
-
 
 ## 8. **Consumption**
 
@@ -106,15 +92,9 @@ You accept that this software is not perfect and may contain bugs. This means th
 
 By utilizing any built-in plugin loading functionalities, you also acknowledge that the original authors and copyright holders have no warranties, liability claims, or protection for you against any plugins that are created maliciously. The end user must accept the risks of knowing the potential risks of using them and recognizing them properly. Damages caused by third-party plugins loaded by the bundled software can only be dealt with by the consumer and the plugin author(s); the consumer is not affiliated with the authors or copyright holders of this license.
 
-
-
-
 ## 9. **Redistribution**
 
 Third-party redistributions and authors may only redistribute under the terms that they:
-
-
-
 
 1. No royalties or fees may be charged.
 2. Disclose the full origination.
@@ -126,11 +106,11 @@ Third-party redistributions and authors may only redistribute under the terms th
 
 This license is not provided with a patent claim, and users besides the original authors and license holders are not granted any patent claims & rights.
 
-## **11.   Resource(s)**
+## **11. Resource(s)**
 
 _This clause only comes into effect if the original license holder DOES NOT provide a secondary license for resources and prefers to use this license as a whole to protect their work._
 
-This license does not fully protect any resource files (e.g. Image Files, Archive Files, Raw Documents *.doc, *.docx, *.pdf, etc.)
+This license does not fully protect any resource files (e.g. Image Files, Archive Files, Raw Documents _.doc, _.docx, \*.pdf, etc.)
 
 All works are credited under a subcategory of licenses that should be made aware to the original authors & license holders. However, works that do not provide another license shall follow under the following declaration:
 

@@ -77,7 +77,7 @@ public class use_Image
       {
         int rgb = img.getRGB(i, j);
         int[] arr = use_Color.parse_RGB(rgb);
-        if (!use_Color.is_gray(arr, 10))
+        if (use_Color.is_gray(arr, 10))
         {
           Integer color = m.get(rgb);
           if (color == null)
@@ -88,10 +88,8 @@ public class use_Image
       }
     }
     java.util.List< Entry< Integer, Integer > > list = new LinkedList<>(m.entrySet());
-    Collections.sort(list, (x, y) -> {
-      return ((Comparable< Integer >) x.getValue())
-          .compareTo(y.getValue());
-    });
+    list.sort((x, y) -> ((Comparable<Integer>) x.getValue())
+            .compareTo(y.getValue()));
     java.util.List< Color > l = new ArrayList<>();
     list.forEach(x -> {
       int[] parseRGB = use_Color.parse_RGB(x.getKey());
@@ -128,7 +126,7 @@ public class use_Image
       {
         int rgb = img.getRGB(i, j);
         int[] arr = use_Color.parse_RGB(rgb);
-        if (!use_Color.is_gray(arr, 10))
+        if (use_Color.is_gray(arr, 10))
         {
           Integer color = m.get(rgb);
           if (color == null)
@@ -139,10 +137,8 @@ public class use_Image
       }
     }
     java.util.List< Entry< Integer, Integer > > list = new LinkedList<>(m.entrySet());
-    Collections.sort(list, (x, y) -> {
-      return ((Comparable< Integer >) x.getValue())
-          .compareTo(y.getValue());
-    });
+    list.sort((x, y) -> ((Comparable<Integer>) x.getValue())
+            .compareTo(y.getValue()));
     Map.Entry< Integer, Integer > cum = list.get(list.size() - 1);
     return new struct_Trio<>(use_Color.parse_RGB(cum.getKey())[1], use_Color.parse_RGB(cum.getKey())[2],
         use_Color.parse_RGB(cum.getKey())[3]);

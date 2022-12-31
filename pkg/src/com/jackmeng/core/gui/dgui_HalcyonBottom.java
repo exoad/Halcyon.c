@@ -144,7 +144,7 @@ public class dgui_HalcyonBottom
       }
     }
 
-    private JPanel fileListMasta;
+    private final JPanel fileListMasta;
 
     public dgui_HalcyonFileList()
     {
@@ -195,24 +195,18 @@ public class dgui_HalcyonBottom
       /---------------------------------------------------------------------------*/
       const_Core.PLAY_LIST_POOL.addRefreshable(this);
 
-      const_Core.PLAY_LIST_POOL.setGuard(new impl_Guard< use_TailwindPlaylist >() {
-        @Override public boolean check(use_TailwindPlaylist e)
-        {
-          if (const_Core.PLAY_LIST_POOL.hasObj(e))
-          {
-            pstream.log.warn("I HAVE THIS PLAYLIST ADDED!!!");
-            for (int i = 0; i < pane.getTabCount(); i++)
-            {
-              if (pane.getTabComponentAt(i).getName().equals(e.id()))
-              {
-                pane.setSelectedIndex(i);
-              }
+      const_Core.PLAY_LIST_POOL.setGuard(e -> {
+        if (const_Core.PLAY_LIST_POOL.hasObj(e)) {
+          pstream.log.warn("I HAVE THIS PLAYLIST ADDED!!!");
+          for (int i = 0; i < pane.getTabCount(); i++) {
+            if (pane.getTabComponentAt(i).getName().equals(e.id())) {
+              pane.setSelectedIndex(i);
             }
-            return false;
           }
-          pstream.log.warn("I DONT HAVE THIS PLAYLIST ADDED");
-          return true;
+          return false;
         }
+        pstream.log.warn("I DONT HAVE THIS PLAYLIST ADDED");
+        return true;
       });
 
       /*-----------------------------------
@@ -276,20 +270,20 @@ public class dgui_HalcyonBottom
       tree.setCellRenderer(renderer);
       tree.addMouseListener(new MouseAdapter() {
 
-        private void call(MouseEvent e)
+        private void call()
         {
         }
 
         @Override public void mouseReleased(MouseEvent e)
         {
           if (SwingUtilities.isRightMouseButton(e))
-            call(e);
+            call();
         }
 
         @Override public void mousePressed(MouseEvent e)
         {
           if (SwingUtilities.isRightMouseButton(e))
-            call(e);
+            call();
         }
 
         private File last = null;
@@ -382,11 +376,9 @@ public class dgui_HalcyonBottom
     }
   }
 
-  private final dgui_HalcyonApps apps;
-
   public dgui_HalcyonBottom()
   {
-    apps = new dgui_HalcyonApps();
+    dgui_HalcyonApps apps = new dgui_HalcyonApps();
     dgui_HalcyonFileList filelistTabs = new dgui_HalcyonFileList();
 
     setOrientation(JSplitPane.HORIZONTAL_SPLIT);
@@ -394,7 +386,7 @@ public class dgui_HalcyonBottom
     setLeftComponent(apps);
     setRightComponent(filelistTabs.getMastaPanel());
     addPropertyChangeListener("dividerLocation", e -> {
-      int loc = ((Integer) e.getNewValue()).intValue();
+      int loc = (Integer) e.getNewValue();
       // never let the divider go past 20% of the width
       if (loc > (0.2F * getWidth()))
         setDividerLocation((int) (0.2F * getWidth()));

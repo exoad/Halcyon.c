@@ -45,10 +45,10 @@ public final class use_HideousTask< T >
     Serializable,
     impl_Identifiable
 {
-  private String myName;
+  private final String myName;
   private transient Thread curr;
   private transient T res;
-  private transient AtomicBoolean running;
+  private final transient AtomicBoolean running;
   private transient Callable< T > currentTask;
 
   // wildcard because we literally dont know what might be thrown at this task
@@ -123,7 +123,7 @@ public final class use_HideousTask< T >
 
   @Override public String id()
   {
-    return myName != null ? myName : getClass().getCanonicalName() + "->" + hashCode();
+    return myName;
   }
 
   @Override public String toString()

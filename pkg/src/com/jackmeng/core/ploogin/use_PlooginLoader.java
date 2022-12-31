@@ -3,7 +3,6 @@ package com.jackmeng.core.ploogin;
 import java.util.jar.JarFile;
 
 import com.jackmeng.core.util.pstream;
-import com.jackmeng.core.util.use_Commons;
 
 public class use_PlooginLoader
     extends ClassLoader
@@ -14,7 +13,6 @@ public class use_PlooginLoader
   @Override public void run() // boots all builtin plugins
   {
     pstream.log.warn("Loading all builtin ploogins... Hang tight!");
-    int i = 0;
   }
 
   public void require(String file)

@@ -45,7 +45,7 @@ public final class gui_HalcyonDisplayable
 
     public void draw_(boolean e)
     {
-      this.r = r;
+      this.r = e;
     }
 
     public boolean drawing()
@@ -73,8 +73,8 @@ public final class gui_HalcyonDisplayable
     }
   }
 
-  private halcyondisplayable_PanelMain pane;
-  private JLabel smallArtworkHolder;
+  private final halcyondisplayable_PanelMain pane;
+  private final JLabel smallArtworkHolder;
 
   public gui_HalcyonDisplayable()
   {

@@ -124,19 +124,14 @@ public class use_TailwindPlaylist
     if (use_standard)
     {
       List< String > temp = new ArrayList<>();
-      for (String r : new File(parent).list((x, y) -> {
-        for (String r : endings)
-        {
-          if (y.endsWith(r))
-          {
+      Collections.addAll(temp, Objects.requireNonNull(new File(parent).list((x, y) -> {
+        for (String r : endings) {
+          if (y.endsWith(r)) {
             return true;
           }
         }
         return false;
-      }))
-      {
-        temp.add(r);
-      }
+      })));
       children = temp;
       if (traits.autosort)
       {
