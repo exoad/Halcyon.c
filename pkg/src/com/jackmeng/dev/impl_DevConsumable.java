@@ -6,5 +6,7 @@ public interface impl_DevConsumable
     extends
     impl_Identifiable
 {
+  public String name();
+
   public void payload();
 }

@@ -337,7 +337,7 @@ public final class dgui_HalcyonTop
 
   @Override public void forYou(use_TailwindTrack e)
   {
-    if (e.has_artwork())
+    if (!e.has_artwork())
     {
       toDraw.set(false);
       bgPanel.repaint(100L);

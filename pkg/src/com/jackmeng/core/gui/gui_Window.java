@@ -1,6 +1,7 @@
 package com.jackmeng.core.gui;
 
 import java.awt.Dimension;
+import java.awt.event.*;
 
 import javax.swing.JWindow;
 
@@ -19,8 +20,49 @@ public class gui_Window
 
   private window_States curr_state = window_States.NORMALIZED;
   private Dimension onMaximize_Dim = new Dimension(0, 0);
-  private int origin_ratio_X = 0, origin_ratio_Y = 0; // ratio of (0,0) represents the top left corner defaulted to by
-                                                      // AWT
+
+  public gui_Window(window_Operations e)
+  {
+    assert e != null;
+    addWindowListener(e == window_Operations.KILL_ON_CLOSE ? new WindowAdapter() {
+      @Override public void windowClosing(WindowEvent er)
+      {
+
+        System.exit(0);
+      }
+    } : e == window_Operations.MINIMIZE_ON_CLOSE ? new WindowAdapter() {
+      @Override public void windowClosing(WindowEvent er)
+      {
+        setVisible(false);
+
+      }
+    } : e == window_Operations.PANIC_ON_CLOSE ? new WindowAdapter() {
+      @Override public void windowClosing(WindowEvent er)
+      {
+        try
+        {
+          throw new Exception("Developer window closing");
+        } catch (Exception e)
+        {
+          e.printStackTrace();
+        }
+      }
+    } : new WindowAdapter() {
+      private boolean r = false;
+
+      @Override public void windowClosing(WindowEvent er)
+      {
+        r = true;
+      }
+
+      @Override public void windowClosed(WindowEvent er)
+      {
+        if (r == true)
+          er.getComponent().setVisible(true);
+      }
+    });
+  };
+
   public void set_state(window_States e)
   {
     assert e != null;
