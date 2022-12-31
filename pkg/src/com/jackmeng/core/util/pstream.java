@@ -19,7 +19,7 @@ public final class pstream
   {
     out = new sys_out();
     try {
-      out.debug(new Object());
+      out.out("Making sure out_stream link is satisfied...\n\n");
     } catch (UnsatisfiedLinkError e) {
       out = new sys_out.out_System();
 

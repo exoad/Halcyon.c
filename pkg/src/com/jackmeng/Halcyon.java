@@ -30,31 +30,33 @@ public final class Halcyon
 {
    static
    {
-      System.setProperty("sun.java2d.noddraw", "true");
       System.setProperty("sun.java2d.d3d", "false");
       System.setProperty("sun.java2d.opengl", "True");
-      System.setProperty("sun.java2d.ddforcevram", "true");
-      System.setProperty("sun.java2d.xrender", "false");
+      System.setProperty("sun.java2d.pmoffscreen", "false");
+      System.setProperty("sun.java2d.accthreshold", "4");
    }
 
    private static boolean linked = false;
 
    public static void __LINK__() // MASTA FUNCTION TO CALL
    {
-      File r = new File("hlib/");
-      System.setProperty("java.library.path", r.getAbsolutePath());
-      /*---------------------------------------- /
-      / actually load native libraries lets go?! /
-      /-----------------------------------------*/
-      for (File t : r.listFiles((x, y) -> {
-         return y.endsWith("." + use_Program.arch_lib_extension());
-      }))
+      if (!linked)
       {
-         System.out.println("[!] :D PRE_REQ: loading library: " + t.getAbsolutePath());
-         System.load(t.getAbsolutePath());
+         File r = new File("hlib/");
+         System.setProperty("java.library.path", r.getAbsolutePath());
+         /*---------------------------------------- /
+         / actually load native libraries lets go?! /
+         /-----------------------------------------*/
+         for (File t : r.listFiles((x, y) -> {
+            return y.endsWith("." + use_Program.arch_lib_extension());
+         }))
+         {
+            System.out.println("[!] => PRE_REQ: loading library: " + t.getAbsolutePath());
+            System.load(t.getAbsolutePath());
+         }
+         System.out.println("+===================[ LINK DONE ]===================+");
+         linked = true;
       }
-      System.out.println("===================LINK DONE===================");
-      linked = true;
    }
 
    public static boolean is_linked()
@@ -68,8 +70,6 @@ public final class Halcyon
    {
    }
 
-   private static final use_PlooginLoader plg = new use_PlooginLoader();
-
    /**
     * @param args
     */
@@ -80,7 +80,6 @@ public final class Halcyon
       use_HalcyonFolder.FOLDER.load_conf();
       if (const_MUTableKeys.run_tcs_on_start)
          Test.main((String[]) null);
-      pstream.log.use_stream(const_MUTableKeys.outstream);
       use_HalcyonFolder.FOLDER.load_playlists();
       try
       {
