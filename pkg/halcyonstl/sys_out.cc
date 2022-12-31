@@ -17,6 +17,7 @@ JNIEXPORT void JNICALL Java_com_jackmeng_platform_sys_1out_debug(JNIEnv* env,
                                                             jobject obj,
                                                             jobject obj_args) {
   std::wcout << "OBJ:" << &obj << "->" << &obj_args << ">> " << obj_args;
+  env->DeleteLocalRef(obj_args);
 }
 
 JNIEXPORT void JNICALL Java_com_jackmeng_platform_sys_1out_f_1out(
@@ -27,4 +28,6 @@ JNIEXPORT void JNICALL Java_com_jackmeng_platform_sys_1out_f_1out(
     fout << (env->GetStringUTFChars(cont, NULL));
     env->ReleaseStringUTFChars(cont, NULL);
   }
+  env->DeleteLocalRef(content_arr);
+  env->DeleteLocalRef(str_file_ptr);
 }
