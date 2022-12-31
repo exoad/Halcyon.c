@@ -16,10 +16,8 @@ _A safe-permissive license that enables friendly end-user consumption_
 You may only use the bundled source or binary(s) in compliance with this LICENSE.
 
 <pre align="center" style="text-align:center">
-
 Copyright © 2021-2023 Jack Meng
 All rights reserved to the above copyright holder(s).
-
 </pre>
 
 This license with all subsiding terms and conditions applies to all forms (source and/or binary, without or without modifications) for USE, REPRODUCTION, MODIFICATION, & DISTRIBUTION.
