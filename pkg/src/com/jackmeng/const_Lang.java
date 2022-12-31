@@ -7,7 +7,7 @@ public final class const_Lang
   }
 
   public enum lang_Locale {
-    ZH_CN, EN;
+    ZH_CN, EN
   }
 
   public static final String LANG_EXCEPTION_OH_SOMETHING_WENT_WRONG_CONTENT = "exception_oh_something_went_wrong_content";
