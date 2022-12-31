@@ -82,17 +82,12 @@ public final class Halcyon
          Test.main((String[]) null);
       pstream.log.use_stream(const_MUTableKeys.outstream);
       use_HalcyonFolder.FOLDER.load_playlists();
-      plg.run();
       try
       {
          /*--------------- /
          / startup process /
          /----------------*/
-         pstream.log
-               .log(new use_AnsiStrConstr(new use_AnsiColors[] { use_AnsiColors.MAGENTA_BG, use_AnsiColors.WHITE_TXT },
-                     new String[] {
-                           "Good " + use_Commons.normalize_string(use_Chronos.right_now().name() + ", "
-                                 + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name()) }));
+
          final long time = System.currentTimeMillis();
          try
          {
@@ -104,37 +99,45 @@ public final class Halcyon
          /*------------------------------------ /
          / actual program related GUI processes /
          /-------------------------------------*/
-         use_Task.async_N2(() -> {
-            main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
-            main.run();
-            main.expose_internal().notificationManager.dispatch_notification(
-                  dgui_NotificationArena.generate_notification_html_1("<html><p><strong>"
-                        + (get_locale() == lang_Locale.EN ? (_lang(LANG_GOOD) + " "
-                              + _lang(use_Chronos.right_now().LANG_KEY))
-                              : (_lang(use_Chronos.right_now().LANG_KEY)) + " "
-                                    + _lang(LANG_GOOD))
-                        + "</strong>, " // probably have to make more conditions for different languages AHHHH
-                        + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name() + "</p></html>"),
-                  (Runnable[]) null);
-         });
-
-         const_Core.schedule_secondary_task(new TimerTask() {
-            @Override public void run()
-            {
-               use_Program.gc();
-            }
-         }, 1000L, 3500L);
-
-         pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
-         use_Program.gc();
-         Thread yan_wang = new Thread(() -> {
-            use_HalcyonFolder.FOLDER.master_save();
+         main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
+         main.run();
+         main.expose_internal().notificationManager.dispatch_notification(
+               dgui_NotificationArena.generate_notification_html_1("<html><p><strong>"
+                     + (get_locale() == lang_Locale.EN ? (_lang(LANG_GOOD) + " "
+                           + _lang(use_Chronos.right_now().LANG_KEY))
+                           : (_lang(use_Chronos.right_now().LANG_KEY)) + " "
+                                 + _lang(LANG_GOOD))
+                     + "</strong>, " // probably have to make more conditions for different languages AHHHH
+                     + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name() + "</p></html>"),
+               (Runnable[]) null);
+         use_Task.async_N1(() -> {
             pstream.log
-                  .log(new use_AnsiStrConstr(new use_AnsiColors[] { use_AnsiColors.RED_BG, use_AnsiColors.WHITE_TXT },
-                        new Object[] {
-                              "Contingency: " + use_Program.uptime() + "ms in the world. Going down for shutdown." }));
-         }, "halcyon-defaultShutdownHook");
-         Runtime.getRuntime().addShutdownHook(yan_wang);
+                  .log(new use_AnsiStrConstr(
+                        new use_AnsiColors[] { use_AnsiColors.MAGENTA_BG, use_AnsiColors.WHITE_TXT },
+                        new String[] {
+                              "Good " + use_Commons.normalize_string(use_Chronos.right_now().name() + ", "
+                                    + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name()) }));
+            const_Core.schedule_secondary_task(new TimerTask() {
+               @Override public void run()
+               {
+                  use_Program.gc();
+               }
+            }, 1000L, 3500L);
+
+            use_Program.gc();
+            Thread yan_wang = new Thread(() -> {
+               use_HalcyonFolder.FOLDER.master_save();
+               pstream.log
+                     .log(new use_AnsiStrConstr(
+                           new use_AnsiColors[] { use_AnsiColors.RED_BG, use_AnsiColors.WHITE_TXT },
+                           new Object[] {
+                                 "Contingency: " + use_Program.uptime()
+                                       + "ms in the world. Going down for shutdown." }));
+            }, "halcyon-defaultShutdownHook");
+            Runtime.getRuntime().addShutdownHook(yan_wang);
+         });
+         pstream.log.log("OK. Halcyon up. Took: " + (System.currentTimeMillis() - time) + "ms");
+
       } catch (Exception e)
       {
          System.out.println("==PROGRAM PANICKED==\nHere is what happened:");

@@ -17,12 +17,12 @@ public class gui_DevWindow
 
   public gui_DevWindow()
   {
+    super(window_Operations.KILL_ON_CLOSE);
     layout = new JPanel();
     layout.setLayout(new GridLayout(3,3));
     layout.setPreferredSize(new Dimension(400, 400));
 
     setPreferredSize(layout.getPreferredSize());
-    set_;
 
   }
 
