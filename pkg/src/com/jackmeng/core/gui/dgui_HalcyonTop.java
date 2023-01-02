@@ -30,8 +30,10 @@ public final class dgui_HalcyonTop
     evnt_SelectPlaylistTrack
 {
 
-  private static final use_HideousTask< Void > manager = new use_HideousTask<>(null, "Halcyon_ImageScaler_DefaultTOPGUI");
-  private static final use_HideousTask< Void > bgManager = new use_HideousTask<>(null, "Halcyon_BgImgScaler_DefaultTOPGUI");
+  private static final use_HideousTask< Void > manager = new use_HideousTask<>(null,
+      "Halcyon_ImageScaler_DefaultTOPGUI");
+  private static final use_HideousTask< Void > bgManager = new use_HideousTask<>(null,
+      "Halcyon_BgImgScaler_DefaultTOPGUI");
 
   public static final class halcyonTop_Info
       extends
@@ -300,13 +302,10 @@ public final class dgui_HalcyonTop
 
     JComponent e = new halcyonTop_Info(), x = new halcyonTop_Buttons();
     e.setAlignmentX(Component.CENTER_ALIGNMENT);
-    e.setOpaque(false);
     x.setAlignmentX(Component.CENTER_ALIGNMENT);
-    x.setOpaque(false);
 
     JPanel copy = new JPanel();
     copy.setPreferredSize(getPreferredSize());
-    copy.setOpaque(false);
     copy.setLayout(new BoxLayout(copy, BoxLayout.Y_AXIS));
     copy.add(e);
     copy.add(x);
@@ -328,9 +327,9 @@ public final class dgui_HalcyonTop
         }
       }
     };
-    bgPanel.setOpaque(false);
     JLayer< Component > blur = use_ImgStrat
         .acquireOpLayer(use_ImgStrat.convolutionLayer(3, 3, use_GuiUtil.defaultRenderingHints()), bgPanel);
+
     add(copy);
     add(blur);
 
@@ -347,13 +346,14 @@ public final class dgui_HalcyonTop
     else
     {
       bgManager.push(() -> {
-        i = e.get_artwork();
-        i = use_Image.subimage_resizing(getWidth(), getHeight(), (BufferedImage) i);
-        toDraw.set(true);
-        bgPanel.repaint(100L);
+        SwingUtilities.invokeLater(() -> {
+          i = e.get_artwork();
+          i = use_Image.subimage_resizing(getWidth(), getHeight(), (BufferedImage) i);
+          toDraw.set(true);
+          bgPanel.repaint(100L);
+        });
         return null;
       });
     }
-
   }
 }

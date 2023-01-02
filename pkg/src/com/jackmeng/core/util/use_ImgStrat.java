@@ -40,7 +40,6 @@ public final class use_ImgStrat
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(img, e, 0, 0);
         g2.dispose();
-        g.dispose();
       }
     });
   }

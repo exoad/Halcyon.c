@@ -133,8 +133,8 @@ public final class use_HideousTask< T >
 
   @Override public void run()
   {
-    destroy();
-    if (currentTask != null && !running.get())
+    curr.interrupt();
+    if (this.currentTask != null)
     {
       curr = new Thread(() -> {
         T e = null;
@@ -145,7 +145,6 @@ public final class use_HideousTask< T >
         {
           e1.printStackTrace();
         }
-        pstream.log.warn("RUNNING A HIDEOUS TASK FOR: " + myName);
         running.set(false);
         res = e;
         curr.interrupt();
