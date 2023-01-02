@@ -125,7 +125,7 @@ public class dgui_HalcyonApps
   }
 
   public static final Insets APPS_BTN_BORDER_INSETS = new Insets(3, 3, 3, 3);
-  public static final use_RoundCornerBorder APPS_BTN_ROUND_BORDER = new use_RoundCornerBorder(15, 4, const_ColorManager.DEFAULT_DARK_BG, APPS_BTN_BORDER_INSETS);
+  public static final use_RoundCornerBorder APPS_BTN_ROUND_BORDER = new use_RoundCornerBorder(15, 4, const_ColorManager.DEFAULT_DARK_BG_2.darker().darker(), APPS_BTN_BORDER_INSETS);
 
   /**
    * @param r
