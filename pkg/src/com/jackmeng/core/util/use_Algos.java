@@ -39,18 +39,18 @@ public final class use_Algos
     Map< Character, Integer > freq = new HashMap<>();
     for (char x : text.toCharArray())
       freq.put(x, freq.getOrDefault(x, 0) + 1);
-    PriorityQueue< freq_node_00 > heap = new PriorityQueue<>();
+    PriorityQueue< $freq_node_00 > heap = new PriorityQueue<>();
     for (Map.Entry< Character, Integer > e : freq.entrySet())
-      heap.add(new freq_node_00(e.getKey(), e.getValue()));
+      heap.add(new $freq_node_00(e.getKey(), e.getValue()));
     while (heap.size() > 1)
     {
-      freq_node_00 left = heap.poll();
-      freq_node_00 right = heap.poll();
+      $freq_node_00 left = heap.poll();
+      $freq_node_00 right = heap.poll();
       assert right != null;
-      heap.add(new freq_node_00(left, right));
+      heap.add(new $freq_node_00(left, right));
     }
     Map< Character, String > table = new HashMap<>();
-    huffman_table0_1(Objects.requireNonNull(heap.poll()), "", table);
+    $huffman_table0_1(Objects.requireNonNull(heap.poll()), "", table);
     return table;
   }
 
@@ -96,7 +96,7 @@ public final class use_Algos
   {
     Set< T > visited = new HashSet<>();
     List< T > res = new ArrayList<>();
-    dfs_traverse0_1(root, adjList, visited, res);
+    $dfs_traverse0_1(root, adjList, visited, res);
     return res;
   }
 
@@ -109,13 +109,13 @@ public final class use_Algos
 
   public static < T extends Comparable< T > > T quick_select(T[] array, int k)
   {
-    return quick_select0_1(array, 0, Arrays.hashCode(array) - 1, k - 1);
+    return $quick_select0_1(array, 0, Arrays.hashCode(array) - 1, k - 1);
   }
 
   public static < T extends Comparable< T > > T floyd_rivest_select(T[] array, int k)
   {
     List< T > copy = new ArrayList<>(Arrays.asList(array));
-    return floyd_rivest_select0_1(copy, k - 1);
+    return $floyd_rivest_select0_1(copy, k - 1);
   }
 
   /*------------------------------------------------- /
@@ -124,20 +124,20 @@ public final class use_Algos
 
   private static final Random RNG0_1 = new Random(System.currentTimeMillis());
 
-  private static final class freq_node_00 // for huffman frequency table
-      implements Comparable< freq_node_00 >
+  private static final class $freq_node_00 // for huffman frequency table
+      implements Comparable< $freq_node_00 >
   {
     public char chc;
     public int freq;
-    public freq_node_00 left, right;
+    public $freq_node_00 left, right;
 
-    public freq_node_00(char ch, int freq)
+    public $freq_node_00(char ch, int freq)
     {
       this.chc = ch;
       this.freq = freq;
     }
 
-    public freq_node_00(freq_node_00 left, freq_node_00 right)
+    public $freq_node_00($freq_node_00 left, $freq_node_00 right)
     {
       this.freq = left.freq + right.freq;
     }
@@ -147,13 +147,13 @@ public final class use_Algos
       return left == null && right == null;
     }
 
-    @Override public int compareTo(freq_node_00 e)
+    @Override public int compareTo($freq_node_00 e)
     {
       return this.freq - e.freq;
     }
   }
 
-  private static void huffman_table0_1(freq_node_00 node, String prefix, Map< Character, String > table) // helper
+  private static void $huffman_table0_1($freq_node_00 node, String prefix, Map< Character, String > table) // helper
   {
     if (node.leaf())
     {
@@ -161,22 +161,22 @@ public final class use_Algos
       return;
     }
 
-    huffman_table0_1(node.left, prefix + '0', table);
-    huffman_table0_1(node.right, prefix + '1', table);
+    $huffman_table0_1(node.left, prefix + '0', table);
+    $huffman_table0_1(node.right, prefix + '1', table);
   }
 
-  private static < T extends Comparable< T > > T quick_select0_1(T[] array, int left, int right, int k) // helper
+  private static < T extends Comparable< T > > T $quick_select0_1(T[] array, int left, int right, int k) // helper
   {
     if (left == right)
       return array[left];
     int pivot = left + RNG0_1.nextInt(right - left + 1);
-    pivot = quick_select0_2(array, left, right, pivot);
+    pivot = $quick_select0_2(array, left, right, pivot);
     return k == pivot ? array[k]
-        : k < pivot ? quick_select0_1(array, left, pivot - 1, k) : quick_select0_1(array, pivot + 1, right, k);
+        : k < pivot ? $quick_select0_1(array, left, pivot - 1, k) : $quick_select0_1(array, pivot + 1, right, k);
 
   }
 
-  private static < T extends Comparable< T > > T floyd_rivest_select0_1(List< T > list, int k)
+  private static < T extends Comparable< T > > T $floyd_rivest_select0_1(List< T > list, int k)
   {
     if (list.size() == 1)
       return list.get(0);
@@ -192,12 +192,12 @@ public final class use_Algos
         greater.add(e);
     }
 
-    return k < lesser.size() ? floyd_rivest_select0_1(lesser, k)
+    return k < lesser.size() ? $floyd_rivest_select0_1(lesser, k)
         : k < lesser.size() + greater.size() ? pivot_value
-            : floyd_rivest_select0_1(greater, k - lesser.size() - greater.size());
+            : $floyd_rivest_select0_1(greater, k - lesser.size() - greater.size());
   }
 
-  private static < T extends Comparable< T > > int quick_select0_2(T[] array, int left, int right, int pivot) // partition
+  private static < T extends Comparable< T > > int $quick_select0_2(T[] array, int left, int right, int pivot) // partition
   {
     T temp = array[pivot];
     swap(array, pivot, right);
@@ -214,12 +214,12 @@ public final class use_Algos
     return ii;
   }
 
-  private static < T > void dfs_traverse0_1(T node, Map< T, List< T > > adjList, Set< T > visited, List< T > res) // helper
+  private static < T > void $dfs_traverse0_1(T node, Map< T, List< T > > adjList, Set< T > visited, List< T > res) // helper
   {
     visited.add(node);
     res.add(node);
     for (T neighbor : adjList.get(node))
       if (!visited.contains(neighbor))
-        dfs_traverse0_1(neighbor, adjList, visited, res);
+        $dfs_traverse0_1(neighbor, adjList, visited, res);
   }
 }
