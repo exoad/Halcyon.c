@@ -1,6 +1,7 @@
 package com.jackmeng.core.lua;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public final class use_Lua
   }
 
   public static Hashtable< String, ? > make_coerce_map(String[] identifiers,
-      List< struct_Trio< Class< ? >, Class< ? >[], Object[] > > args)
+                                                       List< struct_Trio< Class< ? >, Class< ? >[], Object[] > > args)
   {
     assert identifiers.length == args.size();
     Map<String, ?> t = new HashMap<>();

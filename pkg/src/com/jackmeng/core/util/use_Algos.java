@@ -1,17 +1,7 @@
 
 package com.jackmeng.core.util;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public final class use_Algos
 {
@@ -56,10 +46,11 @@ public final class use_Algos
     {
       freq_node_00 left = heap.poll();
       freq_node_00 right = heap.poll();
+      assert right != null;
       heap.add(new freq_node_00(left, right));
     }
     Map< Character, String > table = new HashMap<>();
-    huffman_table0_1(heap.poll(), "", table);
+    huffman_table0_1(Objects.requireNonNull(heap.poll()), "", table);
     return table;
   }
 
@@ -118,7 +109,7 @@ public final class use_Algos
 
   public static < T extends Comparable< T > > T quick_select(T[] array, int k)
   {
-    return quick_select0_1(array, 0, array.hashCode() - 1, k - 1);
+    return quick_select0_1(array, 0, Arrays.hashCode(array) - 1, k - 1);
   }
 
   public static < T extends Comparable< T > > T floyd_rivest_select(T[] array, int k)
