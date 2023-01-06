@@ -1,12 +1,10 @@
 package com.jackmeng.core.util;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -66,9 +64,11 @@ public class use_Commons
 
   public static String expand_exception(Exception e)
   {
-    StringBuilder sb = new StringBuilder("Exception Occurred: " + e.getMessage()).append("\nLocalized:").append(e.getLocalizedMessage());
+    StringBuilder sb = new StringBuilder("Exception Occurred: " + e.getMessage()).append("\nLocalized:")
+        .append(e.getLocalizedMessage());
     for (StackTraceElement s : e.getStackTrace())
-      sb.append("\tat ").append(s.getClassName()).append(".").append(s.getMethodName()).append("(").append(s.getFileName()).append(":").append(s.getLineNumber()).append(")").append("\n");
+      sb.append("\tat ").append(s.getClassName()).append(".").append(s.getMethodName()).append("(")
+          .append(s.getFileName()).append(":").append(s.getLineNumber()).append(")").append("\n");
     return sb.toString();
   }
 
@@ -90,6 +90,20 @@ public class use_Commons
   public static Number round_off_bd(Number e, int amount)
   {
     return BigDecimal.valueOf(e.doubleValue()).setScale(amount, RoundingMode.HALF_UP).doubleValue();
+  }
+
+  public static < T > T new_Instance(Class< T > classObj, Class< ? >[] constructorSig, Object... args)
+      throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+      NoSuchMethodException, SecurityException
+  {
+    return (T) classObj.getConstructor(constructorSig).newInstance(args);
+  }
+
+  public static < T > T new_instance(Class< T > classObj, Object... args)
+      throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+      NoSuchMethodException, SecurityException
+  {
+    return new_Instance(classObj, null, args);
   }
 
   public final boolean is_generic(String str) throws ClassNotFoundException
@@ -122,8 +136,9 @@ public class use_Commons
   public final Set< Class< ? > > list_class(String pkgName)
   {
     return new BufferedReader(
-        new InputStreamReader(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResourceAsStream(pkgName.replaceAll("[.]", "/")))))
-            .lines()
-            .filter(x -> x.endsWith(".class")).map(x -> find_class(x, pkgName)).collect(Collectors.toSet());
+        new InputStreamReader(Objects
+            .requireNonNull(ClassLoader.getSystemClassLoader().getResourceAsStream(pkgName.replaceAll("[.]", "/")))))
+                .lines()
+                .filter(x -> x.endsWith(".class")).map(x -> find_class(x, pkgName)).collect(Collectors.toSet());
   }
 }
