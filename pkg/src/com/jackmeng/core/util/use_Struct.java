@@ -11,18 +11,6 @@ public final class use_Struct
   {
   }
 
-  public static final class struct_Node< T >
-  {
-    public T key;
-    public List< struct_Node< ? > > partners;
-
-    public struct_Node(T i)
-    {
-      key = i;
-      partners = new ArrayList<>();
-    }
-  }
-
   /*------------------------------------------------------------ /
   / This class basically defines all sets of "primitive" structs /
   / or structures that can be used.                              /

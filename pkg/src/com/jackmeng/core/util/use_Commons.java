@@ -31,9 +31,29 @@ public class use_Commons
         : str.length() < validLength ? str + copies_Of(validLength, " ") : str : "";
   }
 
+  public static Object pick(Object... e)
+  {
+    return e[const_Commons.RNG.nextInt(e.length)];
+  }
+
+  public static Object pick(const_Bias bias, Object... e)
+  {
+    return bias == const_Bias.UP_BIAS ? e[const_Commons.RNG.nextInt(e.length / 2) + e.length / 2]
+        : e[const_Commons.RNG.nextInt(e.length / 2)];
+  }
+
   public static String strong_delimiter(String str, String delimiter, int validLength)
   {
     return str != null ? str.length() > validLength ? str.substring(0, validLength) + delimiter : str : "";
+  }
+
+  public static String compress_str(String str)
+  {
+    Map< Character, String > table = use_Algos.huffman_table(str);
+    StringBuilder sb = new StringBuilder();
+    for (char x : str.toCharArray())
+      sb.append(table.get(x));
+    return sb.toString();
   }
 
   public static String copies_Of(int n, String s)
