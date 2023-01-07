@@ -335,9 +335,9 @@ public final class use_Blurhash
     }
 
     int factorsLength = factors.length;
-    char[] hash = new char[4 + 2 * factorsLength];
+    char[] hash = new char[1 + 1 + 4 + 2 * (factorsLength - 1)];
 
-    long sizeFlag = componentX + componentY * 9L - 10;
+    long sizeFlag = (long) componentX - 1 + (componentY - 1) * 9;
     blurhash_base83.encode(sizeFlag, 1, hash, 0);
 
     double maximumValue;
@@ -359,7 +359,7 @@ public final class use_Blurhash
     blurhash_base83.encode(blurhash_base83.encodeDC(dc), 4, hash, 2);
 
     for (int i = 1; i < factorsLength; i++)
-      blurhash_base83.encode(blurhash_base83.encodeAC(factors[i], maximumValue), 2, hash, 4 + 2 * i);
+      blurhash_base83.encode(blurhash_base83.encodeAC(factors[i], maximumValue), 2, hash, 6 + 2 * (i - 1));
     return new String(hash);
   }
 

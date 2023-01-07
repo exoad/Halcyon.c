@@ -10,8 +10,10 @@ import com.jackmeng.const_Core;
 import com.jackmeng.const_MUTableKeys;
 import com.jackmeng.use_HalcyonCore;
 import com.jackmeng.core.abst.evnt_SelectPlaylistTrack;
+import com.jackmeng.core.abst.impl_ConsoleDebug;
 import com.jackmeng.core.abst.use_MastaTemp;
 import com.jackmeng.core.abst.impl_Callback.callback_Specific;
+import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_Chronos;
 import com.jackmeng.core.util.use_Color;
 import com.jackmeng.core.util.use_HideousTask;
@@ -27,7 +29,8 @@ public final class dgui_HalcyonTop
     extends
     JPanel
     implements
-    evnt_SelectPlaylistTrack
+    evnt_SelectPlaylistTrack,
+    impl_ConsoleDebug
 {
 
   private static final use_HideousTask< Void > manager = new use_HideousTask<>(null,
@@ -320,38 +323,45 @@ public final class dgui_HalcyonTop
           Graphics2D g2 = (Graphics2D) g;
           g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4F));
           if (i != null)
+          {
             g2.drawImage(i, null, this);
+            pstream.log.warn("HalcyonTop_Info: Dispatched a draw background image");
+          }
           else
+          {
             g2.clearRect(0, 0, getWidth(), getHeight());
+            pstream.log.warn("HalcyonTop_Info: Image resolved to 'null', clearing the graphics context");
+          }
           g2.dispose();
         }
       }
     };
     JLayer< Component > blur = use_ImgStrat
-        .acquireOpLayer(use_ImgStrat.convolutionLayer(3, 3, use_GuiUtil.defaultRenderingHints()), bgPanel);
+        .acquireOpLayer(use_ImgStrat.convolutionLayer(30, 30, use_GuiUtil.defaultRenderingHints()), bgPanel);
 
     add(copy);
-    add(blur);
+    add(bgPanel);
 
     const_Core.SELECTION_LISTENERS.add_listener(this);
   }
 
   @Override public void forYou(use_TailwindTrack e)
   {
-    if (!e.has_artwork())
+    if (!e.has_artwork() && i != null)
     {
+      pstream.log.warn(cli_Identifier() + ": Clearing the current artwork context.");
       toDraw.set(false);
+      i = null;
       bgPanel.repaint(100L);
     }
     else
     {
+      pstream.log.warn(cli_Identifier() + ": Found an artwork context to paint.");
       bgManager.push(() -> {
-        SwingUtilities.invokeLater(() -> {
-          i = e.get_artwork();
-          i = use_Image.subimage_resizing(getWidth(), getHeight(), (BufferedImage) i);
-          toDraw.set(true);
-          bgPanel.repaint(100L);
-        });
+        i = e.get_artwork();
+        i = use_Image.subimage_resizing(getWidth(), getHeight(), (BufferedImage) i);
+        toDraw.set(true);
+        bgPanel.repaint(100L);
         return null;
       });
     }

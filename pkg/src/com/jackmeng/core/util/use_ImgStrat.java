@@ -165,7 +165,7 @@ public final class use_ImgStrat
 
     public enum imagegradient_GradientType {
       BOTTOM, TOP // which side is the side to be gradiented (the one to have transparency reduced
-                   // on)
+                  // on)
     }
 
     public imagegradient_GradientType type;
@@ -238,17 +238,24 @@ public final class use_ImgStrat
       implements
       BufferedImageOp
   {
-    private int x, y;
+    private int x, y, width, height;
     private double punch;
 
     public imgstrat_BlurhashBlur(int xRatio, int yRatio, double strength)
     {
-      this.x = xRatio;
-      this.y = yRatio;
-      this.punch = strength < 0 ? 1.0D : strength;
+      this(xRatio, yRatio, strength, -1, -1);
       /*------------------------------------------------------------------------ /
       / 1.2D is like the standard punch value but may vary for different systems /
       /-------------------------------------------------------------------------*/
+    }
+
+    public imgstrat_BlurhashBlur(int xRatio, int yRatio, double strength, int w, int h)
+    {
+      this.x = xRatio;
+      this.y = yRatio;
+      this.punch = strength < 0 ? 1.0D : strength;
+      this.width = w;
+      this.height = h;
     }
 
     public int x_ratio()
@@ -308,8 +315,8 @@ public final class use_ImgStrat
 
     @Override public BufferedImage filter(BufferedImage srcum, BufferedImage cum)
     {
-      int width = srcum.getWidth();
-      int height = srcum.getHeight();
+      int width = this.width < 0 ? srcum.getWidth() : this.width;
+      int height = this.height < 0 ? srcum.getHeight() : this.height;
       if (cum == null)
         cum = createCompatibleDestImage(srcum, null);
 

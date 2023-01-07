@@ -1,5 +1,6 @@
 package com.jackmeng.core.gui;
 
+import com.jackmeng.Halcyon;
 import com.jackmeng.const_Core;
 import com.jackmeng.use_HalcyonCore;
 import com.jackmeng.use_HalcyonFolder;
@@ -44,7 +45,7 @@ public class dgui_HalcyonApps
     use_HalcyonFolder.FOLDER.deserialize(halcyonfolder_Content.PLAYLIST_SELECT_FOLDER_CACHE_f.val,
         gui_HalcyonPlaylistSelect.class, x -> { // on error
           use_HalcyonFolder.FOLDER.log(x);
-          fileChooser = new gui_HalcyonPlaylistSelect(use_HalcyonCore.getInheritableFrame(), // dont use
+          fileChooser = new gui_HalcyonPlaylistSelect(Halcyon.main.expose(), // dont use
                                                                                              // Halcyon.main.expose()
                                                                                              // because you cant call
                                                                                              // when u are still
@@ -52,7 +53,7 @@ public class dgui_HalcyonApps
               ".");
           fileChooser.setListener(const_Core::append_to_Playlist);
         }, x -> { // default promise
-          fileChooser = x == null ? new gui_HalcyonPlaylistSelect(use_HalcyonCore.getInheritableFrame(),
+          fileChooser = x == null ? new gui_HalcyonPlaylistSelect(Halcyon.main.expose(),
               ".") : x;
           fileChooser.setListener(const_Core::append_to_Playlist);
         });

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.jackmeng.core.abst.impl_ConsoleDebug;
 import com.jackmeng.core.abst.impl_Identifiable;
 
 // super based thread ;)
@@ -43,7 +44,8 @@ public final class use_HideousTask< T >
     implements
     Runnable,
     Serializable,
-    impl_Identifiable
+    impl_Identifiable,
+    impl_ConsoleDebug
 {
   private final String myName;
   private transient Thread curr;
@@ -136,6 +138,8 @@ public final class use_HideousTask< T >
     curr.interrupt();
     if (this.currentTask != null)
     {
+      pstream.log
+          .warn(cli_Identifier() + "#" + hashCode() + ": Pushed a new task and I am not running this task hideously.");
       curr = new Thread(() -> {
         T e = null;
         try
@@ -145,7 +149,6 @@ public final class use_HideousTask< T >
         {
           e1.printStackTrace();
         }
-        running.set(false);
         res = e;
         curr.interrupt();
         running.set(false);
