@@ -30,23 +30,25 @@ public final class use_Lua
     return get_globals().load(luaCode).call();
   }
 
-  public static Hashtable< String, ? > make_coerce_map(String[] identifiers,
-                                                       List< struct_Trio< Class< ? >, Class< ? >[], Object[] > > args)
-  {
-    assert identifiers.length == args.size();
-    Map<String, ?> t = new HashMap<>();
-    for(int i = 0; i < identifiers.length; i++)
-    {
-      
-    }
-  }
-
-  public static LuaValue exec_coerce_l2j(String[] identifiers, String luaCode, Class< ? > type,
-      Class< ? >[] constructorSignature,
-      Object... args)
-  {
-
-  }
+  /*------------------------------------------------------------------------------------------------------------------ /
+  / public static Hashtable< String, ? > make_coerce_map(String[] identifiers,                                         /
+  /                                                      List< struct_Trio< Class< ? >, Class< ? >[], Object[] > > args) /
+  / {                                                                                                                  /
+  /   assert identifiers.length == args.size();                                                                        /
+  /   Map<String, ?> t = new HashMap<>();                                                                              /
+  /   for(int i = 0; i < identifiers.length; i++)                                                                      /
+  /   {                                                                                                                /
+  /                                                                                                                    /
+  /   }                                                                                                                /
+  / }                                                                                                                  /
+  /                                                                                                                    /
+  / public static LuaValue exec_coerce_l2j(String[] identifiers, String luaCode, Class< ? > type,                      /
+  /     Class< ? >[] constructorSignature,                                                                             /
+  /     Object... args)                                                                                                /
+  / {                                                                                                                  /
+  /                                                                                                                    /
+  / }                                                                                                                  /
+  /-------------------------------------------------------------------------------------------------------------------*/
 
   public static Globals get_globals()
   {
