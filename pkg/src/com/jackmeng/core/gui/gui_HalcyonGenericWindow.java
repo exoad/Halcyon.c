@@ -13,12 +13,13 @@ public class gui_HalcyonGenericWindow
     Runnable
 {
   protected final TitledFrame frame;
+  protected JEditorPane jep;
 
   public gui_HalcyonGenericWindow(ImageIcon icon, String title, String content_HTML, Color r, JFrame parent)
   {
     JScrollPane jsp = new JScrollPane();
 
-    JEditorPane jep = new JEditorPane("text/html", content_HTML);
+    jep = new JEditorPane("text/html", content_HTML);
     jep.setEditable(false);
     jep.setDragEnabled(false);
     jep.setPreferredSize(new Dimension(600, 400));
@@ -34,6 +35,7 @@ public class gui_HalcyonGenericWindow
     frame.expose().setLocationRelativeTo(parent);
     frame.expose().setAlwaysOnTop(true);
   }
+
 
   @Override public void run()
   {

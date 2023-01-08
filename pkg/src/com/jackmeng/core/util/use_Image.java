@@ -25,9 +25,11 @@ public class use_Image
   {
   }
 
-  public static BufferedImage image_to_bi(Image i, int w, int h)
+  public static BufferedImage image_to_bi(Image i)
   {
-    BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+    if (i instanceof BufferedImage)
+      return (BufferedImage) i;
+    BufferedImage img = new BufferedImage(i.getWidth(null), i.getHeight(null), BufferedImage.TYPE_INT_ARGB);
     Graphics g = img.getGraphics();
     g.drawImage(i, 0, 0, null);
     g.dispose();
@@ -68,7 +70,7 @@ public class use_Image
   public static java.util.List< Color > accents_color_1(BufferedImage img)
   {
     if (img.getWidth() > 512 || img.getHeight() > 512)
-      img = image_to_bi(img.getScaledInstance(512, 512, Image.SCALE_FAST), 512, 512);
+      img = image_to_bi(img.getScaledInstance(512, 512, Image.SCALE_FAST));
     Map< Integer, Integer > m = new HashMap<>();
     for (int i = 0; i < img.getWidth(); i++)
     {
@@ -87,8 +89,8 @@ public class use_Image
       }
     }
     java.util.List< Entry< Integer, Integer > > list = new LinkedList<>(m.entrySet());
-    list.sort((x, y) -> ((Comparable<Integer>) x.getValue())
-            .compareTo(y.getValue()));
+    list.sort((x, y) -> ((Comparable< Integer >) x.getValue())
+        .compareTo(y.getValue()));
     java.util.List< Color > l = new ArrayList<>();
     list.forEach(x -> {
       int[] parseRGB = use_Color.parse_RGB(x.getKey());
@@ -101,9 +103,9 @@ public class use_Image
   {
     int w = img.getWidth(), h = img.getHeight(), t = w * h;
     long r_s = 0, g_s = 0, b_s = 0;
-    for(int i = 0; i < h; i++)
+    for (int i = 0; i < h; i++)
     {
-      for(int j = 0; j < w; j++)
+      for (int j = 0; j < w; j++)
       {
         int c = img.getRGB(j, i), r = (c >> 16) & 0xFF, g = (c >> 8) & 0xFF, b = c & 0xFF;
         r_s += r;
@@ -117,7 +119,7 @@ public class use_Image
   public static struct_Trio< Integer, Integer, Integer > accurate_accent_color_1(BufferedImage img)
   {
     if (img.getWidth() > 512 || img.getHeight() > 512)
-      img = image_to_bi(img.getScaledInstance(512, 512, Image.SCALE_FAST), 512, 512);
+      img = image_to_bi(img.getScaledInstance(512, 512, Image.SCALE_FAST));
     Map< Integer, Integer > m = new HashMap<>();
     for (int i = 0; i < img.getWidth(); i++)
     {
@@ -136,8 +138,8 @@ public class use_Image
       }
     }
     java.util.List< Entry< Integer, Integer > > list = new LinkedList<>(m.entrySet());
-    list.sort((x, y) -> ((Comparable<Integer>) x.getValue())
-            .compareTo(y.getValue()));
+    list.sort((x, y) -> ((Comparable< Integer >) x.getValue())
+        .compareTo(y.getValue()));
     Map.Entry< Integer, Integer > cum = list.get(list.size() - 1);
     return new struct_Trio<>(use_Color.parse_RGB(cum.getKey())[1], use_Color.parse_RGB(cum.getKey())[2],
         use_Color.parse_RGB(cum.getKey())[3]);
