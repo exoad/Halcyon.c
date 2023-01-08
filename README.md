@@ -2,4 +2,3 @@
 <hr>
 
 `Java Part Documentation (JavaDocs):` https://exoad.github.io/Halcyon.htm/ <br>
-`Trello:` https://trello.com/b/NRV7aa9X/halcyon
