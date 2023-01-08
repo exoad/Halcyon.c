@@ -4,6 +4,8 @@ import javax.swing.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public final class use_Task
 {
@@ -17,6 +19,13 @@ public final class use_Task
    public static void run_Snb_1(Runnable r)
    {
       SwingUtilities.invokeLater(r);
+   }
+
+   public static final ExecutorService EXECUTORS = Executors.newCachedThreadPool();
+
+   public static void run_submit(Runnable r)
+   {
+      EXECUTORS.submit(r);
    }
 
    /**
@@ -41,7 +50,7 @@ public final class use_Task
     */
    public static void async_S(Runnable r)
    {
-      new SwingWorker< Void, Void >() {
+      SwingWorker<Void, Void> e = new SwingWorker<>() {
          @Override
          protected Void doInBackground() throws Exception
          {
@@ -49,6 +58,7 @@ public final class use_Task
             return null;
          }
       };
+      e.execute();
    }
 
    /**

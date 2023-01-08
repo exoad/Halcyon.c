@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.function.Consumer;
 
 import javax.swing.Icon;
-import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;

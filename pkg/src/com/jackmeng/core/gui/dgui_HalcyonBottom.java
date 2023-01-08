@@ -195,13 +195,12 @@ public class dgui_HalcyonBottom
       const_Core.PLAY_LIST_POOL.addRefreshable(this);
 
       const_Core.PLAY_LIST_POOL.setGuard(e -> {
-        if (const_Core.PLAY_LIST_POOL.hasObj(e)) {
+        if (const_Core.PLAY_LIST_POOL.hasObj(e))
+        {
           pstream.log.warn("I HAVE THIS PLAYLIST ADDED!!!");
-          for (int i = 0; i < pane.getTabCount(); i++) {
-            if (pane.getTabComponentAt(i).getName().equals(e.id())) {
+          for (int i = 0; i < pane.getTabCount(); i++)
+            if (pane.getTabComponentAt(i).getName().equals(e.id()))
               pane.setSelectedIndex(i);
-            }
-          }
           return false;
         }
         pstream.log.warn("I DONT HAVE THIS PLAYLIST ADDED");
@@ -228,7 +227,6 @@ public class dgui_HalcyonBottom
      */
     public void pokeFileList(use_TailwindPlaylist list)
     {
-
       DefaultMutableTreeNode root = new DefaultMutableTreeNode(list.getParent());
 
       java.util.List< DefaultMutableTreeNode > nodes = new ArrayList<>();
@@ -333,6 +331,7 @@ public class dgui_HalcyonBottom
       guiTrees.put(list.id(),
           new struct_Trio<>(
               new struct_Pair<>(pane.getTabCount() - 1, tree), root, nodes));
+
     }
 
     public void removeFileList(use_TailwindPlaylist e)

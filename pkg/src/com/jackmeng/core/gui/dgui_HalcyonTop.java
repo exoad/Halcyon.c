@@ -337,7 +337,7 @@ public final class dgui_HalcyonTop
       }
     };
     JLayer< Component > blur = use_ImgStrat
-        .acquireOpLayer(use_ImgStrat.convolutionLayer(30, 30, use_GuiUtil.defaultRenderingHints()), bgPanel);
+        .acquireOpLayer(new use_ImgStrat.imgstrat_BlurhashBlur(3, 3, 2.0D), bgPanel);
 
     add(copy);
     add(bgPanel);

@@ -32,7 +32,8 @@ public class gui_HalcyonFrame
       private static final Dimension MAXIMUM_SIZE = new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
       private static final Map< Integer, Integer > cursors = new HashMap<>();
-      static {
+      static
+      {
         cursors.put(1, Cursor.N_RESIZE_CURSOR);
         cursors.put(2, Cursor.W_RESIZE_CURSOR);
         cursors.put(4, Cursor.S_RESIZE_CURSOR);
@@ -696,18 +697,21 @@ public class gui_HalcyonFrame
         if (const_MUTableKeys.gui_use_debug)
         {
           titleBar.setBorder(use_HalcyonCore.getDebugBorder());
-          SwingUtilities.invokeLater(() -> {
-            use_GuiUtil.listComponents_OfContainer(frame).forEach(x -> {
-              try
-              {
-                if (x instanceof JComponent && ((JComponent) x).getBorder() != null)
-                  ((JComponent) x).setBorder(use_HalcyonCore.getDebugBorder());
-              } catch (Exception e)
-              {
-                // IGNORE, probably some .setBorder() not supported bs
-              }
+          use_Task.run_submit(() -> {
+            SwingUtilities.invokeLater(() -> {
+              use_GuiUtil.listComponents_OfContainer(frame).forEach(x -> {
+                try
+                {
+                  if (x instanceof JComponent && ((JComponent) x).getBorder() != null)
+                    ((JComponent) x).setBorder(use_HalcyonCore.getDebugBorder());
+                } catch (Exception e)
+                {
+                  // IGNORE, probably some .setBorder() not supported bs
+                }
+              });
             });
           });
+
         }
       }
     }

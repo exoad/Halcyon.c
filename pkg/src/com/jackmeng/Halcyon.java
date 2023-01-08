@@ -48,7 +48,8 @@ public final class Halcyon
          /*---------------------------------------- /
          / actually load native libraries lets go?! /
          /-----------------------------------------*/
-         for (File t : Objects.requireNonNull(r.listFiles((x, y) -> y.endsWith("." + use_Program.arch_lib_extension()))))
+         for (File t : Objects
+               .requireNonNull(r.listFiles((x, y) -> y.endsWith("." + use_Program.arch_lib_extension()))))
          {
             System.out.println("[!] => PRE_REQ: loading library: " + t.getAbsolutePath());
             System.load(t.getAbsolutePath());
@@ -97,18 +98,22 @@ public final class Halcyon
          /*------------------------------------ /
          / actual program related GUI processes /
          /-------------------------------------*/
-         main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
-         main.run();
-         main.expose_internal().notificationManager.dispatch_notification(
-               dgui_NotificationArena.generate_notification_html_1("<html><p><strong>"
-                     + (get_locale() == lang_Locale.EN ? (_lang(LANG_GOOD) + " "
-                           + _lang(use_Chronos.right_now().LANG_KEY))
-                           : (_lang(use_Chronos.right_now().LANG_KEY)) + " "
-                                 + _lang(LANG_GOOD))
-                     + "</strong>, " // probably have to make more conditions for different languages AHHHH
-                     + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name() + "</p></html>"),
-               (Runnable[]) null);
-         use_Task.async_N1(() -> {
+         use_Task.run_submit(() -> {
+            main = new gui_HalcyonFrame(new dgui_HalcyonTop(), new dgui_HalcyonBottom());
+            main.run();
+            main.expose_internal().notificationManager.dispatch_notification(
+                  dgui_NotificationArena.generate_notification_html_1("<html><p><strong>"
+                        + (get_locale() == lang_Locale.EN ? (_lang(LANG_GOOD) + " "
+                              + _lang(use_Chronos.right_now().LANG_KEY))
+                              : (_lang(use_Chronos.right_now().LANG_KEY)) + " "
+                                    + _lang(LANG_GOOD))
+                        + "</strong>, " // probably have to make more conditions for different languages AHHHH
+                        + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name() + "</p></html>"),
+                  (Runnable[]) null);
+         });
+
+         use_Task.run_submit(() -> {
+
             pstream.log
                   .log(new use_AnsiStrConstr(
                         new use_AnsiColors[] { use_AnsiColors.MAGENTA_BG, use_AnsiColors.WHITE_TXT },

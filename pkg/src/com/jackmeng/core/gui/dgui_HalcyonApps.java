@@ -42,26 +42,29 @@ public class dgui_HalcyonApps
     /*----------------------------------------------------------------------------- /
     / !!: make the current dir be able to dynamic or where the user last selected /
     /------------------------------------------------------------------------------*/
-    use_HalcyonFolder.FOLDER.deserialize(halcyonfolder_Content.PLAYLIST_SELECT_FOLDER_CACHE_f.val,
-        gui_HalcyonPlaylistSelect.class, x -> { // on error
-          use_HalcyonFolder.FOLDER.log(x);
-          fileChooser = new gui_HalcyonPlaylistSelect(Halcyon.main.expose(), // dont use
-                                                                                             // Halcyon.main.expose()
-                                                                                             // because you cant call
-                                                                                             // when u are still
-                                                                                             // constructing that obj
-              ".");
-          fileChooser.setListener(const_Core::append_to_Playlist);
-        }, x -> { // default promise
-          fileChooser = x == null ? new gui_HalcyonPlaylistSelect(Halcyon.main.expose(),
-              ".") : x;
-          fileChooser.setListener(const_Core::append_to_Playlist);
-        });
+    use_Task.async_N1(() -> {
+      use_HalcyonFolder.FOLDER.deserialize(halcyonfolder_Content.PLAYLIST_SELECT_FOLDER_CACHE_f.val,
+          gui_HalcyonPlaylistSelect.class, x -> { // on error
+            use_HalcyonFolder.FOLDER.log(x);
+            fileChooser = new gui_HalcyonPlaylistSelect(use_HalcyonCore.getInheritableFrame(), // dont use
+                                                                                               // Halcyon.main.expose()
+                                                                                               // because you cant call
+                                                                                               // when u are still
+                                                                                               // constructing that obj
+                ".");
+            fileChooser.setListener(const_Core::append_to_Playlist);
+          }, x -> { // default promise
+            fileChooser = x == null ? new gui_HalcyonPlaylistSelect(use_HalcyonCore.getInheritableFrame(),
+                ".") : x;
+            fileChooser.setListener(const_Core::append_to_Playlist);
+          });
 
-    Runtime.getRuntime()
-        .addShutdownHook(new Thread(() -> use_HalcyonFolder.FOLDER
-            .serialize(halcyonfolder_Content.PLAYLIST_SELECT_FOLDER_CACHE_f.val,
-                fileChooser)));
+      Runtime.getRuntime()
+          .addShutdownHook(new Thread(() -> use_HalcyonFolder.FOLDER
+              .serialize(halcyonfolder_Content.PLAYLIST_SELECT_FOLDER_CACHE_f.val,
+                  fileChooser)));
+
+    });
 
     gui_HalcyonMoreApps apps = new gui_HalcyonMoreApps();
 
@@ -85,48 +88,52 @@ public class dgui_HalcyonApps
     // =========================================================================
     // This part designates the default created pool of apps to be added
     // =========================================================================
-    const_Core.APPS_POOL.addPoolObject(
-        make_DefaultApp(_lang(LANG_APPS_ADD_PLAYLIST_TOOLTIP), fileChooser,
-            const_ResourceManager.DGUI_APPS_ADD_PLAYLIST));
-    const_Core.APPS_POOL.addPoolObject(
-        make_DefaultApp(_lang(LANG_APPS_OPEN_LIKED_LIST), use_HalcyonCore::do_nothing,
-            const_ResourceManager.DGUI_APPS_PLAYER_LIKED_MUSIC));
-    const_Core.APPS_POOL.addPoolObject(
-        make_DefaultApp(_lang(LANG_APPS_AUDIO_CTRLERS), use_HalcyonCore::do_nothing,
-            const_ResourceManager.DGUI_APPS_AUDIO_CTRLER));
-    const_Core.APPS_POOL.addPoolObject(
-        make_DefaultApp(_lang(LANG_APPS_OPEN_MINI_PLAYER), use_HalcyonCore::do_nothing,
-            const_ResourceManager.DGUI_APPS_MINI_PLAYER));
-    const_Core.APPS_POOL.addPoolObject(
-        make_DefaultApp(
-            _lang(LANG_APPS_OPEN_SETTINGS), use_HalcyonCore::do_nothing,
-            const_ResourceManager.DGUI_APPS_PLAYER_SETTINGS));
-    const_Core.APPS_POOL.addPoolObject(
-        make_DefaultApp(
-            _lang(LANG_APPS_PLAYLIST_VIEWER), use_HalcyonCore::do_nothing,
-            const_ResourceManager.DGUI_APPS_PLAYER_LISTVIEW));
-    const_Core.APPS_POOL.addPoolObject(
-        make_DefaultApp(
-            _lang(LANG_APPS_REFRESH_PLAYLISTS), use_HalcyonCore::do_nothing,
-            const_ResourceManager.DGUI_APPS_PLAYER_REFRESH));
-    const_Core.APPS_POOL.addPoolObject(
-        make_DefaultApp(
-            _lang(LANG_APPS_INFO), use_HalcyonCore::do_nothing,
-            const_ResourceManager.DGUI_APPS_PLAYER_INFO));
-    /*----------------------------------------------------------------------------------------------------------- /
-    / const_Core.APPS_POOL.addPoolObject(                                                                         /
-    /     make_DefaultApp("ArtworkDisplay", new app_ArtworkDisplay(), const_ResourceManager.DGUI_FILELIST_LEAF)); /
-    /------------------------------------------------------------------------------------------------------------*/
-    const_Core.APPS_POOL.addPoolObject(
-        make_DefaultApp(_lang(LANG_APPS_VIEW_MORE), apps,
-            const_ResourceManager.DGUI_APPS_PLAYER_MOREAPPS));
-    /*---------------------------------------------- /
-    / this part forces everything else to be ignored /
-    /-----------------------------------------------*/
+    use_Task.run_submit(() -> {
+      const_Core.APPS_POOL.addPoolObject(
+          make_DefaultApp(_lang(LANG_APPS_ADD_PLAYLIST_TOOLTIP), fileChooser,
+              const_ResourceManager.DGUI_APPS_ADD_PLAYLIST));
+      const_Core.APPS_POOL.addPoolObject(
+          make_DefaultApp(_lang(LANG_APPS_OPEN_LIKED_LIST), use_HalcyonCore::do_nothing,
+              const_ResourceManager.DGUI_APPS_PLAYER_LIKED_MUSIC));
+      const_Core.APPS_POOL.addPoolObject(
+          make_DefaultApp(_lang(LANG_APPS_AUDIO_CTRLERS), use_HalcyonCore::do_nothing,
+              const_ResourceManager.DGUI_APPS_AUDIO_CTRLER));
+      const_Core.APPS_POOL.addPoolObject(
+          make_DefaultApp(_lang(LANG_APPS_OPEN_MINI_PLAYER), use_HalcyonCore::do_nothing,
+              const_ResourceManager.DGUI_APPS_MINI_PLAYER));
+      const_Core.APPS_POOL.addPoolObject(
+          make_DefaultApp(
+              _lang(LANG_APPS_OPEN_SETTINGS), use_HalcyonCore::do_nothing,
+              const_ResourceManager.DGUI_APPS_PLAYER_SETTINGS));
+      const_Core.APPS_POOL.addPoolObject(
+          make_DefaultApp(
+              _lang(LANG_APPS_PLAYLIST_VIEWER), use_HalcyonCore::do_nothing,
+              const_ResourceManager.DGUI_APPS_PLAYER_LISTVIEW));
+      const_Core.APPS_POOL.addPoolObject(
+          make_DefaultApp(
+              _lang(LANG_APPS_REFRESH_PLAYLISTS), use_HalcyonCore::do_nothing,
+              const_ResourceManager.DGUI_APPS_PLAYER_REFRESH));
+      const_Core.APPS_POOL.addPoolObject(
+          make_DefaultApp(
+              _lang(LANG_APPS_INFO), use_HalcyonCore::do_nothing,
+              const_ResourceManager.DGUI_APPS_PLAYER_INFO));
+      /*----------------------------------------------------------------------------------------------------------- /
+      / const_Core.APPS_POOL.addPoolObject(                                                                         /
+      /     make_DefaultApp("ArtworkDisplay", new app_ArtworkDisplay(), const_ResourceManager.DGUI_FILELIST_LEAF)); /
+      /------------------------------------------------------------------------------------------------------------*/
+      const_Core.APPS_POOL.addPoolObject(
+          make_DefaultApp(_lang(LANG_APPS_VIEW_MORE), apps,
+              const_ResourceManager.DGUI_APPS_PLAYER_MOREAPPS));
+      /*---------------------------------------------- /
+      / this part forces everything else to be ignored /
+      /-----------------------------------------------*/
+    });
+
   }
 
   public static final Insets APPS_BTN_BORDER_INSETS = new Insets(3, 3, 3, 3);
-  public static final use_RoundCornerBorder APPS_BTN_ROUND_BORDER = new use_RoundCornerBorder(15, 4, const_ColorManager.DEFAULT_DARK_BG_2.darker().darker(), APPS_BTN_BORDER_INSETS);
+  public static final use_RoundCornerBorder APPS_BTN_ROUND_BORDER = new use_RoundCornerBorder(15, 4,
+      const_ColorManager.DEFAULT_DARK_BG_2.darker().darker(), APPS_BTN_BORDER_INSETS);
 
   /**
    * @param r
