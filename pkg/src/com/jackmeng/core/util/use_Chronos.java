@@ -22,7 +22,7 @@ public final class use_Chronos
   public static String logTime()
   {
     Date date = new Date();
-    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    DateFormat df = new SimpleDateFormat("HH:mm:ss");
     return df.format(date);
   }
 

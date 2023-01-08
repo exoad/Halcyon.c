@@ -4,14 +4,17 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.TimerTask;
-
+import java.util.concurrent.atomic.AtomicReference;
 import java.awt.image.BufferedImage;
 
 import java.awt.Color;
 
+import com.jackmeng.core.abst.impl_ConsoleDebug;
 import com.jackmeng.core.abst.impl_Identifiable;
+import com.jackmeng.core.gui.const_ResourceManager;
 import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_Chronos;
+import com.jackmeng.core.util.use_Color;
 import com.jackmeng.core.util.use_FSys;
 import com.jackmeng.core.util.use_Image;
 import com.jackmeng.core.util.use_ResourceFetcher;
@@ -22,7 +25,8 @@ public class use_ClientProfile
     implements
     impl_Identifiable,
     Runnable,
-    Serializable
+    Serializable,
+    impl_ConsoleDebug
 {
   public static final int AVATAR_WIDTH_N_HEIGHT = 128;
 
@@ -72,11 +76,24 @@ public class use_ClientProfile
   {
     /* Failsafes here */
     File r = new File(locale);
-    use_ClientProfile obj;
-    if(!r.exists() || !r.isFile())
+    AtomicReference< use_ClientProfile > obj = new AtomicReference<>();
+    if (!r.exists() || !r.isFile())
     {
-      obj = new use_ClientProfile(false, locale, System.getProperty("user.name"), 0F, use_ResourceFetcher.)
+      obj.set(new use_ClientProfile(false, locale, System.getProperty("user.name"), 0F, use_Color.rndColor(),
+          use_ResourceFetcher.fetcher.getFromAsImage(const_ResourceManager.GUI_PROGRAM_LOGO)));
+      return obj.get();
     }
+    use_FSys.deserialize_OBJ(locale, use_ClientProfile.class, e -> {
+      pstream.log.warn("Failed to initialize the user profile. Reinitializing a DEFAULT one.");
+      obj.set(default_p(locale));
+    }, obj::set);
+    return obj.get();
+  }
+
+  public static use_ClientProfile default_p(String locale)
+  {
+    return new use_ClientProfile(false, locale, System.getProperty("user.name"), 0F, use_Color.rndColor(),
+        use_ResourceFetcher.fetcher.getFromAsImage(const_ResourceManager.GUI_PROGRAM_LOGO));
   }
 
   private use_ClientProfile(boolean locked, String saveLocation, String name, float totalTimeUsed, Color preferredColor,

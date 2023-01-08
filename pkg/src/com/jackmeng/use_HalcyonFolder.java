@@ -82,7 +82,7 @@ public final class use_HalcyonFolder
     pUsr = new Properties();
     locale = new File(r);
     check();
-    usr_proc = use_ClientProfile.load_instance(halcyonfolder_Content.USER_PROFILE_CLIENT_f.val);
+    usr_proc = use_ClientProfile.acquire(halcyonfolder_Content.USER_PROFILE_CLIENT_f.val);
     usr_proc.run();
     const_Core.schedule_task(new TimerTask() {
 

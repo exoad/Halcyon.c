@@ -2,6 +2,11 @@ package com.jackmeng.core.util;
 
 import com.jackmeng.platform.sys_out;
 
+/**
+ * "Pretty Stream"
+ *
+ * @author Jack Meng
+ */
 public final class pstream
 {
 
@@ -18,20 +23,24 @@ public final class pstream
   private pstream(boolean use_ansi_colors)
   {
     out = new sys_out();
-    try {
+    try
+    {
       out.out("Making sure out_stream link is satisfied...\n\n");
-    } catch (UnsatisfiedLinkError e) {
+    } catch (UnsatisfiedLinkError e)
+    {
       out = new sys_out.out_System();
 
     }
     enabled = true;
   }
 
-  public void use_stream(boolean enabled) {
+  public void use_stream(boolean enabled)
+  {
     this.enabled = enabled;
   }
 
-  public boolean enabled() {
+  public boolean enabled()
+  {
     return enabled;
   }
 
@@ -47,7 +56,7 @@ public final class pstream
         out.out(new use_AnsiStrConstr(
             new use_AnsiColors[] { use_AnsiColors.BOLD, use_AnsiColors.BLACK_TXT, use_AnsiColors.YELLOW_BG },
             new Object[] {
-                ":/ [WARN @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" })
+                ":/ [WARN @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
       }
     }
@@ -66,7 +75,7 @@ public final class pstream
             new use_AnsiColors[] { use_AnsiColors.BOLD, use_AnsiColors.BLACK_TXT, use_AnsiColors.RED_BG,
                 use_AnsiColors.UNDERLINE },
             new Object[] {
-                ":( [ERRN @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" })
+                ":( [ERRN @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
       }
     }
@@ -84,7 +93,7 @@ public final class pstream
         out.out(new use_AnsiStrConstr(
             new use_AnsiColors[] { use_AnsiColors.BOLD, use_AnsiColors.BLUE_BG, use_AnsiColors.BLACK_TXT },
             new Object[] {
-                ":) [INFO @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" })
+                ":) [INFO " + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
 
       }
@@ -104,7 +113,7 @@ public final class pstream
             new use_AnsiColors[] { use_AnsiColors.BOLD, use_AnsiColors.GREEN_BG, use_AnsiColors.BLACK_TXT,
                 use_AnsiColors.UNDERLINE },
             new Object[] {
-                ":D [GOOD @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" })
+                ":D [GOOD " + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
       }
     }
@@ -123,7 +132,7 @@ public final class pstream
             new use_AnsiColors[] { use_AnsiColors.BOLD, use_AnsiColors.GREEN_BG, use_AnsiColors.BLACK_TXT,
                 use_AnsiColors.UNDERLINE },
             new Object[] {
-                ":D [GOOD @" + use_Chronos.logTime() + "] Halcyon (" + use_Program.pid_2() + ") >>" })
+                ":D [GOOD " + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
       }
     }
