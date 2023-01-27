@@ -40,6 +40,7 @@ public final class use_GuiUtil
   {
     Map< RenderingHints.Key, Object > e = new HashMap<>();
     e.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    e.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
     return new RenderingHints(e);
   }
 

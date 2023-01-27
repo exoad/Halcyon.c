@@ -1,6 +1,8 @@
 package com.jackmeng.core.gui;
 
 import javax.swing.*;
+import javax.swing.plaf.LayerUI;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -312,54 +314,75 @@ public final class dgui_HalcyonTop
     copy.setLayout(new BoxLayout(copy, BoxLayout.Y_AXIS));
     copy.add(e);
     copy.add(x);
+    copy.setOpaque(false);
 
-    bgPanel = new JPanel() {
+    /*----------------------------------------------------------------------------------------------------- /
+    / bgPanel = new JPanel() {                                                                              /
+    /   @Override public void paintComponent(Graphics g)                                                    /
+    /   {                                                                                                   /
+    /     super.paintComponent(g);                                                                          /
+    /     if (toDraw.get())                                                                                 /
+    /     {                                                                                                 /
+    /       Graphics2D g2 = (Graphics2D) g;                                                                 /
+    /       g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7F));                     /
+    /       if (i != null)                                                                                  /
+    /       {                                                                                               /
+    /         g2.drawImage(i, null, null);                                                                  /
+    /         pstream.log.warn("HalcyonTop_Info: Dispatched a draw background image");                      /
+    /       }                                                                                               /
+    /       else                                                                                            /
+    /       {                                                                                               /
+    /         g2.clearRect(0, 0, getWidth(), getHeight());                                                  /
+    /         pstream.log.warn("HalcyonTop_Info: Image resolved to 'null', clearing the graphics context"); /
+    /       }                                                                                               /
+    /       g2.dispose();                                                                                   /
+    /     }                                                                                                 /
+    /   }                                                                                                   /
+    / };                                                                                                    /
+    /------------------------------------------------------------------------------------------------------*/
+    bgPanel = new JPanel();
 
-      @Override public void paintComponent(Graphics g)
+    JLayer< Component > blurLayer = new JLayer<>(bgPanel, new LayerUI<>() {
+      final transient BufferedImageOp blur = use_ImgStrat.convolutionLayer(9, 9, use_GuiUtil.defaultRenderingHints());
+      @Override public void paint(Graphics g, JComponent comp)
       {
-        super.paintComponent(g);
-        if (toDraw.get())
-        {
-          Graphics2D g2 = (Graphics2D) g;
-          g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4F));
-          if (i != null)
-          {
-            g2.drawImage(i, null, this);
-            pstream.log.warn("HalcyonTop_Info: Dispatched a draw background image");
-          }
-          else
-          {
-            g2.clearRect(0, 0, getWidth(), getHeight());
-            pstream.log.warn("HalcyonTop_Info: Image resolved to 'null', clearing the graphics context");
-          }
-          g2.dispose();
-        }
+        if (comp.getWidth() == 0 || comp.getHeight() == 0)
+          return;
+        BufferedImage img = new BufferedImage(comp.getWidth(), comp.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D ig2 = img.createGraphics();
+        ig2.setClip(g.getClip());
+        super.paint(ig2, comp);
+        ig2.dispose();
+        Graphics2D g2 = (Graphics2D) g;
+        g2.drawImage(img, blur, 0, 0);
+        g2.dispose();
       }
-    };
-    JLayer< Component > blur = use_ImgStrat
-        .acquireOpLayer(new use_ImgStrat.imgstrat_BlurhashBlur(3, 3, 2.0D), bgPanel);
+    });
 
     add(copy);
-    add(bgPanel);
+    add(blurLayer);
 
     const_Core.SELECTION_LISTENERS.add_listener(this);
   }
 
   @Override public void forYou(use_TailwindTrack e)
   {
-    if (!e.has_artwork() && i != null)
+    if (!e.has_artwork() || i != null)
     {
       pstream.log.warn(cli_Identifier() + ": Clearing the current artwork context.");
-      toDraw.set(false);
-      i = null;
-      bgPanel.repaint(100L);
+      bgManager.push(() -> {
+        toDraw.set(false);
+        i = null;
+        bgPanel.repaint(100L);
+        return null;
+      });
     }
     else
     {
       pstream.log.warn(cli_Identifier() + ": Found an artwork context to paint.");
       bgManager.push(() -> {
         i = e.get_artwork();
-        i = use_Image.subimage_resizing(getWidth(), getHeight(), (BufferedImage) i);
+        i = use_Image.subimage_resizing(getWidth(), getHeight(), use_Image.image_to_bi(i));
         toDraw.set(true);
         bgPanel.repaint(100L);
         return null;

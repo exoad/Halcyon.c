@@ -51,7 +51,7 @@ public final class use_ImgStrat
     float d = 1.0F / (w * h);
     for (int i = 0; i < (w * h); i++)
       matrix[i] = d;
-    return new ConvolveOp(new Kernel(w, h, matrix), ConvolveOp.EDGE_ZERO_FILL, e);
+    return new ConvolveOp(new Kernel(w, h, matrix), ConvolveOp.EDGE_NO_OP, e);
   }
 
   public static class imgstrat_4_CornerGradient
