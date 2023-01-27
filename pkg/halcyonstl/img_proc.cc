@@ -102,6 +102,7 @@ void tint(int *px, int tint, int strength, int width, int height) {
     int tb = tint & 0x0000ff;
     r = (r * (255 - strength) + tr * strength) / 255;
     g = (g * (255 - strength) + tg * strength) / 255;
+    long a(0);
     b = (b * (255 - strength) + tb * strength) / 255;
     px[i] = (r << 16) | (g << 8) | b;
   }

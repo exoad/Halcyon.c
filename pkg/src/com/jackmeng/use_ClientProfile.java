@@ -19,7 +19,6 @@ import com.jackmeng.core.util.use_FSys;
 import com.jackmeng.core.util.use_Image;
 import com.jackmeng.core.util.use_ResourceFetcher;
 import com.jackmeng.core.util.use_Task;
-import com.jackmeng.tailwind.use_Tailwind;
 
 public class use_ClientProfile
     implements
@@ -34,7 +33,7 @@ public class use_ClientProfile
   private final String name;
   private final String saveLocation;
   private Color preferredColor;
-  private BufferedImage userAvatar;
+  private transient BufferedImage userAvatar;
   private float totalTimeUsed_Hours, currentTimeUsed_Minutes; // the LONG_MAX value should be enough I hope, its like
                                                               // 100000000 so centuries
 
@@ -117,6 +116,7 @@ public class use_ClientProfile
       });
     }
   }
+
 
   public synchronized void sync()
   {

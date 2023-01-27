@@ -77,7 +77,7 @@ public final class Halcyon
          throws Exception
    {
       __LINK__();
-      use_HalcyonFolder.FOLDER.load_conf();
+      //use_HalcyonFolder.FOLDER.load_conf();
       if (const_MUTableKeys.run_tcs_on_start)
          Test.main(null);
       use_HalcyonFolder.FOLDER.load_playlists();

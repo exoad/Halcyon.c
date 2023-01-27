@@ -15,7 +15,7 @@ public class gui_ClientProfile
 
   public gui_ClientProfile(use_ClientProfile profile)
   {
-    super(new ImageIcon(profile.exposeUserPfp()), "User: " + profile.getUser_Name(), "<html><p><strong>"+profile.getUser_Name()+"'s profile</strong><br>Total Time: " + profile.exposeTotalHours() + " hours", profile);
+    super(null, null, null, null, null);
     this.profile = profile;
   }
 
