@@ -8,7 +8,6 @@ import com.jackmeng.use_HalcyonFolder;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.zip.ZipFile;
@@ -23,7 +22,7 @@ public class use_ResourceFetcher
   {
   }
 
-  private final Map< String, Object > lazyResource_cache = new HashMap<>();
+  private final Map< String, Object > lazyResource_cache = new WeakHashMap<>(10);
 
   /**
    * @param path

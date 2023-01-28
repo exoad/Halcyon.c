@@ -22,6 +22,7 @@ import com.jackmeng.core.util.use_HideousTask;
 import com.jackmeng.core.util.use_Image;
 import com.jackmeng.core.util.use_ImgStrat;
 import com.jackmeng.core.util.use_ResourceFetcher;
+import com.jackmeng.stl.stl_Wrap;
 import com.jackmeng.tailwind.evnt_TailwindStatus;
 import com.jackmeng.tailwind.use_Tailwind.tailwind_Status;
 import com.jackmeng.tailwind.use_TailwindTrack;
@@ -258,6 +259,7 @@ public final class dgui_HalcyonTop
       volumeSlider.setPreferredSize(new Dimension(110, 15));
       volumeSlider.setMinimumSize(volumeSlider.getPreferredSize());
       volumeSlider.setFocusable(false);
+      volumeSlider.setOpaque(false);
       volumeSlider.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
 
       mastaJP.add(volumeSlider);
@@ -272,6 +274,7 @@ public final class dgui_HalcyonTop
       timeSlider = new JSlider(0, 100);
       timeSlider.setValue(0);
       timeSlider.setFocusable(false);
+      timeSlider.setOpaque(false);
       timeSlider.setForeground(const_ColorManager.DEFAULT_GREEN_FG);
 
       addComponentListener(new ComponentAdapter() {
@@ -295,85 +298,114 @@ public final class dgui_HalcyonTop
   }
 
   private final JPanel bgPanel;
+  private final JLayer< Component > blur;
   private transient Image i;
-  private final transient AtomicBoolean toDraw = new AtomicBoolean(false);
+  private final transient stl_Wrap< Boolean > toDraw = new stl_Wrap<>(false);
 
   public dgui_HalcyonTop()
   {
     setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_TOP));
     setMinimumSize(getPreferredSize());
-    setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
-    setLayout(new OverlayLayout(this));
+    setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+    setOpaque(true);
 
     JComponent e = new halcyonTop_Info(), x = new halcyonTop_Buttons();
+    e.setOpaque(false);
     e.setAlignmentX(Component.CENTER_ALIGNMENT);
+    x.setOpaque(false);
     x.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    JPanel copy = new JPanel();
-    copy.setPreferredSize(getPreferredSize());
-    copy.setLayout(new BoxLayout(copy, BoxLayout.Y_AXIS));
-    copy.add(e);
-    copy.add(x);
-    copy.setOpaque(false);
+    JPanel wrap = new JPanel();
+    wrap.setLayout(new OverlayLayout(wrap));
+    wrap.setPreferredSize(e.getPreferredSize());
 
-    /*----------------------------------------------------------------------------------------------------- /
-    / bgPanel = new JPanel() {                                                                              /
-    /   @Override public void paintComponent(Graphics g)                                                    /
-    /   {                                                                                                   /
-    /     super.paintComponent(g);                                                                          /
-    /     if (toDraw.get())                                                                                 /
-    /     {                                                                                                 /
-    /       Graphics2D g2 = (Graphics2D) g;                                                                 /
-    /       g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7F));                     /
-    /       if (i != null)                                                                                  /
-    /       {                                                                                               /
-    /         g2.drawImage(i, null, null);                                                                  /
-    /         pstream.log.warn("HalcyonTop_Info: Dispatched a draw background image");                      /
-    /       }                                                                                               /
-    /       else                                                                                            /
-    /       {                                                                                               /
-    /         g2.clearRect(0, 0, getWidth(), getHeight());                                                  /
-    /         pstream.log.warn("HalcyonTop_Info: Image resolved to 'null', clearing the graphics context"); /
-    /       }                                                                                               /
-    /       g2.dispose();                                                                                   /
-    /     }                                                                                                 /
-    /   }                                                                                                   /
-    / };                                                                                                    /
-    /------------------------------------------------------------------------------------------------------*/
-    bgPanel = new JPanel();
+    bgPanel = new JPanel() {
+      @Override public void paintComponent(Graphics g)
+      {
+        if (Boolean.TRUE.equals(toDraw.obj()))
+        {
+          pstream.log.warn("HalcyonTop_Info: Drawing for image pending: " + i);
+          Graphics2D g2 = (Graphics2D) g;
+          g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7F));
+          if (i != null)
+          {
+            g2.drawImage(i, 0, 0, wrap.getWidth(), wrap.getHeight(), this);
+            pstream.log.warn("HalcyonTop_Info: Dispatched a draw background image. " + i);
+          }
+          else
+          {
+            g2.clearRect(0, 0, wrap.getWidth(), wrap.getHeight());
+            pstream.log.warn("HalcyonTop_Info: Image resolved to 'null', clearing the graphics context");
+          }
+          g2.dispose();
+        }
+        pstream.log.info("HalcyonTop_Info: Image for background dropped: not drawing.");
+      }
+    };
+    bgPanel.setPreferredSize(wrap.getPreferredSize());
+    bgPanel.setOpaque(true);
 
-    JLayer< Component > blurLayer = new JLayer<>(bgPanel, new LayerUI<>() {
-      final transient BufferedImageOp blur = use_ImgStrat.convolutionLayer(9, 9, use_GuiUtil.defaultRenderingHints());
+    blur = new JLayer<>(bgPanel, new LayerUI<>() {
+      private transient BufferedImageOp oImageOp;
+      {
+        int w = 35, h = 35;
+        float[] matrix = new float[w * h];
+        float frac = 1.0F / (w * h);
+        for (int i = 0; i < w * h; i++)
+        {
+          matrix[i] = frac;
+        }
+        oImageOp = new ConvolveOp(new Kernel(w, h, matrix), ConvolveOp.EDGE_ZERO_FILL, null);
+      }
+
+      /**
+       * @param g
+       * @param comp
+       */
       @Override public void paint(Graphics g, JComponent comp)
       {
         if (comp.getWidth() == 0 || comp.getHeight() == 0)
           return;
+
         BufferedImage img = new BufferedImage(comp.getWidth(), comp.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
         Graphics2D ig2 = img.createGraphics();
         ig2.setClip(g.getClip());
         super.paint(ig2, comp);
         ig2.dispose();
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(img, blur, 0, 0);
+        g2.drawImage(img, oImageOp, 0, 0);
         g2.dispose();
+        g.dispose();
       }
     });
+    blur.setPreferredSize(wrap.getPreferredSize());
+
+    wrap.add(e);
+    wrap.add(blur);
+
+    JPanel copy = new JPanel();
+    copy.setPreferredSize(getPreferredSize());
+    copy.setLayout(new BoxLayout(copy, BoxLayout.Y_AXIS));
+    copy.setOpaque(false);
+    copy.add(wrap);
+    copy.add(x);
 
     add(copy);
-    add(blurLayer);
 
     const_Core.SELECTION_LISTENERS.add_listener(this);
   }
 
   @Override public void forYou(use_TailwindTrack e)
   {
-    if (!e.has_artwork() || i != null)
+    if (!e.has_artwork())
     {
+      toDraw.obj(false);
       pstream.log.warn(cli_Identifier() + ": Clearing the current artwork context.");
       bgManager.push(() -> {
-        toDraw.set(false);
         i = null;
-        bgPanel.repaint(100L);
+        bgPanel.repaint(30L);
+        blur.repaint(30L);
         return null;
       });
     }
@@ -381,12 +413,15 @@ public final class dgui_HalcyonTop
     {
       pstream.log.warn(cli_Identifier() + ": Found an artwork context to paint.");
       bgManager.push(() -> {
-        i = e.get_artwork();
-        i = use_Image.subimage_resizing(getWidth(), getHeight(), use_Image.image_to_bi(i));
-        toDraw.set(true);
+        toDraw.obj(true);
+        i = use_Image.subimage_resizing(getPreferredSize().width, getPreferredSize().height,
+            use_Image.image_to_bi(e.get_artwork()));
         bgPanel.repaint(100L);
+        blur.repaint(70L);
         return null;
       });
     }
+    bgPanel.repaint(100L);
+    blur.repaint(70L);
   }
 }

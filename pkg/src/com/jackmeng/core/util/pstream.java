@@ -93,7 +93,7 @@ public final class pstream
         out.out(new use_AnsiStrConstr(
             new use_AnsiColors[] { use_AnsiColors.BOLD, use_AnsiColors.BLUE_BG, use_AnsiColors.BLACK_TXT },
             new Object[] {
-                ":) [INFO " + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
+                ":) [INFO @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
 
       }
@@ -113,7 +113,7 @@ public final class pstream
             new use_AnsiColors[] { use_AnsiColors.BOLD, use_AnsiColors.GREEN_BG, use_AnsiColors.BLACK_TXT,
                 use_AnsiColors.UNDERLINE },
             new Object[] {
-                ":D [GOOD " + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
+                ":D [GOOD @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
       }
     }
@@ -132,7 +132,7 @@ public final class pstream
             new use_AnsiColors[] { use_AnsiColors.BOLD, use_AnsiColors.GREEN_BG, use_AnsiColors.BLACK_TXT,
                 use_AnsiColors.UNDERLINE },
             new Object[] {
-                ":D [GOOD " + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
+                ":D [GOOD @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
       }
     }

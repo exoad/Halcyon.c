@@ -44,14 +44,15 @@ public final class use_ImgStrat
     });
   }
 
-  public static BufferedImageOp convolutionLayer(int w, int h, RenderingHints e)
+  public static BufferedImageOp convolutionLayer(int radius, RenderingHints e)
   {
-    assert w > 0 && h > 0;
-    float[] matrix = new float[w * h];
-    float d = 1.0F / (w * h);
-    for (int i = 0; i < (w * h); i++)
+    assert radius > 0;
+    int sz = radius * 2 + 1;
+    float[] matrix = new float[sz * sz];
+    float d = 1.0F / (sz * sz);
+    for (int i = 0; i < matrix.length; i++)
       matrix[i] = d;
-    return new ConvolveOp(new Kernel(w, h, matrix), ConvolveOp.EDGE_NO_OP, e);
+    return new ConvolveOp(new Kernel(sz, sz, matrix), ConvolveOp.EDGE_NO_OP, e);
   }
 
   public static class imgstrat_4_CornerGradient

@@ -188,6 +188,9 @@ public final class use_TailwindTrack
       header = af.getAudioHeader();
     }
 
+    // primes
+    get(tailwindtrack_Tags.MEDIA_ART);
+
     /*---------------------------------------------------------------------------------------------------------------- /
     / MediaTags.put(tailwindtrack_Tags.MEDIA_ABSOLUTE_LOCATION, header == null ? "0" : header.getBitRate());                /
     / MediaTags.put(tailwindtrack_Tags.MEDIA_GENRE,                                                                         /
@@ -211,15 +214,16 @@ public final class use_TailwindTrack
     {
       BufferedImage img = get_artwork();
       if (lazyColors_Cache.containsKey(content.getAbsolutePath()))
+      {
+        hasArtwork = true;
         return lazyColors_Cache.get(content.getAbsolutePath());
+      }
       if (img == null)
       {
+        hasArtwork = false;
         lazyColors_Cache.put(content.getAbsolutePath(), er.value);
         return er.value;
       }
-      Color r = use_Color.make(use_Image.accurate_accent_color_1(img));
-      lazyColors_Cache.put(content.getAbsolutePath(), r);
-      return r;
     }
     else if (er == tailwindtrack_Tags.MEDIA_DURATION)
       return header.getTrackLength();
@@ -317,6 +321,6 @@ public final class use_TailwindTrack
 
   public String toString()
   {
-    return "Track:" + content.getAbsolutePath();
+    return "Track:" + content.getAbsolutePath() + "\nHas_Artwork: " + has_artwork();
   }
 }
