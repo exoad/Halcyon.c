@@ -189,8 +189,9 @@ public final class use_HalcyonCore
     UIManager.setLookAndFeel(FlatAtomOneDarkIJTheme.class.getName());
 
     // TABBEDPANE START
-    UIManager.put("TabbedPane.underlineColor", null);
+    UIManager.put("TabbedPane.underlineColor", new ColorUIResource(const_ColorManager.DEFAULT_BG));
     UIManager.put("TabbedPane.tabSeparatorsFullHeight", false);
+    UIManager.put("TabbedPane.showTabSeparators", false);
     // TABBEDPANE END
 
     // SCROLLBAR START

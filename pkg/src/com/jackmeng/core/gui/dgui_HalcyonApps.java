@@ -77,6 +77,7 @@ public class dgui_HalcyonApps
     setLayout(new FlowLayout(FlowLayout.CENTER, const_Manager.DGUI_APPS_APPS_ICON_HGAP,
         const_Manager.DGUI_APPS_APPS_ICON_VGAP));
     setFont(use_HalcyonCore.regularFont());
+    setOpaque(false);
 
     if (const_Manager.DEBUG_GRAPHICS)
     {

@@ -25,5 +25,7 @@ public abstract interface const_Manager
 
   float PROGRAM_DEFAULT_FONT_SIZE = 14F;
 
+  short GUI_MAX_RROUND_FACTOR = 15;
+
   boolean DEBUG_GRAPHICS = false;
 }

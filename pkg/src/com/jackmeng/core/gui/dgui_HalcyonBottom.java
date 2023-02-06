@@ -13,6 +13,7 @@ import com.jackmeng.core.util.use_Image;
 import com.jackmeng.core.util.use_ResourceFetcher;
 import com.jackmeng.core.util.use_Task;
 import com.jackmeng.core.util.use_Struct.*;
+import com.jackmeng.stl.stl_Wrap;
 import com.jackmeng.tailwind.use_TailwindPlaylist;
 import com.jackmeng.tailwind.use_TailwindTrack;
 
@@ -148,6 +149,7 @@ public class dgui_HalcyonBottom
     public dgui_HalcyonFileList()
     {
       fileListMasta = new JPanel();
+      fileListMasta.setOpaque(false);
       fileListMasta.setLayout(new BorderLayout());
       fileListMasta.setPreferredSize(new Dimension(const_Manager.DGUI_APPS_FILELIST_WIDTH,
           const_Manager.DGUI_APPS_FILELIST_HEIGHT));
@@ -160,8 +162,23 @@ public class dgui_HalcyonBottom
           const_Manager.DGUI_APPS_FILELIST_HEIGHT));
       pane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
       pane.setFocusable(false);
-      pane.setOpaque(true);
+      pane.setOpaque(false);
+      pane.setBorder(null);
       pane.setFont(use_HalcyonCore.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE));
+      stl_Wrap<Integer> rerere = new stl_Wrap<>(-1);
+      pane.addChangeListener(x -> {
+        int i = pane.getSelectedIndex();
+        pstream.log.warn("HALCYON_BOTTOMSELECTED_INDEX: " + i);
+
+        pane.setForegroundAt(i, const_ColorManager.DEFAULT_BG.darker());
+        pane.setBackgroundAt(i, const_ColorManager.DEFAULT_GREEN_FG);
+        if(rerere.obj != -1)
+        {
+          pane.setForegroundAt(rerere.obj, const_ColorManager.DEFAULT_GREEN_FG);
+          pane.setBackgroundAt(rerere.obj, const_ColorManager.DEFAULT_BG.darker());
+        }
+        rerere.obj(i);
+      });
 
       if (const_MUTableKeys.use_filelist_titled_border)
       {
@@ -243,6 +260,7 @@ public class dgui_HalcyonBottom
 
       final JTree tree = new JTree(root);
       tree.setName(list.getParent());
+      tree.setOpaque(false);
       tree.setRootVisible(true);
       tree.setShowsRootHandles(true);
       tree.setExpandsSelectedPaths(true);
@@ -311,6 +329,7 @@ public class dgui_HalcyonBottom
 
       JScrollPane jsp = new JScrollPane();
       jsp.setAutoscrolls(true);
+      jsp.setOpaque(false);
       jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
       jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
       jsp.setName(list.getParent());
@@ -318,6 +337,7 @@ public class dgui_HalcyonBottom
       jsp.getViewport().add(tree);
 
       pane.addTab(use_Commons.strong_delimiter(list.getCanonicalParent_1(), "...", 2), jsp);
+      pane.setTabPlacement(SwingConstants.BOTTOM);
       if (list.expose_traits().closeable)
       {
         filelist_TabButtons buttons = new filelist_TabButtons(list.getCanonicalParent_1(), () -> {
@@ -331,7 +351,6 @@ public class dgui_HalcyonBottom
       guiTrees.put(list.id(),
           new struct_Trio<>(
               new struct_Pair<>(pane.getTabCount() - 1, tree), root, nodes));
-
     }
 
     public void removeFileList(use_TailwindPlaylist e)
@@ -374,11 +393,20 @@ public class dgui_HalcyonBottom
     }
   }
 
+  @Override public void paintComponent(Graphics g)
+  {
+    Graphics2D g2 = (Graphics2D) g;
+    g2.setRenderingHints(use_GuiUtil.defaultRenderingHints());
+    g2.setColor(const_ColorManager.DEFAULT_BG.darker());
+    g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+    super.paintComponent(g2);
+  }
+
   public dgui_HalcyonBottom()
   {
     dgui_HalcyonApps apps = new dgui_HalcyonApps();
     dgui_HalcyonFileList filelistTabs = new dgui_HalcyonFileList();
-
+    setOpaque(false);
     setOrientation(JSplitPane.HORIZONTAL_SPLIT);
     setPreferredSize(new Dimension(const_Manager.FRAME_MIN_WIDTH, const_Manager.DGUI_APPS_FILELIST_HEIGHT));
     setLeftComponent(apps);
