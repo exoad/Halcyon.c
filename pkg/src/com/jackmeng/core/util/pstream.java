@@ -1,6 +1,8 @@
 package com.jackmeng.core.util;
 
+import com.jackmeng.use_HalcyonFolder;
 import com.jackmeng.platform.sys_out;
+import com.jackmeng.stl.stl_Logger;
 
 /**
  * "Pretty Stream"
@@ -15,9 +17,16 @@ public final class pstream
   / is a pain in the ass. so here is a shitty implementation of that.                                  /
   /---------------------------------------------------------------------------------------------------*/
 
-  private boolean enabled;
+  private boolean enabled, use_inside_logging;
   private sys_out out;
-
+  public static final stl_Logger l0g = new stl_Logger("Halcyon_DefaultFileSystemLogger",
+      use_HalcyonFolder.halcyonfolder_Content.LOGS_d.make().getAbsolutePath(), 3281L);
+  static
+  {
+    l0g.run();
+    l0g.char_per_line(95);
+    use_Program.shutdown_hook(l0g::kill);
+  }
   public static final pstream log = new pstream(true);
 
   private pstream(boolean use_ansi_colors)
@@ -32,11 +41,22 @@ public final class pstream
 
     }
     enabled = true;
+    use_inside_logging = true;
+  }
+
+  public void use_inside_logging(boolean e)
+  {
+    this.use_inside_logging = e;
   }
 
   public void use_stream(boolean enabled)
   {
     this.enabled = enabled;
+  }
+
+  public boolean inside_logging()
+  {
+    return this.use_inside_logging;
   }
 
   public boolean enabled()
@@ -58,6 +78,8 @@ public final class pstream
             new Object[] {
                 ":/ [WARN @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
+        if (inside_logging())
+          l0g.push(":/ [WARN @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >> " + e + "\n");
       }
     }
   }
@@ -77,6 +99,8 @@ public final class pstream
             new Object[] {
                 ":( [ERRN @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
+        if (inside_logging())
+          l0g.push(":( [ERRN @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >> " + e + "\n");
       }
     }
   }
@@ -95,6 +119,8 @@ public final class pstream
             new Object[] {
                 ":) [INFO @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
+        if (inside_logging())
+          l0g.push(":) [INFO @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >> " + e + "\n");
 
       }
     }
@@ -115,6 +141,8 @@ public final class pstream
             new Object[] {
                 ":D [GOOD @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
+        if (inside_logging())
+          l0g.push(":D [GOOD @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >> " + e + "\n");
       }
     }
   }
@@ -134,6 +162,8 @@ public final class pstream
             new Object[] {
                 ":D [GOOD @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >>" })
             + " " + e + "\n");
+        if (inside_logging())
+          l0g.push(":D [GOOD @" + use_Chronos.logTime() + "](" + use_Program.pid_2() + ") >> " + e + "\n");
       }
     }
   }

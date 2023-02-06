@@ -39,20 +39,24 @@ public final class use_HalcyonCore
                     new Locale(const_MUTableKeys.lang_locale.first, const_MUTableKeys.lang_locale.second));
               }, x -> const_MUTableKeys.lang_locale.first + "_" + const_MUTableKeys.lang_locale.second),
           new use_MUTableDefinition("Enable Logging", "halcyon.logging", "yes", new String[] { "yes", "no" },
-              x -> const_MUTableKeys.outstream = x.equalsIgnoreCase("yes"), x -> const_MUTableKeys.outstream ? "yes" : "no"),
+              x -> const_MUTableKeys.outstream = x.equalsIgnoreCase("yes"),
+              x -> const_MUTableKeys.outstream ? "yes" : "no"),
           new use_MUTableDefinition("Enable Startup Testcase Check", "halcyon.tc_eval", "no",
               new String[] { "yes", "no" },
-              x -> const_MUTableKeys.run_tcs_on_start = !x.equalsIgnoreCase("no"), x -> const_MUTableKeys.run_tcs_on_start ? "yes" : "no"),
+              x -> const_MUTableKeys.run_tcs_on_start = !x.equalsIgnoreCase("no"),
+              x -> const_MUTableKeys.run_tcs_on_start ? "yes" : "no"),
           new use_MUTableDefinition("TitleBar Styling", "halcyon.gui.title_bar_styling", "custom",
               new String[] { "custom", "native" },
               x -> const_MUTableKeys.title_frame_styling = !x.equalsIgnoreCase("custom"),
               x -> const_MUTableKeys.title_frame_styling ? "native" : "custom"),
           new use_MUTableDefinition("Use blurring for the back cover art", "halcyon.gui.top_bg_panel_use_blur", "no",
               new String[] { "yes", "no" },
-              x -> const_MUTableKeys.top_bg_panel_use_blur = !x.equalsIgnoreCase("no"), x -> const_MUTableKeys.top_bg_panel_use_blur ? "yes" : "no"),
+              x -> const_MUTableKeys.top_bg_panel_use_blur = !x.equalsIgnoreCase("no"),
+              x -> const_MUTableKeys.top_bg_panel_use_blur ? "yes" : "no"),
           new use_MUTableDefinition("File Listing use a titled border", "halcyon.gui.filelist_titled_border", "no",
               new String[] { "yes", "no" },
-              x -> const_MUTableKeys.use_filelist_titled_border = !x.equalsIgnoreCase("no"), x -> const_MUTableKeys.use_filelist_titled_border ? "yes" : "no"),
+              x -> const_MUTableKeys.use_filelist_titled_border = !x.equalsIgnoreCase("no"),
+              x -> const_MUTableKeys.use_filelist_titled_border ? "yes" : "no"),
           new use_MUTableDefinition("Width & Height of Artwork in Top Pane.", "halcyon.gui.top_artwork_wxh", "132x132",
               new String[0],
               x -> {
@@ -61,7 +65,8 @@ public final class use_HalcyonCore
               }, x -> const_MUTableKeys.top_artwork_wxh.first + "x" + const_MUTableKeys.top_artwork_wxh.second),
           new use_MUTableDefinition("Turn on debugging layouts for the GUI", "halcyon.gui.debug_layout", "no",
               new String[] { "yes", "no" },
-              x -> const_MUTableKeys.gui_use_debug = !x.equalsIgnoreCase("no"), x -> const_MUTableKeys.gui_use_debug ? "yes" : "no"),
+              x -> const_MUTableKeys.gui_use_debug = !x.equalsIgnoreCase("no"),
+              x -> const_MUTableKeys.gui_use_debug ? "yes" : "no"),
       });
 
   public static final Random rng = new Random();
@@ -182,20 +187,23 @@ public final class use_HalcyonCore
 
     final ColorUIResource colorUI_Green = new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG);
     UIManager.setLookAndFeel(FlatAtomOneDarkIJTheme.class.getName());
-    UIManager.put("JScrollPane.smoothScrolling", true);
+
+    // TABBEDPANE START
+    UIManager.put("TabbedPane.underlineColor", null);
+    UIManager.put("TabbedPane.tabSeparatorsFullHeight", false);
+    // TABBEDPANE END
+
+    // SCROLLBAR START
     UIManager.put("ScrollBar.thumbArc", 999);
     UIManager.put("ScrollBar.trackArc", 999);
     UIManager.put("ScrollBar.background", null);
     UIManager.put("ScrollBar.thumb", colorUI_Green);
     UIManager.put("Scrollbar.pressedThumbColor", colorUI_Green);
     UIManager.put("ScrollBar.hoverThumbColor", colorUI_Green);
-    UIManager.put("TabbedPane.underlineColor", colorUI_Green);
-    UIManager.put("TabbedPane.showTabSeparators", true);
     UIManager.put("ScrollBar.showButtons", false);
-    UIManager.put("Component.focusColor", colorUI_Green);
-    UIManager.put("Component.focusedBorderColor", colorUI_Green);
-    UIManager.put("TextArea.caretForeground", colorUI_Green);
-    UIManager.put("TextField.caretForeground", colorUI_Green);
+    // SCROLLBAR END
+
+    // TITLEPANE START
     UIManager.put("TitlePane.closeHoverBackground", colorUI_Green);
     UIManager.put("TitlePane.closePressedBackground", colorUI_Green);
     UIManager.put("TitlePane.buttonHoverBackground", colorUI_Green);
@@ -206,16 +214,44 @@ public final class use_HalcyonCore
     UIManager.put("TitlePane.buttonHoverForeground", new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG.darker()));
     UIManager.put("TitlePane.buttonPressedForeground",
         new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG.darker()));
-    UIManager.put("Component.focusedBorderColor", use_Color.nullColor());
-    UIManager.put("Component.focusColor", use_Color.nullColor());
     UIManager.put("TitlePane.centerTitle", true);
     UIManager.put("TitlePane.buttonSize", new java.awt.Dimension(25, 20));
     UIManager.put("TitlePane.unifiedBackground", true);
+    // TITLEPANE END
+
+    // COMPONENT START
+    UIManager.put("Component.focusedBorderColor", use_Color.nullColor());
+    UIManager.put("Component.focusColor", use_Color.nullColor());
+    UIManager.put("Component.focusColor", colorUI_Green);
+    UIManager.put("Component.focusedBorderColor", colorUI_Green);
+    // COMPONENT END
+
+    // TEXTFIELD START
+    UIManager.put("TextField.caretForeground", colorUI_Green);
+    // TEXTFIELD END
+
+    // TEXTAREA START
+    UIManager.put("TextArea.caretForeground", colorUI_Green);
+    // TEXTAREA END
+
+    // JSCROLLPANE START
+    UIManager.put("JScrollPane.smoothScrolling", true);
+    // JSCROLLPANE END
+
+    // SPLITPANEDIVIDER START
     UIManager.put("SplitPaneDivider.gripDotCount", 0);
+    // SPLITPANEDIVIDER END
+
+    // FILECHOOSER START
     UIManager.put("FileChooser.readOnly", false);
+    // FILECHOOSER END
+
+    // FLATLAF START
     System.setProperty("flatlaf.useWindowDecorations", "false");
     System.setProperty("flatlaf.useJetBrainsCustomDecorations", "false");
     System.setProperty("flatlaf.animation", "true");
+    // FLATLAF END
+
     GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
     g.registerFont(
@@ -248,8 +284,7 @@ public final class use_HalcyonCore
 
     const_Core.schedule_task(new TimerTask() {
 
-      @Override
-      public void run()
+      @Override public void run()
       {
         use_HalcyonFolder.FOLDER.master_save();
       }
@@ -258,8 +293,7 @@ public final class use_HalcyonCore
 
     const_Core.schedule_task(new TimerTask() {
 
-      @Override
-      public void run()
+      @Override public void run()
       {
         ArrayList< use_TailwindPlaylist > e = new ArrayList<>();
         const_Core.PLAY_LIST_POOL.forEach(x -> {

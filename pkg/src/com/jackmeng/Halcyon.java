@@ -76,6 +76,7 @@ public final class Halcyon
    public static void main(String... args)
          throws Exception
    {
+      System.out.println("OK");
       __LINK__();
       //use_HalcyonFolder.FOLDER.load_conf();
       if (const_MUTableKeys.run_tcs_on_start)
@@ -111,6 +112,8 @@ public final class Halcyon
                         + use_HalcyonFolder.FOLDER.expose_ClientProfile().getUser_Name() + "</p></html>"),
                   (Runnable[]) null);
          });
+
+         pstream.log.warn("FileSysLogger (stl_Logger) -> " + use_HalcyonFolder.halcyonfolder_Content.LOGS_d.make().getAbsolutePath());
 
          use_Task.run_submit(() -> {
 

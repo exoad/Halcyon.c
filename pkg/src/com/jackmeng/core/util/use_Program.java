@@ -109,6 +109,11 @@ public final class use_Program
     System.exit(0);
   }
 
+  public static void shutdown_hook(Runnable r)
+  {
+    Runtime.getRuntime().addShutdownHook(new Thread(r));
+  }
+
   /**
    * @param e
    * @return BufferedImage
