@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 
 import com.jackmeng.Halcyon;
 import com.jackmeng.use_HalcyonFolder;
+import com.jackmeng.core.gui.gui_UserProfile;
 import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_Color;
 import com.jackmeng.core.util.use_Image;
@@ -32,7 +33,7 @@ public class Test
           use_HalcyonFolder hf = use_HalcyonFolder.FOLDER;
           hf.log(new Exception("Amogus"));
           return null;
-        }),
+        })
     })
     {
       pstream.log.warn("Running testcase: " + i);

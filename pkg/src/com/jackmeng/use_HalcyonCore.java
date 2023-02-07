@@ -3,6 +3,8 @@ package com.jackmeng;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJTheme;
 import com.jackmeng.core.gui.const_ColorManager;
 import com.jackmeng.core.gui.const_ResourceManager;
+import com.jackmeng.core.gui.dgui_Painter;
+import com.jackmeng.core.gui.use_RoundCornerBorder;
 import com.jackmeng.core.util.pstream;
 import com.jackmeng.core.util.use_Color;
 import com.jackmeng.core.util.use_ResourceFetcher;
@@ -189,68 +191,90 @@ public final class use_HalcyonCore
     UIManager.setLookAndFeel(FlatAtomOneDarkIJTheme.class.getName());
 
     // TABBEDPANE START
-    UIManager.put("TabbedPane.underlineColor", new ColorUIResource(const_ColorManager.DEFAULT_BG));
-    UIManager.put("TabbedPane.tabSeparatorsFullHeight", false);
-    UIManager.put("TabbedPane.showTabSeparators", false);
+    {
+      UIManager.put("TabbedPane.underlineColor", new ColorUIResource(const_ColorManager.DEFAULT_BG));
+      UIManager.put("TabbedPane.tabSeparatorsFullHeight", false);
+      UIManager.put("TabbedPane.showTabSeparators", false);
+    }
     // TABBEDPANE END
 
     // SCROLLBAR START
-    UIManager.put("ScrollBar.thumbArc", 999);
-    UIManager.put("ScrollBar.trackArc", 999);
-    UIManager.put("ScrollBar.background", null);
-    UIManager.put("ScrollBar.thumb", colorUI_Green);
-    UIManager.put("Scrollbar.pressedThumbColor", colorUI_Green);
-    UIManager.put("ScrollBar.hoverThumbColor", colorUI_Green);
-    UIManager.put("ScrollBar.showButtons", false);
+    {
+      UIManager.put("ScrollBar.thumbArc", 999);
+      UIManager.put("ScrollBar.trackArc", 999);
+      UIManager.put("ScrollBar.background", null);
+      UIManager.put("ScrollBar.thumb", colorUI_Green);
+      UIManager.put("Scrollbar.pressedThumbColor", colorUI_Green);
+      UIManager.put("ScrollBar.hoverThumbColor", colorUI_Green);
+      UIManager.put("ScrollBar.showButtons", false);
+    }
     // SCROLLBAR END
 
     // TITLEPANE START
-    UIManager.put("TitlePane.closeHoverBackground", colorUI_Green);
-    UIManager.put("TitlePane.closePressedBackground", colorUI_Green);
-    UIManager.put("TitlePane.buttonHoverBackground", colorUI_Green);
-    UIManager.put("TitlePane.buttonPressedBackground", colorUI_Green);
-    UIManager.put("TitlePane.closeHoverForeground", new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG.darker()));
-    UIManager.put("TitlePane.closePressedForeground",
-        new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG.darker()));
-    UIManager.put("TitlePane.buttonHoverForeground", new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG.darker()));
-    UIManager.put("TitlePane.buttonPressedForeground",
-        new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG.darker()));
-    UIManager.put("TitlePane.centerTitle", true);
-    UIManager.put("TitlePane.buttonSize", new java.awt.Dimension(25, 20));
-    UIManager.put("TitlePane.unifiedBackground", true);
+    {
+      UIManager.put("TitlePane.closeHoverBackground", colorUI_Green);
+      UIManager.put("TitlePane.closePressedBackground", colorUI_Green);
+      UIManager.put("TitlePane.buttonHoverBackground", colorUI_Green);
+      UIManager.put("TitlePane.buttonPressedBackground", colorUI_Green);
+      UIManager.put("TitlePane.closeHoverForeground",
+          new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG.darker()));
+      UIManager.put("TitlePane.closePressedForeground",
+          new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG.darker()));
+      UIManager.put("TitlePane.buttonHoverForeground",
+          new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG.darker()));
+      UIManager.put("TitlePane.buttonPressedForeground",
+          new ColorUIResource(const_ColorManager.DEFAULT_GREEN_FG.darker()));
+      UIManager.put("TitlePane.centerTitle", true);
+      UIManager.put("TitlePane.buttonSize", new java.awt.Dimension(25, 20));
+      UIManager.put("TitlePane.unifiedBackground", true);
+    }
     // TITLEPANE END
 
     // COMPONENT START
-    UIManager.put("Component.focusedBorderColor", use_Color.nullColor());
-    UIManager.put("Component.focusColor", use_Color.nullColor());
-    UIManager.put("Component.focusColor", colorUI_Green);
-    UIManager.put("Component.focusedBorderColor", colorUI_Green);
+    {
+      UIManager.put("Component.focusedBorderColor", use_Color.nullColor());
+      UIManager.put("Component.focusColor", use_Color.nullColor());
+      UIManager.put("Component.focusColor", colorUI_Green);
+      UIManager.put("Component.focusedBorderColor", colorUI_Green);
+    }
     // COMPONENT END
 
     // TEXTFIELD START
-    UIManager.put("TextField.caretForeground", colorUI_Green);
+    {
+      UIManager.put("TextField.caretForeground", colorUI_Green);
+    }
     // TEXTFIELD END
 
     // TEXTAREA START
-    UIManager.put("TextArea.caretForeground", colorUI_Green);
+    {
+      UIManager.put("TextArea.caretForeground", colorUI_Green);
+    }
     // TEXTAREA END
 
     // JSCROLLPANE START
-    UIManager.put("JScrollPane.smoothScrolling", true);
+    {
+      UIManager.put("JScrollPane.smoothScrolling", true);
+    }
     // JSCROLLPANE END
 
     // SPLITPANEDIVIDER START
-    UIManager.put("SplitPaneDivider.gripDotCount", 0);
+    {
+      UIManager.put("SplitPaneDivider.gripDotCount", 0);
+    }
     // SPLITPANEDIVIDER END
 
     // FILECHOOSER START
-    UIManager.put("FileChooser.readOnly", false);
+    {
+      UIManager.put("FileChooser.readOnly", false);
+    }
     // FILECHOOSER END
 
     // FLATLAF START
-    System.setProperty("flatlaf.useWindowDecorations", "false");
-    System.setProperty("flatlaf.useJetBrainsCustomDecorations", "false");
-    System.setProperty("flatlaf.animation", "true");
+    {
+      System.setProperty("flatlaf.useWindowDecorations", "false");
+      System.setProperty("flatlaf.useJetBrainsCustomDecorations", "false");
+      System.setProperty("flatlaf.animation", "true");
+    }
     // FLATLAF END
 
     GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();

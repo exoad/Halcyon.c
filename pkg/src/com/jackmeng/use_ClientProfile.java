@@ -19,6 +19,9 @@ import com.jackmeng.core.util.use_FSys;
 import com.jackmeng.core.util.use_Image;
 import com.jackmeng.core.util.use_ResourceFetcher;
 import com.jackmeng.core.util.use_Task;
+import com.jackmeng.stl.stl_Listener;
+import com.jackmeng.stl.stl_ListenerPool;
+import com.jackmeng.stl.stl_Struct;
 
 public class use_ClientProfile
     implements
@@ -33,6 +36,7 @@ public class use_ClientProfile
   private final String name;
   private final String saveLocation;
   private Color preferredColor;
+  private transient stl_ListenerPool< stl_Struct.struct_Pair< Float, Float > > listeners;
   private transient BufferedImage userAvatar;
   private float totalTimeUsed_Hours, currentTimeUsed_Minutes; // the LONG_MAX value should be enough I hope, its like
                                                               // 100000000 so centuries
@@ -98,6 +102,7 @@ public class use_ClientProfile
   private use_ClientProfile(boolean locked, String saveLocation, String name, float totalTimeUsed, Color preferredColor,
       BufferedImage userPfp)
   {
+    listeners = new stl_ListenerPool<>("client_profile" + hashCode());
     this.saveLocation = saveLocation;
     this.totalTimeUsed_Hours = totalTimeUsed;
     this.name = name;
@@ -117,6 +122,15 @@ public class use_ClientProfile
     }
   }
 
+  public void add_listener(stl_Listener< stl_Struct.struct_Pair< Float, Float > > e)
+  {
+    listeners.add(e);
+  }
+
+  public void rmf_listener(stl_Listener< stl_Struct.struct_Pair< Float, Float > > e)
+  {
+    listeners.rmf(e);
+  }
 
   public synchronized void sync()
   {
@@ -174,6 +188,7 @@ public class use_ClientProfile
           float t = System.currentTimeMillis();
           currentTimeUsed_Minutes += use_Chronos.millisToMinutes(t - s);
           s = t;
+          listeners.dispatch(new stl_Struct.struct_Pair<>(totalTimeUsed_Hours, currentTimeUsed_Minutes));
         }
       }, 1000L, 3000L);
     }

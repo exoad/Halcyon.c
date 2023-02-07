@@ -6,7 +6,6 @@ import javax.swing.plaf.LayerUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.jackmeng.const_Core;
 import com.jackmeng.const_MUTableKeys;
@@ -20,7 +19,6 @@ import com.jackmeng.core.util.use_Chronos;
 import com.jackmeng.core.util.use_Color;
 import com.jackmeng.core.util.use_HideousTask;
 import com.jackmeng.core.util.use_Image;
-import com.jackmeng.core.util.use_ImgStrat;
 import com.jackmeng.core.util.use_ResourceFetcher;
 import com.jackmeng.stl.stl_Wrap;
 import com.jackmeng.tailwind.evnt_TailwindStatus;

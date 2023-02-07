@@ -115,7 +115,7 @@ public class dgui_HalcyonApps
               const_ResourceManager.DGUI_APPS_PLAYER_REFRESH));
       const_Core.APPS_POOL.addPoolObject(
           make_DefaultApp(
-              _lang(LANG_APPS_INFO), use_HalcyonCore::do_nothing,
+              _lang(LANG_APPS_INFO), () -> new gui_UserProfile(use_HalcyonFolder.FOLDER.expose_ClientProfile()).run(),
               const_ResourceManager.DGUI_APPS_PLAYER_INFO));
       /*----------------------------------------------------------------------------------------------------------- /
       / const_Core.APPS_POOL.addPoolObject(                                                                         /

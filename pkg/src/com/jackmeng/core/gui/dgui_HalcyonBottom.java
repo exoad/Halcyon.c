@@ -125,6 +125,8 @@ public class dgui_HalcyonBottom
           // dont call g.clearRect, it makes a weird box shape that is opaque
           Graphics2D g2 = (Graphics2D) g;
           g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+          g2.setColor(const_ColorManager.DEFAULT_BG.darker());
+          g2.fillRoundRect(1, 1, getWidth() - 1, getHeight() - 1, 8, 8);
           g2.setStroke(new BasicStroke(1.5F));
           g2.setColor(const_ColorManager.DEFAULT_GREEN_FG);
           g2.drawLine(3, 3, getWidth() - 3, getHeight() - 3);
@@ -166,19 +168,6 @@ public class dgui_HalcyonBottom
       pane.setBorder(null);
       pane.setFont(use_HalcyonCore.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE));
       stl_Wrap<Integer> rerere = new stl_Wrap<>(-1);
-      pane.addChangeListener(x -> {
-        int i = pane.getSelectedIndex();
-        pstream.log.warn("HALCYON_BOTTOMSELECTED_INDEX: " + i);
-
-        pane.setForegroundAt(i, const_ColorManager.DEFAULT_BG.darker());
-        pane.setBackgroundAt(i, const_ColorManager.DEFAULT_GREEN_FG);
-        if(rerere.obj != -1)
-        {
-          pane.setForegroundAt(rerere.obj, const_ColorManager.DEFAULT_GREEN_FG);
-          pane.setBackgroundAt(rerere.obj, const_ColorManager.DEFAULT_BG.darker());
-        }
-        rerere.obj(i);
-      });
 
       if (const_MUTableKeys.use_filelist_titled_border)
       {
@@ -393,14 +382,16 @@ public class dgui_HalcyonBottom
     }
   }
 
-  @Override public void paintComponent(Graphics g)
-  {
-    Graphics2D g2 = (Graphics2D) g;
-    g2.setRenderingHints(use_GuiUtil.defaultRenderingHints());
-    g2.setColor(const_ColorManager.DEFAULT_BG.darker());
-    g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-    super.paintComponent(g2);
-  }
+  /*------------------------------------------------------------ /
+  / @Override public void paintComponent(Graphics g)             /
+  / {                                                            /
+  /   Graphics2D g2 = (Graphics2D) g;                            /
+  /   g2.setRenderingHints(use_GuiUtil.defaultRenderingHints()); /
+  /   g2.setColor(const_ColorManager.DEFAULT_BG.darker());       /
+  /   g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);   /
+  /   super.paintComponent(g2);                                  /
+  / }                                                            /
+  /-------------------------------------------------------------*/
 
   public dgui_HalcyonBottom()
   {

@@ -30,6 +30,7 @@ public final class const_Lang
   public static final String LANG_APPS_REFRESH_PLAYLISTS = "apps_refresh_playlists";
   public static final String LANG_APPS_INFO = "apps_info";
   public static final String LANG_APPS_VIEW_MORE = "apps_view_more";
+  public static final String LANG_PROFILE = "profile";
   public static final String LANG_FILELIST_BORDER_TITLE = "filelist_border_title";
   public static final String LANG_APPS_OPEN_LIKED_LIST = "apps_open_liked_list";
   public static final String LANG_FILELIST_CANCEL = "filelist_cancel";
