@@ -6,10 +6,10 @@ import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
-import com.jackmeng.Halcyon;
-import com.jackmeng.core.gui.const_ColorManager;
-import com.jackmeng.core.gui.dgui_FadePanel;
-import com.jackmeng.core.gui.use_RoundCornerBorder;
+import com.jackmeng.halcyon.Halcyon;
+import com.jackmeng.halcyon.core.gui.const_ColorManager;
+import com.jackmeng.halcyon.core.gui.dgui_FadePanel;
+import com.jackmeng.halcyon.core.gui.use_RoundCornerBorder;
 
 import java.awt.*;
 

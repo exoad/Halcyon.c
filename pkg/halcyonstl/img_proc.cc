@@ -107,5 +107,3 @@ void tint(int *px, int tint, int strength, int width, int height) {
     px[i] = (r << 16) | (g << 8) | b;
   }
 }
-
-void gaussian_blur_1(int *pixels, int strength, int width, int height) {}

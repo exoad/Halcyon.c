@@ -1,8 +1,8 @@
 package com.test;
 
-import com.jackmeng.core.abst.impl_Callback;
-import com.jackmeng.core.util.use_AnsiColors;
-import com.jackmeng.core.util.use_AnsiStrConstr;
+import com.jackmeng.halcyon.core.abst.impl_Callback;
+import com.jackmeng.halcyon.core.util.use_AnsiColors;
+import com.jackmeng.halcyon.core.util.use_AnsiStrConstr;
 
 public class TestCase
     implements Runnable

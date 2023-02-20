@@ -51,6 +51,7 @@ Java_com_jackmeng_platform_use_1Commons_00024primitives_1Math_rnd_11(
         if (m[i] < MZ) m[i] += MBIG;
       }
     }
+
     inext = 0;
     inextp = 31;
     *cont = 1;
@@ -146,6 +147,13 @@ inline float halcyon_maffs::ran_1(long* i) {
   return (t = AM * iy) > RNMX ? RNMX : t;
 }
 
+
+/**
+ * @TODO this is funky in the working process and contains a segfault #151
+ *
+ * @param maxim
+ * @return int
+ */
 // an=aa^ab^ac^ad
 inline int halcyon_maffs::ran_bit_1(unsigned long* maxim) {
   unsigned long n =

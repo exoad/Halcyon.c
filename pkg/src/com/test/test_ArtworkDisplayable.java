@@ -1,6 +1,6 @@
 package com.test;
 
-import com.jackmeng.core.gui.gui_HalcyonDisplayable;
+import com.jackmeng.halcyon.core.gui.gui_HalcyonDisplayable;
 
 public class test_ArtworkDisplayable {
   public static void main(String[] args) {
