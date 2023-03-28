@@ -79,7 +79,7 @@ public final class Halcyon
    {
       System.out.println("OK");
       __LINK__();
-      //use_HalcyonFolder.FOLDER.load_conf();
+      // use_HalcyonFolder.FOLDER.load_conf();
       if (const_MUTableKeys.run_tcs_on_start)
          Test.main(null);
       use_HalcyonFolder.FOLDER.load_playlists();
@@ -114,7 +114,8 @@ public final class Halcyon
                   (Runnable[]) null);
          });
 
-         pstream.log.warn("FileSysLogger (stl_Logger) -> " + use_HalcyonFolder.halcyonfolder_Content.LOGS_d.make().getAbsolutePath());
+         pstream.log.warn("FileSysLogger (stl_Logger) -> "
+               + use_HalcyonFolder.halcyonfolder_Content.LOGS_d.make().getAbsolutePath());
 
          use_Task.run_submit(() -> {
 

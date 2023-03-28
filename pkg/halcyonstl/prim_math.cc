@@ -78,6 +78,8 @@ Java_com_jackmeng_platform_sys_1SimpleMaffs_simplify_1ratio(JNIEnv* env,
   return res;
 }
 
+// this requires a lengthy series to be evaled
+
 inline long halcyon_simpleMaffs::itr_gcd(long a, long b) {
   if (a == 0 || a == b) return a;
   if (b == 0) return b;
