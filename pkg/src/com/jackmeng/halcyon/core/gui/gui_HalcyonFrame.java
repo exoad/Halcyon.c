@@ -599,13 +599,9 @@ public class gui_HalcyonFrame
         btns.setOpaque(true);
 
         if (conf.bgMis != null)
-        {
           btns.add(gen_Button(conf.bgMis, () -> frame.setAlwaysOnTop(!frame.isAlwaysOnTop())));
-        }
         if (conf.bgMini != null)
-        {
           btns.add(gen_Button(conf.bgMini, () -> frame.setState(Frame.ICONIFIED)));
-        }
         if (conf.bgExp != null)
         {
           btns.add(gen_Button(conf.bgExp, () -> {

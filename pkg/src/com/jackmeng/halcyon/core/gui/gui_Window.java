@@ -61,7 +61,7 @@ public class gui_Window
           er.getComponent().setVisible(true);
       }
     });
-  };
+  }
 
   public void set_state(window_States e)
   {

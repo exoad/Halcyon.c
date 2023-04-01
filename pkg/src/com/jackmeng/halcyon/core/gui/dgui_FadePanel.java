@@ -92,18 +92,14 @@ public class dgui_FadePanel
       @Override public void run()
       {
         alpha -= fadeStep;
-
         repaint(10L);
-
         if (alpha <= 0)
         {
           timer.cancel();
           timer.purge();
           setVisible(false);
           if (getParent() != null)
-          {
             getParent().remove(dgui_FadePanel.this);
-          }
           SwingUtilities.invokeLater(() -> onfadeOut.forEach(Runnable::run));
         }
       }

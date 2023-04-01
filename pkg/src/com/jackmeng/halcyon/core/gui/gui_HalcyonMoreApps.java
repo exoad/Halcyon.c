@@ -97,10 +97,8 @@ public class gui_HalcyonMoreApps
       action.setIcon(x.icon());
 
     if (x instanceof impl_Ploogin x2)
-    {
       action.setToolTipText("<html><strong>Ploogin: " + x2.id() + "</strong><br>Author: " + x2.author()
           + "<br>Description: " + x2.description() + "</html>");
-    }
     else
       action.setToolTipText("<html><strong>App: " + x.id() + "</strong><br>hash: " + x.hashCode() + "</html>");
     main.add(action);

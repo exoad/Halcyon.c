@@ -166,9 +166,7 @@ public class dgui_HalcyonApps
           btn.setContentAreaFilled(false);
         }
         else
-        {
           btn.setBackground(use_Color.rndColor());
-        }
         r.rolloverIcon().ifPresent(rol -> {
           btn.setRolloverEnabled(true);
           btn.setRolloverIcon(rol);

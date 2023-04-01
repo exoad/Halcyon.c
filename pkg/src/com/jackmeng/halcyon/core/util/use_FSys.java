@@ -173,9 +173,7 @@ public final class use_FSys
       FileOutputStream fos = new FileOutputStream(temp);
       byte[] buffer = new byte[bufferSize];
       while (in.read(buffer) != -1)
-      {
         fos.write(buffer);
-      }
       list.add(temp);
       fos.close();
       in.close();

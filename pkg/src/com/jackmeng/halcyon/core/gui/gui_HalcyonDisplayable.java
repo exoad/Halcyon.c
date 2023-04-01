@@ -48,11 +48,14 @@ public final class gui_HalcyonDisplayable
       this.r = e;
     }
 
-    public boolean drawing()
-    {
-      return this.r;
-    }
-
+    /*------------------------ /
+    / public boolean drawing() /
+    / {                        /
+    /   return this.r;         /
+    / }                        /
+    /                          /
+    /-------------------------*/
+    
     @Override public void paint(Graphics g)
     {
       super.paint(g);

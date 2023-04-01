@@ -167,7 +167,7 @@ public class dgui_HalcyonBottom
       pane.setOpaque(false);
       pane.setBorder(null);
       pane.setFont(use_HalcyonCore.regularFont().deriveFont(const_Manager.PROGRAM_DEFAULT_FONT_SIZE));
-      stl_Wrap<Integer> rerere = new stl_Wrap<>(-1);
+      // stl_Wrap<Integer> rerere = new stl_Wrap<>(-1);
 
       if (const_MUTableKeys.use_filelist_titled_border)
       {
